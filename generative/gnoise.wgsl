@@ -20,9 +20,6 @@ license:
 
 // #define GNOISE_NOISE_TILABLE_FNC(UV, TILE) srandom3(UV, TILE)
 
-#ifndef FNC_GNOISE
-#define FNC_GNOISE
-
 fn gnoise(x: f32) -> f32 {
     float i = floor(x);  // integer
     float f = fract(x);  // fraction
