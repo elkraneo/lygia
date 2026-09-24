@@ -42,9 +42,11 @@ failed=$(grep -c '^FAIL' "$TMP/results")
 echo "MSL: $((total - failed))/$total compiled"
 
 # All files together in one translation unit, to catch clashes between modules
-# (missing include guards, names that shadow Metal types, ...)
+# (names that shadow Metal types, ...). Each file is included twice, to catch
+# missing include guards.
 {
     printf '#include <metal_stdlib>\nusing namespace metal;\n'
+    sed "s|.*|#include \"$ROOT/&\"|" "$TMP/list"
     sed "s|.*|#include \"$ROOT/&\"|" "$TMP/list"
 } > "$TMP/all.metal"
 if xcrun -sdk macosx metal -std="$STD" -c "$TMP/all.metal" -o "$TMP/all.air" 2> "$TMP/all.err"; then
