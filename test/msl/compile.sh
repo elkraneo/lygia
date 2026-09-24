@@ -60,7 +60,7 @@ fi
 
 # Link two translation units that include everything, like an app with two
 # .metal files that share LYGIA includes. Fails with duplicate symbols unless
-# every function is inline.
+# every function has internal linkage (static inline).
 linked=0
 if [ "$combined" -eq 0 ]; then
     cp "$TMP/all.metal" "$TMP/all2.metal"
@@ -72,6 +72,7 @@ if [ "$combined" -eq 0 ]; then
         head -3 "$TMP/link.err" | sed 's|^|     |'
         linked=1
     fi
+
 fi
 
 # The lighting API uses templates for its optional environment texture, which
@@ -84,6 +85,17 @@ if [ "$#" -eq 0 ] && [ -d "$ROOT/test/msl/instantiate" ]; then
         air="$TMP/inst_$(basename "$f" .metal).air"
         if xcrun -sdk macosx metal -std="$STD" -c "$f" -o "$air" 2> "$TMP/inst.err"; then
             airs="$airs $air"
+            # Plain `inline` would link too, but two files including a function
+            # with different options (e.g. FBM_OCTAVES) would then share one
+            # definition. Only kernels and Metal's own templates may be
+            # exported; check at -O0, where called functions aren't inlined away.
+            xcrun -sdk macosx metal -std="$STD" -O0 -c "$f" -o "$TMP/inst_O0.air" 2> /dev/null
+            exported=$(xcrun -sdk macosx metal-nm "$TMP/inst_O0.air" 2>/dev/null | awk '$2 ~ /^[TW]$/ {print $3}' | grep '^_Z' | grep -vE '^_ZN?K?5metal' || true)
+            if [ -n "$exported" ]; then
+                echo "FAIL test/msl/instantiate/$(basename "$f"): functions with external linkage (make them static inline):"
+                echo "$exported" | head -5 | sed 's|^|     |'
+                instantiated=1
+            fi
         else
             echo "FAIL test/msl/instantiate/$(basename "$f")"
             grep -m3 'error:' "$TMP/inst.err" | sed "s|$ROOT/||g; s|^|     |"
@@ -92,7 +104,7 @@ if [ "$#" -eq 0 ] && [ -d "$ROOT/test/msl/instantiate" ]; then
     done
     if [ "$instantiated" -eq 0 ]; then
         if xcrun -sdk macosx metallib $airs -o "$TMP/inst.metallib" 2> "$TMP/inst.err"; then
-            echo "MSL: lighting overloads instantiated ($(ls "$ROOT"/test/msl/instantiate/*.metal | wc -l | tr -d ' ') configurations)"
+            echo "MSL: lighting overloads instantiated ($(ls "$ROOT"/test/msl/instantiate/*.metal | wc -l | tr -d ' ') configurations), no function has external linkage"
         else
             echo "FAIL linking test/msl/instantiate"
             head -3 "$TMP/inst.err" | sed 's|^|     |'

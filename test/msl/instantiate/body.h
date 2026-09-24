@@ -5,13 +5,13 @@
 constant float3 SH9[9] = { float3(1.0), float3(0.1), float3(0.1), float3(0.1), float3(0.0), float3(0.0), float3(0.0), float3(0.0), float3(0.0) };
 // instantiates every template/overload with no env, a cubemap and an equirect
 #include "../../../lighting/material/new.msl"
-inline Material raymarchMap(float3 p) {
+static inline Material raymarchMap(float3 p) {
     Material m = materialNew(float3(1.0, 0.2, 0.2), 0.3, 0.0, length(p) - 1.0);
     return m;
 }
 #if defined(RAYMARCH_VOLUME)
 #include "../../../lighting/medium/new.msl"
-inline Medium raymarchVolumeMap(float3 p) {
+static inline Medium raymarchVolumeMap(float3 p) {
     Medium m = mediumNew();
     m.sdf = length(p) - 1.0;
     return m;

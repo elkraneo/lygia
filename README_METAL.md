@@ -2,7 +2,7 @@
 
 Metal support is currently highly experimental and very work in progress.
 
-Every `*.msl` file is compiled by CI, both on its own and all together in a single translation unit, and two such units are linked together to catch duplicate symbols. Run the same check locally on macOS with:
+Every `*.msl` file is compiled by CI, both on its own and all together in a single translation unit, and two such units are linked together to catch duplicate symbols. The lighting test configurations are also checked for functions with external linkage. Run the same check locally on macOS with:
 
 ```sh
 test/msl/compile.sh               # every *.msl file
@@ -59,7 +59,7 @@ using namespace metal;
 - find `inout` and determine which thread local memory keyword should replace it, and make it a reference
 - ensure `const` is only used within functions, `constant` must be used for global scoped constants
 - make sure every `#ifndef FNC_*` include guard is followed by its `#define`
-- mark every function `inline` (`test/msl/add_inline.py` does it). Otherwise an app with two `.metal` files that include the same LYGIA file fails to link with duplicate symbols
+- mark every function `static inline` (`test/msl/add_inline.py` does it). Without it, an app with two `.metal` files that include the same LYGIA file fails to link with duplicate symbols. Plain `inline` links, but if the files include a function with different options (e.g. `FBM_OCTAVES`), both end up using one definition; `static` gives each file its own copy, with no extra GPU code
 - rename anything that collides with a Metal reserved word or built-in: the `char()` function is `drawChar()`, and local variables named `kernel` are `kern`. Don't redefine functions Metal already has, like `atan2` or `transpose`
 - `dFdx`/`dFdy`/`fwidth` are `dfdx`/`dfdy`/`fwidth`, and `discard` is `discard_fragment()`. These only work in fragment functions, so say so in the description of files that use them
 
@@ -89,5 +89,5 @@ float4 color = raymarch(camera, target, st, cubemap);
 
 - `sphericalHarmonics` takes the coefficients (`constant float3* sh`). Shadow maps are passed to `shadow(...)`, and you multiply a light's intensity by the result yourself.
 - `ssao`, `ssr` and `volumetricLightScattering` take the camera values (near/far, matrices, sample arrays) as arguments. The overloads without them need the matching `CAMERA_*` options.
-- For raymarching, define `Material raymarchMap(float3 pos)` (and `Medium raymarchVolumeMap(float3 pos)` with `RAYMARCH_VOLUME`). Make them `inline` if more than one `.metal` file defines them.
+- For raymarching, define `static inline Material raymarchMap(float3 pos)` (and `static inline Medium raymarchVolumeMap(float3 pos)` with `RAYMARCH_VOLUME`). They're `static` so each `.metal` file can have its own scene.
 - `test/msl/instantiate/` calls every lighting overload under several option sets, since templates are only checked when used. `compile.sh` builds and links them.

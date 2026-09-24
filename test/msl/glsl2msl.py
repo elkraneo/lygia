@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 First-pass GLSL -> MSL converter for LYGIA files, following the porting
-methodology in README_METAL.md, and marks functions inline. The output still
+methodology in README_METAL.md, and marks functions static inline. The output still
 needs review, and must be verified with test/msl/compile.sh.
 
 usage: test/msl/glsl2msl.py path/to/file.glsl [...]   (writes path/to/file.msl)

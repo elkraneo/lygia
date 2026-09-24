@@ -50,3 +50,4 @@ copilot-instructions.md
 
 .junie
 .aiignore
+__pycache__/

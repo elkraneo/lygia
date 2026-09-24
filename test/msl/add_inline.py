@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Prefix every top-level function definition in LYGIA .msl files with `inline`.
+"""Prefix every top-level function definition in LYGIA .msl files with `static inline`.
 
-Without `inline`, an app with two .metal files that include the same LYGIA
-file fails to link with duplicate symbols.
+Without it, an app with two .metal files that include the same LYGIA file
+fails to link with duplicate symbols. Plain `inline` links, but when two files
+include a function with different options (e.g. FBM_OCTAVES), the linker keeps
+one definition for both; `static` gives each file its own copy.
 
 Skips block/line comments and preprocessor lines (including macro
 continuations), function prototypes (ending in `;`), definitions that are
@@ -96,7 +98,7 @@ def process(text):
             if verdict:
                 break
         if verdict == '{':
-            lines[i] = raw[:indent] + 'inline ' + raw[indent:]
+            lines[i] = raw[:indent] + 'static inline ' + raw[indent:]
             changed += 1
     return '\n'.join(lines), changed
 
@@ -109,7 +111,7 @@ def main(paths):
         if n:
             path.write_text(new)
             total += n
-    print(f'{total} definitions made inline')
+    print(f'{total} definitions made static inline')
 
 
 if __name__ == '__main__':
