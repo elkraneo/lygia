@@ -1,3 +1,5 @@
+#include "../material.wgsl"
+
 /*
 contributors: Patricio Gonzalez Vivo
 description: |

@@ -3,6 +3,7 @@
 #include "../../math/saturate.glsl"
 #include "../../math/saturateMediump.glsl"
 #include "../fresnel.glsl"
+#include "../shadingData/shadingData.glsl"
 
 #ifndef FNC_SPECULAR_COOKTORRANCE
 #define FNC_SPECULAR_COOKTORRANCE

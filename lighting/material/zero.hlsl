@@ -1,3 +1,5 @@
+#include "../material.hlsl"
+
 /*
 contributors: Patricio Gonzalez Vivo
 description: |

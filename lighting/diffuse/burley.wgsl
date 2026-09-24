@@ -1,4 +1,5 @@
 #include "../common/schlick.wgsl"
+#include "../shadingData/shadingData.wgsl"
 
 /*
 contributors: Patricio Gonzalez Vivo

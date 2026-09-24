@@ -1,5 +1,8 @@
 #include "../specular.wgsl"
 #include "../diffuse.wgsl"
+#include "directional.wgsl"
+#include "../material.wgsl"
+#include "../shadingData/shadingData.wgsl"
 
 /*
 contributors: [Patricio Gonzalez Vivo, Shadi El Hajj]

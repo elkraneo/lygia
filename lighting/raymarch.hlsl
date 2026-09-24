@@ -4,6 +4,8 @@
 #include "raymarch/render.hlsl"
 #include "raymarch/volume.hlsl"
 #include "material/zero.hlsl"
+#include "material/add.hlsl"
+#include "material/multiply.hlsl"
 
 /*
 contributors:  [Inigo Quiles, Shadi El Hajj, Patricio Gonzalez Vivo]

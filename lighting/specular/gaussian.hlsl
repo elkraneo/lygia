@@ -1,3 +1,5 @@
+#include "../shadingData/shadingData.hlsl"
+
 #ifndef FNC_SPECULAR_GAUSSIAN
 #define FNC_SPECULAR_GAUSSIAN
 

@@ -1,5 +1,8 @@
 #include "../specular.hlsl"
 #include "../diffuse.hlsl"
+#include "directional.hlsl"
+#include "../material.hlsl"
+#include "../shadingData/shadingData.hlsl"
 
 /*
 contributors: [Patricio Gonzalez Vivo, Shadi El Hajj]

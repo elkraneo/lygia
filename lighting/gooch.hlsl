@@ -1,3 +1,11 @@
+#ifndef LIGHT_POSITION
+#if defined(UNITY_COMPILER_HLSL)
+#define LIGHT_POSITION _WorldSpaceLightPos0.xyz
+#else
+#define LIGHT_POSITION  float3(0.0, 10.0, -50.0)
+#endif
+#endif
+
 #include "shadingData/new.hlsl"
 #include "material/roughness.hlsl"
 #include "material/normal.hlsl"
@@ -32,16 +40,6 @@ license:
 #define CAMERA_POSITION float3(0.0, 0.0, -10.0)
 #endif
 #endif
-
-#ifndef LIGHT_POSITION
-#if defined(UNITY_COMPILER_HLSL)
-#define LIGHT_POSITION _WorldSpaceLightPos0.xyz
-#else
-#define LIGHT_POSITION  float3(0.0, 10.0, -50.0)
-#endif
-#endif
-
-
 
 #ifndef GOOCH_WARM 
 #define GOOCH_WARM float3(0.25, 0.15, 0.0)
@@ -104,7 +102,7 @@ float4 gooch(const in Material _M, ShadingData shadingData) {
     #if defined(LIGHT_DIRECTION)
     L.intensity *= raymarchSoftShadow(_M.position, L.direction);
     #elif defined(LIGHT_POSITION)
-    L.intensity *= raymarchSoftShadow(_M.position, L.position);
+    L.intensity *= raymarchSoftShadow(_M.position, normalize(L.position));
     #endif
     #endif 
 

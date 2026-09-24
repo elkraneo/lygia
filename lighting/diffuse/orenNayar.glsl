@@ -1,3 +1,5 @@
+#include "../shadingData/shadingData.glsl"
+
 /*
 contributors: Patricio Gonzalez Vivo
 description: Calculate diffuse contribution using Oren and Nayar equation https://en.wikipedia.org/wiki/Oren%E2%80%93Nayar_reflectance_model

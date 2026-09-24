@@ -7,13 +7,7 @@
 
 #if defined(LIGHT_DIRECTION) 
 void lightNew(out LightDirectional _L) {
-    #ifdef LIGHT_DIRECTION
     _L.direction    = normalize(LIGHT_DIRECTION);
-    #elif defined(LIGHT_POSITION)
-    _L.direction    = normalize(LIGHT_POSITION);
-    #else
-    _L.direction    = normalize(float3(0.0, 1.0, -1.0));
-    #endif
 
     #ifdef LIGHT_COLOR
     _L.color        = LIGHT_COLOR;

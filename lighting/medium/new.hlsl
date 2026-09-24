@@ -10,6 +10,10 @@ use:
 license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 */
 
+#ifndef RAYMARCH_MAX_DIST
+#define RAYMARCH_MAX_DIST 20.0
+#endif
+
 #ifndef FNC_MEDIUM_NEW
 #define FNC_MEDIUM_NEW
 

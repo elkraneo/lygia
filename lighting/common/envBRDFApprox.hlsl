@@ -1,3 +1,5 @@
+#include "../shadingData/shadingData.hlsl"
+
 #ifndef FNC_ENVBRDFAPPROX
 #define FNC_ENVBRDFAPPROX
 

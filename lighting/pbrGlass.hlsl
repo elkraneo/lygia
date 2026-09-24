@@ -89,15 +89,16 @@ float4 pbrGlass(const Material mat, ShadingData shadingData) {
     {
         #if defined(LIGHT_DIRECTION)
         LightDirectional L = LightDirectionalNew();
+        shadingData.L = L.direction;
         #elif defined(LIGHT_POSITION)
         LightPoint L = LightPointNew();
+        shadingData.L = normalize(L.position);
         #endif
 
         #if defined(LIGHT_DIRECTION) || defined(LIGHT_POSITION)
 
-        shadingData.L = L.direction;
-        shadingData.H = normalize(L.direction + shadingData.V);
-        shadingData.NoL = saturate(dot(shadingData.N, L.direction));
+        shadingData.H = normalize(shadingData.L + shadingData.V);
+        shadingData.NoL = saturate(dot(shadingData.N, shadingData.L));
         shadingData.NoH = saturate(dot(shadingData.N, shadingData.H));
         float3 spec = specular(shadingData);
 

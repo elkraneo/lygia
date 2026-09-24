@@ -13,6 +13,10 @@ examples:
     - /shaders/lighting_raymarching.frag
 */
 
+#ifndef RAYMARCH_MAX_DIST
+#define RAYMARCH_MAX_DIST 20.0
+#endif
+
 #ifndef RAYMARCHSOFTSHADOW_ITERATIONS
 #define RAYMARCHSOFTSHADOW_ITERATIONS 64
 #endif

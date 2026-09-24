@@ -1,3 +1,4 @@
+#include "shadingData/new.hlsl"
 #include "diffuse/lambert.hlsl"
 #include "diffuse/orenNayar.hlsl"
 #include "diffuse/burley.hlsl"

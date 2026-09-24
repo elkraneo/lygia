@@ -1,4 +1,5 @@
 #include "../envMap.hlsl"
+#include "normal.hlsl"
 
 /*
 contributors:  The Art Of Code
@@ -59,8 +60,12 @@ options:
 #define RAYMARCH_GLASS_MIN_HIT_DIST .0001
 #endif
 
+#ifndef RAYMARCH_MAX_DIST
+#define RAYMARCH_MAX_DIST 20.0
+#endif
+
 #ifndef RAYMARCH_MAP_DISTANCE
-#define RAYMARCH_MAP_DISTANCE a
+#define RAYMARCH_MAP_DISTANCE sdf
 #endif
 
 #ifndef RAYMARCH_MAP_FNC
@@ -68,15 +73,7 @@ options:
 #endif
 
 #ifndef RAYMARCH_MAP_TYPE
-#define RAYMARCH_MAP_TYPE float4
-#endif
-
-#ifndef RAYMARCH_MAP_MATERIAL_TYPE
-#define RAYMARCH_MAP_MATERIAL_TYPE float3
-#endif
-
-#ifndef RAYMARCH_GLASS_MAP_MATERIAL
-#define RAYMARCH_GLASS_MAP_MATERIAL rgb
+#define RAYMARCH_MAP_TYPE Material
 #endif
 
 #ifndef FNC_RAYMARCH_GLASS
@@ -86,21 +83,21 @@ RAYMARCH_MAP_TYPE raymarchGlassMarching(in float3 ro, in float3 rd) {
     float tmax = RAYMARCH_GLASS_MAX_DIST;
 
     float t = tmin;
-    RAYMARCH_MAP_MATERIAL_TYPE m;
+    RAYMARCH_MAP_TYPE m = RAYMARCH_MAP_FNC(ro);
 
     // Because when the ray is inside the surface,the distance becomes negative.
-    float side = sign(RAYMARCH_MAP_FNC(ro).RAYMARCH_MAP_DISTANCE);
+    float side = sign(m.RAYMARCH_MAP_DISTANCE);
 
     for (int i = 0; i < RAYMARCH_GLASS_SAMPLES; i++) {
         float3 pos = ro + rd * t;
-        RAYMARCH_MAP_TYPE sideDirection = RAYMARCH_MAP_FNC(pos);
-        t += sideDirection.RAYMARCH_MAP_DISTANCE * side;
-        m = sideDirection.RAYMARCH_GLASS_MAP_MATERIAL;
+        m = RAYMARCH_MAP_FNC(pos);
+        t += m.RAYMARCH_MAP_DISTANCE * side;
         if(t > tmax || abs(t) < RAYMARCH_GLASS_MIN_HIT_DIST)
             break;
 
     }
-    return RAYMARCH_MAP_TYPE(m, t);
+    m.RAYMARCH_MAP_DISTANCE = t;
+    return m;
 }
 #endif
 
@@ -213,7 +210,7 @@ float3 raymarchDefaultGlass(in float3 ray, in float3 pos, in float ior, in float
     #endif
         float3 newReflect = reflect(ray, nEnter);
 
-        color = envMap(newReflect, roughness).rgb
+        color = envMap(newReflect, roughness).rgb;
 
         float3 rdIn = refract(ray, nEnter, 1./ior);
         float3 pEnter = newPos - nEnter * RAYMARCH_GLASS_MIN_HIT_DIST * 3.;

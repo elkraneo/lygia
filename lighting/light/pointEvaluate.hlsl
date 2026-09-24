@@ -17,6 +17,9 @@ license:
 #include "../specular.hlsl"
 #include "../diffuse.hlsl"
 #include "falloff.hlsl"
+#include "point.hlsl"
+#include "../material.hlsl"
+#include "../shadingData/shadingData.hlsl"
 
 #ifndef FNC_LIGHT_POINT
 #define FNC_LIGHT_POINT

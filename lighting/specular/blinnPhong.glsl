@@ -1,5 +1,6 @@
 #include "../../math/powFast.glsl"
 #include "../toShininess.glsl"
+#include "../shadingData/shadingData.glsl"
 
 #ifndef SPECULAR_POW
 #if defined(TARGET_MOBILE) || defined(PLATFORM_RPI) || defined(PLATFORM_WEBGL)

@@ -1,3 +1,4 @@
+#include "shadingData/new.hlsl"
 #include "specular/phong.hlsl"
 #include "specular/blinnPhong.hlsl"
 #include "specular/cookTorrance.hlsl"

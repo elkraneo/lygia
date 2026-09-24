@@ -1,4 +1,5 @@
 #include "../../math/const.glsl"
+#include "../../math/saturate.glsl"
 
 /*
 contributors:  Shadi El Hajj

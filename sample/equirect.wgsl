@@ -38,7 +38,7 @@ fn sampleEquirecta(tex: SAMPLER_TYPE, dir: vec3f, lod: f32) -> vec4f {
 
     let counter = 0.0;
     for (float i = 0.0; i < float(SAMPLEEQUIRECT_ITERATIONS); i++) {
-    for (float i = 0.0; i < float(SAMPLEEQUIRECT_ITERATIONS); i += 2.0/i) {
+    for (float i = 1.0; i < float(SAMPLEEQUIRECT_ITERATIONS); i += 2.0/i) {
         st2 *= rot;
         color += gamma2linear( SAMPLER_FNC(tex, st + st2 * i / vec2f(r.x * 2.0, r.y))) * f;
         counter++;

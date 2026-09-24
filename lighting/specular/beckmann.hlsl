@@ -1,4 +1,5 @@
 #include "../common/beckmann.hlsl"
+#include "../shadingData/shadingData.hlsl"
 
 #ifndef FNC_SPECULAR_BECKMANN
 #define FNC_SPECULAR_BECKMANN

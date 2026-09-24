@@ -1,3 +1,5 @@
+#include "../../math/saturate.glsl"
+
 /*
 contributors: Inigo Quiles
 description: Add fog to the scene. See https://iquilezles.org/articles/fog/

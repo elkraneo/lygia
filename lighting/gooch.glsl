@@ -1,3 +1,7 @@
+#ifndef LIGHT_POSITION
+#define LIGHT_POSITION vec3(0.0, 10.0, -50.0)
+#endif
+
 #include "shadingData/new.glsl"
 #include "material/roughness.glsl"
 #include "material/normal.glsl"
@@ -27,10 +31,6 @@ license:
 
 #ifndef CAMERA_POSITION
 #define CAMERA_POSITION vec3(0.0, 0.0, -10.0)
-#endif
-
-#ifndef LIGHT_POSITION
-#define LIGHT_POSITION vec3(0.0, 10.0, -50.0)
 #endif
 
 #ifndef GOOCH_WARM 
@@ -89,7 +89,7 @@ vec4 gooch(const in Material _M, ShadingData shadingData) {
     #if defined(LIGHT_DIRECTION)
     L.intensity *= raymarchSoftShadow(_M.position, L.direction);
     #elif defined(LIGHT_POSITION)
-    L.intensity *= raymarchSoftShadow(_M.position, L.position);
+    L.intensity *= raymarchSoftShadow(_M.position, normalize(L.position));
     #endif
     #endif 
 

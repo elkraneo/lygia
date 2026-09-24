@@ -1,5 +1,7 @@
 #include "../sampler.hlsl"
 #include "../math/powFast.hlsl"
+#include "material/new.hlsl"
+#include "shadingData/new.hlsl"
 
 #include "fakeCube.hlsl"
 #include "toShininess.hlsl"

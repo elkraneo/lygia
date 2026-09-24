@@ -1,5 +1,6 @@
 #include "../../math/powFast.wgsl"
 #include "../toShininess.wgsl"
+#include "../shadingData/shadingData.wgsl"
 
 // #define SPECULAR_POW(A,B) powFast(A,B)
 // #define SPECULAR_POW(A,B) pow(A,B)

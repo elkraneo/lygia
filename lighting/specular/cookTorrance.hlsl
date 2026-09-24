@@ -2,6 +2,7 @@
 #include "../common/smithGGXCorrelated.hlsl"
 #include "../../math/saturateMediump.hlsl"
 #include "../fresnel.hlsl"
+#include "../shadingData/shadingData.hlsl"
 
 #ifndef FNC_SPECULAR_COOKTORRANCE
 #define FNC_SPECULAR_COOKTORRANCE

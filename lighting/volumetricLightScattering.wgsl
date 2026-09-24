@@ -6,8 +6,10 @@
 
 /*
 contributors: Patricio Gonzalez Vivo
-description: ScreenSpace Reflections
-use: <float> ssao(<SAMPLER_TYPE> texPosition, <SAMPLER_TYPE> texNormal, vec2 <st> [, <float> radius, float <bias>])
+description: Volumetric light scattering (god rays), raymarched from the camera to the surface through the light shadowmap and weighted by a Henyey-Greenstein phase function
+use:
+    - <float> volumetricLightScattering(<SAMPLER_TYPE> lightShadowMap, <mat4> lightMatrix, <vec3> lightPos, <vec3> rayOrigin, <vec3> rayEnd)
+    - <float> volumetricLightScattering(<SAMPLER_TYPE> texDepth, <vec2> st)
 options:
     - CAMERA_POSITION
     - CAMERA_NEAR_CLIP: camera near clip distance

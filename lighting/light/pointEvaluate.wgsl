@@ -17,6 +17,9 @@ license:
 #include "../specular.wgsl"
 #include "../diffuse.wgsl"
 #include "falloff.wgsl"
+#include "point.wgsl"
+#include "../material.wgsl"
+#include "../shadingData/shadingData.wgsl"
 
 fn lightPointEvaluate(L: LightPoint, mat: Material, shadingData: ShadingData) {
 

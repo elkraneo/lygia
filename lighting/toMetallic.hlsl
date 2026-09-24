@@ -12,7 +12,7 @@ license:
 #endif
 
 #ifndef FNC_TOMETALLIC
-#define FNC_TOMETTALIC
+#define FNC_TOMETALLIC
 
 float toMetallic(float3 diffuse, float3 specular, float maxSpecular) {
     float perceivedDiffuse = sqrt(0.299 * diffuse.r * diffuse.r + 0.587 * diffuse.g * diffuse.g + 0.114 * diffuse.b * diffuse.b);

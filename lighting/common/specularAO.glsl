@@ -2,6 +2,8 @@
 // https://seblagarde.wordpress.com/wp-content/uploads/2015/07/course_notes_moving_frostbite_to_pbr_v32.pdf
 
 #include "../../math/saturate.glsl"
+#include "../material.glsl"
+#include "../shadingData/shadingData.glsl"
 
 #if !defined(TARGET_MOBILE) && !defined(PLATFORM_RPI) && !defined(PLATFORM_WEBGL)
 #define IBL_SPECULAR_OCCLUSION

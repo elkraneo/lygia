@@ -1,4 +1,5 @@
 #include "../envMap.wgsl"
+#include "normal.wgsl"
 
 /*
 contributors:  The Art Of Code
@@ -6,7 +7,7 @@ description: |
     Raymarching for glass render. For more info, see the video link:
     Tutorial 1: https://youtu.be/NCpaaLkmXI8
     Tutorial 2: https://youtu.be/0RWaR7zApEo
-use: <vec3> raymarchGlass( in <vec3> ray, in <vec3> pos, in <float> ior, in <float> roughness ) 
+use: <vec4> raymarchGlass( in <vec3> ray, in <vec3> pos, in <float> ior, in <float> roughness ) 
 options:
     - RAYMARCH_GLASS_DENSITY: 0.                        [Density of the ray going through the glass]
     - RAYMARCH_GLASS_COLOR: vec3(1.0, 1.0, 1.0)       [Color of the glass]
@@ -42,40 +43,36 @@ const RAYMARCH_GLASS_MAX_DIST: f32 = 100.;
 
 // #define RAYMARCH_GLASS_MIN_HIT_DIST .0001
 
-// #define RAYMARCH_MAP_DISTANCE a
+// #define RAYMARCH_MAP_DISTANCE sdf
 
 // #define RAYMARCH_MAP_FNC(POS) raymarchMap(POS)
 
-// #define RAYMARCH_MAP_TYPE vec4
-
-// #define RAYMARCH_MAP_MATERIAL_TYPE vec3
-
-// #define RAYMARCH_GLASS_MAP_MATERIAL rgb
+// #define RAYMARCH_MAP_TYPE Material
 
 RAYMARCH_MAP_TYPE raymarchGlassMarching(in vec3 ro, in vec3 rd) {
     let tmin = RAYMARCH_GLASS_MIN_DIST;
     let tmax = RAYMARCH_GLASS_MAX_DIST;
 
     let t = tmin;
-    RAYMARCH_MAP_MATERIAL_TYPE m;
+    RAYMARCH_MAP_TYPE m = RAYMARCH_MAP_FNC(ro);
 
     // Because when the ray is inside the surface,the distance becomes negative.
-    let side = sign(RAYMARCH_MAP_FNC(ro).RAYMARCH_MAP_DISTANCE);
+    let side = sign(m.RAYMARCH_MAP_DISTANCE);
 
     for (int i = 0; i < RAYMARCH_GLASS_SAMPLES; i++) {
         let pos = ro + rd * t;
-        RAYMARCH_MAP_TYPE sideDirection = RAYMARCH_MAP_FNC(pos);
-        t += sideDirection.RAYMARCH_MAP_DISTANCE * side;
-        m = sideDirection.RAYMARCH_GLASS_MAP_MATERIAL;
+        m = RAYMARCH_MAP_FNC(pos);
+        t += m.RAYMARCH_MAP_DISTANCE * side;
         if(t > tmax || abs(t) < RAYMARCH_GLASS_MIN_HIT_DIST)
             break;
 
     }
-    return RAYMARCH_MAP_TYPE(m, t);
+    m.RAYMARCH_MAP_DISTANCE = t;
+    return m;
 }
 
 // For overwriting the parameters rendering that can be set manually
-fn raymarchDefaultGlass3(ray: vec3f, pos: vec3f, ior: f32, roughness: f32, glassSharpness: f32, chromatic: f32, density: f32, enableReflection: bool, reflection: f32, colorGlass: vec3f) -> vec3f {
+fn raymarchDefaultGlass3(ray: vec3f, pos: vec3f, ior: f32, roughness: f32, glassSharpness: f32, chromatic: f32, density: f32, enableReflection: bool, reflection: f32, colorGlass: vec3f) -> vec4f {
     let color = vec3f(0.);
 
     RAYMARCH_MAP_TYPE marchOutside = raymarchGlassMarching(pos,ray); // Outside of the object

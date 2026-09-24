@@ -71,7 +71,7 @@ fn goochb(_M: Material, shadingData: ShadingData) -> vec4f {
     lightNew(L);
 
     L.intensity *= raymarchSoftShadow(_M.position, L.direction);
-    L.intensity *= raymarchSoftShadow(_M.position, L.position);
+    L.intensity *= raymarchSoftShadow(_M.position, normalize(L.position));
 
     return gooch(L, _M, shadingData) * _M.ambientOcclusion;
 }

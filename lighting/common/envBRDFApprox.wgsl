@@ -1,3 +1,5 @@
+#include "../shadingData/shadingData.wgsl"
+
 fn envBRDFApprox(_NoV: f32, _roughness: f32) -> vec2f {
     let c0 = vec4f( -1.0, -0.0275, -0.572, 0.022 );
     let c1 = vec4f( 1.0, 0.0425, 1.04, -0.04 );

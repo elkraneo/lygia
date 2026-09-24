@@ -4,8 +4,6 @@
 
 fn lightNew(_L: LightDirectional) {
     _L.direction    = normalize(LIGHT_DIRECTION);
-    _L.direction    = normalize(LIGHT_POSITION);
-    _L.direction    = normalize(vec3f(0.0, 1.0, -1.0));
 
     _L.color        = LIGHT_COLOR;
     _L.color        = vec3f(1.0);

@@ -1,3 +1,5 @@
+#include "../material.glsl"
+
 /*
 contributors: Patricio Gonzalez Vivo
 description: |

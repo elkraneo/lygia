@@ -1,4 +1,5 @@
 #include "../envMap.glsl"
+#include "normal.glsl"
 
 /*
 contributors:  The Art Of Code
@@ -6,7 +7,7 @@ description: |
     Raymarching for glass render. For more info, see the video link:
     Tutorial 1: https://youtu.be/NCpaaLkmXI8
     Tutorial 2: https://youtu.be/0RWaR7zApEo
-use: <vec3> raymarchGlass( in <vec3> ray, in <vec3> pos, in <float> ior, in <float> roughness ) 
+use: <vec4> raymarchGlass( in <vec3> ray, in <vec3> pos, in <float> ior, in <float> roughness ) 
 options:
     - RAYMARCH_GLASS_DENSITY: 0.                        [Density of the ray going through the glass]
     - RAYMARCH_GLASS_COLOR: vec3(1.0, 1.0, 1.0)       [Color of the glass]
@@ -62,8 +63,12 @@ examples:
 #define RAYMARCH_GLASS_MIN_HIT_DIST .0001
 #endif
 
+#ifndef RAYMARCH_MAX_DIST
+#define RAYMARCH_MAX_DIST 20.0
+#endif
+
 #ifndef RAYMARCH_MAP_DISTANCE
-#define RAYMARCH_MAP_DISTANCE a
+#define RAYMARCH_MAP_DISTANCE sdf
 #endif
 
 #ifndef RAYMARCH_MAP_FNC
@@ -71,15 +76,7 @@ examples:
 #endif
 
 #ifndef RAYMARCH_MAP_TYPE
-#define RAYMARCH_MAP_TYPE vec4
-#endif
-
-#ifndef RAYMARCH_MAP_MATERIAL_TYPE
-#define RAYMARCH_MAP_MATERIAL_TYPE vec3
-#endif
-
-#ifndef RAYMARCH_GLASS_MAP_MATERIAL
-#define RAYMARCH_GLASS_MAP_MATERIAL rgb
+#define RAYMARCH_MAP_TYPE Material
 #endif
 
 #ifndef FNC_RAYMARCH_GLASS
@@ -89,21 +86,21 @@ RAYMARCH_MAP_TYPE raymarchGlassMarching(in vec3 ro, in vec3 rd) {
     float tmax = RAYMARCH_GLASS_MAX_DIST;
 
     float t = tmin;
-    RAYMARCH_MAP_MATERIAL_TYPE m;
+    RAYMARCH_MAP_TYPE m = RAYMARCH_MAP_FNC(ro);
 
     // Because when the ray is inside the surface,the distance becomes negative.
-    float side = sign(RAYMARCH_MAP_FNC(ro).RAYMARCH_MAP_DISTANCE);
+    float side = sign(m.RAYMARCH_MAP_DISTANCE);
 
     for (int i = 0; i < RAYMARCH_GLASS_SAMPLES; i++) {
         vec3 pos = ro + rd * t;
-        RAYMARCH_MAP_TYPE sideDirection = RAYMARCH_MAP_FNC(pos);
-        t += sideDirection.RAYMARCH_MAP_DISTANCE * side;
-        m = sideDirection.RAYMARCH_GLASS_MAP_MATERIAL;
+        m = RAYMARCH_MAP_FNC(pos);
+        t += m.RAYMARCH_MAP_DISTANCE * side;
         if(t > tmax || abs(t) < RAYMARCH_GLASS_MIN_HIT_DIST)
             break;
 
     }
-    return RAYMARCH_MAP_TYPE(m, t);
+    m.RAYMARCH_MAP_DISTANCE = t;
+    return m;
 }
 #endif
 
@@ -112,7 +109,7 @@ RAYMARCH_MAP_TYPE raymarchGlassMarching(in vec3 ro, in vec3 rd) {
 
 // For overwriting the parameters rendering that can be set manually
 #ifdef RAYMARCH_GLASS_FNC_MANUAL
-vec3 raymarchDefaultGlass(in vec3 ray, in vec3 pos, in float ior, in float roughness, in float glassSharpness, in float chromatic, in float density, in bool enableReflection, in float reflection, in vec3 colorGlass) {
+vec4 raymarchDefaultGlass(in vec3 ray, in vec3 pos, in float ior, in float roughness, in float glassSharpness, in float chromatic, in float density, in bool enableReflection, in float reflection, in vec3 colorGlass) {
     vec3 color = vec3(0.);
 
     RAYMARCH_MAP_TYPE marchOutside = raymarchGlassMarching(pos,ray); // Outside of the object

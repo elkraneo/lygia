@@ -1,4 +1,5 @@
 #include "../common/schlick.hlsl"
+#include "../shadingData/shadingData.hlsl"
 
 /*
 contributors: Patricio Gonzalez Vivo

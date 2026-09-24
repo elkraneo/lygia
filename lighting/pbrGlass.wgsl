@@ -73,11 +73,12 @@ fn pbrGlass(mat: Material, shadingData: ShadingData) -> vec4f {
     // 
     {
         LightDirectional L = LightDirectionalNew();
-        LightPoint L = LightPointNew();
-
         shadingData.L = L.direction;
-        shadingData.H = normalize(L.direction + shadingData.V);
-        shadingData.NoL = saturate(dot(shadingData.N, L.direction));
+        LightPoint L = LightPointNew();
+        shadingData.L = normalize(L.position);
+
+        shadingData.H = normalize(shadingData.L + shadingData.V);
+        shadingData.NoL = saturate(dot(shadingData.N, shadingData.L));
         shadingData.NoH = saturate(dot(shadingData.N, shadingData.H));
         let spec = specular(shadingData);
 

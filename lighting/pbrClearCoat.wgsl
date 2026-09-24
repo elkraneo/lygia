@@ -3,6 +3,7 @@
 
 #include "common/ggx.wgsl"
 #include "common/kelemen.wgsl"
+#include "common/clampNoV.wgsl"
 
 #include "shadingData/new.wgsl"
 #include "material.wgsl"
@@ -103,19 +104,18 @@ fn pbrClearCoat(mat: Material, shadingData: ShadingData) -> vec4f {
         color.rgb  += shadingData.directDiffuse;     // Diffuse
         color.rgb  += shadingData.directSpecular;    // Specular
 
-        let h = normalize(shadingData.V + L.direction);
+        let h = normalize(shadingData.V + shadingData.L);
         let NoH = saturate(dot(mat.normal, h));
-        let NoL = saturate(dot(mat.normal, L.direction));
-        let LoH = saturate(dot(L.direction, h));
+        let NoL = saturate(dot(mat.normal, shadingData.L));
+        let LoH = saturate(dot(shadingData.L, h));
 
         // If the material has a normal map, we want to use the geometric normal
         // instead to avoid applying the normal map details to the clear coat layer
-        N = clearCoatNormal;
         let clearCoatNoH = saturate(dot(clearCoatNormal, h));
         let clearCoatNoH = saturate(dot(mat.normal, shadingData.V));
 
         // clear coat specular lobe
-        let D = GGX(mat.normal, h, clearCoatNoH, mat.clearCoatRoughness);
+        let D = GGX(clearCoatNormal, h, clearCoatNoH, mat.clearCoatRoughness);
         let F = fresnel(f0, LoH) * mat.clearCoat;
 
         let Fcc = F;
@@ -124,7 +124,7 @@ fn pbrClearCoat(mat: Material, shadingData: ShadingData) -> vec4f {
 
         // If the material has a normal map, we want to use the geometric normal
         // instead to avoid applying the normal map details to the clear coat layer
-        let clearCoatNoL = saturate(dot(clearCoatNormal, L.direction));
+        let clearCoatNoL = saturate(dot(clearCoatNormal, shadingData.L));
         color.rgb = color.rgb * atten * NoL + (clearCoat * clearCoatNoL * L.color) * L.intensity;// * L.shadow;
         color.rgb = color.rgb * atten + (clearCoat * L.color) * (L.intensity * NoL);//(L.intensity * L.shadow * NoL);
 
