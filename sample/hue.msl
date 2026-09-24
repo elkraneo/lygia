@@ -4,7 +4,7 @@
 /*
 contributors: Patricio Gonzalez Vivo
 description: samples a hue rainbox pattern color encoded texture and returns a float
-use: <fluat> sampleHue(<SAMPLER_TYPE> tex, <float2> st);
+use: <float> sampleHue(<SAMPLER_TYPE> tex, <float2> st);
 options:
     - SAMPLER_FNC(TEX, UV)
 license:

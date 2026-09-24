@@ -3,7 +3,7 @@
 /*
 contributors: Patricio Gonzalez Vivo
 description: sample derivatives
-use: sampleDerivative(<SAMPLER_TYPE> tex, <float2> st)
+use: <float2> sampleDerivative(<SAMPLER_TYPE> tex, <float2> st, <float2> pixel)
 options:
     - SAMPLER_FNC(TEX, UV): optional depending the target version of GLSL (tex2D(...) or texture(...))
     - USE_DERIVATIVES

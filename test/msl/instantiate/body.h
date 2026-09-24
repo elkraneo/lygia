@@ -91,6 +91,8 @@ kernel void KNAME(texturecube<float> cube [[texture(0)]], texture2d<float> equi 
     c.r += volumetricLightScattering(depth, float2(0.5), 0.1, 100.0, float4x4(1.0), float4x4(1.0), float3(0.0), depth, float4x4(1.0), float3(0.0, 1.0, 0.0));
     float3 d = 0.0, s = 0.0;
     lightSpot(float3(1.0), float3(0.04), mat.normal, sd.V, 0.5, 0.3, 0.04, float3(0.0, -1.0, 0.0), 30.0, 5.0, 100.0, d, s);
+    c.rgb += d + s;
+    lightSpot(float3(1.0), float3(0.04), mat.normal, sd.V, 0.5, 0.3, 0.04, d, s);
     c.rgb += d + s + iridescence(0.5, 0.5) + wavelength(550.0) + blackbody(6500.0) + debugCube(mat.normal, 64.0, 1.0);
     c += sphereMap(equi, mat.normal, sd.V) + sampleShadowPCF(depth, float2(512.0), float2(0.5), 0.5) + sampleTriplanar(equi, mat.normal);
     c.r += exposure(16.0, 1.0/125.0, 100.0);

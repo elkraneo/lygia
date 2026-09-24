@@ -7,7 +7,7 @@
 /*
 contributors: Patricio Gonzalez Vivo
 description: |
-    Volumetric light scattering (god rays) from a light's shadow map.
+    Volumetric light scattering (god rays), raymarched from the camera to the surface through the light shadowmap and weighted by a Henyey-Greenstein phase function.
     Metal has no global uniforms or textures, so the camera and light values and the shadow map are explicit
     arguments. The overload that reads them from the defines only exists when CAMERA_POSITION, CAMERA_NEAR_CLIP,
     CAMERA_FAR_CLIP, CAMERA_PROJECTION_MATRIX, CAMERA_VIEW_MATRIX and LIGHT_MATRIX are defined to something in

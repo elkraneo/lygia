@@ -38,7 +38,7 @@ inline float4 sampleFXAA(SAMPLER_TYPE tex, float2 uv, float2 pixel) {
     float3 rgbNE  = SAMPLEFXAA_SAMPLE_FNC(tex,uv.xy + float2( 1.0, -1.0 ) * pixel).xyz;
     float3 rgbSW  = SAMPLEFXAA_SAMPLE_FNC(tex,uv.xy + float2( -1.0, 1.0 ) * pixel).xyz;
     float3 rgbSE  = SAMPLEFXAA_SAMPLE_FNC(tex,uv.xy + float2( 1.0, 1.0 ) * pixel).xyz;
-    float4 rgbaM  = SAMPLEFXAA_SAMPLE_FNC(tex,uv.xy  * pixel);
+    float4 rgbaM  = SAMPLEFXAA_SAMPLE_FNC(tex,uv.xy);
     float3 rgbM   = rgbaM.xyz;
     float3 luma   = float3( 0.299, 0.587, 0.114 );
     float lumaNW    = dot( rgbNW, luma );

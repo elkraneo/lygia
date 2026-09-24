@@ -20,6 +20,7 @@
 
 #include "common/ggx.msl"
 #include "common/kelemen.msl"
+#include "common/clampNoV.msl"
 
 #include "shadingData/new.msl"
 #include "material.msl"
@@ -70,7 +71,7 @@ inline float4 pbrClearCoat(Material mat, ShadingData shadingData, Env... env) {
     float3    f0      = ior2f0(mat.ior);
     float3    R       = reflection(shadingData.V, mat.normal, mat.roughness);
 
-    #if defined(MATERIAL_HAS_NORMAL) || defined(MATERIAL_HAS_CLEAR_COAT_NORMAL)
+    #if defined(MATERIAL_HAS_CLEAR_COAT_NORMAL)
     // We want to use the geometric normal for the clear coat layer
     float clearCoatNoV      = clampNoV(dot(mat.clearCoatNormal, shadingData.V));
     float3 clearCoatNormal    = mat.clearCoatNormal;
@@ -144,14 +145,13 @@ inline float4 pbrClearCoat(Material mat, ShadingData shadingData, Env... env) {
         #if defined(MATERIAL_HAS_CLEAR_COAT_NORMAL)
         // If the material has a normal map, we want to use the geometric normal
         // instead to avoid applying the normal map details to the clear coat layer
-        N = clearCoatNormal;
         float clearCoatNoH = saturate(dot(clearCoatNormal, h));
         #else
         float clearCoatNoH = saturate(dot(mat.normal, shadingData.V));
         #endif
 
         // clear coat specular lobe
-        float D         =   GGX(mat.normal, h, clearCoatNoH, mat.clearCoatRoughness);
+        float D         =   GGX(clearCoatNormal, h, clearCoatNoH, mat.clearCoatRoughness);
         float3  F         =   fresnel(f0, LoH) * mat.clearCoat;
 
         float3  Fcc       =   F;

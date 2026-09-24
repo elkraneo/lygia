@@ -1,6 +1,8 @@
 #include "directional.msl"
 #include "../specular.msl"
 #include "../diffuse.msl"
+#include "../material.msl"
+#include "../shadingData/shadingData.msl"
 
 /*
 contributors: [Patricio Gonzalez Vivo, Shadi El Hajj]

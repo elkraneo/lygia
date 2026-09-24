@@ -18,6 +18,8 @@ license:
 #include "../specular.msl"
 #include "../diffuse.msl"
 #include "falloff.msl"
+#include "../material.msl"
+#include "../shadingData/shadingData.msl"
 
 #ifndef FNC_LIGHT_POINT
 #define FNC_LIGHT_POINT
