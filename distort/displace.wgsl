@@ -1,9 +1,10 @@
+#include "../math/const.wgsl"
 #include "../sampler.wgsl"
 
 /*
 contributors: Patricio Gonzalez Vivo
 description: Displace pixels
-use: <vec4> displace(<sampler2D> texVel, <sampler2D> texCol, <vec2> st, <vec2> pixel)
+use: <vec4> displace(<SAMPLER_TYPE> texVel, <SAMPLER_TYPE> texCol, <vec2> st, <vec2> pixel)
 options:
     - SAMPLER_FNC(TEX, UV): optional depending the target version of GLSL (texture2D(...) or texture(...))
     - DISPLACE_SAMPLER_FNC: function used to sample the input texture, defaults to texture2D(TEX, UV).rgb
@@ -23,7 +24,7 @@ const DISPLACE_DIRECTIONS: f32 = 9;
 
 // #define DISPLACE_TO_AMOUNT length(vel.xy)
 
-fn displace(texVel: sampler2D, texCol: sampler2D, st: vec2f, pixel: vec2f) -> vec4f {
+fn displace(texVel: SAMPLER_TYPE, texCol: SAMPLER_TYPE, st: vec2f, pixel: vec2f) -> vec4f {
     vec2 dir[DISPLACE_DIRECTIONS];
     let iTotal = DISPLACE_DIRECTIONS;
     let fTotal = float(DISPLACE_DIRECTIONS);

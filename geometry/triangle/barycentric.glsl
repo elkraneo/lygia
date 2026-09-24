@@ -36,7 +36,7 @@ vec3 barycentric(Triangle _tri, vec3 _pos) {
 
     return vec3( length(cross(f1, f2)),                      // p1's triangle area / a
                         length(cross(f2, f0)),                      // p2's triangle area / a 
-                        length(cross(f0, f1)) ) / area(_tri) ;      // p3's triangle area / a
+                        length(cross(f0, f1)) ) / (2.0 * area(_tri));      // p3's triangle area / a
 }
 
 #endif

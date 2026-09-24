@@ -18,15 +18,16 @@ inline __host__ __device__ float intersect(const Triangle& _tri, const float3& _
     float3 v1v0 = _tri.b - _tri.a;
     float3 v2v0 = _tri.c - _tri.a;
     float3 rov0 = _rayOrigin - _tri.a;
-    _point = cross(v1v0, v2v0);
+    float3 n = cross(v1v0, v2v0);
     float3 q = cross(rov0, _rayDir);
-    float d = 1.0f / dot(_rayDir, _point);
+    float d = 1.0f / dot(_rayDir, n);
     float u = d * -dot(q, v2v0);
     float v = d *  dot(q, v1v0);
-    float t = d * -dot(_point, rov0);
+    float t = d * -dot(n, rov0);
     if (u < 0.0f || u > 1.0f || v < 0.0f || (u+v) > 1.0f || t < 0.0f)
         t = MAX_FLOAT_VALUE; // No intersection
 
+    _point = _rayOrigin + _rayDir * t;
     return t;
 }
 

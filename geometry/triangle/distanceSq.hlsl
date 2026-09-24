@@ -1,9 +1,10 @@
 #include "triangle.hlsl"
+#include "../../math/lengthSq.hlsl"
 
 /*
 contributors: Inigo Quiles
 description: Returns the closest sq distance to the surface of a triangle
-use: <float3> closestDistanceSq(<Triangle> tri, <float3> _pos) 
+use: <float> distanceSq(<Triangle> tri, <float3> _pos)
 */
 
 #ifndef FNC_TRIANGLE_DISTANCE_SQ
@@ -15,7 +16,7 @@ float distanceSq(Triangle _tri, float3 _pos) {
     float3 v32 = _tri.c - _tri.b; float3 p2 = _pos - _tri.b;
     float3 v13 = _tri.a - _tri.c; float3 p3 = _pos - _tri.c;
     float3 nor = cross( v21, v13 );
-    return sqrt(    
+    return (
                     // inside/outside test    
                     (sign( dot(cross(v21,nor),p1)) + 
                      sign( dot(cross(v32,nor),p2)) + 

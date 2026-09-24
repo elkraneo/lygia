@@ -1,10 +1,11 @@
 #include "triangle.wgsl"
+#include "../../math/lengthSq.wgsl"
 #include "../../math/saturate.wgsl"
 
 /*
 contributors: Inigo Quiles
 description: Returns the closest sq distance to the surface of a triangle
-use: <vec3> closestDistanceSq(<Triangle> tri, <vec3> _pos) 
+use: <float> distanceSq(<Triangle> tri, <vec3> _pos)
 */
 
 fn distanceSq(_tri: Triangle, _pos: vec3f) -> f32 {
@@ -13,7 +14,7 @@ fn distanceSq(_tri: Triangle, _pos: vec3f) -> f32 {
     let v32 = _tri.c - _tri.b; vec3 p2 = _pos - _tri.b;
     let v13 = _tri.a - _tri.c; vec3 p3 = _pos - _tri.c;
     let nor = cross( v21, v13 );
-    return sqrt(    
+    return (
                     // inside/outside test    
                     (sign( dot(cross(v21,nor),p1)) + 
                      sign( dot(cross(v32,nor),p2)) + 

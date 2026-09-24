@@ -28,7 +28,7 @@ fn sampleFXAA(tex: SAMPLER_TYPE, uv: vec2f, pixel: vec2f) -> vec4f {
     let rgbNE = SAMPLEFXAA_SAMPLE_FNC(tex,uv.xy + vec2f( 1.0, -1.0 ) * pixel).xyz;
     let rgbSW = SAMPLEFXAA_SAMPLE_FNC(tex,uv.xy + vec2f( -1.0, 1.0 ) * pixel).xyz;
     let rgbSE = SAMPLEFXAA_SAMPLE_FNC(tex,uv.xy + vec2f( 1.0, 1.0 ) * pixel).xyz;
-    let rgbaM = SAMPLEFXAA_SAMPLE_FNC(tex,uv.xy  * pixel);
+    let rgbaM = SAMPLEFXAA_SAMPLE_FNC(tex,uv.xy);
     let rgbM = rgbaM.xyz;
     let luma = vec3f( 0.299, 0.587, 0.114 );
     let lumaNW = dot( rgbNW, luma );

@@ -4,7 +4,7 @@
 /*
 contributors: Patricio Gonzalez Vivo
 description: sample a value encoded on a heatmap
-use: sampleFlow(<SAMPLER_TYPE> tex, <vec2> st)
+use: <float> sampleHeatmap(<SAMPLER_TYPE> tex, <vec2> st [, <float> min, <float> max])
 options:
     - SAMPLER_FNC(TEX, UV): optional depending the target version of GLSL (texture2D(...) or texture(...))
 license:

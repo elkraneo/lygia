@@ -35,7 +35,7 @@ fn pincushion(st: vec2f, pixel: vec2f, amt: f32) -> vec2f {
     let A = (power > 0.0)? tan(dist * power) : atan(dist * -power * 10.0);
     let B = (power > 0.0)? tan(bind * power) : atan(-power * bind * 10.0);
 
-    let uv = m + normalize(d) * A * bind/B;
+    let uv = select(m + normalize(d) * A * bind/B, st, power == 0.0); // no distortion when amt is 0 (avoids 0/0)
     return vec2f(uv.x, uv.y * prop);
 }
 

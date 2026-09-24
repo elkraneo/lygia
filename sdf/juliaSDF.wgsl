@@ -17,7 +17,7 @@ examples:
 */
 
 fn juliaSDF2(st: vec2f, center: vec2f, c: vec2f, r: f32) -> f32 {
-    st -= 0.5;
+    st -= center;
     st *= 2.0;
     let z = vec2f(0.0) - (st) * r;
     let n = 0.0;

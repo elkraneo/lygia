@@ -7,7 +7,7 @@
 contributors: Inigo Quiles
 description: |
     Avoiding texture repetition by using Voronoise: a small texture can be used to generate infinite variety instead of tiled repetition. More info:  https://iquilezles.org/articles/texturerepetition/
-use: sampleUNTILE(<SAMPLER_TYPE> texture, <vec2> st, <float> noTiling)
+use: <vec4> sampleUntile(<SAMPLER_TYPE> texture, <vec2> st)
 options:
     - SAMPLER_FNC(TEX, UV)
     - SAMPLEUNTILE_TYPE

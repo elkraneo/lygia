@@ -10,6 +10,7 @@ license:
 */
 
 #ifndef FNC_SCALE3D
+#define FNC_SCALE3D
 float3x3 scale3d(float s) {
     return float3x3(s, 0.0, 0.0,
                     0.0, s, 0.0,

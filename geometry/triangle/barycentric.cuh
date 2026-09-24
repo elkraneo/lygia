@@ -38,7 +38,7 @@ inline __host__ __device__ float3 barycentric(const Triangle& _tri, const float3
 
     return make_float3( length(cross(f1, f2)),                      // p1's triangle area / a
                         length(cross(f2, f0)),                      // p2's triangle area / a 
-                        length(cross(f0, f1)) ) / area(_tri) ;      // p3's triangle area / a
+                        length(cross(f0, f1)) ) / (2.0f * area(_tri));      // p3's triangle area / a
 }
 
 #endif

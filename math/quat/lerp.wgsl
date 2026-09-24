@@ -39,5 +39,3 @@ fn quatLerp(qa: vec4f, _qb: vec4f, t: f32) -> vec4f {
     // return quatNorm( quatAdd( quatMul(qa, ratioA), quatMul(qb, ratioB)) );
     return normalize( qa * ratioA + qb * ratioB );
 }
-
-#endif

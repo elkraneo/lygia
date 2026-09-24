@@ -1,3 +1,4 @@
+#include "../math/const.hlsl"
 #include "space/hsl2rgb.hlsl"
 #include "space/rgb2hsl.hlsl"
 

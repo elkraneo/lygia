@@ -1,13 +1,16 @@
 
+#include "../math/const.glsl"
+#include "../math/saturate.glsl"
 #include "../sampler.glsl"
 
 /*
 contributors: Patricio Gonzalez Vivo
 description: Displace pixels
-use: <vec4> displace(<sampler2D> texVel, <sampler2D> texCol, <vec2> st, <vec2> pixel)
+use: <vec4> displace(<SAMPLER_TYPE> texVel, <SAMPLER_TYPE> texCol, <vec2> st, <vec2> pixel)
 options:
     - SAMPLER_FNC(TEX, UV): optional depending the target version of GLSL (texture2D(...) or texture(...))
-    - DISPLACE_SAMPLER_FNC: function used to sample the input texture, defaults to texture2D(TEX, UV).rgb
+    - DISPLACE_VEL_SAMPLER_FNC(TEX, UV): function used to sample the velocity texture, defaults to SAMPLER_FNC(TEX, UV)
+    - DISPLACE_COLOR_SAMPLER_FNC(TEX, UV): function used to sample the color texture, defaults to SAMPLER_FNC(TEX, UV)
     - DISPLACE_FROM_CONDITION: condition to use the source of the mix
     - DISPLACE_FROM_AMOUNT: amount of the source to use
     - DISPLACE_TO_AMOUNT: amount of the target to use
@@ -39,7 +42,7 @@ license:
 #ifndef FNC_DISPLACE
 #define FNC_DISPLACE
 
-vec4 displace(sampler2D texVel, sampler2D texCol, vec2 st, vec2 pixel) {
+vec4 displace(SAMPLER_TYPE texVel, SAMPLER_TYPE texCol, vec2 st, vec2 pixel) {
     vec2 dir[DISPLACE_DIRECTIONS];
     const int iTotal = DISPLACE_DIRECTIONS;
     const float fTotal = float(DISPLACE_DIRECTIONS);

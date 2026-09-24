@@ -3,7 +3,7 @@
 /*
 contributors: Patricio Gonzalez Vivo
 description: sample a frame on a sprite sheet
-use: <SPRITELOOP_TYPE> SpriteLOOP(<SAMPLER_TYPE >tex, <vec2> st, <vec2> grid, <float> frame)
+use: <SAMPLESPRITE_TYPE> spriteLoop(<SAMPLER_TYPE> tex, <vec2> st, <vec2> grid, <float> start_index, <float> end_index, <float> time)
 options:
     - SAMPLER_FNC(TEX, UV)
     - SAMPLESPRITE_TYPE: vec4

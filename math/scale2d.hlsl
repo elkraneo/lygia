@@ -10,6 +10,7 @@ license:
 */
 
 #ifndef FNC_SCALE2D
+#define FNC_SCALE2D
 float2x2 scale2d(float s) { return float2x2(s, 0.0, 0.0, s); }
 float2x2 scale2d(float2 s) { return float2x2(s.x, 0.0, 0.0, s.y); }
 float2x2 scale2d(float x, float y) { return float2x2(x, 0.0, 0.0,  y); }

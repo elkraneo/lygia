@@ -130,11 +130,12 @@ test("barycentric3 - point at vertex", async () => {
   const result = await lygiaTestCompute(src, { elem: "vec3f" });
 
   // Point at vertex a should have dominant weight at a
-  // Note: This function returns unnormalized coords (sum ≠ 1)
   expect(result[0]).toBeGreaterThan(result[1]);
   expect(result[0]).toBeGreaterThan(result[2]);
   expect(result[1]).toBeLessThan(0.01);
   expect(result[2]).toBeLessThan(0.01);
+  // Normalized: all the weight is on a
+  expectCloseTo([1.0, 0.0, 0.0], result);
 });
 
 test("barycentric3 - edge midpoint", async () => {
@@ -160,6 +161,36 @@ test("barycentric3 - edge midpoint", async () => {
   // Midpoint of a-b should have equal weights for a and b, zero for c
   expect(Math.abs(result[0] - result[1])).toBeLessThan(0.01);
   expect(result[2]).toBeLessThan(0.01);
+  expectCloseTo([0.5, 0.5, 0.0], result);
+});
+
+test("barycentric3 - interior point is normalized", async () => {
+  const src = `
+    import lygia::geometry::triangle::triangle::Triangle;
+    import lygia::geometry::triangle::barycentric::barycentric3;
+
+    @compute @workgroup_size(1)
+    fn foo() {
+      var tri: Triangle;
+      tri.a = vec3f(0.0, 0.0, 0.0);
+      tri.b = vec3f(2.0, 0.0, 0.0);
+      tri.c = vec3f(0.0, 2.0, 0.0);
+      env::results[0] = barycentric3(tri, vec3f(0.5, 0.5, 0.0));
+    }
+  `;
+  const result = await lygiaTestCompute(src, { elem: "vec3f" });
+
+  // Sub-triangle areas over the full area: coordinates sum to 1
+  // and reconstruct the input point (regression: used to be 2x too large)
+  expect(result[0] + result[1] + result[2]).toBeCloseTo(1.0, 4);
+  const reconstructed = reconstructFromBarycentric(
+    result,
+    [0.0, 0.0, 0.0],
+    [2.0, 0.0, 0.0],
+    [0.0, 2.0, 0.0],
+  );
+  expectCloseTo([0.5, 0.5, 0.0], reconstructed);
+  expectCloseTo([0.5, 0.25, 0.25], result);
 });
 
 test("centroid", async () => {

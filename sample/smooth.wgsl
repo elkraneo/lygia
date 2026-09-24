@@ -16,7 +16,7 @@ examples:
 // #define SAMPLESMOOTH_POLYNOMIAL cubic
 
 fn sampleSmooth(tex: SAMPLER_TYPE, st: vec2f, texResolution: vec2f) -> vec4f {
-    st *= texResolution + 0.5;
+    st = st * texResolution + 0.5;
     let fst = fract( st );
     st = floor( st );
     st += SAMPLESMOOTH_POLYNOMIAL(fst);

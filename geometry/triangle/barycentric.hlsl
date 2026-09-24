@@ -24,7 +24,7 @@ float3 barycentric(float3 _a, float3 _b, float3 _c ) {
     float denom = daa * dbb - dab * dab;
     float y = (dbb * dca - dab * dcb) / denom;
     float z = (daa * dcb - dab * dca) / denom;
-    return make_float3( 1.0f - y - z, y, z);
+    return float3( 1.0f - y - z, y, z);
 }
 
 float3 barycentric(Triangle _tri) { return barycentric(_tri.a, _tri.b, _tri.c); }
@@ -34,9 +34,9 @@ float3 barycentric(Triangle _tri, float3 _pos) {
     float3 f1 = _tri.b - _pos;
     float3 f2 = _tri.c - _pos;
 
-    return make_float3( length(cross(f1, f2)),                      // p1's triangle area / a
+    return float3( length(cross(f1, f2)),                      // p1's triangle area / a
                         length(cross(f2, f0)),                      // p2's triangle area / a 
-                        length(cross(f0, f1)) ) / area(_tri) ;      // p3's triangle area / a
+                        length(cross(f0, f1)) ) / (2.0 * area(_tri));      // p3's triangle area / a
 }
 
 #endif

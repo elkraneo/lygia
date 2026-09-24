@@ -10,6 +10,7 @@ license:
 */
 
 #ifndef FNC_TRANSLATE4D
+#define FNC_TRANSLATE4D
 mat4 translate4d(vec3 t) {
     return mat4(1.0, 0.0, 0.0, 0.0,
                 0.0, 1.0, 0.0, 0.0,

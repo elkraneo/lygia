@@ -12,7 +12,7 @@ description: |
     - [urbanspr1nter.github.io](https://urbanspr1nter.github.io/marchingsquares/)
     - []()
 use: 
-    - <vec3> sampleMarchingSquares(in <vec2> uv, in <sampler2D> tex, in <float> cellSize, in <float> threshold, in <vec2> resolution) 
+    - <vec2> sampleMarchinSquares(<SAMPLER_TYPE> tex, <vec2> uv, <vec2> resolution, <float> cellSize, <float> threshold)
 options:
     - SAMPLEMARCHINGSQUARES_SAMPLE_FNC(TEX, UV): optional sampling function
 examples:
@@ -71,7 +71,7 @@ fn sampleMarchingSquares_tile(p: vec2f, cellUv: vec2f, a: vec2f, b: vec2f, tile:
           return 0.0;
 }
 
-fn sampleMarchinSquares(tex: sampler2D, uv: vec2f, resolution: vec2f, cellSize: f32, threshold: f32) -> vec2f {
+fn sampleMarchinSquares(tex: SAMPLER_TYPE, uv: vec2f, resolution: vec2f, cellSize: f32, threshold: f32) -> vec2f {
     let gridX = resolution.x / cellSize;
     let gridY = resolution.y / cellSize;
     let cellIdx = floor(uv.x * gridX);

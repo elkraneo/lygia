@@ -4,8 +4,9 @@
 /*
 contributors: Patricio Gonzalez Vivo
 description: linear interpolation between colors in a palette
+use: <vec3> paletteLerp(<vec3> colors[PALETTE_LERP_SIZE], <float> t)
 options:
-    - PALETTE_LERP_SIZE: number of colors in the palette
+    - PALETTE_LERP_SIZE: number of colors in the palette. Required, paletteLerp() is only defined when it is set
     - PALETTE_LERP_MIX_FNC: mix function to use (default is mix)
     - PALETTE_LERP_SRGB: if defined, the palette is in sRGB space
 examples:
@@ -20,7 +21,7 @@ license:
 #define PALETTE_LERP_MIX_FNC(A, B, T) mix(A, B, T)
 #endif
 
-#ifndef FNC_PALETTE_LERP
+#if !defined(FNC_PALETTE_LERP) && defined(PALETTE_LERP_SIZE)
 #define FNC_PALETTE_LERP
 
 vec3 paletteLerp_get(vec3 a[PALETTE_LERP_SIZE], int index){

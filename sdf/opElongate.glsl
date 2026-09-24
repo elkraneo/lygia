@@ -16,7 +16,7 @@ vec3 opElongate( in vec3 p, in vec3 h ) {
 }
 
 vec4 opElongate( in vec4 p, in vec4 h ) {
-    vec3 q = abs(p)-h;
+    vec3 q = abs(p.xyz)-h.xyz;
     return vec4( max(q,0.0), min(max(q.x,max(q.y,q.z)), 0.0) );
 }
 

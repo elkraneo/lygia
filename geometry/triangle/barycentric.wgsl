@@ -33,5 +33,5 @@ fn barycentrica(_tri: Triangle, _pos: vec3f) -> vec3f {
 
     return vec3f( length(cross(f1, f2)),                      // p1's triangle area / a
                         length(cross(f2, f0)),                      // p2's triangle area / a 
-                        length(cross(f0, f1)) ) / area(_tri) ;      // p3's triangle area / a
+                        length(cross(f0, f1)) ) / (2.0 * area(_tri));      // p3's triangle area / a
 }

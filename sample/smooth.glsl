@@ -20,7 +20,7 @@ examples:
 #ifndef FNC_SAMPLESMOOTH
 #define FNC_SAMPLESMOOTH
 vec4 sampleSmooth(SAMPLER_TYPE tex, vec2 st, vec2 texResolution) {
-    st *= texResolution + 0.5;
+    st = st * texResolution + 0.5;
     vec2 fst = fract( st );
     st = floor( st );
     st += SAMPLESMOOTH_POLYNOMIAL(fst);

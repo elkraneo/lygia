@@ -3,7 +3,7 @@
 /*
 contributors: Patricio Gonzalez Vivo
 description: sample a frame on a sprite sheet
-use: <SPRITELOOP_TYPE> SpriteLOOP(<texture_2d<f32>>tex, <sampler> samp, <vec2f> st, <vec2f> grid, vec2f, <f32> start_index, <f32> end_index, <f32> time)
+use: <vec4f> spriteLoop(<texture_2d<f32>> tex, <sampler> samp, <vec2f> st, <vec2f> grid, <f32> start_index, <f32> end_index, <f32> time)
 license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license

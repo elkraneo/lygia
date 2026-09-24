@@ -1,4 +1,4 @@
-#include "lygia/generative/random.wgsl"
+#include "../generative/random.wgsl"
 
 /*
 contributors: [Morgan McGuire, Chris Wyman]

@@ -5,7 +5,7 @@ contributors: ['Tim Gfrerer', 'Patricio Gonzalez Vivo']
 description: |
     Draws a character from a bitmap font. 
     Based on Tim's article about Texture-less Text Rendering https://poniesandlight.co.uk/reflect/debug_print_text/
-use: <vec2> char(<vec2> uv, <int> char_code)
+use: <float> char(<vec2> uv, <int> char_code)
 */
 
 #ifndef CHAR_SIZE
@@ -218,7 +218,7 @@ ivec4 charLUT( const int index ) {
         if (i == index) return d[i];
     return ivec4(0x0, 0x0, 0x0, 0x0);
     #else
-    return d[ clamp(index, 0, CHAR_TOTAL) ];
+    return d[ clamp(index, 0, CHAR_TOTAL - 1) ];
     #endif
 }
 

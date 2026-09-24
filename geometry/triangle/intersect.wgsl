@@ -11,15 +11,16 @@ fn intersect(_tri: Triangle, _rayOrigin: vec3f, _rayDir: vec3f, _point: vec3f) -
     let v1v0 = _tri.b - _tri.a;
     let v2v0 = _tri.c - _tri.a;
     let rov0 = _rayOrigin - _tri.a;
-    _point = cross(v1v0, v2v0);
+    let n = cross(v1v0, v2v0);
     let q = cross(rov0, _rayDir);
-    let d = 1.0f / dot(_rayDir, _point);
+    let d = 1.0f / dot(_rayDir, n);
     let u = d * -dot(q, v2v0);
     let v = d *  dot(q, v1v0);
-    let t = d * -dot(_point, rov0);
+    let t = d * -dot(n, rov0);
     if (u < 0.0f || u > 1.0f || v < 0.0f || (u+v) > 1.0f || t < 0.0f)
         t = 9999999.9f; // No intersection
 
+    _point = _rayOrigin + _rayDir * t;
     return t;
 }
 

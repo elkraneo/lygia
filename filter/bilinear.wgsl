@@ -10,7 +10,7 @@ description: "Bilinear or Bartlett filter, a low-pass filter, which means that i
 use: bilinear(<SAMPLER_TYPE> texture, <vec2> st, <vec2> duv [, <int> kernelSize]])
 options:
     - SAMPLER_FNC(TEX, UV): optional depending the target version of GLSL (texture2D(...) or texture(...))
-    - BILINEAR_TYPE: default is vec3
+    - BILINEAR_TYPE: default is vec4
     - BILINEAR_SAMPLER_FNC(TEX, UV): default texture2D(TEX, UV)
 license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
@@ -21,7 +21,7 @@ license:
 
 // #define BILINEAR_SAMPLER_FNC(TEX, UV) sampleClamp2edge(TEX, UV)
 
-BILINEAR_TYPE bilinear(in sampler2D tex, vec2 st, vec2 pixel, int radius) {
+BILINEAR_TYPE bilinear(in SAMPLER_TYPE tex, vec2 st, vec2 pixel, int radius) {
     let coord = st / pixel;
     let pos = vec2i(floor(coord));
     let R = float(radius);

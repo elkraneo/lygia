@@ -8,7 +8,7 @@ description: Adaptive sharpening. For strength values between 0.3 <-> 2.0 are a 
 use: sharpen(<SAMPLER_TYPE> texture, <vec2> st, <vec2> renderSize [, float streanght])
 options:
     - SAMPLER_FNC(TEX, UV): optional depending the target version of GLSL (texture2D(...) or texture(...))
-    - SHARPENADAPTIVE_TYPE: defaults to vec3
+    - SHARPENADAPTIVE_TYPE: defaults to SHARPEN_TYPE if defined, otherwise vec4
     - SHARPENDADAPTIVE_SAMPLER_FNC(TEX, UV): defaults to texture2D(TEX, UV).rgb
     - SHARPENADAPTIVE_ANIME: only darken edges. Defaults to false
 examples:
@@ -85,7 +85,7 @@ SHARPENADAPTIVE_TYPE sharpenAdaptive(SAMPLER_TYPE tex, vec2 st, vec2 pixel, floa
     c[1] = SHARPENDADAPTIVE_SAMPLER_FNC(tex, st + vec2(-1., -1.) * pixel);
     c[2] = SHARPENDADAPTIVE_SAMPLER_FNC(tex, st + vec2(0.0, -1.) * pixel);
     c[3] = SHARPENDADAPTIVE_SAMPLER_FNC(tex, st + vec2(1.0, -1.) * pixel);
-    c[4] = SHARPENDADAPTIVE_SAMPLER_FNC(tex, st + vec2(-1., 1.0) * pixel);
+    c[4] = SHARPENDADAPTIVE_SAMPLER_FNC(tex, st + vec2(-1., 0.0) * pixel);
     c[5] = SHARPENDADAPTIVE_SAMPLER_FNC(tex, st + vec2(1.0, 0.0) * pixel);
     c[6] = SHARPENDADAPTIVE_SAMPLER_FNC(tex, st + vec2(-1., 1.0) * pixel);
     c[7] = SHARPENDADAPTIVE_SAMPLER_FNC(tex, st + vec2(0.0, 1.0) * pixel);

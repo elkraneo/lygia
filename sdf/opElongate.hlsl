@@ -16,7 +16,7 @@ float3 opElongate( in float3 p, in float3 h ) {
 }
 
 float4 opElongate( in float4 p, in float4 h ) {
-    float3 q = abs(p)-h;
+    float3 q = abs(p.xyz)-h.xyz;
     return float4( max(q,0.0), min(max(q.x,max(q.y,q.z)), 0.0) );
 }
 

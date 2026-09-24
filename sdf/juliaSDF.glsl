@@ -19,7 +19,7 @@ examples:
 #ifndef FNC_JULIASDF
 #define FNC_JULIASDF
 float juliaSDF( vec2 st, vec2 center, vec2 c, float r) {
-    st -= 0.5;
+    st -= center;
     st *= 2.0;
     vec2 z = vec2(0.0) - (st) * r;
     float n = 0.0;

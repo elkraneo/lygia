@@ -52,7 +52,7 @@ LAPLACIAN_TYPE laplacian_w8(SAMPLER_TYPE tex, vec2 st, vec2 pixel) {
     acc -= LAPLACIAN_SAMPLER_FNC(tex, st + vec2f(-1.0,  1.0) * pixel);
     acc -= LAPLACIAN_SAMPLER_FNC(tex, st + vec2f( 1.0, -1.0) * pixel);
     acc -= LAPLACIAN_SAMPLER_FNC(tex, st + vec2f( 1.0,  1.0) * pixel);
-    acc -= LAPLACIAN_SAMPLER_FNC(tex, st + vec2f( 1.0,  1.0) * pixel);
+    acc -= LAPLACIAN_SAMPLER_FNC(tex, st + vec2f(-1.0, -1.0) * pixel);
     return acc;
 }
 
@@ -67,7 +67,7 @@ LAPLACIAN_TYPE laplacian_w12(SAMPLER_TYPE tex, vec2 st, vec2 pixel) {
     acc -= LAPLACIAN_SAMPLER_FNC(tex, st + vec2f(-1.0,  1.0) * pixel);
     acc -= LAPLACIAN_SAMPLER_FNC(tex, st + vec2f( 1.0, -1.0) * pixel);
     acc -= LAPLACIAN_SAMPLER_FNC(tex, st + vec2f( 1.0,  1.0) * pixel);
-    acc -= LAPLACIAN_SAMPLER_FNC(tex, st + vec2f( 1.0,  1.0) * pixel);
+    acc -= LAPLACIAN_SAMPLER_FNC(tex, st + vec2f(-1.0, -1.0) * pixel);
     return acc;
 }
 
@@ -111,14 +111,14 @@ LAPLACIAN_TYPE laplacian_w8(SAMPLER_TYPE tex, vec2 st, vec2 pixel, float pixel_p
     let s = uv - pixelShift.zy;
     if (!laplacian_isOutside(s)) acc -= LAPLACIAN_SAMPLER_FNC(tex, s);
 
-    let ne = n + e;
-    if (!laplacian_isOutside(e)) acc -= LAPLACIAN_SAMPLER_FNC(tex, e);
-    let nw = n + w;
-    if (!laplacian_isOutside(n)) acc -= LAPLACIAN_SAMPLER_FNC(tex, n);
-    let se = s + e;
-    if (!laplacian_isOutside(w)) acc -= LAPLACIAN_SAMPLER_FNC(tex, w);
-    let sw = s + w;
-    if (!laplacian_isOutside(s)) acc -= LAPLACIAN_SAMPLER_FNC(tex, s);
+    let ne = n + pixelShift.xz;
+    if (!laplacian_isOutside(ne)) acc -= LAPLACIAN_SAMPLER_FNC(tex, ne);
+    let nw = n - pixelShift.xz;
+    if (!laplacian_isOutside(nw)) acc -= LAPLACIAN_SAMPLER_FNC(tex, nw);
+    let se = s + pixelShift.xz;
+    if (!laplacian_isOutside(se)) acc -= LAPLACIAN_SAMPLER_FNC(tex, se);
+    let sw = s - pixelShift.xz;
+    if (!laplacian_isOutside(sw)) acc -= LAPLACIAN_SAMPLER_FNC(tex, sw);
 
     return acc;
 }
@@ -139,14 +139,14 @@ LAPLACIAN_TYPE laplacian_w12(SAMPLER_TYPE tex, vec2 st, vec2 pixel, float pixel_
     let s = uv - pixelShift.zy;
     if (!laplacian_isOutside(s)) acc -= LAPLACIAN_SAMPLER_FNC(tex, s) * 2.0;
 
-    let ne = n + e;
-    if (!laplacian_isOutside(e)) acc -= LAPLACIAN_SAMPLER_FNC(tex, e);
-    let nw = n + w;
-    if (!laplacian_isOutside(n)) acc -= LAPLACIAN_SAMPLER_FNC(tex, n);
-    let se = s + e;
-    if (!laplacian_isOutside(w)) acc -= LAPLACIAN_SAMPLER_FNC(tex, w);
-    let sw = s + w;
-    if (!laplacian_isOutside(s)) acc -= LAPLACIAN_SAMPLER_FNC(tex, s);
+    let ne = n + pixelShift.xz;
+    if (!laplacian_isOutside(ne)) acc -= LAPLACIAN_SAMPLER_FNC(tex, ne);
+    let nw = n - pixelShift.xz;
+    if (!laplacian_isOutside(nw)) acc -= LAPLACIAN_SAMPLER_FNC(tex, nw);
+    let se = s + pixelShift.xz;
+    if (!laplacian_isOutside(se)) acc -= LAPLACIAN_SAMPLER_FNC(tex, se);
+    let sw = s - pixelShift.xz;
+    if (!laplacian_isOutside(sw)) acc -= LAPLACIAN_SAMPLER_FNC(tex, sw);
 
     return acc;
 }

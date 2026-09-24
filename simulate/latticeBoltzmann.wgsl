@@ -20,12 +20,12 @@ options:
 
 // Rule 1: All My energy moves with me
 //  I should find My Energy not where it is, but where it was.
-fn latticeBoltzmannPrevPosSampler(tex: sampler2D, st: vec2f, pixel: vec2f) -> vec4f {
+fn latticeBoltzmannPrevPosSampler(tex: SAMPLER_TYPE, st: vec2f, pixel: vec2f) -> vec4f {
     let offset = LATTICEBOLTZMANN_SAMPLER_FNC(tex, st).xy;
     return LATTICEBOLTZMANN_SAMPLER_FNC(tex, st - offset * pixel); 
 }
 
-fn latticeBoltzmann(tex: sampler2D, st: vec2f, pixel: vec2f) -> vec4f {
+fn latticeBoltzmann(tex: SAMPLER_TYPE, st: vec2f, pixel: vec2f) -> vec4f {
     let d = latticeBoltzmannPrevPosSampler(tex, st, pixel);
 
     // Neighbors
@@ -58,7 +58,7 @@ fn latticeBoltzmann(tex: sampler2D, st: vec2f, pixel: vec2f) -> vec4f {
     return d;
 }
 
-fn latticeBoltzmanna(tex: sampler2D, st: vec2f, pixel: vec2f, force: vec2f) -> vec4f {
+fn latticeBoltzmanna(tex: SAMPLER_TYPE, st: vec2f, pixel: vec2f, force: vec2f) -> vec4f {
     let d = latticeBoltzmann(tex, st, pixel);
     d.xy += force * saturate(d.w) * pixel;
     // d.xy = clamp(d.xy, -0.9999, 0.9999);

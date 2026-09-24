@@ -1,3 +1,4 @@
+#include "../math/const.wgsl"
 #include "space/hsl2rgb.wgsl"
 #include "space/rgb2hsl.wgsl"
 

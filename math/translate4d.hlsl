@@ -10,6 +10,7 @@ license:
 */
 
 #ifndef FNC_TRANSLATE4D
+#define FNC_TRANSLATE4D
 float4x4 translate4d(float3 t) {
     return float4x4(1.0, 0.0, 0.0, 0.0,
                     0.0, 1.0, 0.0, 0.0,

@@ -14,6 +14,9 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #define SAMPLE_CHANNEL 0
 #endif
 
+#ifndef FNC_NORMALFROMHEIGHTMAP
+#define FNC_NORMALFROMHEIGHTMAP
+
 vec3 normalFromHeightMap(SAMPLER_TYPE heightMap, vec2 st, float strength, float offset)
 {
     offset = pow3(offset) * 0.1;
@@ -33,3 +36,5 @@ vec3 normalFromHeightMap(SAMPLER_TYPE heightMap, vec2 st, float strength)
     return normalFromHeightMap(heightMap, st, strength, 0.5);
 
 }
+
+#endif

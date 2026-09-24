@@ -14,15 +14,16 @@ float intersect(Triangle _tri, vec3 _rayOrigin, vec3 _rayDir, inout vec3 _point)
     vec3 v1v0 = _tri.b - _tri.a;
     vec3 v2v0 = _tri.c - _tri.a;
     vec3 rov0 = _rayOrigin - _tri.a;
-    _point = cross(v1v0, v2v0);
+    vec3 n = cross(v1v0, v2v0);
     vec3 q = cross(rov0, _rayDir);
-    float d = 1.0f / dot(_rayDir, _point);
+    float d = 1.0f / dot(_rayDir, n);
     float u = d * -dot(q, v2v0);
     float v = d *  dot(q, v1v0);
-    float t = d * -dot(_point, rov0);
+    float t = d * -dot(n, rov0);
     if (u < 0.0f || u > 1.0f || v < 0.0f || (u+v) > 1.0f || t < 0.0f)
         t = 9999999.9f; // No intersection
 
+    _point = _rayOrigin + _rayDir * t;
     return t;
 }
 

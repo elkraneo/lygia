@@ -15,10 +15,6 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
-#ifndef RADIALBLUR_SAMPLER_FNC
-#define RADIALBLUR_SAMPLER_FNC(TEX, UV) SAMPLER_FNC(TEX, UV)
-#endif
-
 #ifndef SHARPEN_TYPE
 #define SHARPEN_TYPE vec3
 #endif

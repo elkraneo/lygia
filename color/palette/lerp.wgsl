@@ -4,8 +4,9 @@
 /*
 contributors: Patricio Gonzalez Vivo
 description: linear interpolation between colors in a palette
+use: <vec3f> paletteLerp(<array<vec3f, PALETTE_LERP_SIZE>> colors, <f32> t)
 options:
-    - PALETTE_LERP_SIZE: number of colors in the palette
+    - PALETTE_LERP_SIZE: number of colors in the palette. Required, paletteLerp() is only defined when it is set
     - PALETTE_LERP_MIX_FNC: mix function to use (default is mix)
     - PALETTE_LERP_SRGB: if defined, the palette is in sRGB space
 examples:

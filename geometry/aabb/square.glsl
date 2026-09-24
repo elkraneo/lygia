@@ -12,7 +12,7 @@ license:
 #ifndef FNC_AABB_SQUARE
 #define FNC_AABB_SQUARE
 
-void square(AABB& _box) {
+void square(inout AABB _box) {
     vec3 diag   = diagonal(_box) * 0.5;
     vec3 cntr   = _box.min + diag;
     float mmax  = max( abs(diag.x), max( abs(diag.y), abs(diag.z) ) );

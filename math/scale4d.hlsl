@@ -10,6 +10,7 @@ license:
 */
 
 #ifndef FNC_SCALE4D
+#define FNC_SCALE4D
 float4x4 scale4d(float s) {
     return float4x4(s, 0.0, 0.0, 0.0,
                 0.0, s, 0.0, 0.0,
