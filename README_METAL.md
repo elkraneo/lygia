@@ -2,7 +2,7 @@
 
 Metal support is currently highly experimental and very work in progress.
 
-Every `*.msl` file is compiled by CI, both on its own and all together in a single translation unit. Run the same check locally on macOS with:
+Every `*.msl` file is compiled by CI, both on its own and all together in a single translation unit, and two such units are linked together to catch duplicate symbols. Run the same check locally on macOS with:
 
 ```sh
 test/msl/compile.sh               # every *.msl file
@@ -59,6 +59,7 @@ using namespace metal;
 - find `inout` and determine which thread local memory keyword should replace it, and make it a reference
 - ensure `const` is only used within functions, `constant` must be used for global scoped constants
 - make sure every `#ifndef FNC_*` include guard is followed by its `#define`
+- mark every function `inline` (`test/msl/add_inline.py` does it). Otherwise an app with two `.metal` files that include the same LYGIA file fails to link with duplicate symbols
 - rename anything that collides with a Metal reserved word or built-in: the `char()` function is `drawChar()`, and local variables named `kernel` are `kern`. Don't redefine functions Metal already has, like `atan2` or `transpose`
 - `dFdx`/`dFdy`/`fwidth` are `dfdx`/`dfdy`/`fwidth`, and `discard` is `discard_fragment()`. These only work in fragment functions, so say so in the description of files that use them
 

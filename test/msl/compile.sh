@@ -58,4 +58,20 @@ else
     combined=1
 fi
 
-[ "$failed" -eq 0 ] && [ "$combined" -eq 0 ]
+# Link two translation units that include everything, like an app with two
+# .metal files that share LYGIA includes. Fails with duplicate symbols unless
+# every function is inline.
+linked=0
+if [ "$combined" -eq 0 ]; then
+    cp "$TMP/all.metal" "$TMP/all2.metal"
+    if xcrun -sdk macosx metal -std="$STD" -c "$TMP/all2.metal" -o "$TMP/all2.air" 2>> "$TMP/all.err" &&
+       xcrun -sdk macosx metallib "$TMP/all.air" "$TMP/all2.air" -o "$TMP/all.metallib" 2> "$TMP/link.err"; then
+        echo "MSL: two translation units linked"
+    else
+        echo "FAIL linking two translation units"
+        head -3 "$TMP/link.err" | sed 's|^|     |'
+        linked=1
+    fi
+fi
+
+[ "$failed" -eq 0 ] && [ "$combined" -eq 0 ] && [ "$linked" -eq 0 ]

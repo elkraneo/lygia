@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 First-pass GLSL -> MSL converter for LYGIA files, following the porting
-methodology in README_METAL.md. The output still needs review, and must be
-verified with test/msl/compile.sh.
+methodology in README_METAL.md, and marks functions inline. The output still
+needs review, and must be verified with test/msl/compile.sh.
 
 usage: test/msl/glsl2msl.py path/to/file.glsl [...]   (writes path/to/file.msl)
        add --force to overwrite existing .msl files
@@ -11,6 +11,9 @@ usage: test/msl/glsl2msl.py path/to/file.glsl [...]   (writes path/to/file.msl)
 import re
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from add_inline import process as add_inline  # noqa: E402
 
 # lines that are documentation (inside the /* */ header) are left mostly untouched
 TYPES = [
@@ -67,7 +70,7 @@ def main(argv):
         if dst.exists() and not force:
             print(f'skip {dst} (exists)')
             continue
-        dst.write_text(convert(src.read_text()))
+        dst.write_text(add_inline(convert(src.read_text()))[0])
         print(f'wrote {dst}')
     return 0
 
