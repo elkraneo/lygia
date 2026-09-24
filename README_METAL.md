@@ -35,10 +35,10 @@ using namespace metal;
 - [x] Filters
 - [x] Generative (not fully vetted / just spot checked)
 - [x] Geometry
-- [ ] Lighting (only `lighting/ray`)
+- [x] Lighting (not fully vetted / spot checked and render tested)
 - [x] Math - (not fully vetted / just spot checked)
 - [x] Morphological
-- [ ] Sample (clamp2edge, nearest and sprite done)
+- [x] Sample
 - [x] Sampler
 - [x] SDF - (not fully vetted / just spot checked)
 - [x] Simulate
@@ -76,6 +76,18 @@ using namespace metal;
   - functions that default to `gl_FragCoord` in GLSL (e.g. dithering) only have overloads taking the coordinate explicitly. Pass the `[[position]]` coords from your main shader.
   - functions that default to a uniform in GLSL (e.g. `u_projectionMatrix`) take it as an explicit argument. The overload without it only exists when you `#define` the option (e.g. `CAMERA_PROJECTION_MATRIX`) to something in scope. See `space/view2screenPosition.msl`.
 
-## Things not yet done
+## Lighting
 
-- Porting the modules still missing above. Lighting and sample depend heavily on GLSL global uniforms and textures (`LIGHT_*`, `SCENE_*`), so they need the explicit-argument approach above rather than a straight translation.
+- Light options like `LIGHT_POSITION` or `LIGHT_COLOR` still work: define them to literals, `constant` values or function constants before including.
+- Scene textures can't be globals, so the functions that sample the environment take it as an optional last argument, either a `texturecube<float>` or an equirect `SAMPLER_TYPE`. Without one they fall back to `fakeCube`, as GLSL does without `SCENE_CUBEMAP`:
+
+```cpp
+float4 color = pbr(mat);                 // no environment texture
+float4 color = pbr(mat, shadingData, cubemap);
+float4 color = raymarch(camera, target, st, cubemap);
+```
+
+- `sphericalHarmonics` takes the coefficients (`constant float3* sh`). Shadow maps are passed to `shadow(...)`, and you multiply a light's intensity by the result yourself.
+- `ssao`, `ssr` and `volumetricLightScattering` take the camera values (near/far, matrices, sample arrays) as arguments. The overloads without them need the matching `CAMERA_*` options.
+- For raymarching, define `Material raymarchMap(float3 pos)` (and `Medium raymarchVolumeMap(float3 pos)` with `RAYMARCH_VOLUME`). Make them `inline` if more than one `.metal` file defines them.
+- `test/msl/instantiate/` calls every lighting overload under several option sets, since templates are only checked when used. `compile.sh` builds and links them.

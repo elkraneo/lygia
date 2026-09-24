@@ -74,4 +74,31 @@ if [ "$combined" -eq 0 ]; then
     fi
 fi
 
-[ "$failed" -eq 0 ] && [ "$combined" -eq 0 ] && [ "$linked" -eq 0 ]
+# The lighting API uses templates for its optional environment texture, which
+# only get checked when called. test/msl/instantiate/*.metal call every
+# overload under different options; compile them all and link them together.
+instantiated=0
+if [ "$#" -eq 0 ] && [ -d "$ROOT/test/msl/instantiate" ]; then
+    airs=""
+    for f in "$ROOT"/test/msl/instantiate/*.metal; do
+        air="$TMP/inst_$(basename "$f" .metal).air"
+        if xcrun -sdk macosx metal -std="$STD" -c "$f" -o "$air" 2> "$TMP/inst.err"; then
+            airs="$airs $air"
+        else
+            echo "FAIL test/msl/instantiate/$(basename "$f")"
+            grep -m3 'error:' "$TMP/inst.err" | sed "s|$ROOT/||g; s|^|     |"
+            instantiated=1
+        fi
+    done
+    if [ "$instantiated" -eq 0 ]; then
+        if xcrun -sdk macosx metallib $airs -o "$TMP/inst.metallib" 2> "$TMP/inst.err"; then
+            echo "MSL: lighting overloads instantiated ($(ls "$ROOT"/test/msl/instantiate/*.metal | wc -l | tr -d ' ') configurations)"
+        else
+            echo "FAIL linking test/msl/instantiate"
+            head -3 "$TMP/inst.err" | sed 's|^|     |'
+            instantiated=1
+        fi
+    fi
+fi
+
+[ "$failed" -eq 0 ] && [ "$combined" -eq 0 ] && [ "$linked" -eq 0 ] && [ "$instantiated" -eq 0 ]
