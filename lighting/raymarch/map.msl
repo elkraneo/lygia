@@ -1,0 +1,34 @@
+#include "../material.msl"
+#include "../medium.msl"
+
+/*
+contributors:  Inigo Quiles
+description: |
+    Map of SDF functions to be declare.
+    Define `Material raymarchMap(float3 pos)` in your shader (and `Medium raymarchVolumeMap(float3 pos)` when
+    using RAYMARCH_VOLUME), before or after including the raymarch files; these prototypes match it.
+    Metal: mark your definition `inline` if more than one .metal file of your app defines it, otherwise the
+    metallib link fails with duplicate symbols.
+use: <Material> raymarchMap( in <float3> pos )
+options:
+    - RAYMARCH_MAP_FNC: default raymarchMap
+    - RAYMARCH_VOLUME_MAP_FNC: default raymarchVolumeMap
+examples:
+    - /shaders/lighting_raymarching.frag
+*/
+
+#ifndef RAYMARCH_MAP_FNC
+#define RAYMARCH_MAP_FNC raymarchMap
+#endif
+
+#ifndef RAYMARCH_VOLUME_MAP_FNC
+#define RAYMARCH_VOLUME_MAP_FNC raymarchVolumeMap
+#endif
+
+#ifndef FNC_RAYMARCH_MAP
+#define FNC_RAYMARCH_MAP
+
+Material RAYMARCH_MAP_FNC( float3 pos );
+Medium RAYMARCH_VOLUME_MAP_FNC( float3 pos );
+
+#endif

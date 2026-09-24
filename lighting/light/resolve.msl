@@ -1,0 +1,19 @@
+#include "point.msl"
+#include "pointEvaluate.msl"
+#include "directional.msl"
+#include "directionalEvaluate.msl"
+#include "../material.msl"
+
+#ifndef FNC_LIGHT_RESOLVE
+#define FNC_LIGHT_RESOLVE
+
+inline void lightResolve(LightPoint L, Material mat, thread ShadingData& shadingData) {
+    lightPointEvaluate(L, mat, shadingData);
+}
+
+
+inline void lightResolve(LightDirectional L, Material mat, thread ShadingData& shadingData) {
+    lightDirectionalEvaluate(L, mat, shadingData);
+}
+
+#endif

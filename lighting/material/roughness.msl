@@ -1,0 +1,27 @@
+/*
+contributors: Patricio Gonzalez Vivo
+description: |
+    Get material roughness property from GlslViewer's defines https://github.com/patriciogonzalezvivo/glslViewer/wiki/GlslViewer-DEFINES#material-defines
+    Metal has no global textures or vertex varyings, so the GlslViewer texture map (MATERIAL_*MAP) and
+    MODEL_VERTEX_* options are not supported: sample your textures in your shader and set the Material fields.
+use: float4 materialRoughness()
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#ifndef FNC_MATERIAL_ROUGHNESS
+#define FNC_MATERIAL_ROUGHNESS
+
+inline float materialRoughness() {
+    float roughness = 0.05;
+
+#if defined(MATERIAL_ROUGHNESS)
+    roughness = MATERIAL_ROUGHNESS;
+
+#endif
+
+    return roughness;
+}
+
+#endif

@@ -1,0 +1,71 @@
+/*
+contributors: Inigo Quiles
+description: Add fog to the scene. See https://iquilezles.org/articles/fog/
+use: float3 raymarchFog(in <float3> pixelColor, float distanceToPoint)
+options:
+    - FOG_DENSITY
+    - FOG_FALLOFF
+    - FOG_COLOR_COOL
+    - FOG_COLOR_WARM
+*/
+
+#ifndef FOG_DENSITY
+#define FOG_DENSITY 0.0
+#endif
+
+#ifndef FOG_FALLOFF
+#define FOG_FALLOFF 0.0
+#endif
+
+#ifndef FOG_COLOR_COOL
+#define FOG_COLOR_COOL float3(0.5, 0.6, 0.7)
+#endif
+
+#ifndef FOG_COLOR_WARM
+#define FOG_COLOR_WARM float3(1.0, 0.9, 0.7)
+#endif
+
+#ifndef FNC_RAYMARCH_FOG
+#define FNC_RAYMARCH_FOG
+
+inline float3 raymarchFog(float3 col,   // color of pixel
+                float t) {   // distance to point
+    float fogAmount = 1.0 - exp(-t * FOG_DENSITY);
+    return mix(col, FOG_COLOR_COOL, fogAmount);
+}
+
+inline float3 raymarchColorFog(float3 col,      // color of pixel
+                      float t,       // distance to point
+                      float3 rd,       // camera to point
+                      float3 lig) {    // sun direction
+    float fogAmount = 1.0 - exp(-t * FOG_DENSITY);
+    float sunAmount = max(dot(rd, lig), 0.0);
+    float3 fogColor = mix(FOG_COLOR_COOL, FOG_COLOR_WARM, pow(sunAmount, 8.0));
+    return mix(col, fogColor, fogAmount);
+}
+
+inline float3 raymarchHeightFog( float3 col,     // color of pixel
+                        float t,      // distance to point
+                        float3 ro,      // camera position
+                        float3 rd) {    // camera to point vector
+    float fogAmount = (FOG_DENSITY / FOG_FALLOFF) * exp(-ro.y * FOG_FALLOFF) * (1.0 - exp(-t * rd.y * FOG_FALLOFF)) / rd.y;
+    return mix(col, FOG_COLOR_COOL, saturate(fogAmount));
+}
+
+inline float3 raymarchFog(float3 col, float t, float3 ro, float3 rd){
+    if (FOG_DENSITY > 0.0 && FOG_FALLOFF > 0.0) {
+        return raymarchHeightFog(col, t, ro, rd);
+    }
+    else if (FOG_DENSITY > 0.0) {
+        #ifdef LIGHT_DIRECTION
+            return raymarchColorFog(col, t, rd, LIGHT_DIRECTION);
+        #else
+            return raymarchFog(col, t);
+        #endif
+    }
+    else {
+        return col;
+    }
+}
+
+#endif

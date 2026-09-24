@@ -1,0 +1,11 @@
+#include "../shadingData/shadingData.msl"
+#include "../common/beckmann.msl"
+
+#ifndef FNC_SPECULAR_BECKMANN
+#define FNC_SPECULAR_BECKMANN
+
+inline float specularBeckmann(ShadingData shadingData) {
+    return beckmann(shadingData.NoH, shadingData.roughness);
+}
+
+#endif

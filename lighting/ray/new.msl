@@ -1,0 +1,54 @@
+#include "../ray.msl"
+
+/*
+contributors: Patricio Gonzalez Vivo
+description: Creates a new Ray assigning origin and direction
+use:
+    - rayNew(inout <Ray> ray, [<float3> origin, <float3> direction])
+    - <Ray> rayNew(<float3> origin, [<float3> direction])
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#ifndef FNC_RAYNEW
+#define FNC_RAYNEW
+
+inline void rayNew(thread Ray& ray, float3 origin, float3 direction) {
+    ray.origin = origin;
+    ray.direction = direction;
+}
+
+inline void rayNew(thread Ray& ray, float3 origin) {
+    rayNew(ray, origin, float3(0.0, 0.0, 1.0));
+}
+
+inline void rayNew(thread Ray& ray) {
+    rayNew(ray, float3(0.0, 0.0, 0.0), float3(0.0, 0.0, 1.0));
+}
+
+inline Ray rayNew(float3 origin, float3 direction) {
+    Ray ray;
+    ray.origin = float3(0.0, 0.0, 0.0);
+    ray.direction = float3(0.0, 0.0, 1.0);
+    rayNew(ray, origin, direction);
+    return ray;
+}
+
+inline Ray rayNew(float3 origin) {
+    Ray ray;
+    ray.origin = float3(0.0, 0.0, 0.0);
+    ray.direction = float3(0.0, 0.0, 1.0);
+    rayNew(ray, origin);
+    return ray;
+}
+
+inline Ray rayNew() {
+    Ray ray;
+    ray.origin = float3(0.0, 0.0, 0.0);
+    ray.direction = float3(0.0, 0.0, 1.0);
+    rayNew(ray);
+    return ray;
+}
+
+#endif

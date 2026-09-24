@@ -1,0 +1,30 @@
+/*
+contributors: Patricio Gonzalez Vivo
+description: |
+    Get material BaseColor from GlslViewer's defines https://github.com/patriciogonzalezvivo/glslViewer/wiki/GlslViewer-DEFINES#material-defines
+    Metal has no global textures or vertex varyings, so the GlslViewer texture map (MATERIAL_*MAP) and
+    MODEL_VERTEX_* options are not supported: sample your textures in your shader and set the Material fields.
+use: float4 materialAlbedo()
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#ifndef FNC_MATERIAL_ALBEDO
+#define FNC_MATERIAL_ALBEDO
+
+inline float4 materialAlbedo() {
+    float4 albedo = float4(0.5, 0.5, 0.5, 1.0);
+
+#if defined(MATERIAL_BASECOLOR)
+    albedo = MATERIAL_BASECOLOR;
+
+#elif defined(MATERIAL_ALBEDO)
+    albedo = MATERIAL_ALBEDO;
+
+#endif
+
+    return albedo;
+}
+
+#endif

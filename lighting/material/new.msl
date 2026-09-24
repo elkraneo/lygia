@@ -1,0 +1,119 @@
+#include "albedo.msl"
+#include "specular.msl"
+#include "emissive.msl"
+#include "occlusion.msl"
+#include "normal.msl"
+#include "metallic.msl"
+#include "roughness.msl"
+#include "shininess.msl"
+
+#include "../material.msl"
+#include "../ior.msl"
+#include "../../sampler.msl"
+
+/*
+contributors: Patricio Gonzalez Vivo
+description: |
+    Material Constructor. Designed to integrate with GlslViewer's defines https://github.com/patriciogonzalezvivo/glslViewer/wiki/GlslViewer-DEFINES#material-defines
+    Metal has no global textures, gl_FragCoord or vertex varyings, so SCENE_BACK_SURFACE always uses the naive
+    back normal (-normal), and SHADING_MODEL_SUBSURFACE doesn't read the thickness from LIGHT_SHADOWMAP: set
+    normal_back / subsurfaceThickness yourself if you have them.
+use:
+    - void materialNew(out <material> _mat)
+    - <material> materialNew()
+    - <material> materialNew(<float3> albedo, <float> sdf)
+    - <material> materialNew(<float3> albedo, <float> roughness, <float> metallic, <float> sdf)
+options:
+    - SURFACE_POSITION
+    - SCENE_BACK_SURFACE
+    - SHADING_MODEL_CLEAR_COAT
+    - MATERIAL_HAS_CLEAR_COAT_NORMAL
+    - SHADING_MODEL_IRIDESCENCE
+    - SHADING_MODEL_SUBSURFACE
+    - SHADING_MODEL_CLOTH
+    - SHADING_MODEL_SPECULAR_GLOSSINESS
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#ifndef SURFACE_POSITION
+#define SURFACE_POSITION float3(0.0, 0.0, 0.0)
+#endif
+
+#ifndef RAYMARCH_MAX_DIST
+#define RAYMARCH_MAX_DIST 20.0
+#endif
+
+#ifndef FNC_MATERIAL_NEW
+#define FNC_MATERIAL_NEW
+
+inline void materialNew(thread Material& _mat) {
+    // Surface data
+    _mat.position           = (SURFACE_POSITION).xyz;
+    _mat.normal             = materialNormal();
+
+#if defined(RENDER_RAYMARCHING)
+    _mat.sdf                = RAYMARCH_MAX_DIST;
+    _mat.valid              = true;
+#endif
+
+    #if defined(SCENE_BACK_SURFACE)
+    // Naive assumption of the back surface
+    _mat.normal_back        = -_mat.normal;
+    #endif
+
+    // PBR Properties
+    _mat.albedo             = materialAlbedo();
+    _mat.emissive           = materialEmissive();
+    _mat.roughness          = materialRoughness();
+    _mat.metallic           = materialMetallic();
+    _mat.reflectance        = 0.5;
+
+    _mat.ior                = float3(IOR_GLASS_RGB);      // Index of Refraction
+
+    _mat.ambientOcclusion   = materialOcclusion();
+
+#if defined (SHADING_MODEL_CLEAR_COAT)
+    _mat.clearCoat          = 0.0;
+    _mat.clearCoatRoughness = 0.01;
+    #if defined(MATERIAL_HAS_CLEAR_COAT_NORMAL)
+    _mat.clearCoatNormal    = float3(0.0, 0.0, 1.0);
+    #endif
+#endif
+
+#if defined(SHADING_MODEL_IRIDESCENCE)
+    _mat.thickness          = 300.0;
+#endif
+
+#if defined(SHADING_MODEL_SUBSURFACE)
+    _mat.subsurfaceColor    = _mat.albedo.rgb;
+    _mat.subsurfacePower    = 12.234;
+    _mat.subsurfaceThickness = 20.0;
+
+#endif
+}
+
+inline Material materialNew() {
+    Material mat;
+    materialNew(mat);
+    return mat;
+}
+
+inline Material materialNew(float3 albedo, float sdf) {
+    Material mat = materialNew();
+    mat.albedo.rgb = albedo;
+    mat.sdf = sdf;
+    return mat;
+}
+
+inline Material materialNew(float3 albedo, float roughness, float metallic, float sdf) {
+    Material mat = materialNew();
+    mat.albedo.rgb = albedo;
+    mat.metallic = metallic;
+    mat.roughness = roughness;
+    mat.sdf = sdf;
+    return mat;
+}
+
+#endif

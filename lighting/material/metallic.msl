@@ -1,0 +1,35 @@
+#include "../toMetallic.msl"
+#include "albedo.msl"
+#include "specular.msl"
+
+/*
+contributors: Patricio Gonzalez Vivo
+description: |
+    Get material metallic property from GlslViewer's defines https://github.com/patriciogonzalezvivo/glslViewer/wiki/GlslViewer-DEFINES#material-defines
+    Metal has no global textures or vertex varyings, so the GlslViewer texture map (MATERIAL_*MAP) and
+    MODEL_VERTEX_* options are not supported: sample your textures in your shader and set the Material fields.
+use: float4 materialMetallic()
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#ifndef FNC_MATERIAL_METALLIC
+#define FNC_MATERIAL_METALLIC
+
+inline float materialMetallic() {
+    float metallic = 0.0;
+
+#if defined(MATERIAL_METALLIC)
+    metallic = MATERIAL_METALLIC;
+
+#else
+    float3 diffuse = materialAlbedo().rgb;
+    float3 specular = materialSpecular();
+    metallic = toMetallic(diffuse, specular);
+#endif
+
+    return metallic;
+}
+
+#endif

@@ -1,0 +1,26 @@
+/*
+contributors: Patricio Gonzalez Vivo
+description: |
+    Get material emissive property from GlslViewer's defines https://github.com/patriciogonzalezvivo/glslViewer/wiki/GlslViewer-DEFINES#material-defines
+    Metal has no global textures or vertex varyings, so the GlslViewer texture map (MATERIAL_*MAP) and
+    MODEL_VERTEX_* options are not supported: sample your textures in your shader and set the Material fields.
+use: float4 materialEmissive()
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#ifndef FNC_MATERIAL_EMISSIVE
+#define FNC_MATERIAL_EMISSIVE
+
+inline float3 materialEmissive() {
+    float3 emission = float3(0.0);
+
+#if defined(MATERIAL_EMISSIVE)
+    emission = MATERIAL_EMISSIVE;
+#endif
+
+    return emission;
+}
+
+#endif

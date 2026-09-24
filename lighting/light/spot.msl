@@ -1,0 +1,71 @@
+/*
+contributors: Patricio Gonzalez Vivo
+description: |
+    Calculate spot light.
+    Metal: the GLSL version reads a `light` global (direction, spotLightCutoff, spotLightFactor, spotLightDistance)
+    that LYGIA never declares and calls diffuseOrenNayar / specularCookTorrance overloads that don't exist, so it
+    doesn't compile. This port takes the spot values as arguments (cutoff and factor in degrees) and uses the
+    existing overloads: diffuseOrenNayar(L, N, V, NoV, NoL, roughness) and specularCookTorrance(L, N, H, NoV, NoL, NoH, roughness, specularColor).
+use: lightSpot(<float3> _diffuseColor, <float3> _specularColor, <float3> _N, <float3> _V, <float> _NoV, <float> _roughness, <float> _f0, <float3> _spotDirection, <float> _spotCutoff, <float> _spotFactor, <float> _spotDistance, out <float3> _diffuse, out <float3> _specular)
+options:
+    - DIFFUSE_FNC: diffuseOrenNayar, diffuseBurley, diffuseLambert (default)
+    - SURFACE_POSITION: in glslViewer is v_position
+    - LIGHT_POSITION: in glslViewer is u_light
+    - LIGHT_COLOR: in glslViewer is u_lightColor
+    - LIGHT_INTENSITY: in glslViewer is  u_lightIntensity
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#include "../specular.msl"
+#include "../diffuse.msl"
+#include "falloff.msl"
+#include "../../math/radians.msl"
+
+#ifndef SURFACE_POSITION
+#define SURFACE_POSITION float3(0.0, 0.0, 0.0)
+#endif
+
+#ifndef LIGHT_POSITION
+#define LIGHT_POSITION float3(0.0, 10.0, -50.0)
+#endif
+
+#ifndef LIGHT_COLOR
+#define LIGHT_COLOR float3(0.5)
+#endif
+
+#ifndef LIGHT_INTENSITY
+#define LIGHT_INTENSITY 1.0
+#endif
+
+#ifndef FNC_LIGHT_SPOT
+#define FNC_LIGHT_SPOT
+
+inline void lightSpot(float3 _diffuseColor, float3 _specularColor, float3 _N, float3 _V, float _NoV, float _roughness, float _f0,
+                      float3 _spotDirection, float _spotCutoff, float _spotFactor, float _spotDistance,
+                      thread float3& _diffuse, thread float3& _specular) {
+    float3 toLight = LIGHT_POSITION - (SURFACE_POSITION).xyz;
+    float toLightLength = length(toLight);
+    float3 s = toLight/toLightLength;
+
+    float angle = acos(dot(-s, _spotDirection));
+    float cutoff1 = radians(clamp(_spotCutoff - max(_spotFactor, 0.01), 0.0, 89.9));
+    float cutoff2 = radians(clamp(_spotCutoff, 0.0, 90.0));
+    if (angle < cutoff2) {
+        float NoL = saturate(dot(_N, s));
+        float3 H = normalize(s + _V);
+        float NoH = saturate(dot(_N, H));
+        float dif = diffuseOrenNayar(s, _N, _V, _NoV, NoL, _roughness);
+        float fall = falloff(toLightLength, _spotDistance);
+        float3 spec = specularCookTorrance(s, _N, H, _NoV, NoL, NoH, _roughness, _specularColor);
+        _diffuse = LIGHT_INTENSITY * (_diffuseColor * LIGHT_COLOR * dif * fall) * smoothstep(cutoff2, cutoff1, angle);
+        _specular = LIGHT_INTENSITY * (LIGHT_COLOR * spec * fall) * smoothstep(cutoff2, cutoff1, angle);
+    }
+    else {
+        _diffuse = float3(0.0);
+        _specular = float3(0.0);
+    }
+}
+
+#endif

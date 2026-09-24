@@ -1,0 +1,104 @@
+#include "../math/powFast.msl"
+#include "../math/saturate.msl"
+#include "../color/tonemap.msl"
+
+#include "shadow.msl"
+#include "material.msl"
+#include "fresnelReflection.msl"
+#include "sphericalHarmonics.msl"
+
+#include "ior.msl"
+#include "envMap.msl"
+#include "diffuse.msl"
+#include "specular.msl"
+
+/*
+contributors: Patricio Gonzalez Vivo
+description: |
+    Simple PBR shading model.
+    Metal has no global textures: pass the environment map (texturecube<float> or equirect SAMPLER_TYPE,
+    see envMap) as an optional last argument, otherwise it uses envMap's default (ENVMAP_FNC or fakeCube).
+    The GLSL LIGHT_SHADOWMAP shadow is not applied; it still uses raymarchSoftShadow when raymarching.
+use:
+    - <float4> pbrLittle(<Material> material [, <texturecube<float>|SAMPLER_TYPE> env])
+    - <float4> pbrLittle(<Material> material, <ShadingData> shadingData [, <texturecube<float>|SAMPLER_TYPE> env])
+options:
+    - DIFFUSE_FNC: diffuseOrenNayar, diffuseBurley, diffuseLambert (default)
+    - SPECULAR_FNC: specularGaussian, specularBeckmann, specularCookTorrance (default), specularPhongRoughness, specularBlinnPhongRoughness (default on mobile)
+    - LIGHT_POSITION: in GlslViewer is u_light
+    - LIGHT_COLOR in GlslViewer is u_lightColor
+    - CAMERA_POSITION: in GlslViewer is u_camera
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#ifndef CAMERA_POSITION
+#define CAMERA_POSITION float3(0.0, 0.0, -10.0)
+#endif
+
+#ifndef LIGHT_POSITION
+#define LIGHT_POSITION  float3(0.0, 10.0, -50.0)
+#endif
+
+#ifndef LIGHT_COLOR
+#define LIGHT_COLOR     float3(0.5, 0.5, 0.5)
+#endif
+
+#ifndef FNC_PBR_LITTLE
+#define FNC_PBR_LITTLE
+
+template<typename... Env>
+inline float4 pbrLittle(Material mat, ShadingData shadingData, Env... env) {
+    shadingDataNew(mat, shadingData);
+    #ifdef LIGHT_DIRECTION
+    shadingData.L = normalize(LIGHT_DIRECTION);
+    #else
+    shadingData.L = normalize(LIGHT_POSITION - mat.position);
+    #endif
+    shadingData.H = normalize(shadingData.L + shadingData.V);
+    shadingData.NoL = saturate(dot(shadingData.N, shadingData.L));
+    shadingData.NoH = saturate(dot(shadingData.N, shadingData.H));
+
+    float notMetal = 1.0 - mat.metallic;
+    float smoothness = 0.95 - saturate(mat.roughness);
+
+    #if defined(FNC_RAYMARCH_SOFTSHADOW)
+    float shadow = raymarchSoftShadow(mat.position, shadingData.L);
+    #else
+    float shadow = 1.0;
+    #endif
+
+    // DIFFUSE
+    float diff = diffuse(shadingData) * shadow;
+    float3 spec = specular(shadingData) * shadow;
+
+    float3 albedo = mat.albedo.rgb * diff;
+// #ifdef SCENE_SH_ARRAY
+//     albedo.rgb += tonemap( sphericalHarmonics(shadingData.N) ) * 0.25;
+// #endif
+
+    // SPECULAR
+    // This is a bit of a stylistic approach
+    float specIntensity =   (0.04 * notMetal + 2.0 * mat.metallic) * 
+                            saturate(-1.1 + shadingData.NoV + mat.metallic) * // Fresnel
+                            (mat.metallic + smoothness * 4.0); // make smaller highlights brighter
+
+    float3 ambientSpecular = tonemap( envMap(mat, shadingData, env...) ) * specIntensity;
+    ambientSpecular += fresnelReflection(mat, shadingData, env...) * (1.0-mat.roughness);
+
+    albedo =    albedo.rgb * notMetal + ( ambientSpecular 
+                + LIGHT_COLOR * 2.0 * spec
+                ) * (notMetal * smoothness + albedo * mat.metallic);
+
+    return float4(albedo, mat.albedo.a);
+}
+
+template<typename... Env>
+inline float4 pbrLittle(Material mat, Env... env) {
+    ShadingData shadingData = shadingDataNew();
+    shadingData.V = normalize(CAMERA_POSITION - mat.position);
+    return pbrLittle(mat, shadingData, env...);
+}
+
+#endif

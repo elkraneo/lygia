@@ -1,0 +1,44 @@
+#include "../sample/shadowPCF.msl"
+
+/*
+contributors: Patricio Gonzalez Vivo
+description: |
+    Sample shadow map using PCF.
+    Metal has no global textures, so there is no LIGHT_SHADOWMAP: pass the shadow map, and multiply your light
+    intensity by the result (lighting/light/new.msl doesn't do it for you like the GLSL version).
+use:
+    - <float> shadow(<SAMPLER_TYPE> shadowMap, <float2> size, <float2> uv, <float> compare)
+options:
+    - SHADOWMAP_BIAS
+    - SHADOW_SAMPLER_FNC: default sampleShadowPCF
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#ifndef SHADOWMAP_BIAS
+#define SHADOWMAP_BIAS 0.005
+#endif
+
+#ifndef SHADOW_SAMPLER_FNC
+#define SHADOW_SAMPLER_FNC sampleShadowPCF
+#endif
+
+#ifndef FNC_SHADOW
+#define FNC_SHADOW
+
+inline float shadow(SAMPLER_TYPE shadoMap, float2 size, float2 uv, float compare) {
+    #ifdef SHADOWMAP_BIAS
+    compare -= SHADOWMAP_BIAS;
+    #endif
+
+    #if defined(PLATFORM_RPI) 
+    return sampleShadow(shadoMap, size, uv, compare);
+    #elif defined(TARGET_MOBILE)
+    return sampleShadowLerp(shadoMap, size, uv, compare);
+    #else 
+    return sampleShadowPCF(shadoMap, size, uv, compare);
+    #endif
+}
+
+#endif 

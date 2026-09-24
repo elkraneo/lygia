@@ -1,0 +1,130 @@
+#include "../math/const.msl"
+#include "../math/inverse.msl"
+#include "../space/screen2viewPosition.msl"
+#include "../space/depth2viewZ.msl"
+#include "../sampler.msl"
+
+/*
+contributors: Patricio Gonzalez Vivo
+description: |
+    Volumetric light scattering (god rays) from a light's shadow map.
+    Metal has no global uniforms or textures, so the camera and light values and the shadow map are explicit
+    arguments. The overload that reads them from the defines only exists when CAMERA_POSITION, CAMERA_NEAR_CLIP,
+    CAMERA_FAR_CLIP, CAMERA_PROJECTION_MATRIX, CAMERA_VIEW_MATRIX and LIGHT_MATRIX are defined to something in
+    scope, and still takes the shadow map as an argument (instead of LIGHT_SHADOWMAP).
+use:
+    - <VOLUMETRICLIGHTSCATTERING_TYPE> volumetricLightScattering(<SAMPLER_TYPE> lightShadowMap, <float4x4> lightMatrix, <float3> lightPos, <float3> rayOrigin, <float3> rayEnd)
+    - <VOLUMETRICLIGHTSCATTERING_TYPE> volumetricLightScattering(<SAMPLER_TYPE> texDepth, <float2> st, <float> cameraNear, <float> cameraFar, <float4x4> projection, <float4x4> inverseView, <float3> cameraPosition, <SAMPLER_TYPE> lightShadowMap, <float4x4> lightMatrix, <float3> lightPos)
+    - <VOLUMETRICLIGHTSCATTERING_TYPE> volumetricLightScattering(<SAMPLER_TYPE> texDepth, <float2> st, <SAMPLER_TYPE> lightShadowMap)
+options:
+    - CAMERA_POSITION
+    - CAMERA_NEAR_CLIP: camera near clip distance
+    - CAMERA_FAR_CLIP: camera far clip distance
+    - CAMERA_ORTHOGRAPHIC_PROJECTION, if it's not present is consider a PERECPECTIVE camera
+    - CAMERA_PROJECTION_MATRIX: float4x4 matrix with camera projection
+    - CAMERA_VIEW_MATRIX
+    - INVERSE_CAMERA_VIEW_MATRIX
+    - INVERSE_CAMERA_PROJECTION_MATRIX: float4x4 matrix with the inverse camara projection
+    - LIGHT_POSITION (optional, default (LIGHT_MATRIX * float4(0.0,0.0,-1.0,1.0)).xyz)
+    - LIGHT_MATRIX
+    - VOLUMETRICLIGHTSCATTERING_FACTOR
+    - VOLUMETRICLIGHTSCATTERING_STEPS
+    - VOLUMETRICLIGHTSCATTERING_NOISE_FNC
+    - SAMPLER_FNC(TEX, UV): optional depending the target version of GLSL (texture2D(...) or texture(...))
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#ifndef VOLUMETRICLIGHTSCATTERING_FACTOR
+#define VOLUMETRICLIGHTSCATTERING_FACTOR 0.25
+#endif
+
+#ifndef VOLUMETRICLIGHTSCATTERING_STEPS
+#define VOLUMETRICLIGHTSCATTERING_STEPS 50
+#endif
+
+#ifndef VOLUMETRICLIGHTSCATTERING_TYPE
+#define VOLUMETRICLIGHTSCATTERING_TYPE float
+#endif
+
+#if defined(CAMERA_PROJECTION_MATRIX) && !defined(INVERSE_CAMERA_PROJECTION_MATRIX)
+// #define INVERSE_CAMERA_PROJECTION_MATRIX u_inverseProjectionMatrix
+#define INVERSE_CAMERA_PROJECTION_MATRIX inverse(CAMERA_PROJECTION_MATRIX)
+#endif
+
+#if defined(CAMERA_VIEW_MATRIX) && !defined(INVERSE_CAMERA_VIEW_MATRIX)
+// #define INVERSE_CAMERA_VIEW_MATRIX u_inverseViewMatrix
+#define INVERSE_CAMERA_VIEW_MATRIX inverse(CAMERA_VIEW_MATRIX)
+#endif
+
+#if defined(LIGHT_MATRIX) && !defined(LIGHT_POSITION)
+#define LIGHT_POSITION     (LIGHT_MATRIX * float4(0.0,0.0,-1.0,1.0)).xyz
+#endif
+
+// https://www.alexandre-pestana.com/volumetric-lights/
+// https://www.gamedev.net/blogs/entry/2266308-effect-volumetric-light-scattering/
+
+#ifndef VOLUMETRICLIGHTSCATTERING_SAMPLE_FNC
+#define VOLUMETRICLIGHTSCATTERING_SAMPLE_FNC(TEX, UV) min(SAMPLER_FNC(TEX, UV).r, 0.997)
+#endif
+
+#ifndef FNC_VOLUMETRICLIGHTSCATTERING
+#define FNC_VOLUMETRICLIGHTSCATTERING
+inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE lightShadowMap, float4x4 lightMatrix, float3 lightPos, float3 rayOrigin, float3 rayEnd) {
+    float3  rayVector     = rayEnd - rayOrigin;
+    float rayLength     = length(rayVector);
+    float3  rayDirection  = rayVector / rayLength;
+    float stepLength    = 1.0 / float(VOLUMETRICLIGHTSCATTERING_STEPS);
+    float rayStepLength = rayLength * stepLength;
+    float3  rayStep       = rayDirection * rayStepLength;
+    float lightDotView  = dot(rayDirection, normalize(lightPos));
+
+    float scattering_g  = VOLUMETRICLIGHTSCATTERING_FACTOR * VOLUMETRICLIGHTSCATTERING_FACTOR;
+    float scattering    = 1.0 - scattering_g;
+    scattering /= (4.0 * PI * pow(1.0 + scattering_g - (2.0 * VOLUMETRICLIGHTSCATTERING_FACTOR) * lightDotView, 1.5));
+
+    VOLUMETRICLIGHTSCATTERING_TYPE L = VOLUMETRICLIGHTSCATTERING_TYPE(0.0);
+    float4  rayCurrPos    = float4(rayOrigin, 1.0);
+
+    for (int i = 0; i < VOLUMETRICLIGHTSCATTERING_STEPS; i ++) {
+        float4 worldInShadowCameraSpace = lightMatrix * rayCurrPos;
+        worldInShadowCameraSpace /= worldInShadowCameraSpace.w;
+        float shadowMapValue = VOLUMETRICLIGHTSCATTERING_SAMPLE_FNC(lightShadowMap, worldInShadowCameraSpace.xy );
+        L +=    step(worldInShadowCameraSpace.z, shadowMapValue) * 
+                #ifdef VOLUMETRICLIGHTSCATTERING_MASK_FNC
+                VOLUMETRICLIGHTSCATTERING_MASK_FNC(worldInShadowCameraSpace) *
+                #endif
+                scattering;
+
+        rayCurrPos.xyz += rayStep; 
+    }
+
+    return L * stepLength;
+}
+
+inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE texDepth, float2 st, float cameraNear, float cameraFar, float4x4 projection, float4x4 inverseView, float3 cameraPosition, SAMPLER_TYPE lightShadowMap, float4x4 lightMatrix, float3 lightPos) {
+    float depth = VOLUMETRICLIGHTSCATTERING_SAMPLE_FNC(texDepth, st);
+    float viewZ = depth2viewZ(depth, cameraNear, cameraFar);
+    
+    #ifdef VOLUMETRICLIGHTSCATTERING_NOISE_FNC
+    viewZ += VOLUMETRICLIGHTSCATTERING_NOISE_FNC;
+    #endif
+
+    float4 worldPos = inverseView * screen2viewPosition(st, depth, viewZ, projection);
+    return volumetricLightScattering(lightShadowMap, lightMatrix, lightPos, cameraPosition, worldPos.xyz);
+}
+
+#if defined(CAMERA_POSITION) && defined(CAMERA_NEAR_CLIP) && defined(CAMERA_FAR_CLIP) && defined(CAMERA_PROJECTION_MATRIX) && defined(CAMERA_VIEW_MATRIX) && defined(LIGHT_MATRIX)
+inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE texDepth, float2 st, SAMPLER_TYPE lightShadowMap) {
+    float depth = VOLUMETRICLIGHTSCATTERING_SAMPLE_FNC(texDepth, st);
+    float viewZ = depth2viewZ(depth, CAMERA_NEAR_CLIP, CAMERA_FAR_CLIP);
+    #ifdef VOLUMETRICLIGHTSCATTERING_NOISE_FNC
+    viewZ += VOLUMETRICLIGHTSCATTERING_NOISE_FNC;
+    #endif
+    float4 worldPos = INVERSE_CAMERA_VIEW_MATRIX * screen2viewPosition(st, depth, viewZ, CAMERA_PROJECTION_MATRIX, INVERSE_CAMERA_PROJECTION_MATRIX);
+    return volumetricLightScattering(lightShadowMap, LIGHT_MATRIX, LIGHT_POSITION, CAMERA_POSITION, worldPos.xyz);
+}
+#endif
+
+#endif

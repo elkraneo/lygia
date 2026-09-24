@@ -1,0 +1,106 @@
+#include "../sample/equirect.msl"
+#include "material/new.msl"
+#include "shadingData/new.msl"
+
+#include "fakeCube.msl"
+#include "toShininess.msl"
+
+/*
+contributors: Patricio Gonzalez Vivo
+description: |
+    Get environment map light coming from a normal direction and according
+    to some roughness/metallic value. If there is no cubemap texture it creates
+    a fake cube.
+    Metal has no global textures, so instead of SCENE_CUBEMAP / SCENE_EQUIRECT pass the environment texture
+    as the last argument: a texturecube<float> (sampled with its mip levels by roughness) or an equirect
+    SAMPLER_TYPE (texture2d<float> by default). Without it, it uses ENVMAP_FNC or fakeCube like GLSL.
+    ENVMAP_FNC only applies to the overloads without texture.
+use:
+    - <float3> envMap(<float3> _normal, <float> _roughness [, <float> _metallic])
+    - <float3> envMap(<Material> _M, <ShadingData> shadingData)
+    - <float3> envMap(<float3> _normal, <float> _roughness [, <float> _metallic], <texturecube<float>|SAMPLER_TYPE> env)
+    - <float3> envMap(<Material> _M, <ShadingData> shadingData, <texturecube<float>|SAMPLER_TYPE> env)
+options:
+    - ENVMAP_MAX_MIP_LEVEL: by default the cubemap's number of mip levels is used
+    - ENVMAP_LOD_OFFSET
+    - ENVMAP_FNC(NORMAL, ROUGHNESS, METALLIC)
+    - ENVMAP_SAMPLER: sampler for the cubemap. Default sampler(filter::linear, mip_filter::linear)
+    - SAMPLE_CUBE_FNC(CUBEMAP, NORM, LOD): default CUBEMAP.sample(ENVMAP_SAMPLER, NORM, level(LOD))
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#ifndef ENVMAP_SAMPLER
+#define ENVMAP_SAMPLER sampler(filter::linear, mip_filter::linear)
+#endif
+
+#ifndef SAMPLE_CUBE_FNC
+#define SAMPLE_CUBE_FNC(CUBEMAP, NORM, LOD) CUBEMAP.sample(ENVMAP_SAMPLER, NORM, level(LOD))
+#endif
+
+#ifndef ENVMAP_LOD_OFFSET
+#define ENVMAP_LOD_OFFSET 0
+#endif
+
+#ifndef FNC_ENVMAP
+#define FNC_ENVMAP
+
+inline float envMapRoughnessToLod(float roughness, float roughnessOneLevel) {
+    // quadratic fit for log2(roughness)+roughnessOneLevel
+    return roughnessOneLevel * roughness * (2.0 - roughness);
+}
+
+inline float3 envMap(float3 _normal, float _roughness, float _metallic) {
+
+// ENVMAP overwrites cube sampling  
+#if defined(ENVMAP_FNC) 
+    return ENVMAP_FNC(_normal, _roughness, _metallic);
+
+// Default
+#else
+    return fakeCube(_normal, toShininess(_roughness, _metallic));
+
+#endif
+}
+
+// Cubemap sampling
+inline float3 envMap(float3 _normal, float _roughness, float _metallic, texturecube<float> cubemap) {
+#if defined(ENVMAP_MAX_MIP_LEVEL)
+    return SAMPLE_CUBE_FNC( cubemap, _normal, envMapRoughnessToLod(_roughness, ENVMAP_MAX_MIP_LEVEL) ).rgb;
+#else
+    int roughnessOneLevel = int(cubemap.get_num_mip_levels()) - ENVMAP_LOD_OFFSET - 1;
+    return SAMPLE_CUBE_FNC( cubemap, _normal, envMapRoughnessToLod(_roughness, float(roughnessOneLevel)) ).rgb;
+#endif
+}
+
+// Equirect sampling
+inline float3 envMap(float3 _normal, float _roughness, float _metallic, SAMPLER_TYPE equirect) {
+    return sampleEquirect(equirect, _normal, 1.0 + 26.0 * _roughness).rgb;
+}
+
+inline float3 envMap(float3 _normal, float _roughness) {
+    return envMap(_normal, _roughness, 1.0);
+}
+
+inline float3 envMap(float3 _normal, float _roughness, texturecube<float> cubemap) {
+    return envMap(_normal, _roughness, 1.0, cubemap);
+}
+
+inline float3 envMap(float3 _normal, float _roughness, SAMPLER_TYPE equirect) {
+    return envMap(_normal, _roughness, 1.0, equirect);
+}
+
+inline float3 envMap(Material _M, ShadingData shadingData) {
+    return envMap(shadingData.R, _M.roughness, _M.metallic);
+}
+
+inline float3 envMap(Material _M, ShadingData shadingData, texturecube<float> cubemap) {
+    return envMap(shadingData.R, _M.roughness, _M.metallic, cubemap);
+}
+
+inline float3 envMap(Material _M, ShadingData shadingData, SAMPLER_TYPE equirect) {
+    return envMap(shadingData.R, _M.roughness, _M.metallic, equirect);
+}
+
+#endif

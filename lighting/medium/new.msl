@@ -1,0 +1,45 @@
+#include "../medium.msl"
+
+/*
+contributors: Shadi El Hajj
+description: |
+    Medium Constructor.
+use:
+    - void mediumNew(out <medium> _mat)
+    - <medium> mediumNew()
+license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
+*/
+
+#ifndef RAYMARCH_MAX_DIST
+#define RAYMARCH_MAX_DIST 20.0
+#endif
+
+#ifndef FNC_MEDIUM_NEW
+#define FNC_MEDIUM_NEW
+
+inline void mediumNew(thread Medium& _mat) {
+    _mat.scattering   = float3(1.0, 1.0, 1.0);
+    _mat.absorption   = float3(1.0, 1.0, 1.0);
+    _mat.sdf     = RAYMARCH_MAX_DIST;
+
+}
+
+inline Medium mediumNew() {
+    Medium mat;
+    mediumNew(mat);
+    return mat;
+}
+
+inline Medium mediumNew(float3 scattering, float3 absorption, float sdf) {
+    Medium mat = mediumNew();
+    mat.scattering = scattering;
+    mat.absorption = absorption;
+    mat.sdf = sdf;
+    return mat;
+}
+
+inline Medium mediumNew(float3 scattering, float sdf) {
+    return mediumNew(scattering, float3(0.0, 0.0, 0.0), sdf);
+}
+
+#endif

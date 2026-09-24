@@ -1,0 +1,30 @@
+#include "../shadingData/shadingData.msl"
+#include "../../math/powFast.msl"
+#include "../toShininess.msl"
+
+#ifndef SPECULAR_POW
+#if defined(TARGET_MOBILE) || defined(PLATFORM_RPI) || defined(PLATFORM_WEBGL)
+#define SPECULAR_POW(A,B) powFast(A,B)
+#else
+#define SPECULAR_POW(A,B) pow(A,B)
+#endif
+#endif
+
+#ifndef FNC_SPECULAR_PHONG
+#define FNC_SPECULAR_PHONG 
+
+// https://github.com/glslify/glsl-specular-phong
+inline float specularPhong(float3 L, float3 N, float3 V, float shininess) {
+    float3 R = reflect(L, N); // 2.0 * dot(N, L) * N - L;
+    return SPECULAR_POW(max(0.0, dot(R, -V)), shininess);
+}
+
+inline float specularPhong(ShadingData shadingData) {
+    return specularPhong(shadingData.L, shadingData.N, shadingData.V, shadingData.roughness);
+}
+
+inline float specularPhongRoughness(ShadingData shadingData) {
+    return specularPhong(shadingData.L, shadingData.N, shadingData.V, toShininess(shadingData.roughness, 0.0));
+}
+
+#endif

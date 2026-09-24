@@ -1,0 +1,153 @@
+
+#include "../space/view2screenPosition.msl"
+#include "../sdf/lineSDF.msl"
+#include "../sdf/planeSDF.msl"
+#include "../sampler.msl"
+
+/*
+contributors: Patricio Gonzalez Vivo
+description: |
+    ScreenSpace Reflections.
+    Metal has no global uniforms, so the camera near clip and projection matrix are explicit arguments. The
+    overloads without them only exist when CAMERA_NEAR_CLIP and CAMERA_PROJECTION_MATRIX are defined to
+    something in scope.
+use:
+    - <float2> ssr(<SAMPLER_TYPE> texPosition, <SAMPLER_TYPE> texNormal, <float2> st, <float2> pixel, inout <float> opacity [, out <float> dist] [, <float> cameraNear, <float4x4> projection])
+    - <float3> ssr(<SAMPLER_TYPE> tex, <SAMPLER_TYPE> texPosition, <SAMPLER_TYPE> texNormal, <float2> st, <float2> pixel [, <float> opacity] [, <float> cameraNear, <float4x4> projection])
+options:
+    - SSR_MAX_STEP: number max number of raymarching steps (int)
+    - SSR_MAX_DISTANCE: max distance (float)
+    - CAMERA_PROJECTION_MATRIX: camera projection float4x4 matrix
+    - CAMERA_NEAR_CLIP: camera near clip distance
+    - SSR_FRESNEL: if define scale the opacity based on the fresnel angle
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+// #define SSR_FRESNEL
+
+#ifndef SSR_MAX_STEP
+#define SSR_MAX_STEP 500
+#endif
+
+#ifndef SSR_MAX_DISTANCE
+#define SSR_MAX_DISTANCE 180.0
+#endif
+
+#ifndef FNC_SSR
+#define FNC_SSR
+
+inline float2 ssr(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, thread float& op, thread float& dist, float cameraNear, float4x4 projection) {
+    float3 viewPosition = SAMPLER_FNC(texPosition, st).xyz;
+    // if (-viewPosition.z >= CAMERA_FAR_CLIP)
+    //     return st;
+
+    float2 ssr_uv = st;
+    float thickness = 0.05;
+    float opacity = op;
+    op = 0.0;
+    dist = 0.0;
+
+    float3 viewNormal = SAMPLER_FNC(texNormal, st).xyz;
+
+    float3 viewIncidentDir = normalize(viewPosition);
+    float3 viewReflectDir = reflect(viewIncidentDir, viewNormal);
+    float maxReflectRayLen = SSR_MAX_DISTANCE / dot(-viewIncidentDir, viewNormal);
+
+    float3 d1viewPosition = viewPosition + viewReflectDir * maxReflectRayLen;
+    if (d1viewPosition.z > -cameraNear) {
+        //https://tutorial.math.lamar.edu/Classes/CalcIII/EqnsOfLines.aspx
+        float t = (-cameraNear - viewPosition.z)/viewReflectDir.z;
+        d1viewPosition = viewPosition + viewReflectDir * t;
+    }
+    float2 resolution = 1.0 / pixel;
+    float2 d0 = st * resolution;
+    float2 d1 = view2screenPosition(d1viewPosition, projection) * resolution;
+
+    float totalLen = length(d1-d0);
+    float xLen = d1.x-d0.x;
+    float yLen = d1.y-d0.y;
+    float totalStep = max(abs(xLen),abs(yLen));
+    float xSpan = (xLen/totalStep);// * pixel.x;
+    float ySpan = (yLen/totalStep);// * pixel.y;
+
+    for (float i = 0.0; i < float(SSR_MAX_STEP); i++) {
+        if ( i >= totalStep) 
+            break;
+
+        float2 xy = float2(d0.x + i*xSpan, d0.y + i*ySpan);
+        float2 uv = xy * pixel;
+
+        float3 vP = SAMPLER_FNC(texPosition, uv).xyz;
+        // if (-vP.z >= CAMERA_FAR_CLIP) 
+            // continue;
+
+        // https://comp.nus.edu.sg/~lowkl/publications/lowk_persp_interp_techrep.pdf
+        float recipVPZ = 1.0/viewPosition.z;
+        float s = length(xy-d0)/totalLen;
+        float viewReflectRayZ = 1.0 / (recipVPZ + s * (1.0/d1viewPosition.z - recipVPZ) );
+
+        if (viewReflectRayZ <= vP.z) {
+            if (lineSDF(vP, viewPosition, d1viewPosition) <= max(0.0, thickness)) {
+                float3 vN = SAMPLER_FNC(texNormal, uv).xyz;
+
+                if (dot(viewReflectDir, vN) >= 0.0) 
+                    continue;
+
+                dist = planeSDF(vP, viewPosition, viewNormal);
+                if (dist > SSR_MAX_DISTANCE) 
+                    break;
+
+                dist = s;
+
+                op = opacity;
+                #ifdef SSR_FRESNEL
+                    float fresnelCoe = (dot(viewIncidentDir, viewReflectDir) + 1.0) * 0.5;
+                    op *= fresnelCoe;
+                #endif
+
+                ssr_uv = uv;
+                break;
+            }
+        }
+    }
+
+    return ssr_uv;
+}
+
+inline float2 ssr(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, thread float& op, float cameraNear, float4x4 projection) {
+    float dist = 0.0;
+    return ssr(texPosition, texNormal, st, pixel, op, dist, cameraNear, projection);
+}
+
+inline float3 ssr(SAMPLER_TYPE tex, SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, float opacity, float cameraNear, float4x4 projection) {
+    float3 color = SAMPLER_FNC(tex, st).rgb;
+    float dist = 0.0;
+    float2 uv = ssr(texPosition, texNormal, st, pixel, opacity, dist, cameraNear, projection);
+    return mix(color, SAMPLER_FNC(tex, uv).rgb, opacity);
+}
+
+inline float3 ssr(SAMPLER_TYPE tex, SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, float cameraNear, float4x4 projection) {
+    return ssr(tex, texPosition, texNormal, st, pixel, 0.5, cameraNear, projection); 
+}
+
+#if defined(CAMERA_NEAR_CLIP) && defined(CAMERA_PROJECTION_MATRIX)
+inline float2 ssr(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, thread float& op, thread float& dist) {
+    return ssr(texPosition, texNormal, st, pixel, op, dist, CAMERA_NEAR_CLIP, CAMERA_PROJECTION_MATRIX);
+}
+
+inline float2 ssr(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, thread float& op) {
+    return ssr(texPosition, texNormal, st, pixel, op, CAMERA_NEAR_CLIP, CAMERA_PROJECTION_MATRIX);
+}
+
+inline float3 ssr(SAMPLER_TYPE tex, SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, float opacity) {
+    return ssr(tex, texPosition, texNormal, st, pixel, opacity, CAMERA_NEAR_CLIP, CAMERA_PROJECTION_MATRIX);
+}
+
+inline float3 ssr(SAMPLER_TYPE tex, SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel) {
+    return ssr(tex, texPosition, texNormal, st, pixel, CAMERA_NEAR_CLIP, CAMERA_PROJECTION_MATRIX);
+}
+#endif
+
+#endif

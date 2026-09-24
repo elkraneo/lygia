@@ -1,0 +1,83 @@
+/*
+contributors: Shadi El Hajj
+description: |
+    Calculate indirect light.
+    Metal has no global textures, so instead of SCENE_CUBEMAP / SCENE_EQUIRECT pass the environment map
+    as an optional last argument: a texturecube<float> or an equirect SAMPLER_TYPE (see envMap). Without it,
+    it uses envMap's default (ENVMAP_FNC or fakeCube). IBL_IMPORTANCE_SAMPLING requires the texturecube.
+    SCENE_SH_ARRAY is only used if you define it to something in scope, like a program-scope constant array.
+use: void lightIBLEvaluate(<Material> mat, inout <ShadingData> shadingData [, <texturecube<float>|SAMPLER_TYPE> env])
+options:
+    - IBL_LUMINANCE: default 1.0
+    - IBL_IMPORTANCE_SAMPLING: sample the cubemap with importance sampling
+    - SCENE_SH_ARRAY: spherical harmonics for the diffuse light, see sphericalHarmonics
+license: MIT License (MIT) Copyright (c) 2024 Shadi El Hajj
+*/
+
+#include "../envMap.msl"
+#include "../fresnelReflection.msl"
+#include "../sphericalHarmonics.msl"
+#include "../specular/importanceSampling.msl"
+#include "../reflection.msl"
+#include "../common/specularAO.msl"
+#include "../common/envBRDFApprox.msl"
+#include "../../color/tonemap.msl"
+
+#ifndef IBL_LUMINANCE
+#define IBL_LUMINANCE   1.0
+#endif
+
+#ifndef FNC_LIGHT_IBL_EVALUATE
+#define FNC_LIGHT_IBL_EVALUATE
+
+template<typename... Env>
+inline void lightIBLEvaluate(Material mat, thread ShadingData& shadingData, Env... env) {
+
+#if !defined(IBL_IMPORTANCE_SAMPLING) || defined(SCENE_SH_ARRAY)
+    float2 E = envBRDFApprox(shadingData.NoV, shadingData.roughness);    
+    float3 specularColorE = shadingData.specularColor * E.x + E.y;
+#endif
+
+    float3 energyCompensation = float3(1.0, 1.0, 1.0);
+
+#if defined(IBL_IMPORTANCE_SAMPLING)
+    float3 Fr = specularImportanceSampling(shadingData.linearRoughness, shadingData.specularColor,
+        mat.position, shadingData.N, shadingData.V, shadingData.R, shadingData.NoV, energyCompensation, env...);
+#else
+    float3 R = mix(shadingData.R, shadingData.N, shadingData.roughness*shadingData.roughness);
+    float3 Fr = envMap(R, shadingData.roughness, mat.metallic, env...);
+    Fr *= specularColorE;
+#endif
+    Fr *= energyCompensation;
+
+#if !defined(PLATFORM_RPI) && defined(SHADING_MODEL_IRIDESCENCE)
+    Fr  += fresnelReflection(mat, shadingData, env...);
+#endif
+
+float3 Fd = shadingData.diffuseColor;
+#if defined(SCENE_SH_ARRAY)
+    #ifdef GLSLVIEWER
+    Fd *= tonemap(sphericalHarmonics(shadingData.N));
+    #else
+    Fd *= (sphericalHarmonics(shadingData.N));
+    #endif
+#else
+    Fd *= envMap(shadingData.N, 1.0, env...);
+#endif
+
+#if !defined(IBL_IMPORTANCE_SAMPLING)
+    Fd *= (1.0-specularColorE);
+#endif
+
+    // AO
+    float diffuseAO = mat.ambientOcclusion;
+    Fd  *= diffuseAO;
+    Fr  *= specularAO(mat, shadingData, diffuseAO);
+
+    shadingData.energyCompensation = energyCompensation;
+
+    shadingData.indirectDiffuse = Fd * IBL_LUMINANCE;
+    shadingData.indirectSpecular = Fr * IBL_LUMINANCE;
+}
+
+#endif

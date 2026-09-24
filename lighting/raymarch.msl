@@ -1,0 +1,174 @@
+#include "../math/toMat3.msl"
+#include "../math/const.msl"
+#include "../space/rotate.msl"
+#include "../space/lookAtView.msl"
+#include "raymarch/render.msl"
+#include "raymarch/volume.msl"
+#include "material/zero.msl"
+#include "material/add.msl"
+#include "material/multiply.msl"
+
+/*
+contributors:  [Inigo Quiles, Shadi El Hajj, Patricio Gonzalez Vivo]
+description: |
+    Raymarching template where it needs to define a Material raymarchMap( in float3 pos ) (see raymarch/map).
+    Metal has no global textures: any extra trailing arguments `env` (e.g. an environment map, a
+    texturecube<float> or equirect SAMPLER_TYPE) are forwarded to RAYMARCH_RENDER_FNC and from there to
+    RAYMARCH_SHADING_FNC, so `#define RAYMARCH_SHADING_FNC pbr` and raymarch(cam, lookAt, st, cubemap) shades
+    with pbr(material, shadingData, cubemap).
+    RAYMARCH_MULTISAMPLE needs RESOLUTION defined to something in scope (a literal, constant or function constant).
+use: 
+    - <float4> raymarch(<float4x4> viewMatrix, <float2> st [, env])
+    - <float4> raymarch(<float4x4> viewMatrix, <float2> st, out <float> eyeDepth [, env])
+    - <float4> raymarch(<float4x4> viewMatrix, <float2> st, out <float> eyeDepth, out <Material> mat [, env])
+    - <float4> raymarch(<float3> cameraPosition, <float3> lookAt, <float2> st [, env])
+    - <float4> raymarch(<float3> cameraPosition, <float3> lookAt, <float2> st, out <float> eyeDepth [, env])
+    - <float4> raymarch(<float3> cameraPosition, <float3> lookAt, <float2> st, out <float> eyeDepth, out <Material> mat [, env])
+options:
+    - RAYMARCH_RENDER_FNC: function name, default raymarchDefaultRender
+    - RAYMARCH_SHADING_FNC: function name, default raymarchDefaultShading. For example pbr
+    - RAYMARCH_CAMERA_FOV: Filed of view express in degrees. Default 60.0 degrees
+    - RAYMARCH_MULTISAMPLE: default 1. If it is greater than 1 it will render multisample
+    - RESOLUTION: <float2> render resolution, required by RAYMARCH_MULTISAMPLE
+    - RAYMARCH_AOV: return AOVs in a Material structure
+    - RAYMARCH_SPHERICAL: will apply a spherical transformation to the coordinates. Useful for rendering fulldome content. FOV should be greater or equal to 180.
+examples:
+    - /shaders/lighting_raymarching.frag
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#ifndef RAYMARCH_RENDER_FNC
+#define RAYMARCH_RENDER_FNC raymarchDefaultRender
+#endif
+
+#ifndef RAYMARCH_VOLUME_RENDER_FNC
+#define RAYMARCH_VOLUME_RENDER_FNC raymarchVolume
+#endif
+
+#ifndef RAYMARCH_CAMERA_FOV
+#define RAYMARCH_CAMERA_FOV 60.0
+#endif
+
+#ifndef FNC_RAYMARCH
+#define FNC_RAYMARCH
+
+#if defined(RAYMARCH_MULTISAMPLE) && !defined(RESOLUTION)
+#error "RAYMARCH_MULTISAMPLE needs RESOLUTION: Metal has no u_resolution uniform, define it to something in scope"
+#endif
+
+#if defined(RAYMARCH_MULTISAMPLE)
+constant float RAYMARCH_MULTISAMPLE_FACTOR = 1.0/float(RAYMARCH_MULTISAMPLE);
+#endif
+
+inline float3 raymarchModelPosition(float2 st) {
+#if !defined(RAYMARCH_SPHERICAL)
+    float fov = 1.0 / tan(RAYMARCH_CAMERA_FOV * DEG2RAD * 0.5);
+    return normalize(float3(st*2.0-1.0, fov));
+#else
+    float theta = length(st) * RAYMARCH_CAMERA_FOV * DEG2RAD * 0.5;
+    float phi = atan2(st.y, st.x);
+    return float3(sin(theta) * cos(phi), sin(theta) * sin(phi), -cos(theta));
+#endif
+}
+
+template<typename... Env>
+inline float4 raymarch(float4x4 viewMatrix, float2 st, thread float& eyeDepth, thread Material& mat, Env... env) {
+
+    float3 camera = viewMatrix[3].xyz;
+    float3 cameraForward = viewMatrix[2].xyz;
+    float3x3 viewMatrix3 = toMat3(viewMatrix);
+
+#if defined(RAYMARCH_MULTISAMPLE)
+
+    #if defined(RAYMARCH_AOV)
+    Material matAcc;
+    materialZero(matAcc);
+    #endif
+
+    float4 color = float4(0.0, 0.0, 0.0, 0.0);
+    eyeDepth = 0.0;
+
+    float2 pixel = 1.0/RESOLUTION;
+    float2 offset = rotate( float2(0.5, 0.0), EIGHTH_PI);
+
+    for (int i = 0; i < RAYMARCH_MULTISAMPLE; i++) {
+        float3 rayDirection = viewMatrix3 * raymarchModelPosition(st + offset * pixel);
+
+        float sampleDepth = 0.0;
+        float dist = 0.0;
+
+        float4 opaque = RAYMARCH_RENDER_FNC(camera, rayDirection, cameraForward, dist, sampleDepth, mat, env...);
+        #ifdef RAYMARCH_VOLUME
+        color += float4(RAYMARCH_VOLUME_RENDER_FNC(camera, rayDirection, st, dist, opaque.rgb), opaque.a);
+        #else
+        color += opaque;
+        #endif
+
+        eyeDepth += sampleDepth;
+        
+        #if defined(RAYMARCH_AOV)
+        materialAdd(matAcc, mat, matAcc);
+        #endif
+
+        offset = rotate(offset, HALF_PI);
+    }
+
+    eyeDepth *= RAYMARCH_MULTISAMPLE_FACTOR;
+
+    #if defined(RAYMARCH_AOV)  
+        materialMultiply(matAcc, RAYMARCH_MULTISAMPLE_FACTOR, mat);
+    #endif
+    
+    return color * RAYMARCH_MULTISAMPLE_FACTOR;
+    
+#else // Single sample
+
+    float3 rayDirection = viewMatrix3 * raymarchModelPosition(st);
+    float dist = 0.0;
+
+    float4 opaque = RAYMARCH_RENDER_FNC( camera, rayDirection, cameraForward, dist, eyeDepth, mat, env...);
+    #ifdef RAYMARCH_VOLUME
+        float4 color = float4(RAYMARCH_VOLUME_RENDER_FNC(camera, rayDirection, st, dist, opaque.rgb), opaque.a);
+    #else
+        float4 color = opaque;
+    #endif
+
+    return color;
+
+#endif
+}
+
+template<typename... Env>
+inline float4 raymarch(float4x4 viewMatrix, float2 st, thread float& eyeDepth, Env... env) {
+    Material mat;
+    materialZero(mat);
+    return raymarch(viewMatrix, st, eyeDepth, mat, env...);
+}
+
+template<typename... Env>
+inline float4 raymarch(float4x4 viewMatrix, float2 st, Env... env) {
+    float eyeDepth = 0.0;
+    return raymarch(viewMatrix, st, eyeDepth, env...);
+}
+
+template<typename... Env>
+inline float4 raymarch(float3 cameraPosition, float3 cameraLookAt, float2 st, thread float& eyeDepth, thread Material& mat, Env... env) {
+    float4x4 viewMatrix = lookAtView(cameraPosition, cameraLookAt);
+    return raymarch(viewMatrix, st, eyeDepth, mat, env...);
+}
+
+template<typename... Env>
+inline float4 raymarch(float3 cameraPosition, float3 cameraLookAt, float2 st, thread float& eyeDepth, Env... env) {
+    float4x4 viewMatrix = lookAtView(cameraPosition, cameraLookAt);
+    return raymarch(viewMatrix, st, eyeDepth, env...);
+}
+
+template<typename... Env>
+inline float4 raymarch(float3 cameraPosition, float3 cameraLookAt, float2 st, Env... env) {
+    float4x4 viewMatrix = lookAtView(cameraPosition, cameraLookAt);
+    return raymarch(viewMatrix, st, env...);
+}
+
+#endif
