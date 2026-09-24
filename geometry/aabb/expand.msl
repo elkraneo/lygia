@@ -13,17 +13,17 @@ license:
 #ifndef FNC_AABB_EXPAND
 #define FNC_AABB_EXPAND
 
-void expand(thread AABB& _box, float _value ) {
+inline void expand(thread AABB& _box, float _value ) {
     _box.min -= _value;
     _box.max += _value;
 }
 
-void expand(thread AABB& _box, float3 _point ) {
+inline void expand(thread AABB& _box, float3 _point ) {
     _box.min = min(_box.min, _point);
     _box.max = max(_box.max, _point);
 }
 
-void expand(thread AABB& _box, AABB _other ) {
+inline void expand(thread AABB& _box, AABB _other ) {
     expand(_box, _other.min); 
     expand(_box, _other.max);
 }

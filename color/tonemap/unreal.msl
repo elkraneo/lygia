@@ -6,6 +6,6 @@ use: <float3|float4> tonemapUnreal(<float3|float4> x)
 
 #ifndef FNC_TONEMAPUNREAL
 #define FNC_TONEMAPUNREAL
-float3 tonemapUnreal(float3 x) { return x / (x + 0.155) * 1.019; }
-float4 tonemapUnreal(float4 x) { return float4(tonemapUnreal(x.rgb), x.a); }
+inline float3 tonemapUnreal(float3 x) { return x / (x + 0.155) * 1.019; }
+inline float4 tonemapUnreal(float4 x) { return float4(tonemapUnreal(x.rgb), x.a); }
 #endif

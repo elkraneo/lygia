@@ -11,7 +11,7 @@ license:
 
 #ifndef FNC_FISHEYE2XYZ
 #define FNC_FISHEYE2XYZ
-float3 fisheye2xyz(float2 uv) {
+inline float3 fisheye2xyz(float2 uv) {
     float2 ndc = uv * 2.0 - 1.0;
     float R = sqrt(ndc.x * ndc.x + ndc.y * ndc.y);
     float3 dir = float3(ndc.x / R, 0.0, ndc.y / R);

@@ -22,7 +22,7 @@ license:
 
 #ifndef FNC_MIXOKLAB
 #define FNC_MIXOKLAB
-float3 mixOklab( float3 colA, float3 colB, float h ) {
+inline float3 mixOklab( float3 colA, float3 colB, float h ) {
 
     #ifdef MIXOKLAB_SRGB
     colA = srgb2rgb(colA);
@@ -45,7 +45,7 @@ float3 mixOklab( float3 colA, float3 colB, float h ) {
     #endif
 }
 
-float4 mixOklab( float4 colA, float4 colB, float h ) {
+inline float4 mixOklab( float4 colA, float4 colB, float h ) {
     return float4( mixOklab(colA.rgb, colB.rgb, h), mix(colA.a, colB.a, h) );
 }
 #endif

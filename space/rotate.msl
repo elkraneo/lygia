@@ -18,11 +18,11 @@ license:
 
 #ifndef FNC_ROTATE
 #define FNC_ROTATE
-float2 rotate(float2 v, float r, float2 c) {
+inline float2 rotate(float2 v, float r, float2 c) {
     return rotate2d(r) * (v - c) + c;
 }
 
-float2 rotate(float2 v, float r) {
+inline float2 rotate(float2 v, float r) {
     #ifdef CENTER_2D
     return rotate(v, r, CENTER_2D);
     #else
@@ -30,7 +30,7 @@ float2 rotate(float2 v, float r) {
     #endif
 }
 
-float2 rotate(float2 v, float2 x_axis) {
+inline float2 rotate(float2 v, float2 x_axis) {
     #ifdef CENTER_2D
     v -= CENTER_2D;
     #endif
@@ -41,11 +41,11 @@ float2 rotate(float2 v, float2 x_axis) {
     return rta;
 }
 
-float3 rotate(float3 v, float r, float3 axis, float3 c) {
+inline float3 rotate(float3 v, float r, float3 axis, float3 c) {
     return (rotate4d(axis, r) * float4(v - c, 1.)).xyz + c;
 }
 
-float3 rotate(float3 v, float r, float3 axis) {
+inline float3 rotate(float3 v, float r, float3 axis) {
     #ifdef CENTER_3D
     return rotate(v, r, axis, CENTER_3D);
     #else
@@ -53,11 +53,11 @@ float3 rotate(float3 v, float r, float3 axis) {
     #endif
 }
 
-float4 rotate(float4 v, float r, float3 axis, float4 c) {
+inline float4 rotate(float4 v, float r, float3 axis, float4 c) {
     return rotate4d(axis, r) * (v - c) + c;
 }
 
-float4 rotate(float4 v, float r, float3 axis) {
+inline float4 rotate(float4 v, float r, float3 axis) {
     #ifdef CENTER_4D
     return rotate(v, r, axis, CENTER_4D);
     #else
@@ -66,12 +66,12 @@ float4 rotate(float4 v, float r, float3 axis) {
 }
 
 #if defined(FNC_QUATMULT)
-float3 rotate(QUAT q, float3 v) {
+inline float3 rotate(QUAT q, float3 v) {
     QUAT q_c = QUAT(-q.x, -q.y, -q.z, q.w);
     return quatMul(q, quatMul(float4(v, 0), q_c)).xyz;
 }
 
-float3 rotate(QUAT q, float3 v, float3 c) {
+inline float3 rotate(QUAT q, float3 v, float3 c) {
     float3 dir = v - c;
     return c + rotate(q, dir);
 }

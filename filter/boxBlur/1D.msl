@@ -32,7 +32,7 @@ license:
 
 #ifndef FNC_BOXBLUR1D
 #define FNC_BOXBLUR1D
-BOXBLUR1D_TYPE boxBlur1D(SAMPLER_TYPE tex, float2 st, float2 offset, const int kernelSize) {
+inline BOXBLUR1D_TYPE boxBlur1D(SAMPLER_TYPE tex, float2 st, float2 offset, const int kernelSize) {
     BOXBLUR1D_TYPE color = BOXBLUR1D_TYPE(0.);
     
     #ifndef BOXBLUR1D_KERNELSIZE

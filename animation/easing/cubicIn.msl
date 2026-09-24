@@ -8,5 +8,5 @@ examples:
 
 #ifndef FNC_CUBICIN
 #define FNC_CUBICIN
-float cubicIn(float t) { return t * t * t; }
+inline float cubicIn(float t) { return t * t * t; }
 #endif

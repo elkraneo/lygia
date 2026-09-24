@@ -27,7 +27,7 @@ license:
 
 #ifdef RYB_FAST
 
-float3 rgb2ryb(float3 rgb) {
+inline float3 rgb2ryb(float3 rgb) {
     // Remove the white from the color
     float w = mmin(rgb);
     float bl = mmin(1.0 - rgb);
@@ -63,7 +63,7 @@ float3 rgb2ryb(float3 rgb) {
 
 #else
 
-float3 rgb2ryb(float3 rgb) {
+inline float3 rgb2ryb(float3 rgb) {
     const float3 rgb000 = float3(1., 1., 1.);       // Black
     const float3 rgb100 = float3(1., 0., 0.);       // Red          
     const float3 rgb010 = float3(0., 1., .483);     // Green
@@ -83,6 +83,6 @@ float3 rgb2ryb(float3 rgb) {
 
 #endif
 
-float4 rgb2ryb(float4 rgb) { return float4(rgb2ryb(rgb.rgb), rgb.a); }
+inline float4 rgb2ryb(float4 rgb) { return float4(rgb2ryb(rgb.rgb), rgb.a); }
 
 #endif

@@ -13,7 +13,7 @@ license:
 #ifndef FNC_CHROMA
 #define FNC_CHROMA
 
-float3 spectral_soft(float x) {
+inline float3 spectral_soft(float x) {
     float delta = 0.5;
     float3 color = float3(1.0);
     float freq = x * PI;

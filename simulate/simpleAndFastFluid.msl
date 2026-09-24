@@ -43,7 +43,7 @@ options:
 #ifndef FNC_SIMPLEANDFASTFLUID
 #define FNC_SIMPLEANDFASTFLUID
 
-float4 simpleAndFastFluid(SAMPLER_TYPE tex, float2 st, float2 pixel) {
+inline float4 simpleAndFastFluid(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     const float k = .2;
     const float s = k/SIMPLEANDFASTFLUID_DT;
     const float dx = SIMPLEANDFASTFLUID_DX;
@@ -99,7 +99,7 @@ float4 simpleAndFastFluid(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     return d;
 }
 
-float4 simpleAndFastFluid(SAMPLER_TYPE tex, float2 st, float2 pixel, float2 force) {
+inline float4 simpleAndFastFluid(SAMPLER_TYPE tex, float2 st, float2 pixel, float2 force) {
     const float k = .2;
     const float s = k/SIMPLEANDFASTFLUID_DT;
     const float dx = SIMPLEANDFASTFLUID_DX;

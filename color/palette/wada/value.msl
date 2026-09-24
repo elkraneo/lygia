@@ -2059,7 +2059,7 @@ license:
 #ifndef FNC_PALETTE_WADA
 #define FNC_PALETTE_WADA
     
-float3 wada( int index ) {
+inline float3 wada( int index ) {
     float3 colors[157];
     colors[0] = WADA_HERMOSA_PINK;
     colors[1] = WADA_CORINTHIAN_PINK;
@@ -2227,7 +2227,7 @@ float3 wada( int index ) {
     #endif
 }
 
-float4 wadaCMYK( int index ) {
+inline float4 wadaCMYK( int index ) {
     float4 colors[157];
     colors[0] = WADA_HERMOSA_PINK_CMYK;
     colors[1] = WADA_CORINTHIAN_PINK_CMYK;

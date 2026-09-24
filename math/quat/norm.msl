@@ -12,5 +12,5 @@ license:
 
 #ifndef FNC_QUATNORM
 #define FNC_QUATNORM
-QUAT quatNorm(QUAT q) { return quatDiv(q, quatLength(q)); }
+inline QUAT quatNorm(QUAT q) { return quatDiv(q, quatLength(q)); }
 #endif

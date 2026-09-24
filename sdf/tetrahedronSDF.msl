@@ -6,7 +6,7 @@ use: <float> tetrahedronSDF( <float3> pos, <float> h )
 
 #ifndef FNC_TETRAHEDRONSDF
 #define FNC_TETRAHEDRONSDF
-float tetrahedronSDF(float3 p, float h)  {
+inline float tetrahedronSDF(float3 p, float h)  {
     float3 q = abs(p);
     
     float y = p.y;

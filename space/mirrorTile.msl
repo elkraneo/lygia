@@ -21,19 +21,19 @@ license:
 #ifndef FNC_MIRRORTILE
 #define FNC_MIRRORTILE
 
-float4 mirrorTile(float4 t) { return float4( mirror(t.xy + t.zw), t.z, t.w); }
-float4 mirrorTile(float2 v) { return mirrorTile(sqTile(v)); }
-float4 mirrorTile(float2 v, float s) { return mirrorTile(v * s); }
-float4 mirrorTile(float2 v, float2 s) { return mirrorTile(v * s); }
+inline float4 mirrorTile(float4 t) { return float4( mirror(t.xy + t.zw), t.z, t.w); }
+inline float4 mirrorTile(float2 v) { return mirrorTile(sqTile(v)); }
+inline float4 mirrorTile(float2 v, float s) { return mirrorTile(v * s); }
+inline float4 mirrorTile(float2 v, float2 s) { return mirrorTile(v * s); }
 
-float4 mirrorXTile(float4 t) { return float4( mirror(t.x + t.z), t.y, t.z, t.w); }
-float4 mirrorXTile(float2 v) { return mirrorXTile(sqTile(v)); }
-float4 mirrorXTile(float2 v, float s) { return mirrorXTile(v * s); }
-float4 mirrorXTile(float2 v, float2 s) { return mirrorXTile(v * s); }
+inline float4 mirrorXTile(float4 t) { return float4( mirror(t.x + t.z), t.y, t.z, t.w); }
+inline float4 mirrorXTile(float2 v) { return mirrorXTile(sqTile(v)); }
+inline float4 mirrorXTile(float2 v, float s) { return mirrorXTile(v * s); }
+inline float4 mirrorXTile(float2 v, float2 s) { return mirrorXTile(v * s); }
 
-float4 mirrorYTile(float4 t) { return float4( t.x, mirror(t.y + t.w), t.z, t.w); }
-float4 mirrorYTile(float2 v) { return mirrorYTile(sqTile(v)); }
-float4 mirrorYTile(float2 v, float s) { return mirrorYTile(v * s); }
-float4 mirrorYTile(float2 v, float2 s) { return mirrorYTile(v * s); }
+inline float4 mirrorYTile(float4 t) { return float4( t.x, mirror(t.y + t.w), t.z, t.w); }
+inline float4 mirrorYTile(float2 v) { return mirrorYTile(sqTile(v)); }
+inline float4 mirrorYTile(float2 v, float s) { return mirrorYTile(v * s); }
+inline float4 mirrorYTile(float2 v, float2 s) { return mirrorYTile(v * s); }
 
 #endif

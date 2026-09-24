@@ -17,7 +17,7 @@ examples:
 
 #ifndef FNC_VORONOISE
 #define FNC_VORONOISE
-float voronoise( float2 p, float u, float v) {
+inline float voronoise( float2 p, float u, float v) {
     float k = 1.0+63.0*pow(1.0-v,6.0);
     float2 i = floor(p);
     float2 f = fract(p);
@@ -44,7 +44,7 @@ float voronoise( float2 p, float u, float v) {
     return a.x/a.y;
 }
 
-float voronoise(float3 p, float u, float v)  {
+inline float voronoise(float3 p, float u, float v)  {
     float k = 1.0+63.0*pow(1.0-v,6.0);
     float3 i = floor(p);
     float3 f = fract(p);

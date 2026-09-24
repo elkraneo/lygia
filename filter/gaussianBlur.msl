@@ -37,7 +37,7 @@ license:
 
 #ifndef FNC_GAUSSIANBLUR
 #define FNC_GAUSSIANBLUR
-GAUSSIANBLUR_TYPE gaussianBlur13(SAMPLER_TYPE tex, float2 st, float2 offset) {
+inline GAUSSIANBLUR_TYPE gaussianBlur13(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #ifdef GAUSSIANBLUR_2D
     return gaussianBlur2D(tex, st, offset, 7);
 #else
@@ -45,7 +45,7 @@ GAUSSIANBLUR_TYPE gaussianBlur13(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #endif
 }
 
-GAUSSIANBLUR_TYPE gaussianBlur9(SAMPLER_TYPE tex, float2 st, float2 offset) {
+inline GAUSSIANBLUR_TYPE gaussianBlur9(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #ifdef GAUSSIANBLUR_2D
     return gaussianBlur2D(tex, st, offset, 5);
 #else
@@ -53,7 +53,7 @@ GAUSSIANBLUR_TYPE gaussianBlur9(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #endif
 }
 
-GAUSSIANBLUR_TYPE gaussianBlur5(SAMPLER_TYPE tex, float2 st, float2 offset) {
+inline GAUSSIANBLUR_TYPE gaussianBlur5(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #ifdef GAUSSIANBLUR_2D
     return gaussianBlur2D(tex, st, offset, 3);
 #else
@@ -61,7 +61,7 @@ GAUSSIANBLUR_TYPE gaussianBlur5(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #endif
 }
 
-GAUSSIANBLUR_TYPE gaussianBlur(SAMPLER_TYPE tex, float2 st, float2 offset, const int kernelSize) {
+inline GAUSSIANBLUR_TYPE gaussianBlur(SAMPLER_TYPE tex, float2 st, float2 offset, const int kernelSize) {
 #ifdef GAUSSIANBLUR_2D
     return gaussianBlur2D(tex, st, offset, kernelSize);
 #else
@@ -69,7 +69,7 @@ GAUSSIANBLUR_TYPE gaussianBlur(SAMPLER_TYPE tex, float2 st, float2 offset, const
 #endif
 }
 
-GAUSSIANBLUR_TYPE gaussianBlur(SAMPLER_TYPE tex, float2 st, float2 offset) {
+inline GAUSSIANBLUR_TYPE gaussianBlur(SAMPLER_TYPE tex, float2 st, float2 offset) {
     return GAUSSIANBLUR_AMOUNT(tex, st, offset);
 }
 #endif

@@ -13,7 +13,7 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #ifndef FNC_EULERVIEW
 #define FNC_EULERVIEW
 
- float4x4 eulerView(float3 position, float3 euler) {
+ inline float4x4 eulerView(float3 position, float3 euler) {
     float3x3 rotZ = rotate3dZ(euler.z);
     float3x3 rotX = rotate3dX(euler.x);
     float3x3 rotY = rotate3dY(euler.y);

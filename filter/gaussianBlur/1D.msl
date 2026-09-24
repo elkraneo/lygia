@@ -35,7 +35,7 @@ license:
 
 #ifdef PLATFORM_WEBGL
 
-GAUSSIANBLUR1D_TYPE gaussianBlur1D(SAMPLER_TYPE tex,float2 st,float2 offset,const int kernelSize){
+inline GAUSSIANBLUR1D_TYPE gaussianBlur1D(SAMPLER_TYPE tex,float2 st,float2 offset,const int kernelSize){
     GAUSSIANBLUR1D_TYPE accumColor = GAUSSIANBLUR1D_TYPE(0.0);
 
     float kernelSizef = float(kernelSize);
@@ -55,7 +55,7 @@ GAUSSIANBLUR1D_TYPE gaussianBlur1D(SAMPLER_TYPE tex,float2 st,float2 offset,cons
 
 #else
 
-GAUSSIANBLUR1D_TYPE gaussianBlur1D(SAMPLER_TYPE tex,float2 st,float2 offset,const int kernelSize){
+inline GAUSSIANBLUR1D_TYPE gaussianBlur1D(SAMPLER_TYPE tex,float2 st,float2 offset,const int kernelSize){
     GAUSSIANBLUR1D_TYPE accumColor=GAUSSIANBLUR1D_TYPE(0.);
 
     float kernelSizef = float(kernelSize);

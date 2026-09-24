@@ -37,8 +37,8 @@ license:
 #define FNC_DITHER
 
 // Metal has no gl_FragCoord, so pass the fragment position (e.g. [[position]].xy) as st
-float dither(float v, float2 st) { return DITHER_FNC(float3(v), st).r; }
-float3 dither(float3 v, float2 st) { return DITHER_FNC(v, st); }
-float4 dither(float4 v, float2 st) { return DITHER_FNC(v, st); }
+inline float dither(float v, float2 st) { return DITHER_FNC(float3(v), st).r; }
+inline float3 dither(float3 v, float2 st) { return DITHER_FNC(v, st); }
+inline float4 dither(float4 v, float2 st) { return DITHER_FNC(v, st); }
 
 #endif

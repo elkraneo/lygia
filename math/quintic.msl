@@ -9,9 +9,9 @@ examples:
 #ifndef FNC_QUINTIC
 #define FNC_QUINTIC 
 
-float quintic(const float v) { return v*v*v*(v*(v*6.0-15.0)+10.0); }
-float2  quintic(const float2 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
-float3  quintic(const float3 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
-float4  quintic(const float4 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
+inline float quintic(const float v) { return v*v*v*(v*(v*6.0-15.0)+10.0); }
+inline float2  quintic(const float2 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
+inline float3  quintic(const float3 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
+inline float4  quintic(const float4 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
 
 #endif

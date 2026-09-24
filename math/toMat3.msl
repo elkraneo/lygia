@@ -9,7 +9,7 @@ license:
 
 #ifndef FNC_TOMAT3
 #define FNC_TOMAT3
-float3x3 toMat3(float4x4 m) {
+inline float3x3 toMat3(float4x4 m) {
     return float3x3(m[0].xyz, m[1].xyz, m[2].xyz);
 }
 #endif

@@ -9,7 +9,7 @@ license:
 
 #ifndef FNC_FLIPY
 #define FNC_FLIPY
-float2 flipY(float2 v) { return float2(v.x, 1. - v.y); }
-float3 flipY(float3 v) { return float3(v.x, 1. - v.y, v.z); }
-float4 flipY(float4 v) { return float4(v.x, 1. - v.y, v.z, v.w); }
+inline float2 flipY(float2 v) { return float2(v.x, 1. - v.y); }
+inline float3 flipY(float3 v) { return float3(v.x, 1. - v.y, v.z); }
+inline float4 flipY(float4 v) { return float4(v.x, 1. - v.y, v.z, v.w); }
 #endif

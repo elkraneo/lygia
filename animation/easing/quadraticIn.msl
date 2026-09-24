@@ -8,5 +8,5 @@ examples:
 
 #ifndef FNC_QUADRATICIN
 #define FNC_QUADRATICIN
-float quadraticIn(float t) { return t * t; }
+inline float quadraticIn(float t) { return t * t; }
 #endif

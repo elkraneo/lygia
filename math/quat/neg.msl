@@ -11,5 +11,5 @@ license:
 
 #ifndef FNC_QUATNEG
 #define FNC_QUATNEG
-QUAT quatNeg(QUAT q) { return QUAT(-q.xyz, -q.w); }
+inline QUAT quatNeg(QUAT q) { return QUAT(-q.xyz, -q.w); }
 #endif

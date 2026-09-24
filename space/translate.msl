@@ -8,7 +8,7 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #ifndef FNC_TRANSLATE
 #define FNC_TRANSLATE
 
- float4x4 translate(float3x3 m, float3 translation) {
+ inline float4x4 translate(float3x3 m, float3 translation) {
     return float4x4(
         float4(m[0], 0.0),
         float4(m[1], 0.0),

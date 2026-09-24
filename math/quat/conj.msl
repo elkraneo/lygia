@@ -11,5 +11,5 @@ license:
 
 #ifndef FNC_QUATCONJ
 #define FNC_QUATCONJ
-QUAT quatConj(QUAT q) { return QUAT(-q.xyz, q.w); }
+inline QUAT quatConj(QUAT q) { return QUAT(-q.xyz, q.w); }
 #endif

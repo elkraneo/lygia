@@ -9,7 +9,7 @@ use: <float3> contain(<Triangle> tri, <float3> _pos)
 #ifndef FNC_TRIANGLE_CONTAIN
 #define FNC_TRIANGLE_CONTAIN
 
-bool contain(Triangle _tri, float3 _pos) { 
+inline bool contain(Triangle _tri, float3 _pos) { 
     // Move the triangle so that the point becomes the
     // triangles origin
     float3 local_a = _tri.a - _pos;

@@ -13,7 +13,7 @@ license: MIT License (MIT) Copyright (c) 2014 CeeJayDK
 
 #ifndef FNC_VIBRANCE
 #define FNC_VIBRANCE
-float3 vibrance(float3 v, float vi) {
+inline float3 vibrance(float3 v, float vi) {
     float max_v = mmax(v);
     float min_v = mmin(v);
     float sat = max_v - min_v;
@@ -21,5 +21,5 @@ float3 vibrance(float3 v, float vi) {
     return mix(float3(lum), v, 1.0 + (vi * 1.0 - (sign(vi) * sat)));
 }
 
-float4 vibrance(float4 v, float vi) { return float4( vibrance(v.rgb, vi), v.a); }
+inline float4 vibrance(float4 v, float vi) { return float4( vibrance(v.rgb, vi), v.a); }
 #endif

@@ -14,7 +14,7 @@ license:
 #ifndef FNC_QUATLERP
 #define FNC_QUATLERP
 
-QUAT quatLerp(QUAT qa, QUAT qb, float t) {
+inline QUAT quatLerp(QUAT qa, QUAT qb, float t) {
     // qa = normalize(qa);
     // qb = normalize(qb);
 

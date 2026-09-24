@@ -6,7 +6,7 @@ use: brightnessContrast(<float|vec3|vec4> color, <float> brightness, <float> amc
 
 #ifndef FNC_BRIGHTNESSCONTRAST
 #define FNC_BRIGHTNESSCONTRAST
-float brightnessContrast( float v, float b, float c ) { return ( v - 0.5 ) * c + 0.5 + b; }
-float3 brightnessContrast( float3 v, float b, float c ) { return ( v - 0.5 ) * c + 0.5 + b; }
-float4 brightnessContrast( float4 v, float b, float c ) { return float4(( v.rgb - 0.5 ) * c + 0.5 + b, v.a); }
+inline float brightnessContrast( float v, float b, float c ) { return ( v - 0.5 ) * c + 0.5 + b; }
+inline float3 brightnessContrast( float3 v, float b, float c ) { return ( v - 0.5 ) * c + 0.5 + b; }
+inline float4 brightnessContrast( float4 v, float b, float c ) { return float4(( v.rgb - 0.5 ) * c + 0.5 + b, v.a); }
 #endif

@@ -27,7 +27,7 @@ license:
 
 #ifndef FNC_PYRAMID
 #define FNC_PYRAMID
-float4 pyramid(SAMPLER_TYPE tex0, SAMPLER_TYPE tex1, float2 st, float2 pixel, bool upscale) {
+inline float4 pyramid(SAMPLER_TYPE tex0, SAMPLER_TYPE tex1, float2 st, float2 pixel, bool upscale) {
     float4 color = float4(0.0);
     if (!upscale) {
         color = pyramidDownscale(tex0, st, pixel);

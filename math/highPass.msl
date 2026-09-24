@@ -9,5 +9,5 @@ license:
 
 #ifndef FNC_HIGHPASS
 #define FNC_HIGHPASS
-float highPass(float v, float b) { return max(v - b, 0.0) / (1.0 - b); }
+inline float highPass(float v, float b) { return max(v - b, 0.0) / (1.0 - b); }
 #endif

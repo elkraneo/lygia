@@ -9,7 +9,7 @@ license:
 
 #ifndef FNC_SATURATIONMATRIX
 #define FNC_SATURATIONMATRIX
-float4x4 saturationMatrix(float a) {
+inline float4x4 saturationMatrix(float a) {
     float3 lum = float3(.3086, .6094, .0820 );
     float iA= 1. - a;
     float3 r = float3(lum.x * iA) + float3(a, .0, .0);

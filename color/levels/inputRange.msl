@@ -11,8 +11,8 @@ license:
 
 #ifndef FNC_LEVELSINPUTRANGE
 #define FNC_LEVELSINPUTRANGE
-float3 levelsInputRange(float3 v, float3 iMin, float3 iMax) { return min(max(v - iMin, float3(0.)) / (iMax - iMin), float3(1.)); }
-float4 levelsInputRange(float4 v, float3 iMin, float3 iMax) { return float4(levelsInputRange(v.rgb, iMin, iMax), v.a); }
-float3 levelsInputRange(float3 v, float iMin, float iMax) { return levelsInputRange(v, float3(iMin), float3(iMax)); }
-float4 levelsInputRange(float4 v, float iMin, float iMax) { return float4(levelsInputRange(v.rgb, iMin, iMax), v.a); }
+inline float3 levelsInputRange(float3 v, float3 iMin, float3 iMax) { return min(max(v - iMin, float3(0.)) / (iMax - iMin), float3(1.)); }
+inline float4 levelsInputRange(float4 v, float3 iMin, float3 iMax) { return float4(levelsInputRange(v.rgb, iMin, iMax), v.a); }
+inline float3 levelsInputRange(float3 v, float iMin, float iMax) { return levelsInputRange(v, float3(iMin), float3(iMax)); }
+inline float4 levelsInputRange(float4 v, float iMin, float iMax) { return float4(levelsInputRange(v.rgb, iMin, iMax), v.a); }
 #endif

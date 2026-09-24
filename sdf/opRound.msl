@@ -7,7 +7,7 @@ use: <float> opRound( <float> d, <float> h )
 #ifndef FNC_OPROUND
 #define FNC_OPROUND
 
-float opRound( float d, float h ) {
+inline float opRound( float d, float h ) {
     return d - h;
 }
 

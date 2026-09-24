@@ -7,7 +7,7 @@ use: <float> opOnion( <float> d, <float> h )
 #ifndef FNC_OPONION
 #define FNC_OPONION
 
-float opOnion( float d, float h ) {
+inline float opOnion( float d, float h ) {
     return abs(d)-h;
 }
 

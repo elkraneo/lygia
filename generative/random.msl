@@ -22,7 +22,7 @@ license:
 
 #ifndef FNC_RANDOM
 #define FNC_RANDOM
-float random(float x) {
+inline float random(float x) {
 #ifdef RANDOM_SINLESS
     x = fract(x * RANDOM_SCALE.x);
     x *= x + 33.33;
@@ -33,7 +33,7 @@ float random(float x) {
 #endif
 }
 
-float random(float2 st) {
+inline float random(float2 st) {
 #ifdef RANDOM_SINLESS
     float3 p3  = fract(float3(st.xyx) * RANDOM_SCALE.xyz);
     p3 += dot(p3, p3.yzx + 33.33);
@@ -43,7 +43,7 @@ float random(float2 st) {
 #endif
 }
 
-float random(float3 pos) {
+inline float random(float3 pos) {
 #ifdef RANDOM_SINLESS
     pos  = fract(pos * RANDOM_SCALE.xyz);
     pos += dot(pos, pos.zyx + 31.32);
@@ -53,7 +53,7 @@ float random(float3 pos) {
 #endif
 }
 
-float random(float4 pos) {
+inline float random(float4 pos) {
 #ifdef RANDOM_SINLESS
     pos = fract(pos * RANDOM_SCALE);
     pos += dot(pos, pos.wzxy + 33.33);
@@ -64,61 +64,61 @@ float random(float4 pos) {
 #endif
 }
 
-float2 random2(float p) {
+inline float2 random2(float p) {
     float3 p3 = fract(float3(p) * RANDOM_SCALE.xyz);
     p3 += dot(p3, p3.yzx + 19.19);
     return fract((p3.xx + p3.yz) * p3.zy);
 }
 
-float2 random2(float2 p) {
+inline float2 random2(float2 p) {
     float3 p3 = fract(p.xyx * RANDOM_SCALE.xyz);
     p3 += dot(p3, p3.yzx + 19.19);
     return fract((p3.xx + p3.yz) * p3.zy);
 }
 
-float2 random2(float3 p3) {
+inline float2 random2(float3 p3) {
     p3 = fract(p3 * RANDOM_SCALE.xyz);
     p3 += dot(p3, p3.yzx + 19.19);
     return fract((p3.xx + p3.yz) * p3.zy);
 }
 
-float3 random3(float p) {
+inline float3 random3(float p) {
     float3 p3 = fract(float3(p) * RANDOM_SCALE.xyz);
     p3 += dot(p3, p3.yzx + 19.19);
     return fract((p3.xxy + p3.yzz) * p3.zyx); 
 }
 
-float3 random3(float2 p) {
+inline float3 random3(float2 p) {
     float3 p3 = fract(float3(p.xyx) * RANDOM_SCALE.xyz);
     p3 += dot(p3, p3.yxz + 19.19);
     return fract((p3.xxy + p3.yzz) * p3.zyx);
 }
 
-float3 random3(float3 p) {
+inline float3 random3(float3 p) {
     p = fract(p * RANDOM_SCALE.xyz);
     p += dot(p, p.yxz + 19.19);
     return fract((p.xxy + p.yzz) * p.zyx);
 }
 
-float4 random4(float p) {
+inline float4 random4(float p) {
     float4 p4 = fract(p * RANDOM_SCALE);
     p4 += dot(p4, p4.wzxy + 19.19);
     return fract((p4.xxyz + p4.yzzw) * p4.zywx);   
 }
 
-float4 random4(float2 p) {
+inline float4 random4(float2 p) {
     float4 p4 = fract(p.xyxy * RANDOM_SCALE);
     p4 += dot(p4, p4.wzxy + 19.19);
     return fract((p4.xxyz + p4.yzzw) * p4.zywx);
 }
 
-float4 random4(float3 p) {
+inline float4 random4(float3 p) {
     float4 p4 = fract(p.xyzx * RANDOM_SCALE);
     p4 += dot(p4, p4.wzxy + 19.19);
     return fract((p4.xxyz + p4.yzzw) * p4.zywx);
 }
 
-float4 random4(float4 p4) {
+inline float4 random4(float4 p4) {
     p4 = fract(p4  * RANDOM_SCALE);
     p4 += dot(p4, p4.wzxy + 19.19);
     return fract((p4.xxyz + p4.yzzw) * p4.zywx);

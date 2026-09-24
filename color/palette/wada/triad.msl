@@ -20,7 +20,7 @@ license:
 #ifndef FNC_PALETTE_WADA_TRIAD
 #define FNC_PALETTE_WADA_TRIAD
     
-int3 wadaTriad( int index ) {
+inline int3 wadaTriad( int index ) {
     int3 t[WADA_TRIAD_TOTAL];
     t[0] = int3(2,3,150);
     t[1] = int3(54,61,124);

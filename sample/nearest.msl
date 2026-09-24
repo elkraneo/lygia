@@ -16,7 +16,7 @@ license:
 
 #ifndef FNC_SAMPLENEAREST
 #define FNC_SAMPLENEAREST
-float4 sampleNearest(SAMPLER_TYPE tex, float2 st, float2 texResolution) {
+inline float4 sampleNearest(SAMPLER_TYPE tex, float2 st, float2 texResolution) {
     return SAMPLER_FNC( tex, nearest(st, texResolution) );
 }
 #endif

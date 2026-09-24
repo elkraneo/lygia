@@ -20,7 +20,7 @@ license:
 
 #ifndef FNC_VORONOI
 #define FNC_VORONOI
-float3 voronoi(float2 uv, float time) {
+inline float3 voronoi(float2 uv, float time) {
     float2 i_uv = floor(uv);
     float2 f_uv = fract(uv);
     float3 rta = float3(0.0, 0.0, 10.0);
@@ -40,6 +40,6 @@ float3 voronoi(float2 uv, float time) {
     return rta;
 }
 
-float3 voronoi(float2 p)  { return voronoi(p, 0.0); }
-float3 voronoi(float3 p)  { return voronoi(p.xy, p.z); }
+inline float3 voronoi(float2 p)  { return voronoi(p, 0.0); }
+inline float3 voronoi(float3 p)  { return voronoi(p.xy, p.z); }
 #endif

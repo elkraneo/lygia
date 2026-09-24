@@ -10,7 +10,7 @@ examples:
 
 #ifndef FNC_BACKINOUT
 #define FNC_BACKINOUT
-float backInOut(float t) {
+inline float backInOut(float t) {
     float f = t < .5
         ? 2.0 * t
         : 1.0 - (2.0 * t - 1.0);

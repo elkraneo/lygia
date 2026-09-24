@@ -43,7 +43,7 @@ license:
 #ifndef FNC_NOISEBLUR
 #define FNC_NOISEBLUR
 
-NOISEBLUR_TYPE noiseBlur(SAMPLER_TYPE tex, float2 st, float2 pixel, float radius) {
+inline NOISEBLUR_TYPE noiseBlur(SAMPLER_TYPE tex, float2 st, float2 pixel, float radius) {
     float blurRadius = radius;
     float2 noiseOffset = st;
 
@@ -81,7 +81,7 @@ NOISEBLUR_TYPE noiseBlur(SAMPLER_TYPE tex, float2 st, float2 pixel, float radius
     return result;
 }
 
-NOISEBLUR_TYPE noiseBlur(SAMPLER_TYPE tex, float2 st, float2 pixel) {
+inline NOISEBLUR_TYPE noiseBlur(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     NOISEBLUR_TYPE rta = NOISEBLUR_TYPE(0.0);
     float total = 0.0;
     float offset = random(float3(12.9898 + st.x, 78.233 + st.y, 151.7182));

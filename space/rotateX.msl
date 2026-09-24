@@ -13,11 +13,11 @@ license:
 
 #ifndef FNC_ROTATEX
 #define FNC_ROTATEX
-float4 rotateX(float4 v, float r, float4 c) {
+inline float4 rotateX(float4 v, float r, float4 c) {
     return rotate4dX(r) * (v - c) + c;
 }
 
-float4 rotateX(float4 v, float r) {
+inline float4 rotateX(float4 v, float r) {
     #ifdef CENTER_4D
     return rotate4dX(r) * (v - CENTER_4D) + CENTER_4D;
     #else
@@ -25,11 +25,11 @@ float4 rotateX(float4 v, float r) {
     #endif
 }
 
-float3 rotateX(float3 v, float r, float3 c) {
+inline float3 rotateX(float3 v, float r, float3 c) {
     return (rotate4dX(r) * float4(v - c, 1.0)).xyz + c;
 }
 
-float3 rotateX(float3 v, float r) {
+inline float3 rotateX(float3 v, float r) {
     #ifdef CENTER_3D
     return (rotate4dX(r) * float4(v - CENTER_3D, 1.0)).xyz + CENTER_3D;
     #else

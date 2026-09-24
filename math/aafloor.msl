@@ -14,7 +14,7 @@ option:
 #ifndef FNC_AAFLOOR
 #define FNC_AAFLOOR
 
-float aafloor(float x) {
+inline float aafloor(float x) {
 
 #if defined(AA_EDGE)
     float afwidth = AA_EDGE;
@@ -29,6 +29,6 @@ float aafloor(float x) {
 #endif
 }
 
-float2 aafloor(float2 x) { return float2(aafloor(x.x), aafloor(x.y)); }
+inline float2 aafloor(float2 x) { return float2(aafloor(x.x), aafloor(x.y)); }
 
 #endif

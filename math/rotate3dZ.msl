@@ -9,7 +9,7 @@ license:
 
 #ifndef FNC_ROTATE3DZ
 #define FNC_ROTATE3DZ
-float3x3 rotate3dZ(const float r){
+inline float3x3 rotate3dZ(const float r){
     return float3x3(float3(cos(r),-sin(r),0.),
                 float3(sin(r),cos(r),0.),
                 float3(0.,0.,1.));

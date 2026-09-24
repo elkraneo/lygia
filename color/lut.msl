@@ -39,7 +39,7 @@ license:
 #endif
 
 #include "../sample/2DCube.msl"
-float4 lut(SAMPLER_TYPE tex_lut, float4 color, int offset) { 
+inline float4 lut(SAMPLER_TYPE tex_lut, float4 color, int offset) { 
     return sample2DCube(tex_lut, color.rgb); 
 }
 
@@ -65,7 +65,7 @@ constant float4 LUT_SIZE = float4(LUT_WIDTH, LUT_CELL_SIZE, 1./LUT_WIDTH, 1./LUT
 
 // Apply LUT to a COLOR
 // ------------------------------------------------------------
-float4 lut(SAMPLER_TYPE tex_lut, float4 color, int offset) {
+inline float4 lut(SAMPLER_TYPE tex_lut, float4 color, int offset) {
     float3 scaledColor = clamp(color.rgb, float3(0.), float3(1.)) * (LUT_SIZE.y - 1.);
     float bFrac = fract(scaledColor.z);
 
@@ -92,8 +92,8 @@ float4 lut(SAMPLER_TYPE tex_lut, float4 color, int offset) {
 }
 #endif
 
-float4 lut(SAMPLER_TYPE tex_lut, float4 color) { return lut(tex_lut, color, 0); }
-float3 lut(SAMPLER_TYPE tex_lut, float3 color, int offset) { return lut(tex_lut, float4(color, 1.), offset).rgb; }
-float3 lut(SAMPLER_TYPE tex_lut, float3 color) { return lut(tex_lut, color, 0).rgb; }
+inline float4 lut(SAMPLER_TYPE tex_lut, float4 color) { return lut(tex_lut, color, 0); }
+inline float3 lut(SAMPLER_TYPE tex_lut, float3 color, int offset) { return lut(tex_lut, float4(color, 1.), offset).rgb; }
+inline float3 lut(SAMPLER_TYPE tex_lut, float3 color) { return lut(tex_lut, color, 0).rgb; }
 
 #endif

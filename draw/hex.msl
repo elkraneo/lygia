@@ -15,11 +15,11 @@ license:
 
 #ifndef FNC_HEX
 #define FNC_HEX
-float hex(float2 st, float size) {
+inline float hex(float2 st, float size) {
     return fill(hexSDF(st), size);
 }
 
-float hex(float2 st, float size, float strokeWidth) {
+inline float hex(float2 st, float size, float strokeWidth) {
     return stroke(hexSDF(st), size, strokeWidth);
 }
 #endif

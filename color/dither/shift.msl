@@ -34,7 +34,7 @@ license:
 #ifndef FNC_DITHER_SHIFT
 #define FNC_DITHER_SHIFT
 
-float ditherShift(const float b, const float2 st, const int pres) {
+inline float ditherShift(const float b, const float2 st, const int pres) {
     //Bit-depth of display. Normally 8 but some LCD monitors are 7 or even 6-bit.   
     float dither_bit = 8.0; 
 
@@ -54,7 +54,7 @@ float ditherShift(const float b, const float2 st, const int pres) {
     return b + 0.5/255.0 + dither_shift; 
 }
 
-float3 ditherShift(const float3 color, const float2 st, const int pres) {
+inline float3 ditherShift(const float3 color, const float2 st, const int pres) {
     //Bit-depth of display. Normally 8 but some LCD monitors are 7 or even 6-bit.	
     float dither_bit = 8.0; 
 
@@ -84,8 +84,8 @@ float3 ditherShift(const float3 color, const float2 st, const int pres) {
     return decimate(color + h + ditherPattern, d);
 }
 
-float ditherShift(const float value, const float2 xy) {  return ditherShift(value, xy, DITHER_SHIFT_PRECISION); }
-float3 ditherShift(const float3 color, const float2 xy) {  return ditherShift(color, xy, DITHER_SHIFT_PRECISION); }
-float4 ditherShift(const float4 color, const float2 xy) {  return float4(ditherShift(color.rgb, xy, DITHER_SHIFT_PRECISION), color.a); }
+inline float ditherShift(const float value, const float2 xy) {  return ditherShift(value, xy, DITHER_SHIFT_PRECISION); }
+inline float3 ditherShift(const float3 color, const float2 xy) {  return ditherShift(color, xy, DITHER_SHIFT_PRECISION); }
+inline float4 ditherShift(const float4 color, const float2 xy) {  return float4(ditherShift(color.rgb, xy, DITHER_SHIFT_PRECISION), color.a); }
 
 #endif

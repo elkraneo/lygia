@@ -9,6 +9,6 @@ license:
 
 #ifndef FNC_SQTILE
 #define FNC_SQTILE
-float4 sqTile(float2 st) { return float4(fract(st), floor(st)); }
-float4 sqTile(float2 st, float scale) { return sqTile(st * scale); }
+inline float4 sqTile(float2 st) { return float4(fract(st), floor(st)); }
+inline float4 sqTile(float2 st, float scale) { return sqTile(st * scale); }
 #endif

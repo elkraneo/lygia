@@ -34,15 +34,15 @@ license:
 
 #ifndef FNC_BARREL
 #define FNC_BARREL
-float2 barrel(float2 st, float amt, float dist) {
+inline float2 barrel(float2 st, float amt, float dist) {
     return st + (st-.5) * (BARREL_DISTANCE) * amt;
 }
 
-float2 barrel(float2 st, float amt) {
+inline float2 barrel(float2 st, float amt) {
     return barrel(st, amt, lengthSq(st-.5));
 }
 
-BARREL_TYPE barrel(SAMPLER_TYPE tex, float2 st, float dist) {
+inline BARREL_TYPE barrel(SAMPLER_TYPE tex, float2 st, float dist) {
     BARREL_TYPE a1 = BARREL_SAMPLER_FNC(tex, barrel(st, .0, dist));
     BARREL_TYPE a2 = BARREL_SAMPLER_FNC(tex, barrel(st, .2, dist));
     BARREL_TYPE a3 = BARREL_SAMPLER_FNC(tex, barrel(st, .4, dist));
@@ -64,11 +64,11 @@ BARREL_TYPE barrel(SAMPLER_TYPE tex, float2 st, float dist) {
     return (a1+a2+a3+a4+a5+a6+a7+a8+a9+a10+a11+a12)/12.;
 }
 
-BARREL_TYPE barrel(SAMPLER_TYPE tex, float2 st, float2 dist) {
+inline BARREL_TYPE barrel(SAMPLER_TYPE tex, float2 st, float2 dist) {
     return barrel(tex, st, dot(float2(.5), dist));
 }
 
-BARREL_TYPE barrel(SAMPLER_TYPE tex, float2 st) {
+inline BARREL_TYPE barrel(SAMPLER_TYPE tex, float2 st) {
     return barrel(tex, st, lengthSq(st-.5));
 }
 

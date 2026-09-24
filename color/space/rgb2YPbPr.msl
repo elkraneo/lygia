@@ -26,6 +26,6 @@ constant float3x3 RGB2PBPR = float3x3(
 
 #ifndef FNC_RGB2YPBPR
 #define FNC_RGB2YPBPR
-float3 rgb2YPbPr( float3 rgb) { return RGB2PBPR * rgb; }
-float4 rgb2YPbPr( float4 rgb) { return float4(rgb2YPbPr(rgb.rgb),rgb.a); }
+inline float3 rgb2YPbPr( float3 rgb) { return RGB2PBPR * rgb; }
+inline float4 rgb2YPbPr( float4 rgb) { return float4(rgb2YPbPr(rgb.rgb),rgb.a); }
 #endif

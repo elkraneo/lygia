@@ -40,7 +40,7 @@ license:
 #ifndef FNC_TONEMAP
 #define FNC_TONEMAP
 
-float3 tonemap(const float3 v) { return TONEMAP_FNC(v); }
-float4 tonemap(const float4 v) { return TONEMAP_FNC(v); }
+inline float3 tonemap(const float3 v) { return TONEMAP_FNC(v); }
+inline float4 tonemap(const float4 v) { return TONEMAP_FNC(v); }
 
 #endif

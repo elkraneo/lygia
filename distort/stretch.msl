@@ -31,7 +31,7 @@ license:
 
 #ifndef FNC_STRETCH
 #define FNC_STRETCH
-STRETCH_TYPE stretch(SAMPLER_TYPE tex, float2 st, float2 direction, const int i_samples) {
+inline STRETCH_TYPE stretch(SAMPLER_TYPE tex, float2 st, float2 direction, const int i_samples) {
     float f_samples = float(i_samples);
     STRETCH_TYPE color = STRETCH_TYPE(0.);
 
@@ -52,7 +52,7 @@ STRETCH_TYPE stretch(SAMPLER_TYPE tex, float2 st, float2 direction, const int i_
     return color / f_samples;
 }
 
-STRETCH_TYPE stretch(SAMPLER_TYPE tex, float2 st, float2 direction) {
+inline STRETCH_TYPE stretch(SAMPLER_TYPE tex, float2 st, float2 direction) {
     float f_samples = float(STRETCH_SAMPLES);  
     STRETCH_TYPE color = STRETCH_TYPE(0.);
     for (int i = 0; i < STRETCH_SAMPLES; i++) {

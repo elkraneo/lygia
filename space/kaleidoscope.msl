@@ -13,7 +13,7 @@ description: |
 #define FNC_KALEIDOSCOPE
 
 // Use when when you want to specify the segment count and the phase for animation
-float2 kaleidoscope(float2 coord, float segmentCount, float phase) {    
+inline float2 kaleidoscope(float2 coord, float segmentCount, float phase) {    
     float2 uv;
 
 #ifdef CENTER_2D
@@ -36,12 +36,12 @@ float2 kaleidoscope(float2 coord, float segmentCount, float phase) {
 }
 
 // Default use when just the coordinates are given, the segment count is set to 8
-float2 kaleidoscope(float2 coord) {
+inline float2 kaleidoscope(float2 coord) {
     return kaleidoscope(coord, 8.0, 0.0);
 }
 
 // Use when when you want to specify the segment count
-float2 kaleidoscope(float2 coord, float segmentCount) {    
+inline float2 kaleidoscope(float2 coord, float segmentCount) {    
     return kaleidoscope(coord, segmentCount, 0.0);
 }
 

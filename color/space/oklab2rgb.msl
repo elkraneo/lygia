@@ -21,9 +21,9 @@ constant float3x3 OKLAB2RGB_B = float3x3(
 
 #ifndef FNC_OKLAB2RGB
 #define FNC_OKLAB2RGB
-float3 oklab2rgb( float3 oklab) {
+inline float3 oklab2rgb( float3 oklab) {
     float3 lms = OKLAB2RGB_A * oklab;
     return OKLAB2RGB_B * (lms * lms * lms);
 }
-float4 oklab2rgb( float4 oklab) { return float4(oklab2rgb(oklab.xyz), oklab.a); }
+inline float4 oklab2rgb( float4 oklab) { return float4(oklab2rgb(oklab.xyz), oklab.a); }
 #endif

@@ -19,7 +19,7 @@ examples:
 #ifndef FNC_PNOISE
 #define FNC_PNOISE
 // Classic Perlnoise, periodic variant
-float pnoise(float2 P, float2 rep) {
+inline float pnoise(float2 P, float2 rep) {
     float4 Pi = floor(P.xyxy) + float4(0.0, 0.0, 1.0, 1.0);
     float4 Pf = fract(P.xyxy) - float4(0.0, 0.0, 1.0, 1.0);
     Pi = mod(Pi, rep.xyxy); // To create noise with explicit period
@@ -58,7 +58,7 @@ float pnoise(float2 P, float2 rep) {
     return 2.3 * n_xy;
 }
 
-float pnoise(float3 P, float3 rep) {
+inline float pnoise(float3 P, float3 rep) {
     float3 Pi0 = mod(floor(P), rep); // Integer part, modulo period
     float3 Pi1 = mod(Pi0 + float3(1.0), rep); // Integer part + 1, mod period
     Pi0 = mod289(Pi0);
@@ -126,7 +126,7 @@ float pnoise(float3 P, float3 rep) {
     return 2.2 * n_xyz;
 }
 
-float pnoise(float4 P, float4 rep) {
+inline float pnoise(float4 P, float4 rep) {
     float4 Pi0 = mod(floor(P), rep); // Integer part modulo rep
     float4 Pi1 = mod(Pi0 + 1.0, rep); // Integer part + 1 mod rep
     Pi0 = mod289(Pi0);

@@ -36,7 +36,7 @@ license:
 
 #ifndef FNC_BOXBLUR
 #define FNC_BOXBLUR
-BOXBLUR_TYPE boxBlur13(SAMPLER_TYPE tex, float2 st, float2 offset) {
+inline BOXBLUR_TYPE boxBlur13(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #ifdef BOXBLUR_2D
   return boxBlur2D(tex, st, offset, 7);
 #else
@@ -44,7 +44,7 @@ BOXBLUR_TYPE boxBlur13(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #endif
 }
 
-BOXBLUR_TYPE boxBlur9(SAMPLER_TYPE tex, float2 st, float2 offset) {
+inline BOXBLUR_TYPE boxBlur9(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #ifdef BOXBLUR_2D
   return boxBlur2D_fast9(tex, st, offset);
 #else
@@ -52,7 +52,7 @@ BOXBLUR_TYPE boxBlur9(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #endif
 }
 
-BOXBLUR_TYPE boxBlur5(SAMPLER_TYPE tex, float2 st, float2 offset) {
+inline BOXBLUR_TYPE boxBlur5(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #ifdef BOXBLUR_2D
   return boxBlur2D(tex, st, offset, 3);
 #else
@@ -60,7 +60,7 @@ BOXBLUR_TYPE boxBlur5(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #endif
 }
 
-BOXBLUR_TYPE boxBlur(SAMPLER_TYPE tex, float2 st, float2 offset, const int kernelSize) {
+inline BOXBLUR_TYPE boxBlur(SAMPLER_TYPE tex, float2 st, float2 offset, const int kernelSize) {
 #ifdef BOXBLUR_2D
   return boxBlur2D(tex, st, offset, kernelSize);
 #else
@@ -68,7 +68,7 @@ BOXBLUR_TYPE boxBlur(SAMPLER_TYPE tex, float2 st, float2 offset, const int kerne
 #endif
 }
 
-BOXBLUR_TYPE boxBlur(SAMPLER_TYPE tex, float2 st, float2 offset) {
+inline BOXBLUR_TYPE boxBlur(SAMPLER_TYPE tex, float2 st, float2 offset) {
   #ifdef BOXBLUR_2D
     return boxBlur2D(tex, st, offset, BOXBLUR_ITERATIONS);
   #else

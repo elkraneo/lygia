@@ -25,7 +25,7 @@ license:
 #ifndef FNC_SAMPLESPRITE
 #define FNC_SAMPLESPRITE
 
-SAMPLESPRITE_TYPE sampleSprite(SAMPLER_TYPE tex, float2 st, float2 grid, float frame) {
+inline SAMPLESPRITE_TYPE sampleSprite(SAMPLER_TYPE tex, float2 st, float2 grid, float frame) {
     return SAMPLESPRITE_SAMPLER_FNC(tex, sprite(st, grid, frame) );
 }
 

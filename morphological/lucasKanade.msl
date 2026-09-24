@@ -43,7 +43,7 @@ license:
 
 #ifndef FNC_LUCASKANADE
 #define FNC_LUCASKANADE
-float2 lucasKanade(SAMPLER_TYPE currTex, SAMPLER_TYPE prevTex, float2 st, float2 pixel) {
+inline float2 lucasKanade(SAMPLER_TYPE currTex, SAMPLER_TYPE prevTex, float2 st, float2 pixel) {
     float Sxx = 0.0, Syy = 0.0, Sxy = 0.0, Sxt = 0.0, Syt = 0.0;
 
     for (int j = -LUCASKANADE_RADIUS; j <= LUCASKANADE_RADIUS; j++)

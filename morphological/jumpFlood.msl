@@ -42,13 +42,13 @@ examples:
 #ifndef FNC_JUMPFLOOD
 #define FNC_JUMPFLOOD
 
-float jumpFloodCalcIterTotal(float2 res) { return ceil(log2(max(res.x, res.y)) / log2(2.0)); }
-float jumpFloodCalcIter(float iterTotal, float frame) { return mod(frame, iterTotal); }
+inline float jumpFloodCalcIterTotal(float2 res) { return ceil(log2(max(res.x, res.y)) / log2(2.0)); }
+inline float jumpFloodCalcIter(float iterTotal, float frame) { return mod(frame, iterTotal); }
 
-JUMPFLOOD_TYPE jumpFloodEncode(SAMPLER_TYPE tex, float2 st) { return JUMPFLOOD_ENCODE_FNC(st * JUMPFLOOD_SAMPLE_FNC(tex, st).a); }
-float jumpFloodSdf(SAMPLER_TYPE tex, float2 st) { return distance(st, JUMPFLOOD_DECODE_FNC(JUMPFLOOD_SAMPLE_FNC(tex, st))); }
+inline JUMPFLOOD_TYPE jumpFloodEncode(SAMPLER_TYPE tex, float2 st) { return JUMPFLOOD_ENCODE_FNC(st * JUMPFLOOD_SAMPLE_FNC(tex, st).a); }
+inline float jumpFloodSdf(SAMPLER_TYPE tex, float2 st) { return distance(st, JUMPFLOOD_DECODE_FNC(JUMPFLOOD_SAMPLE_FNC(tex, st))); }
 
-JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel, float jump) {
+inline JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel, float jump) {
     float2 offsets[9];
     offsets[0] = float2(-1.0, -1.0);
     offsets[1] = float2(-1.0, 0.0);
@@ -75,11 +75,11 @@ JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel, float
     return closest_data;
 }
 
-JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel, float iterTotal, float iterN) {
+inline JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel, float iterTotal, float iterN) {
     return jumpFloodIterate(tex, st, pixel, pow(2.0, iterTotal - iterN - 1.0));
 }
 
-JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel, int iterTotal, int iterN) {
+inline JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel, int iterTotal, int iterN) {
     return jumpFloodIterate(tex, st, pixel, pow(2.0, float(iterTotal - iterN - 1)));
 }
 

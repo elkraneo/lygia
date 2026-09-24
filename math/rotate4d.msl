@@ -9,7 +9,7 @@ license:
 
 #ifndef FNC_ROTATE4D
 #define FNC_ROTATE4D
-float4x4 rotate4d(float3 a, const float r) {
+inline float4x4 rotate4d(float3 a, const float r) {
     a = normalize(a);
     float s = sin(r);
     float c = cos(r);

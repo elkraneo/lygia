@@ -10,7 +10,7 @@ license: CC BY 3.0 Copyright (c) 2012 Holger Dammertz
 #ifndef FNC_HAMMERSLEY
 #define FNC_HAMMERSLEY
 
-float2 hammersley(uint index, int numSamples) {
+inline float2 hammersley(uint index, int numSamples) {
     const float tof = 0.5 / float(0x80000000U);
     uint bits = index;
     bits = (bits << 16u) | (bits >> 16u);
@@ -21,7 +21,7 @@ float2 hammersley(uint index, int numSamples) {
     return float2(float(index) / float(numSamples), float(bits) * tof);
 }
 
-float3 hemisphereCosSample(float2 u) {
+inline float3 hemisphereCosSample(float2 u) {
     float phi = 2.0 * PI * u.x;
     float cosTheta2 = 1.0 - u.y;
     float cosTheta = sqrt(cosTheta2);

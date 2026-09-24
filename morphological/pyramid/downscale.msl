@@ -31,7 +31,7 @@ license: MIT License (MIT C)opyright (c) 2020 Lingdong Huang
  
 #ifndef FNC_PYRAMID_DOWNSCALE
 #define FNC_PYRAMID_DOWNSCALE
-float4 pyramidDownscale(SAMPLER_TYPE tex, float2 st, float2 pixel) {
+inline float4 pyramidDownscale(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     const float3 h1 = float3(PYRAMID_H1);
 
     float4 color = float4(0.0);

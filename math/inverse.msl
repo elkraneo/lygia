@@ -7,14 +7,14 @@ use: <float|float2x2|float3x3|float4x4> inverse(<float|float2x2|float3x3|float4x
 #ifndef FNC_INVERSE
 #define FNC_INVERSE
 
-float inverse(float m) { return 1.0 / m; }
+inline float inverse(float m) { return 1.0 / m; }
 
-float2x2 inverse(float2x2 m) {
+inline float2x2 inverse(float2x2 m) {
     return float2x2(m[1][1],-m[0][1],
                 -m[1][0], m[0][0]) / (m[0][0]*m[1][1] - m[0][1]*m[1][0]);
 }
 
-float3x3 inverse(float3x3 m) {
+inline float3x3 inverse(float3x3 m) {
     float a00 = m[0][0], a01 = m[0][1], a02 = m[0][2];
     float a10 = m[1][0], a11 = m[1][1], a12 = m[1][2];
     float a20 = m[2][0], a21 = m[2][1], a22 = m[2][2];
@@ -30,7 +30,7 @@ float3x3 inverse(float3x3 m) {
                 b21, (-a21 * a00 + a01 * a20), (a11 * a00 - a01 * a10)) / det;
 }
 
-float4x4 inverse(float4x4 m) {
+inline float4x4 inverse(float4x4 m) {
     float
             a00 = m[0][0], a01 = m[0][1], a02 = m[0][2], a03 = m[0][3],
             a10 = m[1][0], a11 = m[1][1], a12 = m[1][2], a13 = m[1][3],

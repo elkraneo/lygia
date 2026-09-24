@@ -8,7 +8,7 @@ use: luma(<float3|float4> color)
 
 #ifndef FNC_LUMA
 #define FNC_LUMA
-float luma(float v) { return v; }
-float luma(float3 v) { return rgb2luma(v); }
-float luma(float4 v) { return rgb2luma(v.rgb); }
+inline float luma(float v) { return v; }
+inline float luma(float3 v) { return rgb2luma(v); }
+inline float luma(float4 v) { return rgb2luma(v.rgb); }
 #endif

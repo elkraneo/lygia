@@ -11,7 +11,7 @@ use: <float3> closestDistance(<Triangle> tri, <float3> _pos)
 #define FNC_TRIANGLE_CLOSEST_POINT
 
 // https://github.com/nmoehrle/libacc/blob/master/primitives.h#L71
-float3 closestPoint(Triangle _tri, float3 _triNormal, float3 _pos) {
+inline float3 closestPoint(Triangle _tri, float3 _triNormal, float3 _pos) {
     float3 ab = _tri.b - _tri.a;
     float3 ac = _tri.c - _tri.a;
     float3 normal = _triNormal;
@@ -45,7 +45,7 @@ float3 closestPoint(Triangle _tri, float3 _triNormal, float3 _pos) {
 }
 
 // https://github.com/nmoehrle/libacc/blob/master/primitives.h#L71
-float3 closestPoint(Triangle _tri, float3 _pos) {
+inline float3 closestPoint(Triangle _tri, float3 _pos) {
     float3 ab = _tri.b - _tri.a;
     float3 ac = _tri.c - _tri.a;
     float3 normal = normalize( cross(ac,ab) );

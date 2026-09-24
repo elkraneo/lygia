@@ -10,17 +10,17 @@ license:
 #ifndef FNC_COMPOSITE_SRC_OUT
 #define FNC_COMPOSITE_SRC_OUT
 
-float compositeSourceOut(float src, float dst)
+inline float compositeSourceOut(float src, float dst)
 {
     return src * (1.0 - dst);
 }
 
-float3 compositeSourceOut(float3 srcColor, float3 dstColor, float srcAlpha, float dstAlpha)
+inline float3 compositeSourceOut(float3 srcColor, float3 dstColor, float srcAlpha, float dstAlpha)
 {
     return srcColor * (1.0 - dstAlpha);
 }
 
-float4 compositeSourceOut(float4 srcColor, float4 dstColor) 
+inline float4 compositeSourceOut(float4 srcColor, float4 dstColor) 
 {
     float4 result;
 

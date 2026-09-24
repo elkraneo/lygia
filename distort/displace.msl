@@ -41,7 +41,7 @@ license:
 #ifndef FNC_DISPLACE
 #define FNC_DISPLACE
 
-float4 displace(SAMPLER_TYPE texVel, SAMPLER_TYPE texCol, float2 st, float2 pixel) {
+inline float4 displace(SAMPLER_TYPE texVel, SAMPLER_TYPE texCol, float2 st, float2 pixel) {
     float2 dir[DISPLACE_DIRECTIONS];
     const int iTotal = DISPLACE_DIRECTIONS;
     const float fTotal = float(DISPLACE_DIRECTIONS);

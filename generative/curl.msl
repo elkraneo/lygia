@@ -12,7 +12,7 @@ examples:
 #define FNC_CURL
 
 #ifndef CURL_FNC
-float2 curl( float2 p ) {
+inline float2 curl( float2 p ) {
     const float e = .1;
     float2 dx = float2( e   , 0.0 );
     float2 dy = float2( 0.0 , e   );
@@ -33,7 +33,7 @@ float2 curl( float2 p ) {
     #endif
 }
 #else
-float2 curl( float2 p ) {
+inline float2 curl( float2 p ) {
     float2 e = float2(0.1, 0.0);
     float3 pos = float3(p, 0.0);
     float2 C = float2(  (CURL_FNC(pos+e.yxy)-CURL_FNC(pos-e.yxy))/(2.0*e.x),
@@ -48,7 +48,7 @@ float2 curl( float2 p ) {
 }
 #endif
 
-float3 curl( float3 p ){
+inline float3 curl( float3 p ){
     const float e = .1;
     float3 dx = float3( e   , 0.0 , 0.0 );
     float3 dy = float3( 0.0 , e   , 0.0 );
@@ -73,7 +73,7 @@ float3 curl( float3 p ){
     #endif
 }
 
-float3 curl( float4 p ){
+inline float3 curl( float4 p ){
     const float e = .1;
     float4 dx = float4( e   , 0.0 , 0.0 , 1.0 );
     float4 dy = float4( 0.0 , e   , 0.0 , 1.0 );

@@ -18,7 +18,7 @@ examples:
 
 #ifndef FNC_SNOISE
 #define FNC_SNOISE
-float snoise(float2 v) {
+inline float snoise(float2 v) {
     const float4 C = float4(0.211324865405187,  // (3.0-sqrt(3.0))/6.0
                         0.366025403784439,  // 0.5*(sqrt(3.0)-1.0)
                         -0.577350269189626,  // -1.0 + 2.0 * C.x
@@ -67,7 +67,7 @@ float snoise(float2 v) {
 }
 
 
-float snoise(float3 v) {
+inline float snoise(float3 v) {
     const float2  C = float2(1.0/6.0, 1.0/3.0) ;
     const float4  D = float4(0.0, 0.5, 1.0, 2.0);
 
@@ -141,7 +141,7 @@ float snoise(float3 v) {
                                 dot(p2,x2), dot(p3,x3) ) );
 }
 
-float snoise(float4 v) {
+inline float snoise(float4 v) {
     const float4  C = float4( 0.138196601125011,  // (5 - sqrt(5))/20  G4
                         0.276393202250021,  // 2 * G4
                         0.414589803375032,  // 3 * G4
@@ -217,20 +217,20 @@ float snoise(float4 v) {
                 + dot(m1*m1, float2( dot( p3, x3 ), dot( p4, x4 ) ) ) ) ;
 }
 
-float2 snoise2( float2 x ){
+inline float2 snoise2( float2 x ){
     float s  = snoise(float2( x ));
     float s1 = snoise(float2( x.y - 19.1, x.x + 47.2 ));
     return float2( s , s1 );
 }
 
-float3 snoise3( float3 x ){
+inline float3 snoise3( float3 x ){
     float s  = snoise(float3( x ));
     float s1 = snoise(float3( x.y - 19.1 , x.z + 33.4 , x.x + 47.2 ));
     float s2 = snoise(float3( x.z + 74.2 , x.x - 124.5 , x.y + 99.4 ));
     return float3( s , s1 , s2 );
 }
 
-float3 snoise3( float4 x ){
+inline float3 snoise3( float4 x ){
     float s  = snoise(float4( x ));
     float s1 = snoise(float4( x.y - 19.1 , x.z + 33.4 , x.x + 47.2, x.w ));
     float s2 = snoise(float4( x.z + 74.2 , x.x - 124.5 , x.y + 99.4, x.w ));

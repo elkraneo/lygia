@@ -26,6 +26,6 @@ constant float3x3 YUV2RGB = float3x3(
 
 #ifndef FNC_YUV2RGB
 #define FNC_YUV2RGB
-float3 yuv2rgb( float3 yuv) { return YUV2RGB * yuv; }
-float4 yuv2rgb( float4 yuv) { return float4(yuv2rgb(yuv.rgb), yuv.a); }
+inline float3 yuv2rgb( float3 yuv) { return YUV2RGB * yuv; }
+inline float4 yuv2rgb( float4 yuv) { return float4(yuv2rgb(yuv.rgb), yuv.a); }
 #endif

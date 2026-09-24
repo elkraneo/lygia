@@ -11,17 +11,17 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #ifndef FNC_LOOKATVIEW
 #define FNC_LOOKATVIEW
 
-float4x4 lookAtView( float3 position, float3 target, float3 up ) {
+inline float4x4 lookAtView( float3 position, float3 target, float3 up ) {
     float3x3 m = lookAt(position, target, up);
     return translate(m, position);
 }
 
-float4x4 lookAtView( float3 position, float3 target, float roll ) {
+inline float4x4 lookAtView( float3 position, float3 target, float roll ) {
     float3x3 m = lookAt(position, target, roll);
     return translate(m, position);
 }
 
-float4x4 lookAtView( float3 position, float3 lookAt ) {
+inline float4x4 lookAtView( float3 position, float3 lookAt ) {
     return lookAtView(position, lookAt, float3(0.0, 1.0, 0.0));
 }
 

@@ -18,7 +18,7 @@ examples:
 #ifndef FNC_CNOISE
 #define FNC_CNOISE
 
-float cnoise(float2 P) {
+inline float cnoise(float2 P) {
     float4 Pi = floor(P.xyxy) + float4(0.0, 0.0, 1.0, 1.0);
     float4 Pf = fract(P.xyxy) - float4(0.0, 0.0, 1.0, 1.0);
     Pi = mod289(Pi); // To avoid truncation effects permutation
@@ -56,7 +56,7 @@ float cnoise(float2 P) {
     return 2.3 * n_xy;
 }
 
-float cnoise(float3 P) {
+inline float cnoise(float3 P) {
     float3 Pi0 = floor(P); // Integer part for indexing
     float3 Pi1 = Pi0 + float3(1.0); // Integer part + 1
     Pi0 = mod289(Pi0);
@@ -124,7 +124,7 @@ float cnoise(float3 P) {
     return 2.2 * n_xyz;
 }
 
-float cnoise(float4 P) {
+inline float cnoise(float4 P) {
     float4 Pi0 = floor(P); // Integer part for indexing
     float4 Pi1 = Pi0 + 1.0; // Integer part + 1
     Pi0 = mod289(Pi0);

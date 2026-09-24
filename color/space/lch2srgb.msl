@@ -11,6 +11,6 @@ license:
 
 #ifndef FNC_LCH2SRGB
 #define FNC_LCH2SRGB
-float3 lch2srgb(float3 lch) { return lab2srgb( lch2lab(lch) ); }
-float4 lch2srgb(float4 lch) { return float4(lch2srgb(lch.xyz),lch.a);}
+inline float3 lch2srgb(float3 lch) { return lab2srgb( lch2lab(lch) ); }
+inline float4 lch2srgb(float4 lch) { return float4(lch2srgb(lch.xyz),lch.a);}
 #endif

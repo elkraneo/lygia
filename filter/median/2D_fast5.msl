@@ -46,7 +46,7 @@ examples:
 #define MEDIAN_24(a, b, c, d, e, f, g, h) MEDIAN_2(a, b); MEDIAN_2(c, d); MEDIAN_2(e, f); MEDIAN_2(g, h);
 #define MEDIAN_25(a, b, c, d, e, f, g, h, i, j) MEDIAN_24(a, b, c, d, e, f, g, h); MEDIAN_2(i, j);
 
-MEDIAN2D_FAST5_TYPE median2D_fast5(SAMPLER_TYPE tex, float2 st, float2 radius) {
+inline MEDIAN2D_FAST5_TYPE median2D_fast5(SAMPLER_TYPE tex, float2 st, float2 radius) {
     MEDIAN2D_FAST5_TYPE v[25];
     for (int dX = -2; dX <= 2; ++dX) {
         for (int dY = -2; dY <= 2; ++dY) {

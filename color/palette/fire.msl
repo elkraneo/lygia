@@ -11,5 +11,5 @@ license:
 
 #ifndef FNC_FIRE
 #define FNC_FIRE
-float3 fire(float x) { return float3(1.0, 0.25, 0.0625) * exp(4.0 * x - 1.0); }
+inline float3 fire(float x) { return float3(1.0, 0.25, 0.0625) * exp(4.0 * x - 1.0); }
 #endif

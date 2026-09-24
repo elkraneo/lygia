@@ -11,5 +11,5 @@ license:
 
 #ifndef FNC_QUATADD
 #define FNC_QUATADD
-QUAT quatAdd(QUAT a, QUAT b) { return QUAT(a.xyz + b.xyz, a.w + b.w); }
+inline QUAT quatAdd(QUAT a, QUAT b) { return QUAT(a.xyz + b.xyz, a.w + b.w); }
 #endif

@@ -26,7 +26,7 @@ options:
 #ifndef FNC_EROSION
 #define FNC_EROSION
 
-EROSION_TYPE erosion(SAMPLER_TYPE tex, float2 st, float2 pixel, int radius) {
+inline EROSION_TYPE erosion(SAMPLER_TYPE tex, float2 st, float2 pixel, int radius) {
 
     float invKR = 1.0 / float(radius);
     EROSION_TYPE acc = EROSION_TYPE(1.0);

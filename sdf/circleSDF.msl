@@ -19,7 +19,7 @@ license:
 #ifndef FNC_CIRCLESDF
 #define FNC_CIRCLESDF
 
-float circleSDF(float2 v) {
+inline float circleSDF(float2 v) {
 #ifdef CENTER_2D
     v -= CENTER_2D;
 #else

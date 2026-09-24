@@ -33,7 +33,7 @@ license:
 
 #ifndef FNC_BOXBLUR2D_FAST9
 #define FNC_BOXBLUR2D_FAST9
-BOXBLUR2D_FAST9_TYPE boxBlur2D_fast9(SAMPLER_TYPE tex, float2 st, float2 offset) {
+inline BOXBLUR2D_FAST9_TYPE boxBlur2D_fast9(SAMPLER_TYPE tex, float2 st, float2 offset) {
     BOXBLUR2D_FAST9_TYPE color = BOXBLUR2D_FAST9_SAMPLER_FNC(tex, st);          // center
     color += BOXBLUR2D_FAST9_SAMPLER_FNC(tex, st + float2(-offset.x, offset.y));  // tleft
     color += BOXBLUR2D_FAST9_SAMPLER_FNC(tex, st + float2(-offset.x, 0.));        // left

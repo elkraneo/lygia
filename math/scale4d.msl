@@ -11,35 +11,35 @@ license:
 
 #ifndef FNC_SCALE4D
 #define FNC_SCALE4D
-float4x4 scale4d(float s) {
+inline float4x4 scale4d(float s) {
     return float4x4(s, 0.0, 0.0, 0.0,
                 0.0, s, 0.0, 0.0,
                 0.0, 0.0, s, 0.0,
                 0.0, 0.0, 0.0, 1.0 );
 }
 
-float4x4 scale4d(float x, float y, float z) {
+inline float4x4 scale4d(float x, float y, float z) {
     return float4x4( x, 0.0, 0.0, 0.0,
                 0.0,  y, 0.0, 0.0,
                 0.0, 0.0,  z, 0.0,
                 0.0, 0.0, 0.0, 1.0);
 }
 
-float4x4 scale4d(float x, float y, float z, float w) {
+inline float4x4 scale4d(float x, float y, float z, float w) {
     return float4x4( x, 0.0, 0.0, 0.0,
                 0.0,  y, 0.0, 0.0,
                 0.0, 0.0,  z, 0.0,
                 0.0, 0.0, 0.0,  w );
 }
 
-float4x4 scale4d(float3 s) {
+inline float4x4 scale4d(float3 s) {
     return float4x4(s.x, 0.0, 0.0, 0.0,
                 0.0, s.y, 0.0, 0.0,
                 0.0, 0.0, s.z, 0.0,
                 0.0, 0.0, 0.0, 1.0 );
 }
 
-float4x4 scale4d(float4 s) {
+inline float4x4 scale4d(float4 s) {
     return float4x4(s.x, 0.0, 0.0, 0.0,
                 0.0, s.y, 0.0, 0.0,
                 0.0, 0.0, s.z, 0.0,

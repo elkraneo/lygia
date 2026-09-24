@@ -10,22 +10,22 @@ license:
 #ifndef FNC_POW5
 #define FNC_POW5
 
-float pow5(const float v) {
+inline float pow5(const float v) {
     float v2 = v * v;
     return v2 * v2 * v;
 }
 
-float2 pow5(const float2 v) {
+inline float2 pow5(const float2 v) {
     float2 v2 = v * v;
     return v2 * v2 * v;
 }
 
-float3 pow5(const float3 v) {
+inline float3 pow5(const float3 v) {
     float3 v2 = v * v;
     return v2 * v2 * v;
 }
 
-float4 pow5(const float4 v) {
+inline float4 pow5(const float4 v) {
     float4 v2 = v * v;
     return v2 * v2 * v;
 }

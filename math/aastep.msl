@@ -11,7 +11,7 @@ examples:
 #ifndef FNC_AASTEP
 #define FNC_AASTEP
 
-float aastep(float threshold, float value) {
+inline float aastep(float threshold, float value) {
 
 #if defined(AA_EDGE)
     float afwidth = AA_EDGE;

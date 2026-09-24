@@ -48,7 +48,7 @@ license:
 #ifndef FNC_JOINTBILATERAL
 #define FNC_JOINTBILATERAL
 
-JOINTBILATERAL_TYPE jointBilateral(SAMPLER_TYPE tex, SAMPLER_TYPE guide, float2 uv, float2 pixel, int kernelSize) {
+inline JOINTBILATERAL_TYPE jointBilateral(SAMPLER_TYPE tex, SAMPLER_TYPE guide, float2 uv, float2 pixel, int kernelSize) {
     JOINTBILATERAL_TYPEGUIDE centerGuide = JOINTBILATERAL_SAMPLEGUIDE_FNC(guide, uv);
 
     #ifndef JOINTBILATERAL_KERNELSIZE

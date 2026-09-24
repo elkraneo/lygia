@@ -35,7 +35,7 @@ license:
 
 #ifndef FNC_GAUSSIANBLUR2D
 #define FNC_GAUSSIANBLUR2D
-GAUSSIANBLUR2D_TYPE gaussianBlur2D(SAMPLER_TYPE tex, float2 st, float2 offset, const int kernelSize) {
+inline GAUSSIANBLUR2D_TYPE gaussianBlur2D(SAMPLER_TYPE tex, float2 st, float2 offset, const int kernelSize) {
     GAUSSIANBLUR2D_TYPE accumColor = GAUSSIANBLUR2D_TYPE(0.);
     
     #ifndef GAUSSIANBLUR2D_KERNELSIZE

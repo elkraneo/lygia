@@ -20,7 +20,7 @@ license:
 #ifndef FNC_PALETTE_WADA_TETRAD
 #define FNC_PALETTE_WADA_TETRAD
                 
-int4 wadaTetrad( int index ) {
+inline int4 wadaTetrad( int index ) {
     int4 t[WADA_TETRAD_TOTAL];
     t[0] = int4(2,3,115,125);
     t[1] = int4(1,114,135,136);

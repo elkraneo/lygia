@@ -19,7 +19,7 @@ license:
 
 #ifndef FNC_PALETTE_WADA_DUAD
 #define FNC_PALETTE_WADA_DUAD            
-int2 wadaDyad( int index ) {
+inline int2 wadaDyad( int index ) {
     int2 d[WADA_DYAD_TOTAL];
     d[0] = int2(65,115);
     d[1] = int2(13,39);

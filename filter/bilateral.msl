@@ -39,7 +39,7 @@ license:
 
 #ifndef FNC_BILATERALFILTER
 #define FNC_BILATERALFILTER
-BILATERAL_TYPE bilateral(SAMPLER_TYPE tex, float2 st, float2 offset, int kernelSize) {
+inline BILATERAL_TYPE bilateral(SAMPLER_TYPE tex, float2 st, float2 offset, int kernelSize) {
     BILATERAL_TYPE accumColor = BILATERAL_TYPE(0.);
 
     #ifndef BILATERAL_KERNELSIZE

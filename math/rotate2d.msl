@@ -9,7 +9,7 @@ license:
 
 #ifndef FNC_ROTATE2D
 #define FNC_ROTATE2D
-float2x2 rotate2d(const float r){
+inline float2x2 rotate2d(const float r){
     float c = cos(r);
     float s = sin(r);
     return float2x2(c, -s, s, c);

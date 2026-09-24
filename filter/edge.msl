@@ -35,7 +35,7 @@ license:
 
 #ifndef FNC_EDGE
 #define FNC_EDGE
-EDGE_TYPE edge(SAMPLER_TYPE tex, float2 st, float2 offset) {
+inline EDGE_TYPE edge(SAMPLER_TYPE tex, float2 st, float2 offset) {
     return EDGE_FNC(tex, st, offset);
 }
 #endif

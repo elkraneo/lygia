@@ -10,7 +10,7 @@ options:
 #ifndef FNC_OCTAHEDRONSDF
 #define FNC_OCTAHEDRONSDF
 
-float octahedronSDF(float3 p, float s) {
+inline float octahedronSDF(float3 p, float s) {
     p = abs(p);
     float m = p.x + p.y + p.z - s;
 

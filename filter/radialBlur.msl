@@ -35,7 +35,7 @@ license:
 
 #ifndef FNC_RADIALBLUR
 #define FNC_RADIALBLUR
-RADIALBLUR_TYPE radialBlur(SAMPLER_TYPE tex, float2 st, float2 dir, float strength) {
+inline RADIALBLUR_TYPE radialBlur(SAMPLER_TYPE tex, float2 st, float2 dir, float strength) {
     RADIALBLUR_TYPE color = RADIALBLUR_TYPE(0.);
     float f_samples = float(RADIALBLUR_KERNELSIZE);
     float f_factor = 1./f_samples;
@@ -46,7 +46,7 @@ RADIALBLUR_TYPE radialBlur(SAMPLER_TYPE tex, float2 st, float2 dir, float streng
     return color * f_factor;
 }
 
-RADIALBLUR_TYPE radialBlur(SAMPLER_TYPE tex, float2 st, float2 dir) {
+inline RADIALBLUR_TYPE radialBlur(SAMPLER_TYPE tex, float2 st, float2 dir) {
     return radialBlur(tex, st, dir, RADIALBLUR_STRENGTH);
 }
 #endif

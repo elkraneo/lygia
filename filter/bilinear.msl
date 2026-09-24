@@ -27,7 +27,7 @@ license:
 
 #ifndef FNC_BILINEAR
 #define FNC_BILINEAR
-BILINEAR_TYPE bilinear(SAMPLER_TYPE tex, float2 st, float2 pixel, int radius) {
+inline BILINEAR_TYPE bilinear(SAMPLER_TYPE tex, float2 st, float2 pixel, int radius) {
     float2 coord = st / pixel;
     int2 pos = int2(floor(coord));
     float R = float(radius);
