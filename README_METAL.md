@@ -21,29 +21,28 @@ using namespace metal;
 
 ## Porting Progress
 
-- [ ] Animation
+- [x] Animation
 - [x] Blend
-- [ ] Color 
+- [x] Color
   - [x] Blend
   - [x] Dither (not fully vetted / just spot checked)
-  - [ ] Palette (spectral, macbeth and spyder done)
+  - [x] Palette
   - [x] Levels
   - [x] Space
   - [x] Tonemap
 - [x] Distort
 - [x] Draw - (not fully vetted / just spot checked)
-- [ ] Filters
-    - [x] Gaussian Blur
-    - [x] Box 2d 
+- [x] Filters
 - [x] Generative (not fully vetted / just spot checked)
-- [ ] Geometry
-- [ ] Lighting 
+- [x] Geometry
+- [ ] Lighting (only `lighting/ray`)
 - [x] Math - (not fully vetted / just spot checked)
-- [ ] Morphological
-- [ ] Sample (clamp2edge and nearest done)
+- [x] Morphological
+- [ ] Sample (clamp2edge, nearest and sprite done)
 - [x] Sampler
 - [x] SDF - (not fully vetted / just spot checked)
-- [ ] Space
+- [x] Simulate
+- [x] Space
 
 ## Porting Methodology
 
@@ -60,6 +59,8 @@ using namespace metal;
 - find `inout` and determine which thread local memory keyword should replace it, and make it a reference
 - ensure `const` is only used within functions, `constant` must be used for global scoped constants
 - make sure every `#ifndef FNC_*` include guard is followed by its `#define`
+- rename anything that collides with a Metal reserved word or built-in: the `char()` function is `drawChar()`, and local variables named `kernel` are `kern`. Don't redefine functions Metal already has, like `atan2` or `transpose`
+- `dFdx`/`dFdy`/`fwidth` are `dfdx`/`dfdy`/`fwidth`, and `discard` is `discard_fragment()`. These only work in fragment functions, so say so in the description of files that use them
 
 ## Things to look out for
 
