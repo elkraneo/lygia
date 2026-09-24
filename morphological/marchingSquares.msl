@@ -12,7 +12,7 @@ description: |
     - [urbanspr1nter.github.io](https://urbanspr1nter.github.io/marchingsquares/)
     - []()
 use: 
-    - <float3> sampleMarchingSquares(in <float2> uv, in <sampler2D> tex, in <float> cellSize, in <float> threshold, in <float2> resolution) 
+    - <float2> sampleMarchinSquares(<SAMPLER_TYPE> tex, <float2> uv, <float2> resolution, <float> cellSize, <float> threshold)
 options:
     - SAMPLEMARCHINGSQUARES_SAMPLE_FNC(TEX, UV): optional sampling function
 examples:

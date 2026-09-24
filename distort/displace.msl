@@ -9,7 +9,8 @@ description: Displace pixels
 use: <float4> displace(<SAMPLER_TYPE> texVel, <SAMPLER_TYPE> texCol, <float2> st, <float2> pixel)
 options:
     - SAMPLER_FNC(TEX, UV)
-    - DISPLACE_SAMPLER_FNC: function used to sample the input texture, defaults to SAMPLER_FNC(TEX, UV)
+    - DISPLACE_VEL_SAMPLER_FNC(TEX, UV): function used to sample the velocity texture, defaults to SAMPLER_FNC(TEX, UV)
+    - DISPLACE_COLOR_SAMPLER_FNC(TEX, UV): function used to sample the color texture, defaults to SAMPLER_FNC(TEX, UV)
     - DISPLACE_FROM_CONDITION: condition to use the source of the mix
     - DISPLACE_FROM_AMOUNT: amount of the source to use
     - DISPLACE_TO_AMOUNT: amount of the target to use
