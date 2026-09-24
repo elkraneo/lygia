@@ -18,27 +18,27 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #ifndef FNC_DIST
 #define FNC_DIST
 
-inline float distEuclidean(float2 a, float2 b) { return distance(a, b); }
-inline float distEuclidean(float3 a, float3 b) { return distance(a, b); }
-inline float distEuclidean(float4 a, float4 b) { return distance(a, b); }
+static inline float distEuclidean(float2 a, float2 b) { return distance(a, b); }
+static inline float distEuclidean(float3 a, float3 b) { return distance(a, b); }
+static inline float distEuclidean(float4 a, float4 b) { return distance(a, b); }
 
 // https://en.wikipedia.org/wiki/Taxicab_geometry
-inline float distManhattan(float2 a, float2 b) { return abs(a.x - b.x) + abs(a.y - b.y); }
-inline float distManhattan(float3 a, float3 b) { return abs(a.x - b.x) + abs(a.y - b.y) + abs(a.z - b.z); }
-inline float distManhattan(float4 a, float4 b) { return abs(a.x - b.x) + abs(a.y - b.y) + abs(a.z - b.z) + abs(a.w - b.w); }
+static inline float distManhattan(float2 a, float2 b) { return abs(a.x - b.x) + abs(a.y - b.y); }
+static inline float distManhattan(float3 a, float3 b) { return abs(a.x - b.x) + abs(a.y - b.y) + abs(a.z - b.z); }
+static inline float distManhattan(float4 a, float4 b) { return abs(a.x - b.x) + abs(a.y - b.y) + abs(a.z - b.z) + abs(a.w - b.w); }
 
 // https://en.wikipedia.org/wiki/Chebyshev_distance
-inline float distChebychev(float2 a, float2 b) { return max(abs(a.x - b.x), abs(a.y - b.y)); }
-inline float distChebychev(float3 a, float3 b) { return max(abs(a.x - b.x), max(abs(a.y - b.y), abs(a.z - b.z))); }
-inline float distChebychev(float4 a, float4 b) { return max(abs(a.x - b.x), max(abs(a.y - b.y), max(abs(a.z - b.z), abs(a.w - b.w) ))); }
+static inline float distChebychev(float2 a, float2 b) { return max(abs(a.x - b.x), abs(a.y - b.y)); }
+static inline float distChebychev(float3 a, float3 b) { return max(abs(a.x - b.x), max(abs(a.y - b.y), abs(a.z - b.z))); }
+static inline float distChebychev(float4 a, float4 b) { return max(abs(a.x - b.x), max(abs(a.y - b.y), max(abs(a.z - b.z), abs(a.w - b.w) ))); }
 
 // https://en.wikipedia.org/wiki/Minkowski_distance
-inline float distMinkowski(float2 a, float2 b) { return  pow(pow(abs(a.x - b.x), DIST_MINKOWSKI_P) + pow(abs(a.y - b.y), DIST_MINKOWSKI_P), 1.0 / DIST_MINKOWSKI_P); }
-inline float distMinkowski(float3 a, float3 b) { return  pow(pow(abs(a.x - b.x), DIST_MINKOWSKI_P) + pow(abs(a.y - b.y), DIST_MINKOWSKI_P) + pow(abs(a.z - b.z), DIST_MINKOWSKI_P), 1.0 / DIST_MINKOWSKI_P); }
-inline float distMinkowski(float4 a, float4 b) { return  pow(pow(abs(a.x - b.x), DIST_MINKOWSKI_P) + pow(abs(a.y - b.y), DIST_MINKOWSKI_P) + pow(abs(a.z - b.z), DIST_MINKOWSKI_P) + pow(abs(a.w - b.w), DIST_MINKOWSKI_P), 1.0 / DIST_MINKOWSKI_P); }
+static inline float distMinkowski(float2 a, float2 b) { return  pow(pow(abs(a.x - b.x), DIST_MINKOWSKI_P) + pow(abs(a.y - b.y), DIST_MINKOWSKI_P), 1.0 / DIST_MINKOWSKI_P); }
+static inline float distMinkowski(float3 a, float3 b) { return  pow(pow(abs(a.x - b.x), DIST_MINKOWSKI_P) + pow(abs(a.y - b.y), DIST_MINKOWSKI_P) + pow(abs(a.z - b.z), DIST_MINKOWSKI_P), 1.0 / DIST_MINKOWSKI_P); }
+static inline float distMinkowski(float4 a, float4 b) { return  pow(pow(abs(a.x - b.x), DIST_MINKOWSKI_P) + pow(abs(a.y - b.y), DIST_MINKOWSKI_P) + pow(abs(a.z - b.z), DIST_MINKOWSKI_P) + pow(abs(a.w - b.w), DIST_MINKOWSKI_P), 1.0 / DIST_MINKOWSKI_P); }
 
-inline float dist(float2 a, float2 b) { return DIST_FNC(a, b); }
-inline float dist(float3 a, float3 b) { return DIST_FNC(a, b); }
-inline float dist(float4 a, float4 b) { return DIST_FNC(a, b); }
+static inline float dist(float2 a, float2 b) { return DIST_FNC(a, b); }
+static inline float dist(float3 a, float3 b) { return DIST_FNC(a, b); }
+static inline float dist(float4 a, float4 b) { return DIST_FNC(a, b); }
 
 #endif

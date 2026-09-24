@@ -30,7 +30,7 @@ license:
 #define FNC_FRESNEL_REFLECTION
 
 template<typename... Env>
-inline float3 fresnelReflection(float3 R, float3 f0, float NoV, Env... env) {
+static inline float3 fresnelReflection(float3 R, float3 f0, float NoV, Env... env) {
     float3 frsnl = fresnel(f0, NoV);
 
     float3 reflectColor = float3(0.0);
@@ -44,7 +44,7 @@ inline float3 fresnelReflection(float3 R, float3 f0, float NoV, Env... env) {
 }
 
 template<typename... Env>
-inline float3 fresnelReflection(float3 R, float3 Fr, Env... env) {
+static inline float3 fresnelReflection(float3 R, float3 Fr, Env... env) {
     float3 reflectColor = float3(0.0);
     #if defined(FRESNEL_REFLECTION_FNC)
     reflectColor = FRESNEL_REFLECTION_FNC(R);
@@ -55,7 +55,7 @@ inline float3 fresnelReflection(float3 R, float3 Fr, Env... env) {
 }
 
 template<typename... Env>
-inline float3 fresnelIridescentReflection(float3 normal, float3 view, float f0, float ior1, float ior2, float thickness, float roughness, 
+static inline float3 fresnelIridescentReflection(float3 normal, float3 view, float f0, float ior1, float ior2, float thickness, float roughness, 
                                  thread float& Fr, Env... env) {
     float cos0 = -dot(view, normal);
     Fr = fresnel(f0, cos0);
@@ -69,13 +69,13 @@ inline float3 fresnelIridescentReflection(float3 normal, float3 view, float f0, 
 }
 
 template<typename... Env>
-inline float3 fresnelIridescentReflection(float3 normal, float3 view, float f0, float ior1, float ior2, float thickness, float roughness, Env... env) {
+static inline float3 fresnelIridescentReflection(float3 normal, float3 view, float f0, float ior1, float ior2, float thickness, float roughness, Env... env) {
     float Fr = 0.0;
     return fresnelIridescentReflection(normal, view, f0, ior1, ior2, thickness, roughness, Fr, env...);
 }
 
 template<typename... Env>
-inline float3 fresnelIridescentReflection(float3 normal, float3 view, float3 f0, float3 ior1, float3 ior2, float thickness, float roughness,
+static inline float3 fresnelIridescentReflection(float3 normal, float3 view, float3 f0, float3 ior1, float3 ior2, float thickness, float roughness,
                                  thread float3& Fr, Env... env) {
     float cos0 = -dot(view, normal);
     Fr = fresnel(f0, cos0);
@@ -89,25 +89,25 @@ inline float3 fresnelIridescentReflection(float3 normal, float3 view, float3 f0,
 }
 
 template<typename... Env>
-inline float3 fresnelIridescentReflection(float3 normal, float3 view, float3 f0, float3 ior1, float3 ior2, float thickness, float roughness, Env... env) {
+static inline float3 fresnelIridescentReflection(float3 normal, float3 view, float3 f0, float3 ior1, float3 ior2, float thickness, float roughness, Env... env) {
     float3 Fr = float3(0.0);
     return fresnelIridescentReflection(normal, view, f0, ior1, ior2, thickness, roughness, Fr, env...);
 }
 
 template<typename... Env>
-inline float3 fresnelIridescentReflection(float3 normal, float3 view, float ior1, float ior2, float thickness, float roughness, Env... env) {
+static inline float3 fresnelIridescentReflection(float3 normal, float3 view, float ior1, float ior2, float thickness, float roughness, Env... env) {
     float F0 = (ior2-1.)/(ior2+1.);
     return fresnelIridescentReflection(normal, view, F0 * F0, ior1, ior2, thickness, roughness, env...);
 }
 
 template<typename... Env>
-inline float3 fresnelIridescentReflection(float3 normal, float3 view, float3 ior1, float3 ior2, float thickness, float roughness, Env... env) {
+static inline float3 fresnelIridescentReflection(float3 normal, float3 view, float3 ior1, float3 ior2, float thickness, float roughness, Env... env) {
     float3 F0 = (ior2-1.)/(ior2+1.);
     return fresnelIridescentReflection(normal, view, F0 * F0, ior1, ior2, thickness, roughness, env...);
 }
 
 template<typename... Env>
-inline float3 fresnelReflection(Material _M, ShadingData shadingData, Env... env) {
+static inline float3 fresnelReflection(Material _M, ShadingData shadingData, Env... env) {
     float3 f0 = float3(0.04, 0.04, 0.04);
     #if defined(SHADING_MODEL_IRIDESCENCE)
     return fresnelIridescentReflection(_M.normal, -shadingData.V, f0, float3(IOR_AIR, IOR_AIR, IOR_AIR), _M.ior, _M.thickness, _M.roughness, env...);

@@ -50,7 +50,7 @@ license:
 #define FNC_PBRGLASS
 
 template<typename... Env>
-inline float4 pbrGlass(Material mat, ShadingData shadingData, Env... env) {
+static inline float4 pbrGlass(Material mat, ShadingData shadingData, Env... env) {
     // Shading Data
     // ------------
 #if defined(SCENE_BACK_SURFACE)
@@ -113,7 +113,7 @@ inline float4 pbrGlass(Material mat, ShadingData shadingData, Env... env) {
 }
 
 template<typename... Env>
-inline float4 pbrGlass(Material mat, Env... env) {
+static inline float4 pbrGlass(Material mat, Env... env) {
     ShadingData shadingData = shadingDataNew();
     shadingData.V = normalize(CAMERA_POSITION - mat.position);
     return pbrGlass(mat, shadingData, env...);

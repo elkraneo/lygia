@@ -13,7 +13,7 @@ license:
 #ifndef FNC_MATERIAL_ROUGHNESS
 #define FNC_MATERIAL_ROUGHNESS
 
-inline float materialRoughness() {
+static inline float materialRoughness() {
     float roughness = 0.05;
 
 #if defined(MATERIAL_ROUGHNESS)

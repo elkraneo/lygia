@@ -32,7 +32,7 @@ use: <float3|float4> tonemapDebug(<float3|float4> x)
 #define FNC_TONEMAPDEBUG
 
 #if !defined(PLATFORM_RPI) && !defined(PLATFORM_WEBGL)
-inline float3 tonemapDebug(float3 x) {
+static inline float3 tonemapDebug(float3 x) {
     
     // 16 debug colors + 1 duplicated at the end for easy indexing
     float3 debugColors[17];
@@ -62,7 +62,7 @@ inline float3 tonemapDebug(float3 x) {
     int index = int(v);
     return mix(debugColors[index], debugColors[index + 1], v - float(index));
 }
-inline float4 tonemapDebug(float4 x) { return float4(tonemapDebug(x.rgb), x.a); }
+static inline float4 tonemapDebug(float4 x) { return float4(tonemapDebug(x.rgb), x.a); }
 #endif
 
 #endif

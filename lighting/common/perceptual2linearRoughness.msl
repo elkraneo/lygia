@@ -12,7 +12,7 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #ifndef FNC_PERCEPTUAL_LINEAR_ROUGHNESS
 #define FNC_PERCEPTUAL_LINEAR_ROUGHNESS
 
-inline float perceptual2linearRoughness(float perceptualRoughness) {
+static inline float perceptual2linearRoughness(float perceptualRoughness) {
     perceptualRoughness = clamp(perceptualRoughness, MIN_PERCEPTUAL_ROUGHNESS, 1.0);
     return perceptualRoughness * perceptualRoughness;
 }

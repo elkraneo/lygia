@@ -26,12 +26,12 @@ options:
 
 // Rule 1: All My energy moves with me
 //  I should find My Energy not where it is, but where it was.
-inline float4 latticeBoltzmannPrevPosSampler(SAMPLER_TYPE tex, float2 st, float2 pixel) { 
+static inline float4 latticeBoltzmannPrevPosSampler(SAMPLER_TYPE tex, float2 st, float2 pixel) { 
     float2 offset = LATTICEBOLTZMANN_SAMPLER_FNC(tex, st).xy;
     return LATTICEBOLTZMANN_SAMPLER_FNC(tex, st - offset * pixel); 
 }
 
-inline float4 latticeBoltzmann(SAMPLER_TYPE tex, float2 st, float2 pixel) {
+static inline float4 latticeBoltzmann(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     float4 d = latticeBoltzmannPrevPosSampler(tex, st, pixel);
 
     // Neighbors
@@ -66,7 +66,7 @@ inline float4 latticeBoltzmann(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     return d;
 }
 
-inline float4 latticeBoltzmann(SAMPLER_TYPE tex, float2 st, float2 pixel, float2 force) {
+static inline float4 latticeBoltzmann(SAMPLER_TYPE tex, float2 st, float2 pixel, float2 force) {
     float4 d = latticeBoltzmann(tex, st, pixel);
     d.xy += force * saturate(d.w) * pixel;
     // d.xy = clamp(d.xy, -0.9999, 0.9999);

@@ -9,7 +9,7 @@ license:
 
 #ifndef FNC_ROTATE3D
 #define FNC_ROTATE3D
-inline float3x3 rotate3d(float3 a, const float r) {
+static inline float3x3 rotate3d(float3 a, const float r) {
     a = normalize(a);
     float s = sin(r);
     float c = cos(r);

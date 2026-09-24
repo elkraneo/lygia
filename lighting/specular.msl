@@ -28,5 +28,5 @@ license:
 
 #ifndef FNC_SPECULAR
 #define FNC_SPECULAR
-inline float3 specular(ShadingData shadingData) { return float3(1.0, 1.0, 1.0) * SPECULAR_FNC(shadingData); }
+static inline float3 specular(ShadingData shadingData) { return float3(1.0, 1.0, 1.0) * SPECULAR_FNC(shadingData); }
 #endif

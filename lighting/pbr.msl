@@ -46,7 +46,7 @@ license:
 #define FNC_PBR
 
 template<typename... Env>
-inline float4 pbr(Material mat, ShadingData shadingData, Env... env) {
+static inline float4 pbr(Material mat, ShadingData shadingData, Env... env) {
     shadingDataNew(mat, shadingData);
 
     // Indirect Lights ( Image Based Lighting )
@@ -93,7 +93,7 @@ inline float4 pbr(Material mat, ShadingData shadingData, Env... env) {
 }
 
 template<typename... Env>
-inline float4 pbr(Material mat, Env... env) {
+static inline float4 pbr(Material mat, Env... env) {
     ShadingData shadingData = shadingDataNew();
     shadingData.V = normalize(CAMERA_POSITION - mat.position);
     return pbr(mat, shadingData, env...);

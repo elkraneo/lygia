@@ -7,7 +7,7 @@ use: <int> modi(<int> x, <int> y)
 
 #ifndef FNC_MODI
 #define FNC_MODI
-inline int modi(int x, int y) {
+static inline int modi(int x, int y) {
     return x % y;
 }
 #endif

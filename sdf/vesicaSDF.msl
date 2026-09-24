@@ -13,13 +13,13 @@ license:
 
 #ifndef FNC_VESICASDF
 #define FNC_VESICASDF
-inline float vesicaSDF(float2 st, float w) {
+static inline float vesicaSDF(float2 st, float w) {
     float2 offset = float2(w*0.5,0.);
     return max( circleSDF(st-offset),
                 circleSDF(st+offset));
 }
 
-inline float vesicaSDF(float2 st) {
+static inline float vesicaSDF(float2 st) {
     return vesicaSDF(st, 0.5);
 }
 #endif

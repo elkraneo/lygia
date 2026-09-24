@@ -30,7 +30,7 @@ license:
 #ifndef FNC_PINCUSHION
 #define FNC_PINCUSHION
 
-inline float2 pincushion(float2 st, float2 pixel, float amt) {
+static inline float2 pincushion(float2 st, float2 pixel, float amt) {
     float prop = pixel.x / pixel.y; // screen proroption
     float2 m = float2(0.5, 0.5 / prop); // center coords
     float2 d = st - m;                // vector from center to current fragment
@@ -42,11 +42,11 @@ inline float2 pincushion(float2 st, float2 pixel, float amt) {
     float A = (power > 0.0)? tan(dist * power) : atan(dist * -power * 10.0);
     float B = (power > 0.0)? tan(bind * power) : atan(-power * bind * 10.0);
 
-    float2 uv = (power == 0.0)? st : m + normalize(d) * A * bind/B; // no distortion when amt is 0 (avoids 0/0)
+    float2 uv = (power == 0.0)? st : m + normalize(d) * A * bind/B; // amt 0: no distortion (st is already in the space the y * prop below converts back from; avoids 0/0)
     return float2(uv.x, uv.y * prop);
 }
 
-inline PINCUSHION_TYPE pincushion(SAMPLER_TYPE tex, float2 st, float2 pixel, float amt) {
+static inline PINCUSHION_TYPE pincushion(SAMPLER_TYPE tex, float2 st, float2 pixel, float amt) {
     float2 uv = pincushion(st, pixel, amt);
     return PINCUSHION_SAMPLER_FNC(tex, uv);
 }

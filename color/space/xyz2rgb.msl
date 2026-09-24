@@ -27,6 +27,6 @@ constant float3x3 XYZ2RGB = float3x3(
 
 #ifndef FNC_XYZ2RGB
 #define FNC_XYZ2RGB
-inline float3 xyz2rgb( float3 xyz) { return XYZ2RGB * (xyz * 0.01); }
-inline float4 xyz2rgb( float4 xyz) { return float4(xyz2rgb(xyz.rgb), xyz.a); }
+static inline float3 xyz2rgb( float3 xyz) { return XYZ2RGB * (xyz * 0.01); }
+static inline float4 xyz2rgb( float4 xyz) { return float4(xyz2rgb(xyz.rgb), xyz.a); }
 #endif

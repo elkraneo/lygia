@@ -19,7 +19,7 @@ examples:
 
 #ifndef FNC_SAMPLESMOOTH
 #define FNC_SAMPLESMOOTH
-inline float4 sampleSmooth(SAMPLER_TYPE tex, float2 st, float2 texResolution) {
+static inline float4 sampleSmooth(SAMPLER_TYPE tex, float2 st, float2 texResolution) {
     st = st * texResolution + 0.5;
     float2 fst = fract( st );
     st = floor( st );

@@ -19,13 +19,13 @@ license:
 
 #ifndef FNC_HUESHIFTRYB
 #define FNC_HUESHIFTRYB
-inline float3 hueShiftRYB( float3 color, float a){
+static inline float3 hueShiftRYB( float3 color, float a){
     float3 rgb = rgb2ryb(color);
     rgb = hueShift(rgb, PI);
     return ryb2rgb(rgb);
 }
 
-inline float4 hueShiftRYB(float4 v, float a) {
+static inline float4 hueShiftRYB(float4 v, float a) {
     return float4(hueShiftRYB(v.rgb, a), v.a);
 }
 #endif

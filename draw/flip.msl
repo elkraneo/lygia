@@ -9,15 +9,15 @@ license:
 
 #ifndef FNC_FLIP
 #define FNC_FLIP
-inline float flip(float v, float pct) {
+static inline float flip(float v, float pct) {
     return mix(v, 1.0 - v, pct);
 }
 
-inline float3 flip(float3 v, float pct) {
+static inline float3 flip(float3 v, float pct) {
     return mix(v, 1.0 - v, pct);
 }
 
-inline float4 flip(float4 v, float pct) {
+static inline float4 flip(float4 v, float pct) {
     return mix(v, 1.0 - v, pct);
 }
 #endif

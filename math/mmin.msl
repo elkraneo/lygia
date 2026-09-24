@@ -12,13 +12,13 @@ license:
 #ifndef FNC_MMIN
 #define FNC_MMIN
 
-inline float mmin(const float v) { return v; }
-inline float mmin(float a, float b) { return min(a, b); }
-inline float mmin(float a, float b, float c) { return min(a, min(b, c)); }
-inline float mmin(float a, float b, float c, float d) { return min(min(a,b), min(c, d)); }
+static inline float mmin(const float v) { return v; }
+static inline float mmin(float a, float b) { return min(a, b); }
+static inline float mmin(float a, float b, float c) { return min(a, min(b, c)); }
+static inline float mmin(float a, float b, float c, float d) { return min(min(a,b), min(c, d)); }
 
-inline float mmin(const float2 v) { return min(v.x, v.y); }
-inline float mmin(const float3 v) { return mmin(v.x, v.y, v.z); }
-inline float mmin(const float4 v) { return mmin(v.x, v.y, v.z, v.w); }
+static inline float mmin(const float2 v) { return min(v.x, v.y); }
+static inline float mmin(const float3 v) { return mmin(v.x, v.y, v.z); }
+static inline float mmin(const float4 v) { return mmin(v.x, v.y, v.z, v.w); }
 
 #endif

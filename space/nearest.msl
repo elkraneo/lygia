@@ -13,7 +13,7 @@ license:
 
 #ifndef FNC_NEAREST
 #define FNC_NEAREST
-inline float2 nearest(float2 v, float2 res) {
+static inline float2 nearest(float2 v, float2 res) {
     float2 offset = 0.5 / (res - 1.0);
     return NEAREST_FLOOR_FNC(v * res) / res + offset;
 }

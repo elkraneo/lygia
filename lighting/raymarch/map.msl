@@ -7,8 +7,8 @@ description: |
     Map of SDF functions to be declare.
     Define `Material raymarchMap(float3 pos)` in your shader (and `Medium raymarchVolumeMap(float3 pos)` when
     using RAYMARCH_VOLUME), before or after including the raymarch files; these prototypes match it.
-    Metal: mark your definition `inline` if more than one .metal file of your app defines it, otherwise the
-    metallib link fails with duplicate symbols.
+    Metal: define it `static inline` (the prototypes are static), so each .metal file of your app can have its
+    own scene without duplicate or shared symbols.
 use: <Material> raymarchMap( in <float3> pos )
 options:
     - RAYMARCH_MAP_FNC: default raymarchMap
@@ -28,7 +28,7 @@ examples:
 #ifndef FNC_RAYMARCH_MAP
 #define FNC_RAYMARCH_MAP
 
-Material RAYMARCH_MAP_FNC( float3 pos );
-Medium RAYMARCH_VOLUME_MAP_FNC( float3 pos );
+static Material RAYMARCH_MAP_FNC( float3 pos );
+static Medium RAYMARCH_VOLUME_MAP_FNC( float3 pos );
 
 #endif

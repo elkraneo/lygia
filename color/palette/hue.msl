@@ -13,9 +13,9 @@ license:
 
 #ifndef FNC_PALETTE_HUE
 #define FNC_PALETTE_HUE
-inline float3 hue(float x, float r) { 
+static inline float3 hue(float x, float r) { 
     float3 v = abs( mod(fract(1.0-x) + float3(0.0,1.0,2.0) * r, 1.0) * 2.0 - 1.0); 
     return v*v*(3.0-2.0*v);
 }
-inline float3 hue(float x) { return hue(x, 0.33333); }
+static inline float3 hue(float x) { return hue(x, 0.33333); }
 #endif

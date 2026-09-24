@@ -49,7 +49,7 @@ license:
 #define FNC_PBR_LITTLE
 
 template<typename... Env>
-inline float4 pbrLittle(Material mat, ShadingData shadingData, Env... env) {
+static inline float4 pbrLittle(Material mat, ShadingData shadingData, Env... env) {
     shadingDataNew(mat, shadingData);
     #ifdef LIGHT_DIRECTION
     shadingData.L = normalize(LIGHT_DIRECTION);
@@ -95,7 +95,7 @@ inline float4 pbrLittle(Material mat, ShadingData shadingData, Env... env) {
 }
 
 template<typename... Env>
-inline float4 pbrLittle(Material mat, Env... env) {
+static inline float4 pbrLittle(Material mat, Env... env) {
     ShadingData shadingData = shadingDataNew();
     shadingData.V = normalize(CAMERA_POSITION - mat.position);
     return pbrLittle(mat, shadingData, env...);

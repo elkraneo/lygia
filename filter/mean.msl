@@ -24,7 +24,7 @@ options:
 
 #ifndef FNC_AVERAGE
 #define FNC_AVERAGE
-inline MEAN_TYPE mean4(SAMPLER_TYPE tex, float2 st, float2 pixel) {
+static inline MEAN_TYPE mean4(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     MEAN_TYPE topLeft = MEAN_SAMPLER_FNC(tex, st - pixel);
     MEAN_TYPE bottomLeft = MEAN_SAMPLER_FNC(tex, st + float2(-pixel.x, pixel.y));
     MEAN_TYPE topRight = MEAN_SAMPLER_FNC(tex, st + float2(pixel.x, -pixel.y));
@@ -32,7 +32,7 @@ inline MEAN_TYPE mean4(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     return 0.25 * (topLeft + topRight + bottomLeft + bottomRight);
 }
 
-inline MEAN_TYPE mean(SAMPLER_TYPE tex, float2 st, float2 pixel) {
+static inline MEAN_TYPE mean(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     return MEAN_AMOUNT(tex, st, pixel);
 }
 #endif

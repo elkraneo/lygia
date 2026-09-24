@@ -7,7 +7,7 @@ use: <float3> debugCube(<float3> _normal, <float> cube_size, <float> lod)
 #ifndef FNC_DEBUGCUBE
 #define FNC_DEBUGCUBE
 
-inline float3 debugCube(float3 v, float cube_size, float lod ) {
+static inline float3 debugCube(float3 v, float cube_size, float lod ) {
     float M = max(max(abs(v.x), abs(v.y)), abs(v.z));
     float scale = 1.0 - exp2(lod) / cube_size;
     if (abs(v.x) != M) v.x *= scale;

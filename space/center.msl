@@ -13,8 +13,8 @@ license:
 #ifndef FNC_CENTER
 #define FNC_CENTER
 
-inline float center(float x) { return x * 2.0 - 1.0; }
-inline float2  center(float2 v) { return v * 2.0 - 1.0; }
-inline float3  center(float3 v) { return v * 2.0 - 1.0; }
+static inline float center(float x) { return x * 2.0 - 1.0; }
+static inline float2  center(float2 v) { return v * 2.0 - 1.0; }
+static inline float3  center(float3 v) { return v * 2.0 - 1.0; }
 
 #endif

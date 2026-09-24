@@ -16,20 +16,20 @@ license:
 
 #ifndef FNC_CHECKERTILE
 #define FNC_CHECKERTILE
-inline float checkerTile(float4 t) {
+static inline float checkerTile(float4 t) {
     float2 c = mod(t.zw,2.);
     return abs(c.x-c.y);
 }
 
-inline float checkerTile(float2 v) {
+static inline float checkerTile(float2 v) {
     return checkerTile(sqTile(v));
 }
 
-inline float checkerTile(float2 v, float s) {
+static inline float checkerTile(float2 v, float s) {
     return checkerTile(v * s);
 }
 
-inline float checkerTile(float2 v, float2 s) {
+static inline float checkerTile(float2 v, float2 s) {
     return checkerTile(v * s);
 }
 #endif

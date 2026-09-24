@@ -9,7 +9,7 @@ use: <float> pyramidSDF(<float3> p, <float> h )
 #ifndef FNC_PYRAMIDSDF
 #define FNC_PYRAMIDSDF
 
-inline float pyramidSDF( float3 p, float h )  {
+static inline float pyramidSDF( float3 p, float h )  {
    float m2 = h*h + 0.25;
    
    // symmetry

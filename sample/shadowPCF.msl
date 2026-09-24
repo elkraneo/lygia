@@ -21,7 +21,7 @@ license:
 #ifndef FNC_SAMPLESHADOWPCF
 #define FNC_SAMPLESHADOWPCF
 
-inline float sampleShadowPCF(SAMPLER_TYPE depths, float2 size, float2 uv, float compare) {
+static inline float sampleShadowPCF(SAMPLER_TYPE depths, float2 size, float2 uv, float compare) {
     float2 pixel = 1.0/size;
     float result = 0.0;
     for (float x= -2.0; x <= 2.0; x++)

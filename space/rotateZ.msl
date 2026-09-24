@@ -13,11 +13,11 @@ license:
 
 #ifndef FNC_ROTATEZ
 #define FNC_ROTATEZ
-inline float4 rotateZ(float4 v, float r, float4 c) {
+static inline float4 rotateZ(float4 v, float r, float4 c) {
     return rotate4dZ(r) * (v - c) + c;
 }
 
-inline float4 rotateZ(float4 v, float r) {
+static inline float4 rotateZ(float4 v, float r) {
     #ifdef CENTER_4D
     return rotate4dZ(r) * (v - CENTER_3D) + CENTER_3D;
     #else
@@ -25,11 +25,11 @@ inline float4 rotateZ(float4 v, float r) {
     #endif
 }
 
-inline float3 rotateZ(float3 v, float r, float3 c) {
+static inline float3 rotateZ(float3 v, float r, float3 c) {
     return (rotate4dZ(r) * float4(v - c, 0.0) ).xyz + c;
 }
 
-inline float3 rotateZ(float3 v, float r) {
+static inline float3 rotateZ(float3 v, float r) {
     #ifdef CENTER_3D
     return (rotate4dZ(r) * float4(v - CENTER_3D, 0.0)).xyz + CENTER_3D;
     #else

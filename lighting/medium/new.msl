@@ -17,20 +17,20 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #ifndef FNC_MEDIUM_NEW
 #define FNC_MEDIUM_NEW
 
-inline void mediumNew(thread Medium& _mat) {
+static inline void mediumNew(thread Medium& _mat) {
     _mat.scattering   = float3(1.0, 1.0, 1.0);
     _mat.absorption   = float3(1.0, 1.0, 1.0);
     _mat.sdf     = RAYMARCH_MAX_DIST;
 
 }
 
-inline Medium mediumNew() {
+static inline Medium mediumNew() {
     Medium mat;
     mediumNew(mat);
     return mat;
 }
 
-inline Medium mediumNew(float3 scattering, float3 absorption, float sdf) {
+static inline Medium mediumNew(float3 scattering, float3 absorption, float sdf) {
     Medium mat = mediumNew();
     mat.scattering = scattering;
     mat.absorption = absorption;
@@ -38,7 +38,7 @@ inline Medium mediumNew(float3 scattering, float3 absorption, float sdf) {
     return mat;
 }
 
-inline Medium mediumNew(float3 scattering, float sdf) {
+static inline Medium mediumNew(float3 scattering, float sdf) {
     return mediumNew(scattering, float3(0.0, 0.0, 0.0), sdf);
 }
 

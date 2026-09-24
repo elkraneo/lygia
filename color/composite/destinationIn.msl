@@ -10,18 +10,18 @@ license:
 #ifndef FNC_COMPOSITE_DST_IN
 #define FNC_COMPOSITE_DST_IN
 
-inline float compositeDestinationIn(float src, float dst)
+static inline float compositeDestinationIn(float src, float dst)
 {
     return dst * src;
 }
 
-inline float3 compositeDestinationIn(float3 srcColor, float3 dstColor, float srcAlpha, float dstAlpha)
+static inline float3 compositeDestinationIn(float3 srcColor, float3 dstColor, float srcAlpha, float dstAlpha)
 {
     return dstColor * srcAlpha;
 }
 
 
-inline float4 compositeDestinationIn(float4 srcColor, float4 dstColor)
+static inline float4 compositeDestinationIn(float4 srcColor, float4 dstColor)
 {
     float4 result;
    

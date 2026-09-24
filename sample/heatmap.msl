@@ -18,6 +18,6 @@ license:
 
 #ifndef FNC_SAMPLEHEATMAP
 #define FNC_SAMPLEHEATMAP
-inline float sampleHeatmap(SAMPLER_TYPE tex, float2 st) { return rgb2heat( SAMPLEHEATMAP_SAMPLE_FNC(tex, st) ); }
-inline float sampleHeatmap(SAMPLER_TYPE tex, float2 st, float _min, float _max) { return  _min + sampleHeatmap(tex, st) * (_max - _min); }
+static inline float sampleHeatmap(SAMPLER_TYPE tex, float2 st) { return rgb2heat( SAMPLEHEATMAP_SAMPLE_FNC(tex, st) ); }
+static inline float sampleHeatmap(SAMPLER_TYPE tex, float2 st, float _min, float _max) { return  _min + sampleHeatmap(tex, st) * (_max - _min); }
 #endif

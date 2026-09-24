@@ -13,7 +13,7 @@ license:
 
 #ifndef FNC_LINEAR2GAMMA
 #define FNC_LINEAR2GAMMA
-inline float3 linear2gamma( float3 v) {
+static inline float3 linear2gamma( float3 v) {
 #ifdef GAMMA
     return pow(v, float3(1.0/GAMMA));
 #else
@@ -22,11 +22,11 @@ inline float3 linear2gamma( float3 v) {
 #endif
 }
 
-inline float4 linear2gamma( float4 v) {
+static inline float4 linear2gamma( float4 v) {
     return float4(linear2gamma(v.rgb), v.a);
 }
 
-inline float linear2gamma( float v) {
+static inline float linear2gamma( float v) {
 #ifdef GAMMA
     return pow(v, 1.0/GAMMA);
 #else

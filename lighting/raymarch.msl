@@ -62,7 +62,7 @@ license:
 constant float RAYMARCH_MULTISAMPLE_FACTOR = 1.0/float(RAYMARCH_MULTISAMPLE);
 #endif
 
-inline float3 raymarchModelPosition(float2 st) {
+static inline float3 raymarchModelPosition(float2 st) {
 #if !defined(RAYMARCH_SPHERICAL)
     float fov = 1.0 / tan(RAYMARCH_CAMERA_FOV * DEG2RAD * 0.5);
     return normalize(float3(st*2.0-1.0, fov));
@@ -74,7 +74,7 @@ inline float3 raymarchModelPosition(float2 st) {
 }
 
 template<typename... Env>
-inline float4 raymarch(float4x4 viewMatrix, float2 st, thread float& eyeDepth, thread Material& mat, Env... env) {
+static inline float4 raymarch(float4x4 viewMatrix, float2 st, thread float& eyeDepth, thread Material& mat, Env... env) {
 
     float3 camera = viewMatrix[3].xyz;
     float3 cameraForward = viewMatrix[2].xyz;
@@ -141,32 +141,32 @@ inline float4 raymarch(float4x4 viewMatrix, float2 st, thread float& eyeDepth, t
 }
 
 template<typename... Env>
-inline float4 raymarch(float4x4 viewMatrix, float2 st, thread float& eyeDepth, Env... env) {
+static inline float4 raymarch(float4x4 viewMatrix, float2 st, thread float& eyeDepth, Env... env) {
     Material mat;
     materialZero(mat);
     return raymarch(viewMatrix, st, eyeDepth, mat, env...);
 }
 
 template<typename... Env>
-inline float4 raymarch(float4x4 viewMatrix, float2 st, Env... env) {
+static inline float4 raymarch(float4x4 viewMatrix, float2 st, Env... env) {
     float eyeDepth = 0.0;
     return raymarch(viewMatrix, st, eyeDepth, env...);
 }
 
 template<typename... Env>
-inline float4 raymarch(float3 cameraPosition, float3 cameraLookAt, float2 st, thread float& eyeDepth, thread Material& mat, Env... env) {
+static inline float4 raymarch(float3 cameraPosition, float3 cameraLookAt, float2 st, thread float& eyeDepth, thread Material& mat, Env... env) {
     float4x4 viewMatrix = lookAtView(cameraPosition, cameraLookAt);
     return raymarch(viewMatrix, st, eyeDepth, mat, env...);
 }
 
 template<typename... Env>
-inline float4 raymarch(float3 cameraPosition, float3 cameraLookAt, float2 st, thread float& eyeDepth, Env... env) {
+static inline float4 raymarch(float3 cameraPosition, float3 cameraLookAt, float2 st, thread float& eyeDepth, Env... env) {
     float4x4 viewMatrix = lookAtView(cameraPosition, cameraLookAt);
     return raymarch(viewMatrix, st, eyeDepth, env...);
 }
 
 template<typename... Env>
-inline float4 raymarch(float3 cameraPosition, float3 cameraLookAt, float2 st, Env... env) {
+static inline float4 raymarch(float3 cameraPosition, float3 cameraLookAt, float2 st, Env... env) {
     float4x4 viewMatrix = lookAtView(cameraPosition, cameraLookAt);
     return raymarch(viewMatrix, st, env...);
 }

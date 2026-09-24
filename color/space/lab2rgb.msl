@@ -13,6 +13,6 @@ license:
 
 #ifndef FNC_LAB2RGB
 #define FNC_LAB2RGB
-inline float3 lab2rgb( float3 lab) { return xyz2rgb( lab2xyz( lab ) ); }
-inline float4 lab2rgb( float4 lab) { return float4(lab2rgb(lab.rgb), lab.a); }
+static inline float3 lab2rgb( float3 lab) { return xyz2rgb( lab2xyz( lab ) ); }
+static inline float4 lab2rgb( float4 lab) { return float4(lab2rgb(lab.rgb), lab.a); }
 #endif

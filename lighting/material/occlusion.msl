@@ -13,7 +13,7 @@ license:
 #ifndef FNC_MATERIAL_OCCLUSION
 #define FNC_MATERIAL_OCCLUSION
 
-inline float materialOcclusion() {
+static inline float materialOcclusion() {
     float occlusion = 1.0;
 
 #if defined(MATERIAL_OCCLUSIONMAP_STRENGTH)

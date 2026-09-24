@@ -80,7 +80,7 @@ examples:
 
 #ifndef FNC_RAYMARCH_GLASS
 #define FNC_RAYMARCH_GLASS
-inline RAYMARCH_MAP_TYPE raymarchGlassMarching(float3 ro, float3 rd) {
+static inline RAYMARCH_MAP_TYPE raymarchGlassMarching(float3 ro, float3 rd) {
     float tmin = RAYMARCH_GLASS_MIN_DIST;
     float tmax = RAYMARCH_GLASS_MAX_DIST;
 
@@ -109,7 +109,7 @@ inline RAYMARCH_MAP_TYPE raymarchGlassMarching(float3 ro, float3 rd) {
 // For overwriting the parameters rendering that can be set manually
 #ifdef RAYMARCH_GLASS_FNC_MANUAL
 template<typename... Env>
-inline float4 raymarchDefaultGlass(float3 ray, float3 pos, float ior, float roughness, float glassSharpness, float chromatic, float density, bool enableReflection, float reflection, float3 colorGlass, Env... env) {
+static inline float4 raymarchDefaultGlass(float3 ray, float3 pos, float ior, float roughness, float glassSharpness, float chromatic, float density, bool enableReflection, float reflection, float3 colorGlass, Env... env) {
     float3 color = float3(0.);
 
     RAYMARCH_MAP_TYPE marchOutside = raymarchGlassMarching(pos,ray); // Outside of the object
@@ -199,7 +199,7 @@ inline float4 raymarchDefaultGlass(float3 ray, float3 pos, float ior, float roug
 #endif
 
 template<typename... Env>
-inline float4 raymarchDefaultGlass(float3 ray, float3 pos, float ior, float roughness, Env... env) {
+static inline float4 raymarchDefaultGlass(float3 ray, float3 pos, float ior, float roughness, Env... env) {
     float3 color = float3(0.);
 
     RAYMARCH_MAP_TYPE marchOutside = raymarchGlassMarching(pos,ray); // Outside of the object
@@ -294,12 +294,12 @@ inline float4 raymarchDefaultGlass(float3 ray, float3 pos, float ior, float roug
     }
 }
 
-inline float4 raymarchGlass(float3 ray, float3 pos, float ior, float roughness) {
+static inline float4 raymarchGlass(float3 ray, float3 pos, float ior, float roughness) {
     return RAYMARCH_GLASS_FNC(ray, pos, ior, roughness);
 }
 
 template<typename E, typename... Env>
-inline float4 raymarchGlass(float3 ray, float3 pos, float ior, float roughness, E env, Env... more) {
+static inline float4 raymarchGlass(float3 ray, float3 pos, float ior, float roughness, E env, Env... more) {
     return raymarchDefaultGlass(ray, pos, ior, roughness, env, more...);
 }
 #endif

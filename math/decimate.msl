@@ -11,11 +11,11 @@ license:
 
 #ifndef FNC_DECIMATE
 #define FNC_DECIMATE
-inline float decimate(float v, float p){ return floor(v*p)/p; }
-inline float2 decimate(float2 v, float p){ return floor(v*p)/p; }
-inline float2 decimate(float2 v, float2 p){ return floor(v*p)/p; }
-inline float3 decimate(float3 v, float p){ return floor(v*p)/p; }
-inline float3 decimate(float3 v, float3 p){ return floor(v*p)/p; }
-inline float4 decimate(float4 v, float p){ return floor(v*p)/p; }
-inline float4 decimate(float4 v, float4 p){ return floor(v*p)/p; }
+static inline float decimate(float v, float p){ return floor(v*p)/p; }
+static inline float2 decimate(float2 v, float p){ return floor(v*p)/p; }
+static inline float2 decimate(float2 v, float2 p){ return floor(v*p)/p; }
+static inline float3 decimate(float3 v, float p){ return floor(v*p)/p; }
+static inline float3 decimate(float3 v, float3 p){ return floor(v*p)/p; }
+static inline float4 decimate(float4 v, float p){ return floor(v*p)/p; }
+static inline float4 decimate(float4 v, float4 p){ return floor(v*p)/p; }
 #endif

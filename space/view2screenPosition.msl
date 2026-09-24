@@ -12,12 +12,12 @@ license:
 
 #ifndef FNC_VIEW2SCREENPOSITION
 #define FNC_VIEW2SCREENPOSITION
-inline float2 view2screenPosition(float3 viewPosition, float4x4 projection) {
+static inline float2 view2screenPosition(float3 viewPosition, float4x4 projection) {
     float4 clip = projection * float4(viewPosition, 1.0);
     return (clip.xy / clip.w + 1.0) * 0.5;
 }
 
 #ifdef CAMERA_PROJECTION_MATRIX
-inline float2 view2screenPosition(float3 viewPosition) { return view2screenPosition(viewPosition, CAMERA_PROJECTION_MATRIX); }
+static inline float2 view2screenPosition(float3 viewPosition) { return view2screenPosition(viewPosition, CAMERA_PROJECTION_MATRIX); }
 #endif
 #endif

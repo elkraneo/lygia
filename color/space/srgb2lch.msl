@@ -12,6 +12,6 @@ license:
 
 #ifndef FNC_SRGB2LCH
 #define FNC_SRGB2LCH
-inline float3 srgb2lch( float3 srgb) { return rgb2lch(srgb2rgb(srgb));}
-inline float4 srgb2lch( float4 srgb) { return float4(srgb2lch(srgb.rgb),srgb.a); }
+static inline float3 srgb2lch( float3 srgb) { return rgb2lch(srgb2rgb(srgb));}
+static inline float4 srgb2lch( float4 srgb) { return float4(srgb2lch(srgb.rgb),srgb.a); }
 #endif

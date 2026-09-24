@@ -7,11 +7,11 @@ use: <float2|float3> cart2polar(<float2|float3> st)
 #ifndef FNC_CART2POLAR
 #define FNC_CART2POLAR
 
-inline float2 cart2polar(float2 st) {
+static inline float2 cart2polar(float2 st) {
     return float2(atan2(st.y, st.x), length(st));
 }
 
-inline float3 cart2polar( float3 st ) {
+static inline float3 cart2polar( float3 st ) {
     float r = length(st);
     float theta = acos(st.z/r);
     float phi = atan2(st.y, st.x);

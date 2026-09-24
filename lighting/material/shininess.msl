@@ -12,7 +12,7 @@ license:
 #ifndef FNC_MATERIAL_SHININESS
 #define FNC_MATERIAL_SHININESS
 
-inline float materialShininess() {
+static inline float materialShininess() {
     float shininess = 15.0;
 
 #ifdef MATERIAL_SHININESS

@@ -46,14 +46,14 @@ license:
 
 #ifdef BLUENOISE_TEXTURE
 
-inline float remap_pdf_tri_unity(float v) {
+static inline float remap_pdf_tri_unity(float v) {
     v = v*2.0-1.0;
     return 0.5 + 0.5 * sign(v) * (1.0 - sqrt(1.0 - abs(v)));
 }
 
 const float2 blueNoiseTexturePixel = 1.0/BLUENOISE_TEXTURE_RESOLUTION;
 
-inline float ditherBlueNoise(SAMPLER_TYPE tex, const float value, float2 st, int pres) {
+static inline float ditherBlueNoise(SAMPLER_TYPE tex, const float value, float2 st, int pres) {
     float d = float(pres);
     #ifdef DITHER_BLUENOISE_TIME 
     st += 1337.0*fract(DITHER_BLUENOISE_TIME);
@@ -63,7 +63,7 @@ inline float ditherBlueNoise(SAMPLER_TYPE tex, const float value, float2 st, int
     return value + (bn_tri*2.0-0.5)/d;
 }
 
-inline float3 ditherBlueNoise(SAMPLER_TYPE tex, float3 color, float2 st, int pres) {
+static inline float3 ditherBlueNoise(SAMPLER_TYPE tex, float3 color, float2 st, int pres) {
     float d = float(pres);
 
     #ifdef DITHER_BLUENOISE_TIME
@@ -85,13 +85,13 @@ inline float3 ditherBlueNoise(SAMPLER_TYPE tex, float3 color, float2 st, int pre
     return color;
 }
 
-inline float ditherBlueNoise(SAMPLER_TYPE tex, const float b, float2 st) { return ditherBlueNoise(tex, b, st, DITHER_BLUENOISE_PRECISION); }
-inline float3 ditherBlueNoise(SAMPLER_TYPE tex, const float3 rgb, float2 st) { return ditherBlueNoise(tex, rgb, st, DITHER_BLUENOISE_PRECISION);}
-inline float4 ditherBlueNoise(SAMPLER_TYPE tex, const float4 rgba, float2 st) { return float4(ditherBlueNoise(tex, rgba.rgb, st), rgba.a); }
+static inline float ditherBlueNoise(SAMPLER_TYPE tex, const float b, float2 st) { return ditherBlueNoise(tex, b, st, DITHER_BLUENOISE_PRECISION); }
+static inline float3 ditherBlueNoise(SAMPLER_TYPE tex, const float3 rgb, float2 st) { return ditherBlueNoise(tex, rgb, st, DITHER_BLUENOISE_PRECISION);}
+static inline float4 ditherBlueNoise(SAMPLER_TYPE tex, const float4 rgba, float2 st) { return float4(ditherBlueNoise(tex, rgba.rgb, st), rgba.a); }
 
 #else 
 
-inline float ditherBlueNoise(float2 p) {
+static inline float ditherBlueNoise(float2 p) {
     const float SEED1 = 1.705;
     const float size = 5.5;
     p = floor(p);
@@ -112,19 +112,19 @@ inline float ditherBlueNoise(float2 p) {
     return fract(p1.x * SEED1 + p1.y/(SEED1+0.15555));
 }
 
-inline float3 ditherBlueNoise(const float3 color, const float2 xy, const int pres) {
+static inline float3 ditherBlueNoise(const float3 color, const float2 xy, const int pres) {
     float d = float(pres);
     float3 decimated = decimate(color, d);
     float3 diff = (color - decimated) * d;
     return saturate(decimate(color + step(float3(ditherBlueNoise(xy)), diff) / d, d));
 }
 
-inline float ditherBlueNoise(const float val, const float2 xy, const int pres) { return ditherBlueNoise(float3(val), xy, pres).r; }
-inline float4 ditherBlueNoise(const float4 color, const float2 xy, const int pres) { return float4(ditherBlueNoise(color.rgb, xy, pres), color.a); }
+static inline float ditherBlueNoise(const float val, const float2 xy, const int pres) { return ditherBlueNoise(float3(val), xy, pres).r; }
+static inline float4 ditherBlueNoise(const float4 color, const float2 xy, const int pres) { return float4(ditherBlueNoise(color.rgb, xy, pres), color.a); }
 
-inline float ditherBlueNoise(const float val, const float2 xy) { return ditherBlueNoise(float3(val), xy, DITHER_BLUENOISE_PRECISION).r; }
-inline float3 ditherBlueNoise(const float3 color, const float2 xy) { return ditherBlueNoise(color, xy, DITHER_BLUENOISE_PRECISION); }  
-inline float4 ditherBlueNoise(const float4 color, const float2 xy) {  return float4(ditherBlueNoise(color.rgb, xy, DITHER_BLUENOISE_PRECISION), color.a); }
+static inline float ditherBlueNoise(const float val, const float2 xy) { return ditherBlueNoise(float3(val), xy, DITHER_BLUENOISE_PRECISION).r; }
+static inline float3 ditherBlueNoise(const float3 color, const float2 xy) { return ditherBlueNoise(color, xy, DITHER_BLUENOISE_PRECISION); }  
+static inline float4 ditherBlueNoise(const float4 color, const float2 xy) {  return float4(ditherBlueNoise(color.rgb, xy, DITHER_BLUENOISE_PRECISION), color.a); }
 
 #endif
 

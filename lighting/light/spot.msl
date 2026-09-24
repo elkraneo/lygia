@@ -60,7 +60,7 @@ license:
 #ifndef FNC_LIGHT_SPOT
 #define FNC_LIGHT_SPOT
 
-inline void lightSpot(float3 _diffuseColor, float3 _specularColor, float3 _N, float3 _V, float _NoV, float _roughness, float _f0,
+static inline void lightSpot(float3 _diffuseColor, float3 _specularColor, float3 _N, float3 _V, float _NoV, float _roughness, float _f0,
                       float3 _spotDirection, float _spotCutoff, float _spotFactor, float _spotDistance,
                       thread float3& _diffuse, thread float3& _specular) {
     float3 toLight = LIGHT_POSITION - (SURFACE_POSITION).xyz;
@@ -86,8 +86,8 @@ inline void lightSpot(float3 _diffuseColor, float3 _specularColor, float3 _N, fl
         float dif = diffuse(shadingData);
         float fall = (_spotDistance > 0.0) ? falloff(toLightLength, _spotDistance) : 1.0;
         float3 spec = specular(shadingData);
-        _diffuse = LIGHT_INTENSITY * (_diffuseColor * LIGHT_COLOR * dif * fall) * smoothstep(cutoff2, cutoff1, angle);
-        _specular = LIGHT_INTENSITY * (_specularColor * LIGHT_COLOR * spec * fall) * smoothstep(cutoff2, cutoff1, angle);
+        _diffuse = LIGHT_INTENSITY * (_diffuseColor * LIGHT_COLOR * dif * fall) * (1.0 - smoothstep(cutoff1, cutoff2, angle)); // full light inside cutoff1, none past cutoff2
+        _specular = LIGHT_INTENSITY * (_specularColor * LIGHT_COLOR * spec * fall) * (1.0 - smoothstep(cutoff1, cutoff2, angle)); // full light inside cutoff1, none past cutoff2
     }
     else {
         _diffuse = float3(0.0);
@@ -95,7 +95,7 @@ inline void lightSpot(float3 _diffuseColor, float3 _specularColor, float3 _N, fl
     }
 }
 
-inline void lightSpot(float3 _diffuseColor, float3 _specularColor, float3 _N, float3 _V, float _NoV, float _roughness, float _f0,
+static inline void lightSpot(float3 _diffuseColor, float3 _specularColor, float3 _N, float3 _V, float _NoV, float _roughness, float _f0,
                       thread float3& _diffuse, thread float3& _specular) {
     #ifdef LIGHT_FALLOFF
     float spotDistance = LIGHT_FALLOFF;

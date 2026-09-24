@@ -51,7 +51,7 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #if !defined(FNC_RAYMARCH_VOLUME) && defined(RAYMARCH_VOLUME)
 #define FNC_RAYMARCH_VOLUME
 
-inline float3 raymarchVolumeShadowTransmittance(float3 position, float3 rayDirectionL, float stepSizeL) {
+static inline float3 raymarchVolumeShadowTransmittance(float3 position, float3 rayDirectionL, float stepSizeL) {
     float3 transmittanceL = float3(1.0, 1.0, 1.0);
     float tL = 0.0;
 
@@ -75,7 +75,7 @@ inline float3 raymarchVolumeShadowTransmittance(float3 position, float3 rayDirec
     return transmittanceL;
 }
 
-inline float3 raymarchVolume(float3 rayOrigin, float3 rayDirection, float2 st, float minDist, float3 background) {
+static inline float3 raymarchVolume(float3 rayOrigin, float3 rayDirection, float2 st, float minDist, float3 background) {
     float3 scatteredLuminance = float3(0.0, 0.0, 0.0);
     float3 transmittance = float3(1.0, 1.0, 1.0);
     float stepSize = RAYMARCH_MAX_DIST/float(RAYMARCH_VOLUME_SAMPLES);

@@ -9,15 +9,15 @@ license: MIT License (MIT) Copyright (c) 2015 Jamie Owen
 
 #ifndef FNC_BLENDGLOW
 #define FNC_BLENDGLOW
-inline float blendGlow(float base, float blend) {
+static inline float blendGlow(float base, float blend) {
     return blendReflect(blend, base);
 }
 
-inline float3 blendGlow(float3 base, float3 blend) {
+static inline float3 blendGlow(float3 base, float3 blend) {
     return blendReflect(blend, base);
 }
 
-inline float3 blendGlow(float3 base, float3 blend, float opacity) {
+static inline float3 blendGlow(float3 base, float3 blend, float opacity) {
     return (blendGlow(base, blend) * opacity + base * (1. - opacity));
 }
 #endif

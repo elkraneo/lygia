@@ -6,7 +6,7 @@ use: <float3|float4> tonemapUncharted2(<float3|float4> x)
 
 #ifndef FNC_TONEMAPUNCHARTED2
 #define FNC_TONEMAPUNCHARTED2
-inline float3 tonemapUncharted2(float3 v) {
+static inline float3 tonemapUncharted2(float3 v) {
     float A = 0.15; // 0.22
     float B = 0.50; // 0.30
     float C = 0.10;
@@ -20,5 +20,5 @@ inline float3 tonemapUncharted2(float3 v) {
     return x.xyz / x.w;
 }
 
-inline float4 tonemapUncharted2(float4 x) { return float4( tonemapUncharted2(x.rgb), x.a); }
+static inline float4 tonemapUncharted2(float4 x) { return float4( tonemapUncharted2(x.rgb), x.a); }
 #endif

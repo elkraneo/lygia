@@ -42,13 +42,13 @@ examples:
 #ifndef FNC_JUMPFLOOD
 #define FNC_JUMPFLOOD
 
-inline float jumpFloodCalcIterTotal(float2 res) { return ceil(log2(max(res.x, res.y)) / log2(2.0)); }
-inline float jumpFloodCalcIter(float iterTotal, float frame) { return mod(frame, iterTotal); }
+static inline float jumpFloodCalcIterTotal(float2 res) { return ceil(log2(max(res.x, res.y)) / log2(2.0)); }
+static inline float jumpFloodCalcIter(float iterTotal, float frame) { return mod(frame, iterTotal); }
 
-inline JUMPFLOOD_TYPE jumpFloodEncode(SAMPLER_TYPE tex, float2 st) { return JUMPFLOOD_ENCODE_FNC(st * JUMPFLOOD_SAMPLE_FNC(tex, st).a); }
-inline float jumpFloodSdf(SAMPLER_TYPE tex, float2 st) { return distance(st, JUMPFLOOD_DECODE_FNC(JUMPFLOOD_SAMPLE_FNC(tex, st))); }
+static inline JUMPFLOOD_TYPE jumpFloodEncode(SAMPLER_TYPE tex, float2 st) { return JUMPFLOOD_ENCODE_FNC(st * JUMPFLOOD_SAMPLE_FNC(tex, st).a); }
+static inline float jumpFloodSdf(SAMPLER_TYPE tex, float2 st) { return distance(st, JUMPFLOOD_DECODE_FNC(JUMPFLOOD_SAMPLE_FNC(tex, st))); }
 
-inline JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel, float jump) {
+static inline JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel, float jump) {
     float2 offsets[9];
     offsets[0] = float2(-1.0, -1.0);
     offsets[1] = float2(-1.0, 0.0);
@@ -75,11 +75,11 @@ inline JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel
     return closest_data;
 }
 
-inline JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel, float iterTotal, float iterN) {
+static inline JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel, float iterTotal, float iterN) {
     return jumpFloodIterate(tex, st, pixel, pow(2.0, iterTotal - iterN - 1.0));
 }
 
-inline JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel, int iterTotal, int iterN) {
+static inline JUMPFLOOD_TYPE jumpFloodIterate(SAMPLER_TYPE tex, float2 st, float2 pixel, int iterTotal, int iterN) {
     return jumpFloodIterate(tex, st, pixel, pow(2.0, float(iterTotal - iterN - 1)));
 }
 

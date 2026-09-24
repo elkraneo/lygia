@@ -8,7 +8,7 @@ use: <float2> kochSDF(<float2> st, <int> iterations)
 
 #ifndef FNC_KOCHSDF
 #define FNC_KOCHSDF
-inline float kochSDF( float2 st, float2 center, int N ) {
+static inline float kochSDF( float2 st, float2 center, int N ) {
     st -= center;
     st *= 3.0;
     float r3 = sqrt(3.);  
@@ -30,7 +30,7 @@ inline float kochSDF( float2 st, float2 center, int N ) {
     return (d*w);
 }
 
-inline float kochSDF( float2 st, int N ) {
+static inline float kochSDF( float2 st, int N ) {
     #ifdef CENTER_2D
         return kochSDF(st, CENTER_2D, N);
     #else

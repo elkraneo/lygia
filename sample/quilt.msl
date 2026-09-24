@@ -20,7 +20,7 @@ license:
 
 #ifndef FNC_SAMPLEQUILT
 #define FNC_SAMPLEQUILT
-inline float2 mapQuilt(float3 tile, float2 pos, float a) {
+static inline float2 mapQuilt(float3 tile, float2 pos, float a) {
     float2 tile2 = tile.xy - 1.0;
     float2 dir = float2(-1.0);
 
@@ -31,7 +31,7 @@ inline float2 mapQuilt(float3 tile, float2 pos, float a) {
     return (tile2 + pos) / tile.xy;
 }
 
-inline float3 sampleQuilt(SAMPLER_TYPE tex, float4 calibration, float3 tile, float2 st, float2 resolution) {
+static inline float3 sampleQuilt(SAMPLER_TYPE tex, float4 calibration, float3 tile, float2 st, float2 resolution) {
     float pitch = -resolution.x / calibration.x  * calibration.y * sin(atan(abs(calibration.z)));
     float tilt = resolution.y / (resolution.x * calibration.z);
     float subp = 1.0 / (3.0 * resolution.x);

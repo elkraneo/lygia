@@ -22,7 +22,7 @@ license:
 
 #ifndef FNC_ZORN
 #define FNC_ZORN
-inline float3 zorn(int index) {
+static inline float3 zorn(int index) {
     float3 colors[4];
     colors[0] = TITANIUM_WHITE;
     colors[1] = YELLOW_OCHRE;

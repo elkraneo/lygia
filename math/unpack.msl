@@ -24,48 +24,48 @@ constant float ShiftRight8 = 1. / 256.;
 #ifndef FNC_UNPACK
 #define FNC_UNPACK
 
-inline float unpack8(float3 v) {
+static inline float unpack8(float3 v) {
     float3 f = float3( 8.0, 8.0 * 8.0, 8.0 * 8.0 * 8.0 );
     return dot(v, f) / 512.0;
 }
 
-inline float unpack16(float3 v) {
+static inline float unpack16(float3 v) {
     float3 f = float3( 16.0, 16.0 * 16.0, 16.0 * 16.0 * 16.0 );
     return dot(v, f) / 4096.0;
 }
 
-inline float unpack32(float3 v) {
+static inline float unpack32(float3 v) {
     float3 f = float3( 32.0, 32.0 * 32.0, 32.0 * 32.0 * 32.0 );
     return dot(v, f) / 32768.0;
 }
 
-inline float unpack64(float3 v) {
+static inline float unpack64(float3 v) {
     float3 f = float3( 64.0, 64.0 * 64.0, 64.0 * 64.0 * 64.0 );
     return dot(v, f) / 262144.0;
 }
 
-inline float unpack128(float3 v) {
+static inline float unpack128(float3 v) {
     float3 f = float3( 128.0, 128.0 * 128.0, 128.0 * 128.0 * 128.0 );
     return dot(v, f) / 2097152.0;
 }
 
-inline float unpack256(float3 v) {
+static inline float unpack256(float3 v) {
     float3 f = float3( 256.0, 256.0 * 256.0, 256.0 * 256.0 * 256.0 );
     return dot(v, f) / 16581375.0;
 }
 
-inline float unpack(float3 v, float base) {
+static inline float unpack(float3 v, float base) {
     float base3 = base * base * base;
     float3 f = float3( base, base * base, base3);
     return dot(v, f) / base3;
 }
 
-inline float unpack(float3 v) {
+static inline float unpack(float3 v) {
     return UNPACK_FNC(v);
 }
 
 // https://github.com/mrdoob/three.js/blob/acdda10d5896aa10abdf33e971951dbf7bd8f074/src/renderers/shaders/ShaderChunk/packing.msl
-inline float unpack( const float4 v ) {
+static inline float unpack( const float4 v ) {
 	return dot( v, UnpackFactors );
 }
 

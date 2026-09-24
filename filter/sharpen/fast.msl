@@ -37,7 +37,7 @@ options:
 
 #ifndef FNC_SHARPENFAST
 #define FNC_SHARPENFAST
-inline SHARPENFAST_TYPE sharpenFast(SAMPLER_TYPE tex, float2 coords, float2 pixel, float strength) {
+static inline SHARPENFAST_TYPE sharpenFast(SAMPLER_TYPE tex, float2 coords, float2 pixel, float strength) {
     SHARPENFAST_TYPE sum = SHARPENFAST_TYPE(0.);
     for (int i = 0; i < SHARPENFAST_KERNELSIZE; i++) {
         float f_size = float(i) + 1.;
@@ -51,7 +51,7 @@ inline SHARPENFAST_TYPE sharpenFast(SAMPLER_TYPE tex, float2 coords, float2 pixe
     return sum / float(SHARPENFAST_KERNELSIZE);
 }
 
-inline SHARPENFAST_TYPE sharpenFast(SAMPLER_TYPE tex, float2 coords, float2 pixel) {
+static inline SHARPENFAST_TYPE sharpenFast(SAMPLER_TYPE tex, float2 coords, float2 pixel) {
     SHARPENFAST_TYPE sum = SHARPENFAST_TYPE(0.);
     for (int i = 0; i < SHARPENFAST_KERNELSIZE; i++) {
         float f_size = float(i) + 1.;

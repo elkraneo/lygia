@@ -31,7 +31,7 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi El Hajj
 #define FNC_LIGHT_IBL_EVALUATE
 
 template<typename... Env>
-inline void lightIBLEvaluate(Material mat, thread ShadingData& shadingData, Env... env) {
+static inline void lightIBLEvaluate(Material mat, thread ShadingData& shadingData, Env... env) {
 
 #if !defined(IBL_IMPORTANCE_SAMPLING) || defined(SCENE_SH_ARRAY)
     float2 E = envBRDFApprox(shadingData.NoV, shadingData.roughness);    

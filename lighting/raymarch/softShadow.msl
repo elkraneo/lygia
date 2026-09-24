@@ -36,7 +36,7 @@ examples:
 #ifndef FNC_RAYMARCH_SOFTSHADOW
 #define FNC_RAYMARCH_SOFTSHADOW
 
-inline float raymarchSoftShadow(float3 ro, float3 rd) {
+static inline float raymarchSoftShadow(float3 ro, float3 rd) {
     const float mint = RAYMARCH_SHADOW_MIN_DIST;
     const float maxt = RAYMARCH_SHADOW_MAX_DIST;
     const float w = RAYMARCH_SHADOW_SOLID_ANGLE;

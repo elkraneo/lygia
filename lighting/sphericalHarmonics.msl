@@ -39,7 +39,7 @@ license:
 #ifndef FNC_SPHERICALHARMONICS
 #define FNC_SPHERICALHARMONICS
 
-inline float3 sphericalHarmonics(constant float3* sh, float3 n) {
+static inline float3 sphericalHarmonics(constant float3* sh, float3 n) {
     return SPHERICALHARMONICS_TONEMAP ( max(
            0.282095 * sh[0]
 #if SPHERICALHARMONICS_BANDS >= 2
@@ -57,7 +57,7 @@ inline float3 sphericalHarmonics(constant float3* sh, float3 n) {
         , 0.0) );
 }
 
-inline float3 sphericalHarmonics(float3 n) {
+static inline float3 sphericalHarmonics(float3 n) {
 #ifdef SCENE_SH_ARRAY
     return sphericalHarmonics(SCENE_SH_ARRAY, n);
 #else

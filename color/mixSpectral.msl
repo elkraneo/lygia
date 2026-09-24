@@ -23,7 +23,7 @@ license: MIT License Copyright (c) 2023 Ronald van Wijnen
 #define MIXSPECTRAL_SIZE 38
 #define MIXSPECTRAL_EPSILON 0.0001
 
-inline void mixSpectral_linear_to_reflectance(float3 lrgb, thread float (&R)[MIXSPECTRAL_SIZE]) {
+static inline void mixSpectral_linear_to_reflectance(float3 lrgb, thread float (&R)[MIXSPECTRAL_SIZE]) {
     float w = min(lrgb.r, min(lrgb.g, lrgb.b));
     lrgb -= w;
 
@@ -75,7 +75,7 @@ inline void mixSpectral_linear_to_reflectance(float3 lrgb, thread float (&R)[MIX
     R[37] = max(MIXSPECTRAL_EPSILON, w + c * 0.01435408 + m * 0.50083021 + y * 0.98350852 + r * 0.98551547 + g * 0.49889859 + b * 0.01570020);
 }
 
-inline float3 mixSpectral_reflectance_to_xyz(float R[MIXSPECTRAL_SIZE]) {
+static inline float3 mixSpectral_reflectance_to_xyz(float R[MIXSPECTRAL_SIZE]) {
     return  R[ 0] * float3(0.00006469, 0.00000184, 0.00030502) +
             R[ 1] * float3(0.00021941, 0.00000621, 0.00103681) +
             R[ 2] * float3(0.00112057, 0.00003101, 0.00531314) +
@@ -116,7 +116,7 @@ inline float3 mixSpectral_reflectance_to_xyz(float R[MIXSPECTRAL_SIZE]) {
             R[37] * float3(0.00002000, 0.00000722, 0.00000000);
 }
 
-inline float3 mixSpectral(float3 A, float3 B, float t) {
+static inline float3 mixSpectral(float3 A, float3 B, float t) {
     #ifdef MIXSPECTRAL_SRGB
     float3 lrgb1 = srgb2rgb(A);
     float3 lrgb2 = srgb2rgb(B);
@@ -161,7 +161,7 @@ inline float3 mixSpectral(float3 A, float3 B, float t) {
     #endif
 }
 
-inline float4 mixSpectral(float4 A, float4 B, float t) {
+static inline float4 mixSpectral(float4 A, float4 B, float t) {
     return float4(mixSpectral(A.rgb, B.rgb, t), mix(A.a, B.a, t));
 }
 

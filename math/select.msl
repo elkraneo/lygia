@@ -9,9 +9,9 @@ license:
 
 #ifndef FNC_SELECT
 #define FNC_SELECT
-inline int select(int A, int B, bool cond) { return cond ? A : B; }
-inline float select(float A, float B, bool cond) { return cond ? A : B; }
-inline float2 select(float2 A, float2 B, bool cond) { return cond ? A : B; }
-inline float3 select(float3 A, float3 B, bool cond) { return cond ? A : B; }
-inline float4 select(float4 A, float4 B, bool cond) { return cond ? A : B; }
+static inline int select(int A, int B, bool cond) { return cond ? A : B; }
+static inline float select(float A, float B, bool cond) { return cond ? A : B; }
+static inline float2 select(float2 A, float2 B, bool cond) { return cond ? A : B; }
+static inline float3 select(float3 A, float3 B, bool cond) { return cond ? A : B; }
+static inline float4 select(float4 A, float4 B, bool cond) { return cond ? A : B; }
 #endif

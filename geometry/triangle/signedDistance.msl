@@ -11,7 +11,7 @@ use: <float3> closestDistance(<Triangle> tri, <float3> _pos)
 #ifndef FNC_TRIANGLE_SIGNED_DISTANCE
 #define FNC_TRIANGLE_SIGNED_DISTANCE
 
-inline float signedDistance(Triangle _tri, float3 _triNormal, float3 _p) {
+static inline float signedDistance(Triangle _tri, float3 _triNormal, float3 _p) {
     float3 nearest = closestPoint(_tri, _triNormal, _p);
     float3 delta = _p - nearest;
     float distance = length(delta);
@@ -19,6 +19,6 @@ inline float signedDistance(Triangle _tri, float3 _triNormal, float3 _p) {
     return distance;
 }
 
-inline float signedDistance(Triangle _tri, float3 _p) { return signedDistance(_tri, normal(_tri), _p); }
+static inline float signedDistance(Triangle _tri, float3 _p) { return signedDistance(_tri, normal(_tri), _p); }
 
 #endif

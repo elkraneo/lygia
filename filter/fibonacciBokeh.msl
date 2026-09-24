@@ -33,7 +33,7 @@ license:
 #ifndef FNC_FIBONACCIBOKEH
 #define FNC_FIBONACCIBOKEH
 
-inline FIBONACCIBOKEH_TYPE fibonacciBokeh(SAMPLER_TYPE tex, float2 st, float2 pixel, float amount) {
+static inline FIBONACCIBOKEH_TYPE fibonacciBokeh(SAMPLER_TYPE tex, float2 st, float2 pixel, float amount) {
     FIBONACCIBOKEH_TYPE color = FIBONACCIBOKEH_TYPE(0.0);
     const float2x2 m = float2x2(-0.737, -0.676, 0.676, -0.737) ;
 

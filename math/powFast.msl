@@ -10,6 +10,6 @@ license:
 #ifndef FNC_POWFAST
 #define FNC_POWFAST
 
-inline float powFast(const float a, const float b) { return a / ((1. - b) * a + b); }
+static inline float powFast(const float a, const float b) { return a / ((1. - b) * a + b); }
 
 #endif

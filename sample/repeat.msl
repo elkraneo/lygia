@@ -13,7 +13,7 @@ license:
 
 #ifndef FNC_SAMPLEREPEAT
 #define FNC_SAMPLEREPEAT
-inline float4 sampleRepeat(SAMPLER_TYPE tex, float2 st) { 
+static inline float4 sampleRepeat(SAMPLER_TYPE tex, float2 st) { 
     return SAMPLER_FNC( tex, fract(st) ); 
 }
 #endif

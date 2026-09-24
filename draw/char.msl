@@ -115,7 +115,7 @@ use: <float> drawChar(<float2> uv, <int> char_code)
 
 #ifndef FNC_CHAR
 #define FNC_CHAR
-inline int4 charLUT( int index ) {
+static inline int4 charLUT( int index ) {
     int4 d[CHAR_TOTAL];
     d[0] = int4(0x0, 0x0, 0x0, 0x0);
     d[1] = int4(0x1010, 0x10101010, 0x1010, 0x0);
@@ -223,7 +223,7 @@ inline int4 charLUT( int index ) {
     #endif
 }
 
-inline float drawChar(float2 uv, int char_code) {
+static inline float drawChar(float2 uv, int char_code) {
     int2 char_coord = int2(7, 15) - int2(floor(uv * float2(8.0, 16.0)));
     
     // Pick the correct character bitmap, and then

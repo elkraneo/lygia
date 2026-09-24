@@ -10,8 +10,8 @@ license:
 #ifndef FNC_LENGTHSQ
 #define FNC_LENGTHSQ
 
-inline float lengthSq(float2 v) { return dot(v, v); }
-inline float lengthSq(float3 v) { return dot(v, v); }
-inline float lengthSq(float4 v) { return dot(v, v); }
+static inline float lengthSq(float2 v) { return dot(v, v); }
+static inline float lengthSq(float3 v) { return dot(v, v); }
+static inline float lengthSq(float4 v) { return dot(v, v); }
 
 #endif

@@ -16,19 +16,19 @@ license:
 #ifndef FNC_RECT
 #define FNC_RECT
 
-inline float rect(float2 st, float2 size, float strokeWidth) {
+static inline float rect(float2 st, float2 size, float strokeWidth) {
     return stroke(rectSDF(st, size), 1.0, strokeWidth);
 }
 
-inline float rect(float2 st, float size, float strokeWidth) {
+static inline float rect(float2 st, float size, float strokeWidth) {
     return stroke(rectSDF(st, float2(size)), 1.0, strokeWidth);
 }
 
-inline float rect(float2 st, float2 size) {
+static inline float rect(float2 st, float2 size) {
     return fill(rectSDF(st, size), 1.0);
 }
 
-inline float rect(float2 st, float size) {
+static inline float rect(float2 st, float size) {
     return fill(rectSDF(st, float2(size)), 1.0);
 }
 

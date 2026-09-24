@@ -14,7 +14,7 @@ license:
 #ifndef FNC_WAVELET
 #define FNC_WAVELET
 
-inline float wavelet(float2 p, float phase, float k) {
+static inline float wavelet(float2 p, float phase, float k) {
     float d = 0.0, s = 1.0, m=0.0, a = 0.0;
     for (float i = 0.0; i < 4.0; i++) {
         float2 q = p*s;
@@ -31,19 +31,19 @@ inline float wavelet(float2 p, float phase, float k) {
     return d / m;
 }
 
-inline float wavelet(float3 p, float k) {
+static inline float wavelet(float3 p, float k) {
     return wavelet(p.xy, p.z, k);
 }
 
-inline float wavelet(float3 p) {
+static inline float wavelet(float3 p) {
     return wavelet(p, 1.24);
 } 
 
-inline float wavelet(float2 p, float phase) {
+static inline float wavelet(float2 p, float phase) {
     return wavelet(p, phase, 1.24);
 } 
 
-inline float wavelet(float2 p) {
+static inline float wavelet(float2 p) {
     return wavelet(p, 0.0, 1.24);
 } 
 

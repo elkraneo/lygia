@@ -31,7 +31,7 @@ license: |
 #ifndef FNC_SMARTDENOISE
 #define FNC_SMARTDENOISE
 
-inline SMARTDENOISE_TYPE smartDeNoise(SAMPLER_TYPE tex, float2 uv, float2 pixel, float sigma, float kSigma, float threshold) {
+static inline SMARTDENOISE_TYPE smartDeNoise(SAMPLER_TYPE tex, float2 uv, float2 pixel, float sigma, float kSigma, float threshold) {
     float radius = floor(kSigma*sigma + 0.5);
     float radQ = radius * radius;
     

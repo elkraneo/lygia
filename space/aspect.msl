@@ -11,7 +11,7 @@ license:
 
 #ifndef FNC_ASPECT
 #define FNC_ASPECT
-inline float2 aspect(float2 st, float2 s) {
+static inline float2 aspect(float2 st, float2 s) {
     st.x = st.x * (s.x / s.y);
     return st;
 }

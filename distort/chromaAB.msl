@@ -32,7 +32,7 @@ license:
 #ifndef FNC_CHROMAAB
 #define FNC_CHROMAAB
 
-inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 direction, float3 distortion ) {
+static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 direction, float3 distortion ) {
     float2 offset = float2(0.0);
     CHROMAAB_TYPE c = CHROMAAB_TYPE(1.);
     c.r = CHROMAAB_SAMPLER_FNC(tex, st + direction * distortion.r).r;
@@ -41,7 +41,7 @@ inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 direction, flo
     return c;
 }
 
-inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 offset, float pct) {
+static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 offset, float pct) {
 
   #ifdef CHROMAAB_CENTER_BUFFER
     // modify the distance from the center, so that only the edges are affected
@@ -60,19 +60,19 @@ inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 offset, float 
   return c;
 }
 
-inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float sdf, float pct) {
+static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float sdf, float pct) {
   return chromaAB(tex, st, float2(sdf), pct);
 }
 
-inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float sdf) {
+static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float sdf) {
   return chromaAB(tex, st, sdf, CHROMAAB_PCT);
 }
 
-inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 offset) {
+static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 offset) {
   return chromaAB(tex, st, offset, CHROMAAB_PCT);
 }
 
-inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st) {
+static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st) {
   return chromaAB(tex, st, lengthSq(st - .5), CHROMAAB_PCT);
 }
 

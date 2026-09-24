@@ -32,7 +32,7 @@ examples:
 #ifndef FNC_RAYMARCH_AO
 #define FNC_RAYMARCH_AO
 
-inline float raymarchAO(float3 pos, float3 nor) {
+static inline float raymarchAO(float3 pos, float3 nor) {
     float occ = 0.0;
     float sca = 1.0;
     const float samplesFactor = 1.0 / float(RAYMARCH_AO_SAMPLES-1);

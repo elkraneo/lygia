@@ -550,7 +550,7 @@ license:
 #ifndef FNC_PALETTE_SPYDER
 #define FNC_PALETTE_SPYDER
 
-inline float3 spyder (int index) {
+static inline float3 spyder (int index) {
     float3 colors[48];
     colors[0] = LOW_SAT_RED;
     colors[1] = LOW_SAT_YELLOW;
@@ -616,7 +616,7 @@ inline float3 spyder (int index) {
     #endif
 }
 
-inline float3 spyderLAB (int index) {
+static inline float3 spyderLAB (int index) {
     float3 colors[48];
     colors[0] = LOW_SAT_RED_LAB;
     colors[1] = LOW_SAT_YELLOW_LAB;
@@ -682,9 +682,9 @@ inline float3 spyderLAB (int index) {
     #endif
 }
 
-inline float3 spyderA (int index) { return spyder(index);}
-inline float3 spyderB (int index) { return spyder(index + 24);}
-inline float3 spyderALAB (int index) { return spyderLAB(index);}
-inline float3 spyderBLAB (int index) { return spyderLAB(index + 24);}
+static inline float3 spyderA (int index) { return spyder(index);}
+static inline float3 spyderB (int index) { return spyder(index + 24);}
+static inline float3 spyderALAB (int index) { return spyderLAB(index);}
+static inline float3 spyderBLAB (int index) { return spyderLAB(index + 24);}
 
 #endif

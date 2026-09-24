@@ -11,5 +11,5 @@ license:
 
 #ifndef FNC_QUATLENGTHSQ
 #define FNC_QUATLENGTHSQ
-inline float quatLengthSq(QUAT q) { return dot(q.xyz, q.xyz) + q.w * q.w; }
+static inline float quatLengthSq(QUAT q) { return dot(q.xyz, q.xyz) + q.w * q.w; }
 #endif

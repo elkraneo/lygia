@@ -26,7 +26,7 @@ examples:
 #define SAMPLEMARCHINGSQUARES_SAMPLE_FNC(TEX, UV) SAMPLER_FNC(TEX, clamp(UV, 0.01, 0.99)).r
 #endif
 
-inline float sampleMarchingSquares_outline(float2 p, float2 cellUv, float2 a, float2 b, bool straight) {
+static inline float sampleMarchingSquares_outline(float2 p, float2 cellUv, float2 a, float2 b, bool straight) {
     float lineStrength = (straight ? 1.3333 : 1.0);
     float2 pa = p - a;
     float2 ba = b - a;
@@ -34,7 +34,7 @@ inline float sampleMarchingSquares_outline(float2 p, float2 cellUv, float2 a, fl
     return 1.0 - step(lineStrength, length(line));
 }
 
-inline float sampleMarchingSquares_tile(float2 p, float2 cellUv, float2 a, float2 b, int tile) {
+static inline float sampleMarchingSquares_tile(float2 p, float2 cellUv, float2 a, float2 b, int tile) {
     float2 pa = p - a;
     float2 ba = b - a;
     float2 line = pa - ba * dot(pa, ba) / dot(ba, ba);
@@ -76,7 +76,7 @@ inline float sampleMarchingSquares_tile(float2 p, float2 cellUv, float2 a, float
           return 0.0;
 }
 
-inline float2 sampleMarchinSquares(SAMPLER_TYPE tex, float2 uv, float2 resolution, float cellSize, float threshold) {
+static inline float2 sampleMarchinSquares(SAMPLER_TYPE tex, float2 uv, float2 resolution, float cellSize, float threshold) {
     float gridX = resolution.x / cellSize;
     float gridY = resolution.y / cellSize;
     float cellIdx = floor(uv.x * gridX);

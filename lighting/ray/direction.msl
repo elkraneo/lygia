@@ -14,7 +14,7 @@ license:
 #ifndef FNC_RAYDIRECTION
 #define FNC_RAYDIRECTION
 
-inline void rayDirection(thread Ray& ray, float2 pos, float2 resolution, float fov) {
+static inline void rayDirection(thread Ray& ray, float2 pos, float2 resolution, float fov) {
     float aspect = resolution.x / resolution.y;
     float tanVFov2 = tan(fov / 2.0);
     float tanHFov2 = tanVFov2 * aspect;
@@ -23,7 +23,7 @@ inline void rayDirection(thread Ray& ray, float2 pos, float2 resolution, float f
                     float3(0.0,  0.0, -1.0);
 }
 
-inline void rayDirection(thread Ray& ray, float3 origin, float2 pos, float2 resolution, float fov) {
+static inline void rayDirection(thread Ray& ray, float3 origin, float2 pos, float2 resolution, float fov) {
     float aspect = resolution.x / resolution.y;
     float tanVFov2 = tan(fov / 2.0);
     float tanHFov2 = tanVFov2 * aspect;
@@ -33,7 +33,7 @@ inline void rayDirection(thread Ray& ray, float3 origin, float2 pos, float2 reso
                     float3(0.0,  0.0, -1.0);
 }
 
-inline Ray rayDirection(float3 origin, float2 pos, float2 resolution, float fov) {
+static inline Ray rayDirection(float3 origin, float2 pos, float2 resolution, float fov) {
     Ray ray;
     ray.origin = float3(0.0, 0.0, 0.0);
     ray.direction = float3(0.0, 0.0, 1.0);

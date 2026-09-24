@@ -14,15 +14,15 @@
 #define FNC_SPECULAR_BLINNPHONG
 
 // https://github.com/glslify/glsl-specular-blinn-phong
-inline float specularBlinnPhong(float NoH, float shininess) {
+static inline float specularBlinnPhong(float NoH, float shininess) {
     return SPECULAR_POW(max(0.0, NoH), shininess);
 }
 
-inline float specularBlinnPhong(ShadingData shadingData) {
+static inline float specularBlinnPhong(ShadingData shadingData) {
     return specularBlinnPhong(shadingData.NoH, shadingData.roughness);
 }
 
-inline float specularBlinnPhongRoughness(ShadingData shadingData) {
+static inline float specularBlinnPhongRoughness(ShadingData shadingData) {
     return specularBlinnPhong(shadingData.NoH, toShininess(shadingData.roughness, 0.0));
 }
 

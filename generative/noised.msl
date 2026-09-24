@@ -22,7 +22,7 @@ examples:
 #define FNC_NOISED
 
 // return gradient noise (x) and its derivatives (yz)
-inline float3 noised (float2 p) {
+static inline float3 noised (float2 p) {
     // grid
     float2 i = floor( p );
     float2 f = fract( p );
@@ -46,7 +46,7 @@ inline float3 noised (float2 p) {
                 du * (u.yx*(va-vb-vc+vd) + float2(vb,vc) - va));
 }
 
-inline float4 noised (float3 pos) {
+static inline float4 noised (float3 pos) {
     // grid
     float3 p = floor(pos);
     float3 w = fract(pos);

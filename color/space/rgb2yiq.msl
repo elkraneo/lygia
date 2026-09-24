@@ -17,6 +17,6 @@ constant float3x3 RGB2YIQ = float3x3(
 
 #ifndef FNC_RGB2YIQ
 #define FNC_RGB2YIQ
-inline float3 rgb2yiq( float3 rgb) { return RGB2YIQ * rgb; }
-inline float4 rgb2yiq( float4 rgb) { return float4(rgb2yiq(rgb.rgb), rgb.a); }
+static inline float3 rgb2yiq( float3 rgb) { return RGB2YIQ * rgb; }
+static inline float4 rgb2yiq( float4 rgb) { return float4(rgb2yiq(rgb.rgb), rgb.a); }
 #endif

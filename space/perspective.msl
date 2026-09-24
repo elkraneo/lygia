@@ -10,7 +10,7 @@ license:
 #ifndef FNC_PERSPECTIVE
 #define FNC_PERSPECTIVE
 
-inline float4x4 perspective(float fov, float aspect, float near, float far) {
+static inline float4x4 perspective(float fov, float aspect, float near, float far) {
     float f = 1.0 / tan(fov / 2.0);
     float nf = 1.0 / (near - far);
     return float4x4(

@@ -9,7 +9,7 @@ license:
 
 #ifndef FNC_ROTATE4DY
 #define FNC_ROTATE4DY
-inline float4x4 rotate4dY(float r){
+static inline float4x4 rotate4dY(float r){
     return float4x4(float4(cos(r),0.,-sin(r),0),
                 float4(0.,1.,0.,0.),
                 float4(sin(r),0.,cos(r),0.),

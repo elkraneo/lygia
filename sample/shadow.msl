@@ -19,20 +19,20 @@ license:
 #ifndef FNC_SAMPLESHADOW
 #define FNC_SAMPLESHADOW
 
-inline float sampleShadow(SAMPLER_TYPE shadowMap, float4 _coord) {
+static inline float sampleShadow(SAMPLER_TYPE shadowMap, float4 _coord) {
     float3 shadowCoord = _coord.xyz / _coord.w;
     return SAMPLERSHADOW_FNC(shadowMap, shadowCoord.xy);
 }
 
-inline float sampleShadow(SAMPLER_TYPE shadowMap, float3 _coord) {
+static inline float sampleShadow(SAMPLER_TYPE shadowMap, float3 _coord) {
     return sampleShadow(shadowMap, float4(_coord, 1.0));
 }
 
-inline float sampleShadow(SAMPLER_TYPE shadowMap, float2 uv, float compare) {
+static inline float sampleShadow(SAMPLER_TYPE shadowMap, float2 uv, float compare) {
     return step(compare, SAMPLERSHADOW_FNC(shadowMap, uv) );
 }
 
-inline float sampleShadow(SAMPLER_TYPE shadowMap, float2 size, float2 uv, float compare) {
+static inline float sampleShadow(SAMPLER_TYPE shadowMap, float2 size, float2 uv, float compare) {
     return sampleShadow(shadowMap, uv, compare);
 }
 

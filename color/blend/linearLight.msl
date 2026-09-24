@@ -10,17 +10,17 @@ license: MIT License (MIT) Copyright (c) 2015 Jamie Owen
 
 #ifndef FNC_BLENDLINEARLIGHT
 #define FNC_BLENDLINEARLIGHT
-inline float blendLinearLight(float base, float blend) {
+static inline float blendLinearLight(float base, float blend) {
   return blend < .5? blendLinearBurn(base, (2. * blend)): blendLinearDodge(base, (2. * (blend- .5)));
 }
 
-inline float3 blendLinearLight(float3 base, float3 blend) {
+static inline float3 blendLinearLight(float3 base, float3 blend) {
   return float3(blendLinearLight(base.r, blend.r),
               blendLinearLight(base.g, blend.g),
               blendLinearLight(base.b, blend.b));
 }
 
-inline float3 blendLinearLight(float3 base, float3 blend, float opacity) {
+static inline float3 blendLinearLight(float3 base, float3 blend, float opacity) {
     return (blendLinearLight(base, blend) * opacity + base * (1. - opacity));
 }
 #endif

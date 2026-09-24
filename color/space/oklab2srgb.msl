@@ -11,6 +11,6 @@ license:
 
 #ifndef FNC_OKLAB2SRGB
 #define FNC_OKLAB2SRGB
-inline float3 oklab2srgb( float3 oklab) { return rgb2srgb(oklab2rgb(oklab)); }
-inline float4 oklab2srgb( float4 oklab) { return float4(oklab2srgb(oklab.xyz), oklab.a); }
+static inline float3 oklab2srgb( float3 oklab) { return rgb2srgb(oklab2rgb(oklab)); }
+static inline float4 oklab2srgb( float4 oklab) { return float4(oklab2srgb(oklab.xyz), oklab.a); }
 #endif

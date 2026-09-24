@@ -46,12 +46,12 @@ license:
 #ifndef FNC_ENVMAP
 #define FNC_ENVMAP
 
-inline float envMapRoughnessToLod(float roughness, float roughnessOneLevel) {
+static inline float envMapRoughnessToLod(float roughness, float roughnessOneLevel) {
     // quadratic fit for log2(roughness)+roughnessOneLevel
     return roughnessOneLevel * roughness * (2.0 - roughness);
 }
 
-inline float3 envMap(float3 _normal, float _roughness, float _metallic) {
+static inline float3 envMap(float3 _normal, float _roughness, float _metallic) {
 
 // ENVMAP overwrites cube sampling  
 #if defined(ENVMAP_FNC) 
@@ -65,7 +65,7 @@ inline float3 envMap(float3 _normal, float _roughness, float _metallic) {
 }
 
 // Cubemap sampling
-inline float3 envMap(float3 _normal, float _roughness, float _metallic, texturecube<float> cubemap) {
+static inline float3 envMap(float3 _normal, float _roughness, float _metallic, texturecube<float> cubemap) {
 #if defined(ENVMAP_MAX_MIP_LEVEL)
     return SAMPLE_CUBE_FNC( cubemap, _normal, envMapRoughnessToLod(_roughness, ENVMAP_MAX_MIP_LEVEL) ).rgb;
 #else
@@ -75,31 +75,31 @@ inline float3 envMap(float3 _normal, float _roughness, float _metallic, texturec
 }
 
 // Equirect sampling
-inline float3 envMap(float3 _normal, float _roughness, float _metallic, SAMPLER_TYPE equirect) {
+static inline float3 envMap(float3 _normal, float _roughness, float _metallic, SAMPLER_TYPE equirect) {
     return sampleEquirect(equirect, _normal, 1.0 + 26.0 * _roughness).rgb;
 }
 
-inline float3 envMap(float3 _normal, float _roughness) {
+static inline float3 envMap(float3 _normal, float _roughness) {
     return envMap(_normal, _roughness, 1.0);
 }
 
-inline float3 envMap(float3 _normal, float _roughness, texturecube<float> cubemap) {
+static inline float3 envMap(float3 _normal, float _roughness, texturecube<float> cubemap) {
     return envMap(_normal, _roughness, 1.0, cubemap);
 }
 
-inline float3 envMap(float3 _normal, float _roughness, SAMPLER_TYPE equirect) {
+static inline float3 envMap(float3 _normal, float _roughness, SAMPLER_TYPE equirect) {
     return envMap(_normal, _roughness, 1.0, equirect);
 }
 
-inline float3 envMap(Material _M, ShadingData shadingData) {
+static inline float3 envMap(Material _M, ShadingData shadingData) {
     return envMap(shadingData.R, _M.roughness, _M.metallic);
 }
 
-inline float3 envMap(Material _M, ShadingData shadingData, texturecube<float> cubemap) {
+static inline float3 envMap(Material _M, ShadingData shadingData, texturecube<float> cubemap) {
     return envMap(shadingData.R, _M.roughness, _M.metallic, cubemap);
 }
 
-inline float3 envMap(Material _M, ShadingData shadingData, SAMPLER_TYPE equirect) {
+static inline float3 envMap(Material _M, ShadingData shadingData, SAMPLER_TYPE equirect) {
     return envMap(shadingData.R, _M.roughness, _M.metallic, equirect);
 }
 

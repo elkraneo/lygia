@@ -23,7 +23,7 @@ options:
 #define FNC_KUWAHARA
 
 #ifdef TARGET_MOBILE
-inline KUWAHARA_TYPE kuwahara(SAMPLER_TYPE tex, float2 st, float2 pixel, float radius) {
+static inline KUWAHARA_TYPE kuwahara(SAMPLER_TYPE tex, float2 st, float2 pixel, float radius) {
 
     #ifndef KUWAHARA_RADIUS
     #define KUWAHARA_RADIUS radius
@@ -109,7 +109,7 @@ inline KUWAHARA_TYPE kuwahara(SAMPLER_TYPE tex, float2 st, float2 pixel, float r
 
 #else
 
-inline KUWAHARA_TYPE kuwahara(SAMPLER_TYPE tex, float2 st, float2 pixel, float radius) {
+static inline KUWAHARA_TYPE kuwahara(SAMPLER_TYPE tex, float2 st, float2 pixel, float radius) {
 
     #ifndef KUWAHARA_RADIUS
 

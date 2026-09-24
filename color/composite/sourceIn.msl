@@ -10,17 +10,17 @@ license:
 #ifndef FNC_COMPOSITE_SRC_IN
 #define FNC_COMPOSITE_SRC_IN
 
-inline float compositeSourceIn(float src, float dst)
+static inline float compositeSourceIn(float src, float dst)
 {
     return src * dst;
 }
 
-inline float3 compositeSourceIn(float3 srcColor, float3 dstColor, float srcAlpha, float dstAlpha)
+static inline float3 compositeSourceIn(float3 srcColor, float3 dstColor, float srcAlpha, float dstAlpha)
 {
     return srcColor * dstAlpha;
 }
 
-inline float4 compositeSourceIn(float4 srcColor, float4 dstColor) 
+static inline float4 compositeSourceIn(float4 srcColor, float4 dstColor) 
 {
     float4 result;
 

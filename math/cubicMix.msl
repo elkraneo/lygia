@@ -10,11 +10,11 @@ examples:
 
 #ifndef FNC_CUBICMIX
 #define FNC_CUBICMIX
-inline float cubicMix(float A, float B, float t) { return A + (B - A) * cubic(t); }
-inline float2 cubicMix(float2 A, float2 B, float t) { return A + (B - A) * cubic(t); }
-inline float2 cubicMix(float2 A, float2 B, float2 t) { return A + (B - A) * cubic(t); }
-inline float3 cubicMix(float3 A, float3 B, float t) { return A + (B - A) * cubic(t); }
-inline float3 cubicMix(float3 A, float3 B, float3 t) { return A + (B - A) * cubic(t); }
-inline float4 cubicMix(float4 A, float4 B, float t) { return A + (B - A) * cubic(t); }
-inline float4 cubicMix(float4 A, float4 B, float4 t) { return A + (B - A) * cubic(t); }
+static inline float cubicMix(float A, float B, float t) { return A + (B - A) * cubic(t); }
+static inline float2 cubicMix(float2 A, float2 B, float t) { return A + (B - A) * cubic(t); }
+static inline float2 cubicMix(float2 A, float2 B, float2 t) { return A + (B - A) * cubic(t); }
+static inline float3 cubicMix(float3 A, float3 B, float t) { return A + (B - A) * cubic(t); }
+static inline float3 cubicMix(float3 A, float3 B, float3 t) { return A + (B - A) * cubic(t); }
+static inline float4 cubicMix(float4 A, float4 B, float t) { return A + (B - A) * cubic(t); }
+static inline float4 cubicMix(float4 A, float4 B, float4 t) { return A + (B - A) * cubic(t); }
 #endif

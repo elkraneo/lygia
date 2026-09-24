@@ -12,7 +12,7 @@ license:
 #ifndef FNC_RAYCAST
 #define FNC_RAYCAST
 
-inline float3 rayCast(Ray ray, float dist) {
+static inline float3 rayCast(Ray ray, float dist) {
     return ray.origin + ray.direction * dist;
 }
 

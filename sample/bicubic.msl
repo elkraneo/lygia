@@ -16,7 +16,7 @@ license:
 #ifndef FNC_SAMPLEBICUBIC
 #define FNC_SAMPLEBICUBIC
 
-inline float4 sampleBicubic(float v) {
+static inline float4 sampleBicubic(float v) {
     float4 n = float4(1.0, 2.0, 3.0, 4.0) - v;
     float4 s = n * n * n;
     float4 o;
@@ -27,7 +27,7 @@ inline float4 sampleBicubic(float v) {
     return o;
 }
 
-inline float4 sampleBicubic(SAMPLER_TYPE tex, float2 st, float2 texResolution) {
+static inline float4 sampleBicubic(SAMPLER_TYPE tex, float2 st, float2 texResolution) {
     float2 pixel = 1.0 / texResolution;
     st = st * texResolution - 0.5;
 

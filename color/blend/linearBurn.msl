@@ -7,17 +7,17 @@ license: MIT License (MIT) Copyright (c) 2015 Jamie Owen
 
 #ifndef FNC_BLENDLINEARBURN
 #define FNC_BLENDLINEARBURN
-inline float blendLinearBurn(float base, float blend) {
+static inline float blendLinearBurn(float base, float blend) {
   // Note : Same implementation as BlendSubtractf
     return max(base + blend - 1., 0.);
 }
 
-inline float3 blendLinearBurn(float3 base, float3 blend) {
+static inline float3 blendLinearBurn(float3 base, float3 blend) {
   // Note : Same implementation as BlendSubtract
     return max(base + blend - float3(1.), float3(0.));
 }
 
-inline float3 blendLinearBurn(float3 base, float3 blend, float opacity) {
+static inline float3 blendLinearBurn(float3 base, float3 blend, float opacity) {
     return (blendLinearBurn(base, blend) * opacity + base * (1. - opacity));
 }
 #endif

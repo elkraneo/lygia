@@ -16,22 +16,22 @@ license:
 
 #ifndef FNC_BRICKTILE
 #define FNC_BRICKTILE
-inline float4 brickTile(float4 t) {
+static inline float4 brickTile(float4 t) {
     t.x += mod(t.w,2.)*.5;
     t.z = floor(t.z+t.x);
     t.x = fract(t.x);
     return t;
 }
 
-inline float4 brickTile(float2 st) {
+static inline float4 brickTile(float2 st) {
     return brickTile(sqTile(st));
 }
 
-inline float4 brickTile(float2 st, float s) {
+static inline float4 brickTile(float2 st, float s) {
     return brickTile(st * s);
 }
 
-inline float4 brickTile(float2 st, float2 s) {
+static inline float4 brickTile(float2 st, float2 s) {
     return brickTile(st * s);
 }
 

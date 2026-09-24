@@ -9,7 +9,7 @@ license:
 
 #ifndef FNC_BRIGHTNESSMATRIX
 #define FNC_BRIGHTNESSMATRIX
-inline float4x4 brightnessMatrix(float a) {
+static inline float4x4 brightnessMatrix(float a) {
     return float4x4(  1., 0., 0., 0.,
                   0., 1., 0., 0.,
                   0., 0., 1., 0.,

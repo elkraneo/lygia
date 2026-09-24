@@ -14,7 +14,7 @@ license:
 #ifndef FNC_AXIS
 #define FNC_AXIS
 
-inline float4 axis(float2 st, float4x4 M, float3 pos, float thickness) {
+static inline float4 axis(float2 st, float4x4 M, float3 pos, float thickness) {
     float4 rta = float4(0.0);
 
     float4 center = M * float4(pos, 1.0);

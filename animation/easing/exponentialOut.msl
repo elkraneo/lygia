@@ -8,5 +8,5 @@ examples:
 
 #ifndef FNC_EXPONENTIALOUT
 #define FNC_EXPONENTIALOUT
-inline float exponentialOut(float t) { return t == 1.0 ? t : 1.0 - pow(2.0, -10.0 * t); }
+static inline float exponentialOut(float t) { return t == 1.0 ? t : 1.0 - pow(2.0, -10.0 * t); }
 #endif

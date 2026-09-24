@@ -5,7 +5,7 @@
 #define FNC_KELEMEN
 
 // Kelemen 2001, "A Microfacet Based Coupled Specular-Matte BRDF Model with Importance Sampling"
-inline float kelemen(float LoH) {
+static inline float kelemen(float LoH) {
     return saturateMediump(0.25 / (LoH * LoH));
 }
 

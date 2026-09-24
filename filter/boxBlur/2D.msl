@@ -34,7 +34,7 @@ license:
 
 #ifndef FNC_BOXBLUR2D
 #define FNC_BOXBLUR2D
-inline BOXBLUR2D_TYPE boxBlur2D(SAMPLER_TYPE tex, float2 st, float2 pixel, const int kernelSize) {
+static inline BOXBLUR2D_TYPE boxBlur2D(SAMPLER_TYPE tex, float2 st, float2 pixel, const int kernelSize) {
     BOXBLUR2D_TYPE color = BOXBLUR2D_TYPE(0.);
 
     #ifndef BOXBLUR2D_KERNELSIZE

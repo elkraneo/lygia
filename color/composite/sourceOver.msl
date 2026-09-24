@@ -10,17 +10,17 @@ license:
 #ifndef FNC_COMPOSITE_SRC_OVER
 #define FNC_COMPOSITE_SRC_OVER
 
-inline float compositeSourceOver(float src, float dst)
+static inline float compositeSourceOver(float src, float dst)
 {
     return src + dst * (1.0 - src);
 }
 
-inline float3 compositeSourceOver(float3 srcColor, float3 dstColor, float srcAlpha, float dstAlpha)
+static inline float3 compositeSourceOver(float3 srcColor, float3 dstColor, float srcAlpha, float dstAlpha)
 {
     return srcColor * srcAlpha + dstColor * dstAlpha * (1.0 - srcAlpha);
 }
 
-inline float4 compositeSourceOver(float4 srcColor, float4 dstColor)
+static inline float4 compositeSourceOver(float4 srcColor, float4 dstColor)
 {
     float4 result;
    

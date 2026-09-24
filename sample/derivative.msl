@@ -19,7 +19,7 @@ license:
 
 #ifndef FNC_SAMPLEDERIVATIVE
 #define FNC_SAMPLEDERIVATIVE
-inline float2 sampleDerivative(SAMPLER_TYPE tex, float2 st, float2 pixel) { 
+static inline float2 sampleDerivative(SAMPLER_TYPE tex, float2 st, float2 pixel) { 
     float p = SAMPLERDERIVATIVE_FNC(tex, st); 
 
     #if defined(SAMPLEDERRIVATIVE_DD)

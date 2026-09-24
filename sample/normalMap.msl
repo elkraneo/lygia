@@ -13,5 +13,5 @@ license:
 
 #ifndef FNC_SAMPLENORMALMAP
 #define FNC_SAMPLENORMALMAP
-inline float3 sampleNormalMap(SAMPLER_TYPE tex, float2 st) { return SAMPLER_FNC(tex, st).xyz * 2.0 - 1.0; }
+static inline float3 sampleNormalMap(SAMPLER_TYPE tex, float2 st) { return SAMPLER_FNC(tex, st).xyz * 2.0 - 1.0; }
 #endif

@@ -34,11 +34,11 @@ license:
 #ifndef FNC_SHARPEN
 #define FNC_SHARPEN
 
-inline SHARPEN_TYPE sharpen(SAMPLER_TYPE tex, float2 st, float2 pixel, float strength) {
+static inline SHARPEN_TYPE sharpen(SAMPLER_TYPE tex, float2 st, float2 pixel, float strength) {
     return SHARPEN_FNC (tex, st, pixel, strength);
 }
 
-inline SHARPEN_TYPE sharpen(SAMPLER_TYPE tex, float2 st, float2 pixel) {
+static inline SHARPEN_TYPE sharpen(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     return SHARPEN_FNC (tex, st, pixel);
 }
 

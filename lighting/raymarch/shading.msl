@@ -44,7 +44,7 @@ license:
 
 // Env: optional arguments forwarded by raymarchDefaultRender(), unused by this shading
 template<typename... Env>
-inline float4 raymarchDefaultShading(Material m, ShadingData shadingData, Env...) {
+static inline float4 raymarchDefaultShading(Material m, ShadingData shadingData, Env...) {
     
     // This are here to be access by RAYMARCH_AMBIENT 
     float3 worldNormal = m.normal;

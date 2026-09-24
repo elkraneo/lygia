@@ -14,7 +14,7 @@ license:
 
 #ifndef FNC_SAMPLEYUV
 #define FNC_SAMPLEYUV
-inline float4 sampleYUV(SAMPLER_TYPE tex_Y, SAMPLER_TYPE tex_UV, float2 st) {
+static inline float4 sampleYUV(SAMPLER_TYPE tex_Y, SAMPLER_TYPE tex_UV, float2 st) {
     float4 yuv = float4(0.);
     yuv.xw = SAMPLER_FNC(tex_Y, st).ra;
     yuv.yz = SAMPLER_FNC(tex_UV, st).rg;

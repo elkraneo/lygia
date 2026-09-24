@@ -6,7 +6,7 @@ use: arrowSDF(<float3> v, <float3> start, <float3> end, <float> baseRadius, <flo
 
 #ifndef FNC_ARROWSDF
 #define FNC_ARROWSDF
-inline float arrowSDF(float3 v, float3 start, float3 end, float baseRadius, float tipRadius, float tipHeight){
+static inline float arrowSDF(float3 v, float3 start, float3 end, float baseRadius, float tipRadius, float tipHeight){
     float3 t = start - end;
     float l = length(t);
     t /= l;

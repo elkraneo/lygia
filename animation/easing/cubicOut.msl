@@ -8,7 +8,7 @@ examples:
 
 #ifndef FNC_CUBICOUT
 #define FNC_CUBICOUT
-inline float cubicOut(float t) {
+static inline float cubicOut(float t) {
     float f = t - 1.0;
     return f * f * f + 1.0;
 }

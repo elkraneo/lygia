@@ -16,7 +16,7 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 
 #ifndef FNC_NORMALFROMHEIGHTMAP
 #define FNC_NORMALFROMHEIGHTMAP
-inline float3 normalFromHeightMap(SAMPLER_TYPE heightMap, float2 st, float strength, float offset)
+static inline float3 normalFromHeightMap(SAMPLER_TYPE heightMap, float2 st, float strength, float offset)
 {
     offset = pow3(offset) * 0.1;
     
@@ -30,7 +30,7 @@ inline float3 normalFromHeightMap(SAMPLER_TYPE heightMap, float2 st, float stren
     return normalize(cross(a, b));
 }
 
-inline float3 normalFromHeightMap(SAMPLER_TYPE heightMap, float2 st, float strength)
+static inline float3 normalFromHeightMap(SAMPLER_TYPE heightMap, float2 st, float strength)
 {
     return normalFromHeightMap(heightMap, st, strength, 0.5);
 

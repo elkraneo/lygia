@@ -7,7 +7,7 @@ use: <float> coneSDF( <float3> pos, <float3> c )
 #ifndef FNC_CONESDF
 #define FNC_CONESDF
 
-inline float coneSDF( float3 p, float3 c ) {
+static inline float coneSDF( float3 p, float3 c ) {
     float2 q = float2( length(p.xz), p.y );
     float d1 = -q.y-c.z;
     float d2 = max( dot(q,c.xy), q.y);
@@ -15,7 +15,7 @@ inline float coneSDF( float3 p, float3 c ) {
 }
 
 // vertical
-inline float coneSDF( float3 p, float2 c, float h ) {
+static inline float coneSDF( float3 p, float2 c, float h ) {
     float2 q = h*float2(c.x,-c.y)/c.y;
     float2 w = float2( length(p.xz), p.y );
     
@@ -28,7 +28,7 @@ inline float coneSDF( float3 p, float2 c, float h ) {
 }
 
 // Round
-inline float coneSDF( float3 p, float r1, float r2, float h ) {
+static inline float coneSDF( float3 p, float r1, float r2, float h ) {
     float2 q = float2( length(p.xz), p.y );
     
     float b = (r1-r2)/h;

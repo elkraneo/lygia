@@ -11,7 +11,7 @@ license:
 
 #ifndef FNC_EQUIRECT2XYZ
 #define FNC_EQUIRECT2XYZ
-inline float3 equirect2xyz(float2 uv) {
+static inline float3 equirect2xyz(float2 uv) {
     float Phi = PI - uv.y * PI;
     float Theta = uv.x * TWO_PI;
     float3 dir = float3(cos(Theta), 0.0, sin(Theta));

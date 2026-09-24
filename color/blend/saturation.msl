@@ -10,13 +10,13 @@ license: MIT License (MIT) Copyright (c) 2015 Jamie Owen
 
 #ifndef FNC_BLENDSATURATION
 #define FNC_BLENDSATURATION
-inline float3 blendSaturation(float3 base, float3 blend) {
+static inline float3 blendSaturation(float3 base, float3 blend) {
   float3 baseHSL = rgb2hsv(base);
   float3 blendHSL = rgb2hsv(blend);
   return hsv2rgb(
       float3(baseHSL.x, blendHSL.y, baseHSL.z));
 }
-inline float3  blendSaturation(float3 base, float3 blend, float opacity) { 
+static inline float3  blendSaturation(float3 base, float3 blend, float opacity) { 
     return (blendSaturation(base, blend) * opacity + base * (1. - opacity)); 
 }
 #endif

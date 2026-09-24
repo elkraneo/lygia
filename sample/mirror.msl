@@ -16,7 +16,7 @@ license:
 
 #ifndef FNC_SAMPLEMIRROR
 #define FNC_SAMPLEMIRROR
-inline float4 sampleMirror(SAMPLER_TYPE tex, float2 st) { 
+static inline float4 sampleMirror(SAMPLER_TYPE tex, float2 st) { 
     return SAMPLER_FNC( tex, mirror(st) ); 
 }
 #endif

@@ -7,7 +7,7 @@ use: <float> octogonPrismSDF( <float3> p, <float> r, <float> h )
 #ifndef FNC_OCTOGONPRISMSDF
 #define FNC_OCTOGONPRISMSDF
 
-inline float octogonPrismSDF( float3 p, float r, float h ) {
+static inline float octogonPrismSDF( float3 p, float r, float h ) {
    float3 k = float3( -0.9238795325,   // sqrt(2+sqrt(2))/2 
                   0.3826834323,   // sqrt(2-sqrt(2))/2
                   0.4142135623 ); // sqrt(2)-1 

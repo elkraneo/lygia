@@ -6,11 +6,11 @@ use: <float3|float4> tonemapFilmic(<float3|float4> x)
 
 #ifndef FNC_TONEMAPFILMIC
 #define FNC_TONEMAPFILMIC
-inline float3 tonemapFilmic(float3 v) {
+static inline float3 tonemapFilmic(float3 v) {
     v = max(float3(0.0), v - 0.004);
     v = (v * (6.2 * v + 0.5)) / (v * (6.2 * v + 1.7) + 0.06);
     return v;
 }
 
-inline float4 tonemapFilmic(float4 x) { return float4( tonemapFilmic(x.rgb), x.a ); }
+static inline float4 tonemapFilmic(float4 x) { return float4( tonemapFilmic(x.rgb), x.a ); }
 #endif

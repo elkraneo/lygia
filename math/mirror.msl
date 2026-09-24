@@ -10,14 +10,14 @@ examples:
 
 #ifndef FNC_MIRROR
 #define FNC_MIRROR
-inline float mirror(float x) {
+static inline float mirror(float x) {
     float f = fract(x);
     float m = floor(mod(x, 2.));
     float fm = f * m;
     return f + m - fm * 2.;
 }
 
-inline float2 mirror(float2 v) {
+static inline float2 mirror(float2 v) {
     float2 f = fract(v);
     float2 m = floor(mod(v, 2.));
     float2 fm = f * m;

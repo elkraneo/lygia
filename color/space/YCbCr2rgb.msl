@@ -9,7 +9,7 @@ license:
 
 #ifndef FNC_YCBCR2RGB
 #define FNC_YCBCR2RGB
-inline float3 YCbCr2rgb( float3 ycbcr) {
+static inline float3 YCbCr2rgb( float3 ycbcr) {
     float cb = ycbcr.y - .5;
     float cr = ycbcr.z - .5;
     float y = ycbcr.x;
@@ -19,7 +19,7 @@ inline float3 YCbCr2rgb( float3 ycbcr) {
     return float3(r, g, b) + y;
 }
 
-inline float4 YCbCr2rgb( float4 ycbcr) {
+static inline float4 YCbCr2rgb( float4 ycbcr) {
     return float4(YCbCr2rgb(ycbcr.rgb),ycbcr.a);
 }
 #endif

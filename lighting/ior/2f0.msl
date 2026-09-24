@@ -11,7 +11,7 @@ license:
 
 #ifndef FNC_IOR2F0
 #define FNC_IOR2F0
-inline float ior2f0(float ior) { return pow2(ior - 1.0) / pow2(ior + 1.0); }
-inline float3 ior2f0(float3 ior) { return pow2(ior - 1.0) / pow2(ior + 1.0); }
-inline float4 ior2f0(float4 ior) { return float4(pow2(ior.rgb - 1.0) / pow2(ior.rgb + 1.0), ior.a); }
+static inline float ior2f0(float ior) { return pow2(ior - 1.0) / pow2(ior + 1.0); }
+static inline float3 ior2f0(float3 ior) { return pow2(ior - 1.0) / pow2(ior + 1.0); }
+static inline float4 ior2f0(float4 ior) { return float4(pow2(ior.rgb - 1.0) / pow2(ior.rgb + 1.0), ior.a); }
 #endif

@@ -17,7 +17,7 @@ license: MIT License Copyright (c) 2020 Martijn Steinrucken
 
 #ifndef FNC_SPECTRAL
 #define FNC_SPECTRAL
-inline float3 spectral(float x) {
+static inline float3 spectral(float x) {
     return  (float3( 1.220023e0,-1.933277e0, 1.623776e0) +
             (float3(-2.965000e1, 6.806567e1,-3.606269e1) +
             (float3( 5.451365e2,-7.921759e2, 6.966892e2) +
@@ -30,7 +30,7 @@ inline float3 spectral(float x) {
             *x)*x)*x)*x)*x)*x)*x)*x)*x;
 }
 
-inline float3 spectral( float x, float l ) {
+static inline float3 spectral( float x, float l ) {
     x = 1.0 - x;
     // (optional) rectangular expand
     x = mix((x * .5)+.25,x,1. - l);

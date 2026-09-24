@@ -14,7 +14,7 @@ license:
 
 #ifndef FNC_STARSDF
 #define FNC_STARSDF
-inline float starSDF(float2 st, int V, float s) {
+static inline float starSDF(float2 st, int V, float s) {
 #ifdef CENTER_2D
     st -= CENTER_2D;
 #else
@@ -30,7 +30,7 @@ inline float starSDF(float2 st, int V, float s) {
                    st));
 }
 
-inline float starSDF(float2 st, int V) {
+static inline float starSDF(float2 st, int V) {
     return starSDF( scale(st, 12.0/float(V)), V, 0.1);
 }
 #endif

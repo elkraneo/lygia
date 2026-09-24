@@ -17,7 +17,7 @@ license:
 #ifndef FNC_MATERIAL_METALLIC
 #define FNC_MATERIAL_METALLIC
 
-inline float materialMetallic() {
+static inline float materialMetallic() {
     float metallic = 0.0;
 
 #if defined(MATERIAL_METALLIC)

@@ -18,7 +18,7 @@ license:
 
 #ifndef FNC_SAMPLEHUE
 #define FNC_SAMPLEHUE
-inline float sampleHue(SAMPLER_TYPE tex, float2 st) { 
+static inline float sampleHue(SAMPLER_TYPE tex, float2 st) { 
     return rgb2hue( SAMPLER_FNC( tex, st ) ); 
 }
 #endif

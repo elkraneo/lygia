@@ -30,7 +30,7 @@ examples:
 
 #ifndef FNC_EDGEPREWITT
 #define FNC_EDGEPREWITT
-inline EDGEPREWITT_TYPE edgePrewitt(SAMPLER_TYPE tex, float2 st, float2 offset) {
+static inline EDGEPREWITT_TYPE edgePrewitt(SAMPLER_TYPE tex, float2 st, float2 offset) {
     // get samples around pixel
     EDGEPREWITT_TYPE tleft = EDGEPREWITT_SAMPLER_FNC(tex, st + float2(-offset.x, offset.y));
     EDGEPREWITT_TYPE left = EDGEPREWITT_SAMPLER_FNC(tex, st + float2(-offset.x, 0.));

@@ -12,6 +12,6 @@ license:
 #ifndef FNC_TRIANGLE_CENTROID
 #define FNC_TRIANGLE_CENTROID
 
-inline float3 centroid(Triangle _tri) { return (_tri.a + _tri.b + _tri.c) * 0.3333333333333; }
+static inline float3 centroid(Triangle _tri) { return (_tri.a + _tri.b + _tri.c) * 0.3333333333333; }
 
 #endif

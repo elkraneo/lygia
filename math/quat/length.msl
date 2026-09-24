@@ -11,5 +11,5 @@ license:
 
 #ifndef FNC_QUADLENGTH
 #define FNC_QUADLENGTH
-inline float quatLength(QUAT q) { return sqrt(quatLengthSq(q)); }
+static inline float quatLength(QUAT q) { return sqrt(quatLengthSq(q)); }
 #endif

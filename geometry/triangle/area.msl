@@ -11,5 +11,5 @@ license:
 
 #ifndef FNC_TRIANGLE_AREA
 #define FNC_TRIANGLE_AREA
-inline float area(Triangle _tri) { return length( cross( _tri.b - _tri.a, _tri.c - _tri.a) ) * 0.5; }
+static inline float area(Triangle _tri) { return length( cross( _tri.b - _tri.a, _tri.c - _tri.a) ) * 0.5; }
 #endif

@@ -11,5 +11,5 @@ license:
 
 #ifndef FNC_BLACKBODY
 #define FNC_BLACKBODY
-inline float3 blackbody(float k) { return k2rgb(k); }
+static inline float3 blackbody(float k) { return k2rgb(k); }
 #endif

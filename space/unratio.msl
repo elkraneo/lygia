@@ -9,5 +9,5 @@ license:
 
 #ifndef FNC_UNRATIO
 #define FNC_UNRATIO
-inline float2 unratio (float2 st, float2 s) { return float2(st.x, st.y*(s.x/s.y)+(s.y*.5-s.x*.5)/s.y); }
+static inline float2 unratio (float2 st, float2 s) { return float2(st.x, st.y*(s.x/s.y)+(s.y*.5-s.x*.5)/s.y); }
 #endif

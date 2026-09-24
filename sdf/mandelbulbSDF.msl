@@ -13,7 +13,7 @@ examples:
 
 #ifndef FNC_MANDELBULBSDF
 #define FNC_MANDELBULBSDF
-inline float2 mandelbulbSDF( float3 st ) {
+static inline float2 mandelbulbSDF( float3 st ) {
    float3 zeta = st;
    float m = dot(st,st);
    float dz = 1.0;

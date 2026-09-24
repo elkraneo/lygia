@@ -10,9 +10,9 @@ license:
 #ifndef FNC_POW2
 #define FNC_POW2
 
-inline float pow2(const float v) { return v * v; }
-inline float2 pow2(const float2 v) { return v * v; }
-inline float3 pow2(const float3 v) { return v * v; }
-inline float4 pow2(const float4 v) { return v * v; }
+static inline float pow2(const float v) { return v * v; }
+static inline float2 pow2(const float2 v) { return v * v; }
+static inline float3 pow2(const float3 v) { return v * v; }
+static inline float4 pow2(const float4 v) { return v * v; }
 
 #endif

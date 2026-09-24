@@ -13,7 +13,7 @@ license:
 
 #ifndef FNC_DEPTH2VIEWZ
 #define FNC_DEPTH2VIEWZ
-inline float depth2viewZ( float depth, float near, float far ) {
+static inline float depth2viewZ( float depth, float near, float far ) {
     #if defined(CAMERA_ORTHOGRAPHIC_PROJECTION) 
     // ORTHOGRAPHIC
     return depth * ( near - far ) - near;
@@ -24,7 +24,7 @@ inline float depth2viewZ( float depth, float near, float far ) {
 }
 
 #if defined(CAMERA_NEAR_CLIP) && defined(CAMERA_FAR_CLIP)
-inline float depth2viewZ( float depth) {
+static inline float depth2viewZ( float depth) {
     return depth2viewZ( depth, CAMERA_NEAR_CLIP, CAMERA_FAR_CLIP); 
 }
 #endif

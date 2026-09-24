@@ -10,8 +10,8 @@ license:
 #ifndef FNC_LESSTHAN
 #define FNC_LESSTHAN
 
-inline bool2 lessThan(float2 x, float2 y) { return x < y; }
-inline bool3 lessThan(float3 x, float3 y) { return x < y; }
-inline bool4 lessThan(float4 x, float4 y) { return x < y; }
+static inline bool2 lessThan(float2 x, float2 y) { return x < y; }
+static inline bool3 lessThan(float3 x, float3 y) { return x < y; }
+static inline bool4 lessThan(float4 x, float4 y) { return x < y; }
 
 #endif

@@ -71,7 +71,7 @@ license:
 
 #ifndef FNC_VOLUMETRICLIGHTSCATTERING
 #define FNC_VOLUMETRICLIGHTSCATTERING
-inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE lightShadowMap, float4x4 lightMatrix, float3 lightPos, float3 rayOrigin, float3 rayEnd) {
+static inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE lightShadowMap, float4x4 lightMatrix, float3 lightPos, float3 rayOrigin, float3 rayEnd) {
     float3  rayVector     = rayEnd - rayOrigin;
     float rayLength     = length(rayVector);
     float3  rayDirection  = rayVector / rayLength;
@@ -103,7 +103,7 @@ inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE lig
     return L * stepLength;
 }
 
-inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE texDepth, float2 st, float cameraNear, float cameraFar, float4x4 projection, float4x4 inverseView, float3 cameraPosition, SAMPLER_TYPE lightShadowMap, float4x4 lightMatrix, float3 lightPos) {
+static inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE texDepth, float2 st, float cameraNear, float cameraFar, float4x4 projection, float4x4 inverseView, float3 cameraPosition, SAMPLER_TYPE lightShadowMap, float4x4 lightMatrix, float3 lightPos) {
     float depth = VOLUMETRICLIGHTSCATTERING_SAMPLE_FNC(texDepth, st);
     float viewZ = depth2viewZ(depth, cameraNear, cameraFar);
     
@@ -116,7 +116,7 @@ inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE tex
 }
 
 #if defined(CAMERA_POSITION) && defined(CAMERA_NEAR_CLIP) && defined(CAMERA_FAR_CLIP) && defined(CAMERA_PROJECTION_MATRIX) && defined(CAMERA_VIEW_MATRIX) && defined(LIGHT_MATRIX)
-inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE texDepth, float2 st, SAMPLER_TYPE lightShadowMap) {
+static inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE texDepth, float2 st, SAMPLER_TYPE lightShadowMap) {
     float depth = VOLUMETRICLIGHTSCATTERING_SAMPLE_FNC(texDepth, st);
     float viewZ = depth2viewZ(depth, CAMERA_NEAR_CLIP, CAMERA_FAR_CLIP);
     #ifdef VOLUMETRICLIGHTSCATTERING_NOISE_FNC

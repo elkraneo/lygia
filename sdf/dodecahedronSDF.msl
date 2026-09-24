@@ -8,7 +8,7 @@ use: <float> dodecahedronSDF( <float3> pos [, <float> size] )
 #ifndef FNC_DODECAHEDRONSDF
 #define FNC_DODECAHEDRONSDF
 
-inline float dodecahedronSDF(float3 p) {
+static inline float dodecahedronSDF(float3 p) {
     float3 n = normalize(float3(PHI,1.0,0.0));
     p = abs(p);
     float a = dot(p,n.xyz);
@@ -18,7 +18,7 @@ inline float dodecahedronSDF(float3 p) {
     return (max(max(a,b),c)-n.x);
 }
 
-inline float dodecahedronSDF(float3 p, float radius) {
+static inline float dodecahedronSDF(float3 p, float radius) {
     float3 n = normalize(float3(PHI,1.0,0.0));
 
     p = abs(p / radius);

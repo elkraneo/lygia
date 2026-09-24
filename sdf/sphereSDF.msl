@@ -6,6 +6,6 @@ use: <float> sphereSDF( <float3> pos[], <float> size] )
 
 #ifndef FNC_SPHERESDF
 #define FNC_SPHERESDF
-inline float sphereSDF(float3 p) { return length(p); }
-inline float sphereSDF(float3 p, float s) { return sphereSDF(p) - s; }
+static inline float sphereSDF(float3 p) { return length(p); }
+static inline float sphereSDF(float3 p, float s) { return sphereSDF(p) - s; }
 #endif

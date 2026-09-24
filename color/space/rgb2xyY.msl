@@ -12,6 +12,6 @@ license:
 
 #ifndef FNC_RGB2XYY
 #define FNC_RGB2XYY
-inline float3 rgb2xyY(float3 rgb) { return xyz2xyY(rgb2xyz(rgb));}
-inline float4 rgb2xyY(float4 rgb) { return float4(rgb2xyY(rgb.rgb), rgb.a);}
+static inline float3 rgb2xyY(float3 rgb) { return xyz2xyY(rgb2xyz(rgb));}
+static inline float4 rgb2xyY(float4 rgb) { return float4(rgb2xyY(rgb.rgb), rgb.a);}
 #endif

@@ -2,7 +2,7 @@
 
 #ifndef FNC_CHARLIE
 #define FNC_CHARLIE
-inline float charlie(float NoH, float roughness) {
+static inline float charlie(float NoH, float roughness) {
     // Estevez and Kulla 2017, "Production Friendly Microfacet Sheen BRDF"
     float invAlpha  = 1.0 / roughness;
     float cos2h = NoH * NoH;

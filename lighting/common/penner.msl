@@ -12,7 +12,7 @@ license: MIT License (MIT) Copyright 2017 Inigo Quilez
 #ifndef FNC_PENNER
 #define FNC_PENNER
 
-inline float3 penner( float NoL, float ir ) {
+static inline float3 penner( float NoL, float ir ) {
     float pndl = saturate( NoL);
     float nndl = saturate(-NoL);
 

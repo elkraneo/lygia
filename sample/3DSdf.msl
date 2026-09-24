@@ -31,7 +31,7 @@ license:
 
 #ifndef FNC_SAMPLE3DSDF
 #define FNC_SAMPLE3DSDF
-inline SAMPLE3DSDF_TYPE sample3DSdf(SAMPLER_TYPE tex, float3 pos) {
+static inline SAMPLE3DSDF_TYPE sample3DSdf(SAMPLER_TYPE tex, float3 pos) {
     pos += 0.5;
     pos = scale(pos, 0.5);
     SAMPLE3DSDF_TYPE sdf = (SAMPLE3DSDF_FNC(tex, pos) * 2.0 - 1.0) * 1.5;

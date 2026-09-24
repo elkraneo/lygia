@@ -23,7 +23,7 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #ifndef FNC_LIGHT_ATTENUATION
 #define FNC_LIGHT_ATTENUATION
 
-inline float attenuation(float dist) {
+static inline float attenuation(float dist) {
     return 1.0 / (
         LIGHT_ATTENUATION_CONSTANT + 
         LIGHT_ATTENUATION_LINEAR * dist +

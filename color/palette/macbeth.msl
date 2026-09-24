@@ -838,7 +838,7 @@ license:
 
 #ifndef FNC_PALETTE_MACBETH
 #define FNC_PALETTE_MACBETH
-inline float3 macbeth (int index) {
+static inline float3 macbeth (int index) {
     float3 rgb[24];
     rgb[0] = DARK_SKIN;
     rgb[1] = LIGHT_SKIN;
@@ -873,7 +873,7 @@ inline float3 macbeth (int index) {
     #endif
 }
 
-inline float3 macbethXYZ (int index) {
+static inline float3 macbethXYZ (int index) {
     float3 xyz[24];
     xyz[0] = DARK_SKIN_XYZ;
     xyz[1] = LIGHT_SKIN_XYZ;
@@ -908,7 +908,7 @@ inline float3 macbethXYZ (int index) {
     #endif
 }
 
-inline float3 macbethLAB (int index) {
+static inline float3 macbethLAB (int index) {
     float3 lab[24];
     lab[0] = DARK_SKIN_LAB;
     lab[1] = LIGHT_SKIN_LAB;
@@ -943,7 +943,7 @@ inline float3 macbethLAB (int index) {
     #endif
 }
 
-inline float3 macbethLCH (int index) {
+static inline float3 macbethLCH (int index) {
     float3 lch[24];
     lch[0] = DARK_SKIN_LCH;
     lch[1] = LIGHT_SKIN_LCH;
@@ -978,7 +978,7 @@ inline float3 macbethLCH (int index) {
     #endif
 }
 
-inline float3 macbethXYY (int index) {
+static inline float3 macbethXYY (int index) {
     float3 xyy[24];
     xyy[0] = DARK_SKIN_XYY;
     xyy[1] = LIGHT_SKIN_XYY;

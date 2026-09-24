@@ -24,7 +24,7 @@ options:
 #ifndef FNC_ALPHAHASHING
 #define FNC_ALPHAHASHING
 
-inline float alphaHashing(float3 p, float s) {
+static inline float alphaHashing(float3 p, float s) {
     float maxDeriv = max(length(dfdx(p.xy)), length(dfdy(p.xy)));
     float pixScale = 1.0 / (s*maxDeriv);
     float2 pixScales = float2(  exp2(floor(log2(pixScale))),
@@ -46,12 +46,12 @@ inline float alphaHashing(float3 p, float s) {
     return clamp(threshold, 1.0e-6, 1.0);
 }
 
-inline void  alphaHashingTest(float3 p, float a, float s) {
+static inline void  alphaHashingTest(float3 p, float a, float s) {
     if (a < alphaHashing(p, s))
         discard_fragment();
 }
 
-inline float alphaHashing(float3 p) { return alphaHashing(p, 1.0); }
-inline void  alphaHashingTest(float3 p, float a) { alphaHashingTest(p, a, 1.0); }
+static inline float alphaHashing(float3 p) { return alphaHashing(p, 1.0); }
+static inline void  alphaHashingTest(float3 p, float a) { alphaHashingTest(p, a, 1.0); }
 
 #endif

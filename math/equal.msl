@@ -10,8 +10,8 @@ license:
 #ifndef FNC_EQUAL 
 #define FNC_EQUAL 
 
-inline bool2 equal(float2 x, float2 y) { return x == y; }
-inline bool3 equal(float3 x, float3 y) { return x == y; }
-inline bool4 equal(float4 x, float4 y) { return x == y; }
+static inline bool2 equal(float2 x, float2 y) { return x == y; }
+static inline bool3 equal(float3 x, float3 y) { return x == y; }
+static inline bool4 equal(float4 x, float4 y) { return x == y; }
 
 #endif

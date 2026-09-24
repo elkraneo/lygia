@@ -14,7 +14,7 @@ license:
 #ifndef FNC_LINE
 #define FNC_LINE
 
-inline float line(float2 st, float2 a, float2 b, float thickness) {
+static inline float line(float2 st, float2 a, float2 b, float thickness) {
     return fill(lineSDF(st, a, b), thickness);
 }
 

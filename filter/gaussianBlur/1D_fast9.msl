@@ -28,7 +28,7 @@ options:
 
 #ifndef FNC_GAUSSIANBLUR1D_FAST9
 #define FNC_GAUSSIANBLUR1D_FAST9
-inline GAUSSIANBLUR1D_FAST9_TYPE gaussianBlur1D_fast9(SAMPLER_TYPE tex, float2 st, float2 offset) {
+static inline GAUSSIANBLUR1D_FAST9_TYPE gaussianBlur1D_fast9(SAMPLER_TYPE tex, float2 st, float2 offset) {
     GAUSSIANBLUR1D_FAST9_TYPE color = GAUSSIANBLUR1D_FAST9_TYPE(0.);
     float2 off1 = float2(1.3846153846) * offset;
     float2 off2 = float2(3.2307692308) * offset;

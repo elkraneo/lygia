@@ -38,7 +38,7 @@ license:
 #ifndef FNC_SSR
 #define FNC_SSR
 
-inline float2 ssr(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, thread float& op, thread float& dist, float cameraNear, float4x4 projection) {
+static inline float2 ssr(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, thread float& op, thread float& dist, float cameraNear, float4x4 projection) {
     float3 viewPosition = SAMPLER_FNC(texPosition, st).xyz;
     // if (-viewPosition.z >= CAMERA_FAR_CLIP)
     //     return st;
@@ -116,36 +116,36 @@ inline float2 ssr(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, f
     return ssr_uv;
 }
 
-inline float2 ssr(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, thread float& op, float cameraNear, float4x4 projection) {
+static inline float2 ssr(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, thread float& op, float cameraNear, float4x4 projection) {
     float dist = 0.0;
     return ssr(texPosition, texNormal, st, pixel, op, dist, cameraNear, projection);
 }
 
-inline float3 ssr(SAMPLER_TYPE tex, SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, float opacity, float cameraNear, float4x4 projection) {
+static inline float3 ssr(SAMPLER_TYPE tex, SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, float opacity, float cameraNear, float4x4 projection) {
     float3 color = SAMPLER_FNC(tex, st).rgb;
     float dist = 0.0;
     float2 uv = ssr(texPosition, texNormal, st, pixel, opacity, dist, cameraNear, projection);
     return mix(color, SAMPLER_FNC(tex, uv).rgb, opacity);
 }
 
-inline float3 ssr(SAMPLER_TYPE tex, SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, float cameraNear, float4x4 projection) {
+static inline float3 ssr(SAMPLER_TYPE tex, SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, float cameraNear, float4x4 projection) {
     return ssr(tex, texPosition, texNormal, st, pixel, 0.5, cameraNear, projection); 
 }
 
 #if defined(CAMERA_NEAR_CLIP) && defined(CAMERA_PROJECTION_MATRIX)
-inline float2 ssr(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, thread float& op, thread float& dist) {
+static inline float2 ssr(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, thread float& op, thread float& dist) {
     return ssr(texPosition, texNormal, st, pixel, op, dist, CAMERA_NEAR_CLIP, CAMERA_PROJECTION_MATRIX);
 }
 
-inline float2 ssr(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, thread float& op) {
+static inline float2 ssr(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, thread float& op) {
     return ssr(texPosition, texNormal, st, pixel, op, CAMERA_NEAR_CLIP, CAMERA_PROJECTION_MATRIX);
 }
 
-inline float3 ssr(SAMPLER_TYPE tex, SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, float opacity) {
+static inline float3 ssr(SAMPLER_TYPE tex, SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel, float opacity) {
     return ssr(tex, texPosition, texNormal, st, pixel, opacity, CAMERA_NEAR_CLIP, CAMERA_PROJECTION_MATRIX);
 }
 
-inline float3 ssr(SAMPLER_TYPE tex, SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel) {
+static inline float3 ssr(SAMPLER_TYPE tex, SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float2 pixel) {
     return ssr(tex, texPosition, texNormal, st, pixel, CAMERA_NEAR_CLIP, CAMERA_PROJECTION_MATRIX);
 }
 #endif

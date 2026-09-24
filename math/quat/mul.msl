@@ -11,12 +11,12 @@ license:
 
 #ifndef FNC_QUATMUL
 #define FNC_QUATMUL
-inline QUAT quatMul(QUAT q1, QUAT q2) {
+static inline QUAT quatMul(QUAT q1, QUAT q2) {
     return QUAT(
         q2.xyz * q1.w + q1.xyz * q2.w + cross(q1.xyz, q2.xyz),
         q1.w * q2.w - dot(q1.xyz, q2.xyz)
     );
 }
 
-inline QUAT quatMul(QUAT q, float s) { return QUAT(q.xyz * s, q.w * s); }
+static inline QUAT quatMul(QUAT q, float s) { return QUAT(q.xyz * s, q.w * s); }
 #endif

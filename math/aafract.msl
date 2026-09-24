@@ -13,7 +13,7 @@ option:
 #ifndef FNC_AAFRACT
 #define FNC_AAFRACT
 
-inline float aafract(float x) {
+static inline float aafract(float x) {
 
 #if defined(AA_EDGE)
     float afwidth = AA_EDGE;
@@ -28,6 +28,6 @@ inline float aafract(float x) {
 #endif
 }
 
-inline float2 aafract(float2 v) { return float2(aafract(v.x), aafract(v.y)); }
+static inline float2 aafract(float2 v) { return float2(aafract(v.x), aafract(v.y)); }
 
 #endif

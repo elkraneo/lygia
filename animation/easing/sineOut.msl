@@ -10,5 +10,5 @@ examples:
 
 #ifndef FNC_SINEOUT
 #define FNC_SINEOUT
-inline float sineOut(float t) { return sin(t * HALF_PI); }
+static inline float sineOut(float t) { return sin(t * HALF_PI); }
 #endif

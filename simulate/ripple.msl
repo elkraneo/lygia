@@ -16,7 +16,7 @@ options:
 
 #ifndef FNC_RIPPLE
 #define FNC_RIPPLE
-inline float3 ripple(SAMPLER_TYPE tex, float2 st, float2 pixel) {
+static inline float3 ripple(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     float3 rta = RIPPLE_SAMPLER_FNC(st).rgb;
    	float s0 = rta.y;
     float s1 = RIPPLE_SAMPLER_FNC(st + float2(0.0,   -pixel.y)).r;    //     s1

@@ -13,7 +13,7 @@ license:
 #ifndef FNC_MATERIAL_SPECULAR
 #define FNC_MATERIAL_SPECULAR
 
-inline float3 materialSpecular() {
+static inline float3 materialSpecular() {
     float3 spec = float3(0.04);
 #if defined(MATERIAL_SPECULAR)
     spec = MATERIAL_SPECULAR;

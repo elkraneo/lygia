@@ -26,6 +26,6 @@ constant float3x3 LMS2RGB = float3x3(
 
 #ifndef FNC_LMS2RGB
 #define FNC_LMS2RGB
-inline float3 lms2rgb( float3 lms) { return LMS2RGB * lms; }
-inline float4 lms2rgb( float4 lms) { return float4( lms2rgb(lms.xyz), lms.a ); }
+static inline float3 lms2rgb( float3 lms) { return LMS2RGB * lms; }
+static inline float4 lms2rgb( float4 lms) { return float4( lms2rgb(lms.xyz), lms.a ); }
 #endif

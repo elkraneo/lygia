@@ -17,7 +17,7 @@ license:
 
 #ifndef FNC_HUESHIFT
 #define FNC_HUESHIFT
-inline float3 hueShift( float3 color, float a){
+static inline float3 hueShift( float3 color, float a){
     float3 hsl = rgb2hsl(color);
 #ifndef HUESHIFT_AMOUNT
     hsl.r = hsl.r * TAU + a;
@@ -28,7 +28,7 @@ inline float3 hueShift( float3 color, float a){
     return hsl2rgb(hsl);
 }
 
-inline float4 hueShift(float4 v, float a) {
+static inline float4 hueShift(float4 v, float a) {
     return float4(hueShift(v.rgb, a), v.a);
 }
 #endif

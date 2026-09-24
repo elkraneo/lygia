@@ -10,7 +10,7 @@ license:
 #ifndef FNC_SPRITE
 #define FNC_SPRITE
 
-inline float2 sprite(float2 st, float2 grid, float index) {
+static inline float2 sprite(float2 st, float2 grid, float index) {
     index += grid.x; 
     float2 f = 1.0/grid;
     float2 cell = float2(floor(index), grid.y - floor(index * f.x) );

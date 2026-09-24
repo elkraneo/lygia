@@ -6,6 +6,6 @@ use: <float3|float4> tonemapReinhard(<float3|float4> x)
 
 #ifndef FNC_TONEMAPREINHARD
 #define FNC_TONEMAPREINHARD
-inline float3 tonemapReinhard(float3 v) { return v / (1.0 + dot(v, float3(0.21250175, 0.71537574, 0.07212251))); }
-inline float4 tonemapReinhard(float4 v) { return float4( tonemapReinhard(v.rgb), v.a ); }
+static inline float3 tonemapReinhard(float3 v) { return v / (1.0 + dot(v, float3(0.21250175, 0.71537574, 0.07212251))); }
+static inline float4 tonemapReinhard(float4 v) { return float4( tonemapReinhard(v.rgb), v.a ); }
 #endif

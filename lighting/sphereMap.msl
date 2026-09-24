@@ -21,14 +21,14 @@ license:
 
 #ifndef FNC_SPHEREMAP
 #define FNC_SPHEREMAP
-inline float2 sphereMap(float3 normal, float3 eye) {
+static inline float2 sphereMap(float3 normal, float3 eye) {
     float3 r = reflect(-eye, normal);
     r.z += 1.0;
     float m = 2.0 * length(r);
     return r.xy / m + 0.5;
 }
 
-inline SPHEREMAP_TYPE sphereMap(SAMPLER_TYPE tex, float3 normal, float3 eye) {
+static inline SPHEREMAP_TYPE sphereMap(SAMPLER_TYPE tex, float3 normal, float3 eye) {
     return SPHEREMAP_SAMPLER_FNC(tex, sphereMap(normal, eye) );
 }
 #endif

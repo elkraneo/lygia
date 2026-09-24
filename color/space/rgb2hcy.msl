@@ -17,7 +17,7 @@ license:
 
 #ifndef FNC_RGB2HCY
 #define FNC_RGB2HCY
-inline float3 rgb2hcy( float3 rgb) {
+static inline float3 rgb2hcy( float3 rgb) {
     const float3 HCYwts = float3(0.299, 0.587, 0.114);
     // Corrected by David Schaeffer
     float3 HCV = rgb2hcv(rgb);
@@ -30,5 +30,5 @@ inline float3 rgb2hcy( float3 rgb) {
     }
     return float3(HCV.x, HCV.y, Y);
 }
-inline float4 rgb2hcy(float4 rgb) { return float4(rgb2hcy(rgb.rgb), rgb.a);}
+static inline float4 rgb2hcy(float4 rgb) { return float4(rgb2hcy(rgb.rgb), rgb.a);}
 #endif

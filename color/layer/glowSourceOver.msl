@@ -13,7 +13,7 @@ license:
 #ifndef FNC_LAYER_GLOW_SRC_OVER
 #define FNC_LAYER_GLOW_SRC_OVER
 
-inline float4 layerGlowSourceOver(float4 src, float4 dest)
+static inline float4 layerGlowSourceOver(float4 src, float4 dest)
 {    
     float4 result;
 

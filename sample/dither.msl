@@ -23,7 +23,7 @@ license:
 
 #ifndef FNC_SAMPLEDITHER
 #define FNC_SAMPLEDITHER
-inline float4 sampleDither(SAMPLER_TYPE tex, float2 st, float2 resolution) {
+static inline float4 sampleDither(SAMPLER_TYPE tex, float2 st, float2 resolution) {
     float4 color = sampleNearest(tex, st, resolution);
     gamma2linear(color);
     color = SAMPLEDITHER_FNC(color, st * resolution);

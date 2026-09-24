@@ -11,5 +11,5 @@ license:
 
 #ifndef FNC_WAVELENGTH
 #define FNC_WAVELENGTH
-inline float3 wavelength(float w) { return w2rgb(w); }
+static inline float3 wavelength(float w) { return w2rgb(w); }
 #endif

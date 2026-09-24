@@ -14,20 +14,20 @@ license:
 #ifndef FNC_RAYNEW
 #define FNC_RAYNEW
 
-inline void rayNew(thread Ray& ray, float3 origin, float3 direction) {
+static inline void rayNew(thread Ray& ray, float3 origin, float3 direction) {
     ray.origin = origin;
     ray.direction = direction;
 }
 
-inline void rayNew(thread Ray& ray, float3 origin) {
+static inline void rayNew(thread Ray& ray, float3 origin) {
     rayNew(ray, origin, float3(0.0, 0.0, 1.0));
 }
 
-inline void rayNew(thread Ray& ray) {
+static inline void rayNew(thread Ray& ray) {
     rayNew(ray, float3(0.0, 0.0, 0.0), float3(0.0, 0.0, 1.0));
 }
 
-inline Ray rayNew(float3 origin, float3 direction) {
+static inline Ray rayNew(float3 origin, float3 direction) {
     Ray ray;
     ray.origin = float3(0.0, 0.0, 0.0);
     ray.direction = float3(0.0, 0.0, 1.0);
@@ -35,7 +35,7 @@ inline Ray rayNew(float3 origin, float3 direction) {
     return ray;
 }
 
-inline Ray rayNew(float3 origin) {
+static inline Ray rayNew(float3 origin) {
     Ray ray;
     ray.origin = float3(0.0, 0.0, 0.0);
     ray.direction = float3(0.0, 0.0, 1.0);
@@ -43,7 +43,7 @@ inline Ray rayNew(float3 origin) {
     return ray;
 }
 
-inline Ray rayNew() {
+static inline Ray rayNew() {
     Ray ray;
     ray.origin = float3(0.0, 0.0, 0.0);
     ray.direction = float3(0.0, 0.0, 1.0);

@@ -9,7 +9,7 @@ license:
 
 #ifndef FNC_TOSHININESS
 #define FNC_TOSHININESS
-inline float toShininess(float roughness, float metallic) {
+static inline float toShininess(float roughness, float metallic) {
     float s = .95 - roughness * 0.5;
     s *= s;
     s *= s;

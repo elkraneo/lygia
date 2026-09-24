@@ -9,9 +9,9 @@ examples:
 #ifndef FNC_QUARTIC
 #define FNC_QUARTIC 
 
-inline float quartic(const float v) { return v*v*(2.0-v*v); }
-inline float2  quartic(const float2 v)  { return v*v*(2.0-v*v); }
-inline float3  quartic(const float3 v)  { return v*v*(2.0-v*v); }
-inline float4  quartic(const float4 v)  { return v*v*(2.0-v*v); }
+static inline float quartic(const float v) { return v*v*(2.0-v*v); }
+static inline float2  quartic(const float2 v)  { return v*v*(2.0-v*v); }
+static inline float3  quartic(const float3 v)  { return v*v*(2.0-v*v); }
+static inline float4  quartic(const float4 v)  { return v*v*(2.0-v*v); }
 
 #endif

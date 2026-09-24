@@ -13,6 +13,6 @@ license:
 #ifndef FNC_AABB_DIAGONAL
 #define FNC_AABB_DIAGONAL
 
-inline float3 diagonal(AABB box) { return abs(box.max - box.min); }
+static inline float3 diagonal(AABB box) { return abs(box.max - box.min); }
 
 #endif

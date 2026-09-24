@@ -9,7 +9,7 @@ license:
 
 #ifndef FNC_CONTRASTMATRIX
 #define FNC_CONTRASTMATRIX
-inline float4x4 contrastMatrix(float a) {
+static inline float4x4 contrastMatrix(float a) {
     float t = ( 1. - a ) * .5;
     return float4x4( a, .0, .0, .0,
                 .0, a, .0, .0,

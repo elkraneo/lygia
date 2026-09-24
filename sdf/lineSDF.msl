@@ -8,14 +8,14 @@ use: lineSDF(<float2> st, <float2> A, <float2> B)
 
 #ifndef FNC_LINESDF
 #define FNC_LINESDF
-inline float lineSDF( float2 st, float2 a, float2 b ) {
+static inline float lineSDF( float2 st, float2 a, float2 b ) {
     float2 b_to_a = b - a;
     float2 to_a = st - a;
     float h = saturate(dot(to_a, b_to_a)/dot(b_to_a, b_to_a));
     return length(to_a - h * b_to_a );
 }
 
-inline float lineSDF(float3 p, float3 a, float3 b) {
+static inline float lineSDF(float3 p, float3 a, float3 b) {
     //https://mathworld.wolfram.com/Point-LineDistance3-Dimensional.html
     return length(cross(p - a, p - b))/length(b - a);
 }

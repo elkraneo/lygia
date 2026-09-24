@@ -33,7 +33,7 @@ examples:
 #ifndef FNC_SAMPLEUNTILE
 #define FNC_SAMPLEUNTILE
 
-inline SAMPLEUNTILE_TYPE sampleUntile(SAMPLER_TYPE tex, float2 st) {
+static inline SAMPLEUNTILE_TYPE sampleUntile(SAMPLER_TYPE tex, float2 st) {
 
     #ifdef SAMPLEUNTILE_FAST
     float k = SAMPLEUNTILE_SAMPLER_FNC(tex, 0.005*st ).x; // cheap (cache friendly) lookup

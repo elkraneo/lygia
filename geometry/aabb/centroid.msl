@@ -11,5 +11,5 @@ license:
 
 #ifndef FNC_AABB_CENTROID
 #define FNC_AABB_CENTROID
-inline float3 centroid(AABB _box) { return (_box.min + _box.max) * 0.5; }
+static inline float3 centroid(AABB _box) { return (_box.min + _box.max) * 0.5; }
 #endif

@@ -12,7 +12,7 @@ license:
 #ifndef FNC_K2RGB
 #define FNC_K2RGB
 
-inline float3 k2rgb( float t) {
+static inline float3 k2rgb( float t) {
     float p = pow(t, -1.5);
     float l = log(t);
     float3 color = float3(

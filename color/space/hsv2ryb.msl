@@ -17,7 +17,7 @@ license:
 
 #ifndef FNC_HSV2RYB
 #define FNC_HSV2RYB
-inline float3 hsv2ryb( float3 v ) {
+static inline float3 hsv2ryb( float3 v ) {
     #ifndef HSV2RYB_FAST
     float3 rgb = hsv2rgb(v);
 

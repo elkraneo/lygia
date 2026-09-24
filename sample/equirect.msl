@@ -20,7 +20,7 @@ license:
 
 #ifndef FNC_SAMPLEEQUIRECT
 #define FNC_SAMPLEEQUIRECT
-inline float4 sampleEquirect(SAMPLER_TYPE tex, float3 dir) { 
+static inline float4 sampleEquirect(SAMPLER_TYPE tex, float3 dir) { 
     float2 st = xyz2equirect(dir);
     #ifdef SAMPLEEQUIRECT_FLIP_Y
     st.y = 1.0-st.y;
@@ -28,7 +28,7 @@ inline float4 sampleEquirect(SAMPLER_TYPE tex, float3 dir) {
     return SAMPLER_FNC(tex, st); 
 }
 
-inline float4 sampleEquirect(SAMPLER_TYPE tex, float3 dir, float lod) { 
+static inline float4 sampleEquirect(SAMPLER_TYPE tex, float3 dir, float lod) { 
     
     #if defined(SAMPLEEQUIRECT_ITERATIONS)
     float4 color = float4(0.0);

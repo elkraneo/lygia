@@ -26,7 +26,7 @@ license:
 #define FNC_TRANSPARENT
 
 template<typename... Env>
-inline float3 transparent(float3 normal, float3 view, float3 Fr, float3 eta, float roughness, Env... env) {
+static inline float3 transparent(float3 normal, float3 view, float3 Fr, float3 eta, float roughness, Env... env) {
     float3 color  = float3(0.0);
     float3 T      = max(float3(0.0), 1.0-Fr);
 
@@ -64,7 +64,7 @@ inline float3 transparent(float3 normal, float3 view, float3 Fr, float3 eta, flo
 }
 
 template<typename... Env>
-inline float3 transparent(float3 normal, float3 view, float Fr, float3 eta, float roughness, Env... env) {
+static inline float3 transparent(float3 normal, float3 view, float Fr, float3 eta, float roughness, Env... env) {
     float3 color  = float3(0.0);
     float T     = max(0.0, 1.0-Fr);
 

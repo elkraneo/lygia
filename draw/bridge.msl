@@ -11,22 +11,22 @@ license:
 
 #ifndef FNC_BRIDGE
 #define FNC_BRIDGE
-inline float bridge(float c, float d, float s, float w) {
+static inline float bridge(float c, float d, float s, float w) {
     c *= 1.0 - stroke(d, s , w * 2.0);
     return c + stroke(d, s, w);
 }
 
-inline float2 bridge(float2 c, float d, float s, float w) {
+static inline float2 bridge(float2 c, float d, float s, float w) {
     c *= 1.0 - stroke(d, s , w * 2.0);
     return c + stroke(d, s, w);
 }
 
-inline float3 bridge(float3 c, float d, float s, float w) {
+static inline float3 bridge(float3 c, float d, float s, float w) {
     c *= 1.0 - stroke(d, s , w * 2.0);
     return c + stroke(d, s, w);
 }
 
-inline float4 bridge(float4 c, float d, float s, float w) {
+static inline float4 bridge(float4 c, float d, float s, float w) {
     c *= 1.0 - stroke(d, s , w * 2.0);
     return c + stroke(d, s, w);
 }

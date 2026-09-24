@@ -13,7 +13,7 @@ license:
 #ifndef FNC_AABB_CONTAIN
 #define FNC_AABB_CONTAIN
 
-inline bool contain(AABB box, float3 point ) {
+static inline bool contain(AABB box, float3 point ) {
     return  all( point <= box.max ) && 
             all( box.min < point );
 }

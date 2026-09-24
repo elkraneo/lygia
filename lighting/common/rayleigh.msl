@@ -4,7 +4,7 @@
 #define FNC_RAYLEIGH
 
 // Rayleigh phase
-inline float rayleigh(float mu) {
+static inline float rayleigh(float mu) {
     return 3. * (1. + mu*mu) / (16. * PI);
 }
 

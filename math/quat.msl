@@ -17,13 +17,13 @@ license:
 #define FNC_QUAT
 
 // A given r of rotation about a given axis
-inline QUAT quat(float3 axis, float r) {
+static inline QUAT quat(float3 axis, float r) {
     float sn = sin(r * 0.5);
     float cs = cos(r * 0.5);
     return QUAT(axis * sn, cs);
 }
 
-inline QUAT quat(float3 f, float3 up) {
+static inline QUAT quat(float3 f, float3 up) {
     float3 right = normalize(cross(f, -up));
     up = normalize(cross(f, right));
 
@@ -78,6 +78,6 @@ inline QUAT quat(float3 f, float3 up) {
     return q;
 }
 
-inline QUAT quat(float3 f) { return quat(f, float3(0.0, 1.0, 0.0)); }
+static inline QUAT quat(float3 f) { return quat(f, float3(0.0, 1.0, 0.0)); }
 
 #endif

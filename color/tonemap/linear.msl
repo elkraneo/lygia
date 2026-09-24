@@ -6,6 +6,6 @@ use: <float3|float4> tonemapLinear(<float3|float4> x)
 
 #ifndef FNC_TONEMAPLINEAR
 #define FNC_TONEMAPLINEAR
-inline float3 tonemapLinear(float3 v) { return v; }
-inline float4 tonemapLinear(float4 v) { return v; }
+static inline float3 tonemapLinear(float3 v) { return v; }
+static inline float4 tonemapLinear(float4 v) { return v; }
 #endif

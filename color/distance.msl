@@ -23,7 +23,7 @@ license:
 
 #ifndef FNC_PERCEPTUALDISTANCE
 #define FNC_PERCEPTUALDISTANCE
-inline float colorDistanceLABCIE94(float3 rgb1, float3 rgb2) {
+static inline float colorDistanceLABCIE94(float3 rgb1, float3 rgb2) {
     float3 lab1 = rgb2lab(rgb1);
     float3 lab2 = rgb2lab(rgb2);
 
@@ -44,12 +44,12 @@ inline float colorDistanceLABCIE94(float3 rgb1, float3 rgb2) {
     return mix( 0., sqrt(delta_e), step(0.,delta_e));
 }
 
-inline float colorDistanceLAB(float3 rgb1, float3 rgb2)    { return distance(rgb2lab(rgb1), rgb2lab(rgb2)); }
-inline float colorDistanceYCbCr(float3 rgb1, float3 rgb2)  { return distance(rgb2YCbCr(rgb1).yz, rgb2YCbCr(rgb2).yz); }
-inline float colorDistanceYPbPr(float3 rgb1, float3 rgb2)  { return distance(rgb2YPbPr(rgb1).yz, rgb2YPbPr(rgb2).yz); }
-inline float colorDistanceYUV(float3 rgb1, float3 rgb2)    { return distance(rgb2yuv(rgb1), rgb2yuv(rgb2)); }
-inline float colorDistanceOKLAB(float3 rgb1, float3 rgb2)  { return distance(rgb2oklab(rgb1), rgb2oklab(rgb2)); }
+static inline float colorDistanceLAB(float3 rgb1, float3 rgb2)    { return distance(rgb2lab(rgb1), rgb2lab(rgb2)); }
+static inline float colorDistanceYCbCr(float3 rgb1, float3 rgb2)  { return distance(rgb2YCbCr(rgb1).yz, rgb2YCbCr(rgb2).yz); }
+static inline float colorDistanceYPbPr(float3 rgb1, float3 rgb2)  { return distance(rgb2YPbPr(rgb1).yz, rgb2YPbPr(rgb2).yz); }
+static inline float colorDistanceYUV(float3 rgb1, float3 rgb2)    { return distance(rgb2yuv(rgb1), rgb2yuv(rgb2)); }
+static inline float colorDistanceOKLAB(float3 rgb1, float3 rgb2)  { return distance(rgb2oklab(rgb1), rgb2oklab(rgb2)); }
 
-inline float colorDistance(float3 rgb1, float3 rgb2)       { return COLORDISTANCE_FNC(rgb1, rgb2); }
-inline float colorDistance(float4 rgb1, float4 rgb2)       { return COLORDISTANCE_FNC(rgb1.rgb, rgb2.rgb); }
+static inline float colorDistance(float3 rgb1, float3 rgb2)       { return COLORDISTANCE_FNC(rgb1, rgb2); }
+static inline float colorDistance(float4 rgb1, float4 rgb2)       { return COLORDISTANCE_FNC(rgb1.rgb, rgb2.rgb); }
 #endif

@@ -13,7 +13,7 @@ examples:
 #ifndef FNC_IRIDESCENCE
 #define FNC_IRIDESCENCE
 
-inline float3 iridescence(float cosA, float thickness) {
+static inline float3 iridescence(float cosA, float thickness) {
     // typically the dot product of normal with eye ray
     float NxV = cosA;
     

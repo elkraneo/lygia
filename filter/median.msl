@@ -36,15 +36,15 @@ examples:
 
 #ifndef FNC_MEDIAN
 #define FNC_MEDIAN
-inline MEDIAN_TYPE median3(SAMPLER_TYPE tex, float2 st, float2 radius) {
+static inline MEDIAN_TYPE median3(SAMPLER_TYPE tex, float2 st, float2 radius) {
     return median2D_fast3(tex, st, radius);
 }
 
-inline MEDIAN_TYPE median5(SAMPLER_TYPE tex, float2 st, float2 radius) {
+static inline MEDIAN_TYPE median5(SAMPLER_TYPE tex, float2 st, float2 radius) {
     return median2D_fast5(tex, st, radius);
 }
 
-inline MEDIAN_TYPE median(SAMPLER_TYPE tex, float2 st, float2 radius) {
+static inline MEDIAN_TYPE median(SAMPLER_TYPE tex, float2 st, float2 radius) {
     return MEDIAN_AMOUNT(tex, st, radius);
 }
 #endif

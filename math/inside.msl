@@ -11,27 +11,27 @@ license:
 
 #ifndef FNC_INSIDE
 #define FNC_INSIDE
-inline bool inside(float _x, float _min, float _max) {
+static inline bool inside(float _x, float _min, float _max) {
     return !(_x < _min|| _x > _max);
 }
 
-inline bool inside(float2 _v, float2 _min, float2 _max) {
+static inline bool inside(float2 _v, float2 _min, float2 _max) {
     return !(_v.x < _min.x || _v.x > _max.x || 
              _v.y < _min.y || _v.y > _max.y);
 }
 
-inline bool inside(float3 _v, float3 _min, float3 _max) {
+static inline bool inside(float3 _v, float3 _min, float3 _max) {
     return !(_v.x < _min.x || _v.x > _max.x || 
              _v.y < _min.y || _v.y > _max.y ||
              _v.z < _min.z || _v.z > _max.z);
 }
 
-inline bool inside(float2 _v, float4 _aabb) {
+static inline bool inside(float2 _v, float4 _aabb) {
     return inside(_v, _aabb.xy, _aabb.zw);
 }
 
 #ifdef STR_AABB
-inline bool inside(float3 _v, AABB _aabb) {
+static inline bool inside(float3 _v, AABB _aabb) {
     return inside(_v, _aabb.min, _aabb.max);
 }
 #endif

@@ -66,7 +66,7 @@ license:
 
 #ifndef FNC_FBM
 #define FNC_FBM
-inline FBM_NOISE_TYPE fbm(float2 st) {
+static inline FBM_NOISE_TYPE fbm(float2 st) {
     // Initial values
     FBM_NOISE_TYPE value = FBM_NOISE_TYPE(FBM_VALUE_INITIAL);
     float amplitude = FBM_AMPLITUDE_INITIAL;
@@ -80,7 +80,7 @@ inline FBM_NOISE_TYPE fbm(float2 st) {
     return value;
 }
 
-inline FBM_NOISE_TYPE fbm(float3 pos) {
+static inline FBM_NOISE_TYPE fbm(float3 pos) {
     // Initial values
     FBM_NOISE_TYPE value = FBM_NOISE_TYPE(FBM_VALUE_INITIAL);
     float amplitude = FBM_AMPLITUDE_INITIAL;
@@ -94,7 +94,7 @@ inline FBM_NOISE_TYPE fbm(float3 pos) {
     return value;
 }
 
-inline FBM_NOISE_TYPE fbm(float3 p, float tileLength) {
+static inline FBM_NOISE_TYPE fbm(float3 p, float tileLength) {
     const float persistence = 0.5;
     const float lacunarity = 2.0;
 

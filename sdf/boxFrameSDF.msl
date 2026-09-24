@@ -7,7 +7,7 @@ use: <float> boxFrameSDF( <float3> p, <float3> b, <float> e )
 #ifndef FNC_BOXFRAMESDF
 #define FNC_BOXFRAMESDF
 
-inline float boxFrameSDF( float3 p, float3 b, float e ) {
+static inline float boxFrameSDF( float3 p, float3 b, float e ) {
     p = abs(p) - b;
     float3 q = abs(p + e) - e;
 

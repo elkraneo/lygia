@@ -6,10 +6,10 @@ use: <float3|float4> tonemapReinhardJodie(<float3|float4> x)
 
 #ifndef FNC_TONEMAPREINHARDJODIE
 #define FNC_TONEMAPREINHARDJODIE
-inline float3 tonemapReinhardJodie(float3 x) { 
+static inline float3 tonemapReinhardJodie(float3 x) { 
     float l = dot(x, float3(0.21250175, 0.71537574, 0.07212251));
     float3 tc = x / (x + 1.0);
     return mix(x / (l + 1.0), tc, tc); 
 }
-inline float4 tonemapReinhardJodie(float4 x) { return float4( tonemapReinhardJodie(x.rgb), x.a ); }
+static inline float4 tonemapReinhardJodie(float4 x) { return float4( tonemapReinhardJodie(x.rgb), x.a ); }
 #endif

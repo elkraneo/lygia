@@ -48,7 +48,7 @@ license:
 #ifndef FNC_MATERIAL_NEW
 #define FNC_MATERIAL_NEW
 
-inline void materialNew(thread Material& _mat) {
+static inline void materialNew(thread Material& _mat) {
     // Surface data
     _mat.position           = (SURFACE_POSITION).xyz;
     _mat.normal             = materialNormal();
@@ -94,20 +94,20 @@ inline void materialNew(thread Material& _mat) {
 #endif
 }
 
-inline Material materialNew() {
+static inline Material materialNew() {
     Material mat;
     materialNew(mat);
     return mat;
 }
 
-inline Material materialNew(float3 albedo, float sdf) {
+static inline Material materialNew(float3 albedo, float sdf) {
     Material mat = materialNew();
     mat.albedo.rgb = albedo;
     mat.sdf = sdf;
     return mat;
 }
 
-inline Material materialNew(float3 albedo, float roughness, float metallic, float sdf) {
+static inline Material materialNew(float3 albedo, float roughness, float metallic, float sdf) {
     Material mat = materialNew();
     mat.albedo.rgb = albedo;
     mat.metallic = metallic;

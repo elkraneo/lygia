@@ -16,16 +16,16 @@ license:
 #ifndef FNC_RECTSDF
 #define FNC_RECTSDF
 
-inline float rectSDF(float2 p, float2 b, float r) {
+static inline float rectSDF(float2 p, float2 b, float r) {
     float2 d = abs(p - 0.5) * 4.2 - b + float2(r);
     return min(max(d.x, d.y), 0.0) + length(max(d, 0.0)) - r;   
 }
 
-inline float rectSDF(float2 p, float b, float r) {
+static inline float rectSDF(float2 p, float b, float r) {
     return rectSDF(p, float2(b), r);
 }
 
-inline float rectSDF(float2 st, float2 s) {
+static inline float rectSDF(float2 st, float2 s) {
     #ifdef CENTER_2D
         st -= CENTER_2D;
         st *= 2.0;
@@ -36,11 +36,11 @@ inline float rectSDF(float2 st, float2 s) {
                 abs(st.y / s.y) );
 }
 
-inline float rectSDF(float2 st, float s) {
+static inline float rectSDF(float2 st, float s) {
     return rectSDF(st, float2(s) );
 }
 
-inline float rectSDF(float2 st) {
+static inline float rectSDF(float2 st) {
     return rectSDF(st, float2(1.0));
 }
 

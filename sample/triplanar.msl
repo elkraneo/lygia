@@ -23,7 +23,7 @@ license:
 
 #ifndef FNC_SAMPLETRIPLANAR
 #define FNC_SAMPLETRIPLANAR
-inline SAMPLETRIPLANAR_TYPE sampleTriplanar(SAMPLER_TYPE tex, float3 d) {
+static inline SAMPLETRIPLANAR_TYPE sampleTriplanar(SAMPLER_TYPE tex, float3 d) {
     SAMPLETRIPLANAR_TYPE colx = SAMPLETRIPLANAR_FNC(tex, d.yz);
     SAMPLETRIPLANAR_TYPE coly = SAMPLETRIPLANAR_FNC(tex, d.zx);
     SAMPLETRIPLANAR_TYPE colz = SAMPLETRIPLANAR_FNC(tex, d.xy);
@@ -33,7 +33,7 @@ inline SAMPLETRIPLANAR_TYPE sampleTriplanar(SAMPLER_TYPE tex, float3 d) {
 }
 
 // iq's cubemap function
-inline SAMPLETRIPLANAR_TYPE sampleTriplanar(SAMPLER_TYPE tex, float3 d, float s) {
+static inline SAMPLETRIPLANAR_TYPE sampleTriplanar(SAMPLER_TYPE tex, float3 d, float s) {
     SAMPLETRIPLANAR_TYPE colx = SAMPLETRIPLANAR_FNC(tex, 0.5 + s*d.yz/d.x);
     SAMPLETRIPLANAR_TYPE coly = SAMPLETRIPLANAR_FNC(tex, 0.5 + s*d.zx/d.y);
     SAMPLETRIPLANAR_TYPE colz = SAMPLETRIPLANAR_FNC(tex, 0.5 + s*d.xy/d.z);

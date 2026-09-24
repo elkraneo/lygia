@@ -13,5 +13,5 @@ license:
 
 #ifndef FNC_QUATINVERSE
 #define FNC_QUATINVERSE
-inline QUAT quatInverse(QUAT q) { return quatDiv(quatConj(q), quatLengthSq(q)); }
+static inline QUAT quatInverse(QUAT q) { return quatDiv(quatConj(q), quatLengthSq(q)); }
 #endif

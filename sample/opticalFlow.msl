@@ -21,12 +21,12 @@ license:
 
 #ifndef FNC_SAMPLEOPTICALFLOW
 #define FNC_SAMPLEOPTICALFLOW
-inline float2 sampleOpticalFlow(SAMPLER_TYPE tex, float2 st) {
+static inline float2 sampleOpticalFlow(SAMPLER_TYPE tex, float2 st) {
     float3 data = SAMPLEOPTICALFLOW_SAMPLE_FNC(tex, st);
     float3 hsv = rgb2hsv(data.rgb);
     float a = (hsv.x * 2.0 - 1.0) * PI;
     return float2(cos(a), -sin(a)) * hsv.y;
 }
 
-inline float2 sampleOpticalFlow(SAMPLER_TYPE tex, float2 st, float2 resolution, float max_dist) { return sampleOpticalFlow(tex, st) * (max_dist / resolution); }
+static inline float2 sampleOpticalFlow(SAMPLER_TYPE tex, float2 st, float2 resolution, float max_dist) { return sampleOpticalFlow(tex, st) * (max_dist / resolution); }
 #endif

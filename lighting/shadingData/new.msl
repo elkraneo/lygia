@@ -13,7 +13,7 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #ifndef FNC_SHADING_DATA_NEW
 #define FNC_SHADING_DATA_NEW 
 
-inline ShadingData shadingDataNew() {
+static inline ShadingData shadingDataNew() {
    ShadingData shadingData;
 
    shadingData.V = float3(0.0, 0.0, 0.0);
@@ -41,7 +41,7 @@ inline ShadingData shadingDataNew() {
    return shadingData;
 }
 
-inline void shadingDataNew(Material mat, thread ShadingData& shadingData) {
+static inline void shadingDataNew(Material mat, thread ShadingData& shadingData) {
    float dielectricF0 = reflectance2f0(mat.reflectance);
    shadingData.N = mat.normal;
    shadingData.R = reflection(shadingData.V, shadingData.N, mat.roughness);

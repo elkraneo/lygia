@@ -11,9 +11,9 @@ examples:
 #ifndef FNC_PERMUTE
 #define FNC_PERMUTE
 
-inline float permute(const float v) { return mod289(((v * 34.0) + 1.0) * v); }
-inline float2 permute(const float2 v) { return mod289(((v * 34.0) + 1.0) * v); }
-inline float3 permute(const float3 v) { return mod289(((v * 34.0) + 1.0) * v); }
-inline float4 permute(const float4 v) { return mod289(((v * 34.0) + 1.0) * v); }
+static inline float permute(const float v) { return mod289(((v * 34.0) + 1.0) * v); }
+static inline float2 permute(const float2 v) { return mod289(((v * 34.0) + 1.0) * v); }
+static inline float3 permute(const float3 v) { return mod289(((v * 34.0) + 1.0) * v); }
+static inline float4 permute(const float4 v) { return mod289(((v * 34.0) + 1.0) * v); }
 
 #endif

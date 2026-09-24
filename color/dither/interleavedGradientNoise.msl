@@ -30,7 +30,7 @@ license:
 #ifndef FNC_DITHER_INTERLEAVEDGRADIENTNOISE
 #define FNC_DITHER_INTERLEAVEDGRADIENTNOISE
 
-inline float ditherInterleavedGradientNoise(float2 st) {
+static inline float ditherInterleavedGradientNoise(float2 st) {
     #ifdef DITHER_INTERLEAVEDGRADIENTNOISE_TIME
     st += 1337.0*fract(DITHER_INTERLEAVEDGRADIENTNOISE_TIME);
     #endif
@@ -38,12 +38,12 @@ inline float ditherInterleavedGradientNoise(float2 st) {
     return fract(52.982919 * fract(dot(float2(0.06711, 0.00584), st))) * 2.0 - 1.0;
 }
 
-inline float ditherInterleavedGradientNoise(const float value, const float2 st, const int pres) {
+static inline float ditherInterleavedGradientNoise(const float value, const float2 st, const int pres) {
     float ditherPattern = ditherInterleavedGradientNoise(st);
     return value + ditherPattern / 255.0;
 }
 
-inline float3 ditherInterleavedGradientNoise(const float3 color, const float2 st, const int pres) {
+static inline float3 ditherInterleavedGradientNoise(const float3 color, const float2 st, const int pres) {
     #ifdef DITHER_INTERLEAVEDGRADIENTNOISE_CHROMATIC 
     float3 ditherPattern = float3(
             ditherInterleavedGradientNoise(st),
@@ -64,7 +64,7 @@ inline float3 ditherInterleavedGradientNoise(const float3 color, const float2 st
 }
 
 //float ditherInterleavedGradientNoise(const float b, const float2 st) { return b + triangleNoise(st) / float(DITHER_INTERLEAVEDGRADIENTNOISE_PRECISION); }
-inline float3 ditherInterleavedGradientNoise(const float3 color, const float2 xy) {  return ditherInterleavedGradientNoise(color, xy, DITHER_INTERLEAVEDGRADIENTNOISE_PRECISION); }
-inline float4 ditherInterleavedGradientNoise(const float4 color, const float2 xy) {  return float4(ditherInterleavedGradientNoise(color.rgb, xy, DITHER_INTERLEAVEDGRADIENTNOISE_PRECISION), color.a); }
+static inline float3 ditherInterleavedGradientNoise(const float3 color, const float2 xy) {  return ditherInterleavedGradientNoise(color, xy, DITHER_INTERLEAVEDGRADIENTNOISE_PRECISION); }
+static inline float4 ditherInterleavedGradientNoise(const float4 color, const float2 xy) {  return float4(ditherInterleavedGradientNoise(color.rgb, xy, DITHER_INTERLEAVEDGRADIENTNOISE_PRECISION), color.a); }
 
 #endif

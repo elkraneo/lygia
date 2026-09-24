@@ -12,8 +12,8 @@ license:
 
 #ifndef FNC_SCALE
 #define FNC_SCALE
-inline float2 scale(float st, float s, float2 center) { return (st - center) * s + center; }
-inline float2 scale(float st, float s) {
+static inline float2 scale(float st, float s, float2 center) { return (st - center) * s + center; }
+static inline float2 scale(float st, float s) {
 #ifdef CENTER_2D
     return scale(st,  s, CENTER_2D);
 #else
@@ -21,9 +21,9 @@ inline float2 scale(float st, float s) {
 #endif
 }
 
-inline float2 scale(float2 st, float2 s, float2 center) { return (st - center) * s + center; }
-inline float2 scale(float2 st, float s, float2 center) { return scale(st, float2(s), center); }
-inline float2 scale(float2 st, float2 s) {
+static inline float2 scale(float2 st, float2 s, float2 center) { return (st - center) * s + center; }
+static inline float2 scale(float2 st, float s, float2 center) { return scale(st, float2(s), center); }
+static inline float2 scale(float2 st, float2 s) {
 #ifdef CENTER_2D
     return (st - CENTER_2D) * s + CENTER_2D;
 #else
@@ -31,7 +31,7 @@ inline float2 scale(float2 st, float2 s) {
 #endif
 }
 
-inline float2 scale(float2 st, float s) {
+static inline float2 scale(float2 st, float s) {
 #ifdef CENTER_2D
     return (st - CENTER_2D) * s + CENTER_2D;
 #else
@@ -39,9 +39,9 @@ inline float2 scale(float2 st, float s) {
 #endif
 }
 
-inline float3 scale(float3 st, float3 s, float3 center) { return (st - center) * s + center; }
-inline float3 scale(float3 st, float s, float3 center) { return (st - center) * s + center; }
-inline float3 scale(float3 st, float3 s) {
+static inline float3 scale(float3 st, float3 s, float3 center) { return (st - center) * s + center; }
+static inline float3 scale(float3 st, float s, float3 center) { return (st - center) * s + center; }
+static inline float3 scale(float3 st, float3 s) {
 #ifdef CENTER_3D
     return (st - CENTER_3D) * s + CENTER_3D;
 #else
@@ -49,7 +49,7 @@ inline float3 scale(float3 st, float3 s) {
 #endif
 }
 
-inline float3 scale(float3 st, float s) {
+static inline float3 scale(float3 st, float s) {
 #ifdef CENTER_3D
     return (st - CENTER_3D) * s + CENTER_3D;
 #else
@@ -58,6 +58,6 @@ inline float3 scale(float3 st, float s) {
 }
 
 // For tiles
-inline float4 scale(float4 st, float s) { return float4(scale(st.xy, s), st.zw); }
-inline float4 scale(float4 st, float2 s) { return float4(scale(st.xy, s), st.zw); }
+static inline float4 scale(float4 st, float s) { return float4(scale(st.xy, s), st.zw); }
+static inline float4 scale(float4 st, float2 s) { return float4(scale(st.xy, s), st.zw); }
 #endif

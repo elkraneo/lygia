@@ -31,7 +31,7 @@ license:
 #if defined(LIGHT_DIRECTION) && !defined(FNC_LIGHT_NEW_DIRECTIONAL)
 #define FNC_LIGHT_NEW_DIRECTIONAL
 #define FNC_LIGHT_NEW
-inline void lightNew(thread LightDirectional& _L) {
+static inline void lightNew(thread LightDirectional& _L) {
     _L.direction    = normalize(LIGHT_DIRECTION);
 
     #ifdef LIGHT_COLOR
@@ -47,14 +47,14 @@ inline void lightNew(thread LightDirectional& _L) {
     #endif
 }
 
-inline LightDirectional LightDirectionalNew() { LightDirectional l; lightNew(l); return l; }
+static inline LightDirectional LightDirectionalNew() { LightDirectional l; lightNew(l); return l; }
 #endif
 
 #if defined(LIGHT_POSITION) && !defined(FNC_LIGHT_NEW_POINT)
 #define FNC_LIGHT_NEW_POINT
 #define FNC_LIGHT_NEW
 
-inline void lightNew(thread LightPoint& _L) {
+static inline void lightNew(thread LightPoint& _L) {
     #if defined(SURFACE_POSITION)
     _L.position     = LIGHT_POSITION - SURFACE_POSITION.xyz;
     #else
@@ -80,7 +80,7 @@ inline void lightNew(thread LightPoint& _L) {
     #endif
 }
 
-inline LightPoint LightPointNew() {
+static inline LightPoint LightPointNew() {
     LightPoint l;
     lightNew(l);
     return l;

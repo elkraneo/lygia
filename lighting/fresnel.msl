@@ -18,11 +18,11 @@ license:
 #ifndef FNC_FRESNEL
 #define FNC_FRESNEL
 
-inline float3 fresnel(float3 f0, float3 normal, float3 view) {
+static inline float3 fresnel(float3 f0, float3 normal, float3 view) {
    return schlick(f0, 1.0, dot(view, normal));
 }
 
-inline float3 fresnel(float3 f0, float NoV) {
+static inline float3 fresnel(float3 f0, float NoV) {
 #if defined(TARGET_MOBILE) || defined(PLATFORM_RPI)
     return schlick(f0, 1.0, NoV);
 #else
@@ -31,14 +31,14 @@ inline float3 fresnel(float3 f0, float NoV) {
 #endif
 }
 
-inline float fresnel(float f0, float NoV) {
+static inline float fresnel(float f0, float NoV) {
     return schlick(f0, 1.0, NoV);
 }
 
 // Roughness-adjusted fresnel function to attenuate high speculars at glancing angles
 // Very useful when used with filtered environment maps
 // See https://seblagarde.wordpress.com/2011/08/17/hello-world/
-inline float3 fresnel(float3 f0, float NoV, float roughness) {
+static inline float3 fresnel(float3 f0, float NoV, float roughness) {
     return f0 + (max(float3(1.0 - roughness), f0) - f0) * pow5(1.0 - NoV);
 }
 

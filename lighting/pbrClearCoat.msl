@@ -65,7 +65,7 @@ license:
 #define FNC_PBRCLEARCOAT
 
 template<typename... Env>
-inline float4 pbrClearCoat(Material mat, ShadingData shadingData, Env... env) {
+static inline float4 pbrClearCoat(Material mat, ShadingData shadingData, Env... env) {
     shadingDataNew(mat, shadingData);
 
     float3    f0      = ior2f0(mat.ior);
@@ -179,7 +179,7 @@ inline float4 pbrClearCoat(Material mat, ShadingData shadingData, Env... env) {
 }
 
 template<typename... Env>
-inline float4 pbrClearCoat(Material mat, Env... env) {
+static inline float4 pbrClearCoat(Material mat, Env... env) {
     ShadingData shadingData = shadingDataNew();
     shadingData.V = normalize(CAMERA_POSITION - mat.position);
     return pbrClearCoat(mat, shadingData, env...);

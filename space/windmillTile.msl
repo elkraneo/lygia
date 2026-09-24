@@ -18,7 +18,7 @@ license:
 
 #ifndef FNC_WINDMILLTILE
 #define FNC_WINDMILLTILE
-inline float4 windmillTile(float4 t, float turn) {
+static inline float4 windmillTile(float4 t, float turn) {
     float a = ( abs(mod(t.z, 2.0)-
                     mod(t.w, 2.0))+
                 mod(t.w, 2.0) * 2.0)*
@@ -26,19 +26,19 @@ inline float4 windmillTile(float4 t, float turn) {
     return float4(rotate(t.xy, a * turn), t.zw);
 }
 
-inline float4 windmillTile(float4 t) {
+static inline float4 windmillTile(float4 t) {
     return windmillTile(t, TAU);
 }
 
-inline float4 windmillTile(float2 v) {
+static inline float4 windmillTile(float2 v) {
     return windmillTile(sqTile(v));
 }
 
-inline float4 windmillTile(float2 v, float s) {
+static inline float4 windmillTile(float2 v, float s) {
     return windmillTile(v * s);
 }
 
-inline float4 windmillTile(float2 v, float2 s) {
+static inline float4 windmillTile(float2 v, float2 s) {
     return windmillTile(v * s);
 }
 #endif

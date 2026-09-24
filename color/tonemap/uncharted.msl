@@ -7,7 +7,7 @@ use: <float3|float4> tonemapUncharted(<float3|float4> x)
 #ifndef FNC_TONEMAPUNCHARTED
 #define FNC_TONEMAPUNCHARTED
 
-inline float3 uncharted2Tonemap(float3 x) {
+static inline float3 uncharted2Tonemap(float3 x) {
     const float A = 0.15;
     const float B = 0.50;
     const float C = 0.10;
@@ -17,7 +17,7 @@ inline float3 uncharted2Tonemap(float3 x) {
     return ((x * (A * x + C * B) + D * E) / (x * (A * x + B) + D * F)) - E / F;
 }
 
-inline float3 tonemapUncharted(float3 x) {
+static inline float3 tonemapUncharted(float3 x) {
     const float W = 11.2;
     const float exposureBias = 2.0;
     float3 curr = uncharted2Tonemap(exposureBias * x);
@@ -25,5 +25,5 @@ inline float3 tonemapUncharted(float3 x) {
     return curr * whiteScale;
 }
 
-inline float4 tonemapUncharted(float4 x) { return float4( tonemapUncharted(x.rgb), x.a); }
+static inline float4 tonemapUncharted(float4 x) { return float4( tonemapUncharted(x.rgb), x.a); }
 #endif

@@ -72,7 +72,7 @@ license:
 #ifndef FNC_SSAO
 #define FNC_SSAO
 
-inline float ssao(SAMPLER_TYPE texDepth, float2 st, float2 pixel, float radius, float cameraNear, float cameraFar) {
+static inline float ssao(SAMPLER_TYPE texDepth, float2 st, float2 pixel, float radius, float cameraNear, float cameraFar) {
 
     #if defined(SSAO_NOISE_ARRAY)
     float2 fragCoord = st / pixel;
@@ -114,11 +114,11 @@ inline float ssao(SAMPLER_TYPE texDepth, float2 st, float2 pixel, float radius, 
 }
 
 #if defined(CAMERA_NEAR_CLIP) && defined(CAMERA_FAR_CLIP)
-inline float ssao(SAMPLER_TYPE texDepth, float2 st, float2 pixel, float radius) {
+static inline float ssao(SAMPLER_TYPE texDepth, float2 st, float2 pixel, float radius) {
     return ssao(texDepth, st, pixel, radius, CAMERA_NEAR_CLIP, CAMERA_FAR_CLIP);
 }
 #endif
-inline float ssao(SAMPLER_TYPE texDepth, float2 coord) {
+static inline float ssao(SAMPLER_TYPE texDepth, float2 coord) {
     float cd = SSAO_DEPTH_SAMPLE_FNC(texDepth, coord);
     float ao_radious = 1.0/100.0;
     float screenRadius = 0.5 * (ao_radious / cd) / 0.53135;
@@ -135,7 +135,7 @@ inline float ssao(SAMPLER_TYPE texDepth, float2 coord) {
     return 1.0 - li / count;
 }
 
-inline float ssao(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float radius, constant float3* samples, int samplesNum, float4x4 projection) {
+static inline float ssao(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float radius, constant float3* samples, int samplesNum, float4x4 projection) {
     float4  position  = SSAO_POS_SAMPLE_FNC(texPosition, st);
     float3  normal    = SSAO_NORMAL_SAMPLE_FNC(texNormal, st);
 
@@ -173,7 +173,7 @@ inline float ssao(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, f
 }
 
 #if defined(SSAO_SAMPLES_ARRAY) && defined(CAMERA_PROJECTION_MATRIX)
-inline float ssao(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float radius) {
+static inline float ssao(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float radius) {
     return ssao(texPosition, texNormal, st, radius, SSAO_SAMPLES_ARRAY, SSAO_SAMPLES_NUM, CAMERA_PROJECTION_MATRIX);
 }
 #endif

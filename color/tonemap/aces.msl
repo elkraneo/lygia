@@ -8,7 +8,7 @@ use: <float3|float4> tonemapACES(<float3|float4> x)
 
 #ifndef FNC_TONEMAPACES
 #define FNC_TONEMAPACES
-inline float3 tonemapACES(float3 v) {
+static inline float3 tonemapACES(float3 v) {
     const float a = 2.51;
     const float b = 0.03;
     const float c = 2.43;
@@ -17,7 +17,7 @@ inline float3 tonemapACES(float3 v) {
     return saturate((v*(a*v+b))/(v*(c*v+d)+e));
 }
 
-inline float4 tonemapACES(float4 v) {
+static inline float4 tonemapACES(float4 v) {
     return float4(tonemapACES(v.rgb), v.a);
 }
 #endif

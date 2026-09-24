@@ -4,13 +4,13 @@
 #define FNC_SPECULAR_GAUSSIAN
 
 // https://github.com/glslify/glsl-specular-gaussian
-inline float specularGaussian(float NoH, float roughness) {
+static inline float specularGaussian(float NoH, float roughness) {
     float theta = acos(NoH);
     float w = theta / roughness;
     return exp(-w*w);
 }
 
-inline float specularGaussian(ShadingData shadingData) {
+static inline float specularGaussian(ShadingData shadingData) {
     return specularGaussian(shadingData.NoH, shadingData.roughness);
 }
 

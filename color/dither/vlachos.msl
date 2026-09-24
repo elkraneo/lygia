@@ -38,7 +38,7 @@ license:
 #ifndef FNC_DITHER_VLACHOS
 #define FNC_DITHER_VLACHOS
 
-inline float ditherVlachos(float b, float2 st) {
+static inline float ditherVlachos(float b, float2 st) {
     #ifdef DITHER_VLACHOS_TIME
     st += 1337.0*fract(DITHER_VLACHOS_TIME);
     #endif
@@ -48,7 +48,7 @@ inline float ditherVlachos(float b, float2 st) {
     return b + (noise / 255.0);
 }
 
-inline float3 ditherVlachos(float2 st) {
+static inline float3 ditherVlachos(float2 st) {
     #ifdef DITHER_VLACHOS_TIME
     st += 1337.0*fract(DITHER_VLACHOS_TIME);
     #endif
@@ -57,17 +57,17 @@ inline float3 ditherVlachos(float2 st) {
     return noise;
 }
 
-inline float3 ditherVlachos(const float3 color, const float2 st, const int pres) {
+static inline float3 ditherVlachos(const float3 color, const float2 st, const int pres) {
     // return color + ditherVlachos(st) / 255.0;
 
     float d = float(pres);
     float3 ditherPattern = ditherVlachos(st);
     return decimate(color + ditherPattern / d, d);
 }
-inline float3 ditherVlachos(const float3 color, const float2 xy) {
+static inline float3 ditherVlachos(const float3 color, const float2 xy) {
     return ditherVlachos(color, xy, DITHER_VLACHOS_PRECISION);
 }
 
-inline float4 ditherVlachos(float4 color, float2 st) { return float4(ditherVlachos(color.rgb, st), color.a);}
+static inline float4 ditherVlachos(float4 color, float2 st) { return float4(ditherVlachos(color.rgb, st), color.a);}
 
 #endif

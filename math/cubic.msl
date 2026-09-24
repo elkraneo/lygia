@@ -8,12 +8,12 @@ examples:
 
 #ifndef FNC_CUBIC
 #define FNC_CUBIC 
-inline float cubic(const float v) { return v*v*(3.0-2.0*v); }
-inline float2  cubic(const float2 v)  { return v*v*(3.0-2.0*v); }
-inline float3  cubic(const float3 v)  { return v*v*(3.0-2.0*v); }
-inline float4  cubic(const float4 v)  { return v*v*(3.0-2.0*v); }
+static inline float cubic(const float v) { return v*v*(3.0-2.0*v); }
+static inline float2  cubic(const float2 v)  { return v*v*(3.0-2.0*v); }
+static inline float3  cubic(const float3 v)  { return v*v*(3.0-2.0*v); }
+static inline float4  cubic(const float4 v)  { return v*v*(3.0-2.0*v); }
 
-inline float cubic(const float v, float slope0, float slope1) {
+static inline float cubic(const float v, float slope0, float slope1) {
     float a = slope0 + slope1 - 2.;
     float b = -2. * slope0 - slope1 + 3.;
     float c = slope0;
@@ -22,7 +22,7 @@ inline float cubic(const float v, float slope0, float slope1) {
     return a * v3 + b * v2 + c * v;
 }
 
-inline float2 cubic(const float2 v, float slope0, float slope1) {
+static inline float2 cubic(const float2 v, float slope0, float slope1) {
     float a = slope0 + slope1 - 2.;
     float b = -2. * slope0 - slope1 + 3.;
     float c = slope0;
@@ -31,7 +31,7 @@ inline float2 cubic(const float2 v, float slope0, float slope1) {
     return a * v3 + b * v2 + c * v;
 }
 
-inline float3 cubic(const float3 v, float slope0, float slope1) {
+static inline float3 cubic(const float3 v, float slope0, float slope1) {
     float a = slope0 + slope1 - 2.;
     float b = -2. * slope0 - slope1 + 3.;
     float c = slope0;
@@ -40,7 +40,7 @@ inline float3 cubic(const float3 v, float slope0, float slope1) {
     return a * v3 + b * v2 + c * v;
 }
 
-inline float4 cubic(const float4 v, float slope0, float slope1) {
+static inline float4 cubic(const float4 v, float slope0, float slope1) {
     float a = slope0 + slope1 - 2.;
     float b = -2. * slope0 - slope1 + 3.;
     float c = slope0;

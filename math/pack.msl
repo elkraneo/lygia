@@ -17,7 +17,7 @@ constant float ShiftRight8 = 1. / 256.;
 #ifndef FNC_PACK
 #define FNC_PACK
 
-inline float4 pack( const float v ) {
+static inline float4 pack( const float v ) {
 	float4 r = float4( fract( v * PackFactors ), v );
 	r.yzw -= r.xyz * ShiftRight8; // tidy overflow
 	return r * PackUpscale;

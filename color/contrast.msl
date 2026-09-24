@@ -9,7 +9,7 @@ license:
 
 #ifndef FNC_CONTRAST
 #define FNC_CONTRAST
-inline float contrast(float v, float a) { return (v - 0.5 ) * a + 0.5; }
-inline float3 contrast(float3 v, float a) { return (v - 0.5 ) * a + 0.5; }
-inline float4 contrast(float4 v, float a) { return float4((v.rgb - 0.5 ) * a + 0.5, v.a); }
+static inline float contrast(float v, float a) { return (v - 0.5 ) * a + 0.5; }
+static inline float3 contrast(float3 v, float a) { return (v - 0.5 ) * a + 0.5; }
+static inline float4 contrast(float4 v, float a) { return float4((v.rgb - 0.5 ) * a + 0.5, v.a); }
 #endif

@@ -22,31 +22,31 @@ license:
 
 #ifndef FNC_SAMPLEVIEWPOSITION
 #define FNC_SAMPLEVIEWPOSITION
-inline float4 sampleViewPosition(float depth, float2 st, float near, float far, float4x4 projection) {
+static inline float4 sampleViewPosition(float depth, float2 st, float near, float far, float4x4 projection) {
     float viewZ = depth2viewZ(depth, near, far);
     return screen2viewPosition(st, depth, viewZ, projection);
 }
 
-inline float4 sampleViewPosition(SAMPLER_TYPE texDepth, float2 st, float near, float far, float4x4 projection) {
+static inline float4 sampleViewPosition(SAMPLER_TYPE texDepth, float2 st, float near, float far, float4x4 projection) {
     float depth = SAMPLER_FNC(texDepth, st).r;
     float viewZ = depth2viewZ(depth, near, far);
     return screen2viewPosition(st, depth, viewZ, projection);
 }
 
 #ifdef CAMERA_PROJECTION_MATRIX
-inline float4 sampleViewPosition(float depth, float2 st, float near, float far) {
+static inline float4 sampleViewPosition(float depth, float2 st, float near, float far) {
     float viewZ = depth2viewZ(depth, near, far);
     return screen2viewPosition(st, depth, viewZ);
 }
 
-inline float4 sampleViewPosition(SAMPLER_TYPE texDepth, float2 st, float near, float far) {
+static inline float4 sampleViewPosition(SAMPLER_TYPE texDepth, float2 st, float near, float far) {
     float depth = SAMPLER_FNC(texDepth, st).r;
     float viewZ = depth2viewZ(depth, near, far);
     return screen2viewPosition(st, depth, viewZ);
 }
 
 #if defined(CAMERA_NEAR_CLIP) && defined(CAMERA_FAR_CLIP)
-inline float4 sampleViewPosition(SAMPLER_TYPE texDepth, float2 st) {
+static inline float4 sampleViewPosition(SAMPLER_TYPE texDepth, float2 st) {
     return sampleViewPosition( texDepth, st, CAMERA_NEAR_CLIP, CAMERA_FAR_CLIP); 
 }
 #endif

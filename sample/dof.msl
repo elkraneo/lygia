@@ -45,12 +45,12 @@ options:
 #define SAMPLEDOF_TYPE float3
 #endif
 
-inline float getBlurSize(float depth,float focusPoint,float focusScale){
+static inline float getBlurSize(float depth,float focusPoint,float focusScale){
     float coc = clamp((1./focusPoint-1./depth)*focusScale,-1.,1.);
     return abs(coc) * SAMPLEDOF_BLUR_SIZE;
 }
 
-inline SAMPLEDOF_TYPE sampleDoF(SAMPLER_TYPE tex, SAMPLER_TYPE texDepth, float2 st, float focusPoint, float focusScale, float2 resolution) {
+static inline SAMPLEDOF_TYPE sampleDoF(SAMPLER_TYPE tex, SAMPLER_TYPE texDepth, float2 st, float focusPoint, float focusScale, float2 resolution) {
     float pct = 0.0;
     float ang = 0.0;
 
@@ -80,7 +80,7 @@ inline SAMPLEDOF_TYPE sampleDoF(SAMPLER_TYPE tex, SAMPLER_TYPE texDepth, float2 
 }
 
 #ifdef RESOLUTION
-inline SAMPLEDOF_TYPE sampleDoF(SAMPLER_TYPE tex, SAMPLER_TYPE texDepth, float2 st, float focusPoint, float focusScale) {
+static inline SAMPLEDOF_TYPE sampleDoF(SAMPLER_TYPE tex, SAMPLER_TYPE texDepth, float2 st, float focusPoint, float focusScale) {
     return sampleDoF(tex, texDepth, st, focusPoint, focusScale, RESOLUTION);
 }
 #endif

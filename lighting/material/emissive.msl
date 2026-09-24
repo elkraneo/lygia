@@ -13,7 +13,7 @@ license:
 #ifndef FNC_MATERIAL_EMISSIVE
 #define FNC_MATERIAL_EMISSIVE
 
-inline float3 materialEmissive() {
+static inline float3 materialEmissive() {
     float3 emission = float3(0.0);
 
 #if defined(MATERIAL_EMISSIVE)

@@ -15,9 +15,9 @@ license:
 #define FNC_SRGB2RGB
 // 1.0 / 12.92 = 0.0773993808
 // 1.0 / (1.0 + 0.055) = 0.947867298578199
-inline float srgb2rgb( float v) {   return (v < 0.04045) ? v * 0.0773993808 : pow((v + 0.055) * 0.947867298578199, 2.4); }
-inline float3 srgb2rgb( float3 srgb) {  return float3(   srgb2rgb(srgb.r + SRGB_EPSILON),
+static inline float srgb2rgb( float v) {   return (v < 0.04045) ? v * 0.0773993808 : pow((v + 0.055) * 0.947867298578199, 2.4); }
+static inline float3 srgb2rgb( float3 srgb) {  return float3(   srgb2rgb(srgb.r + SRGB_EPSILON),
                                                     srgb2rgb(srgb.g + SRGB_EPSILON),
                                                     srgb2rgb(srgb.b + SRGB_EPSILON)); }
-inline float4 srgb2rgb( float4 srgb) {  return float4(   srgb2rgb(srgb.rgb), srgb.a); }
+static inline float4 srgb2rgb( float4 srgb) {  return float4(   srgb2rgb(srgb.rgb), srgb.a); }
 #endif

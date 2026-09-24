@@ -24,7 +24,7 @@ license:
 #ifndef FNC_LIGHT_POINT
 #define FNC_LIGHT_POINT
 
-inline void lightPointEvaluate(LightPoint L, Material mat, thread ShadingData& shadingData) {
+static inline void lightPointEvaluate(LightPoint L, Material mat, thread ShadingData& shadingData) {
 
     float Ldist  = length(L.position);
     float3 Ldirection = L.position/Ldist;

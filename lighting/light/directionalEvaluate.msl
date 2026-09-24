@@ -23,7 +23,7 @@ license:
 #ifndef FNC_LIGHT_DIRECTIONAL_EVALUATE
 #define FNC_LIGHT_DIRECTIONAL_EVALUATE
 
-inline void lightDirectionalEvaluate(LightDirectional L, Material mat, thread ShadingData& shadingData) {
+static inline void lightDirectionalEvaluate(LightDirectional L, Material mat, thread ShadingData& shadingData) {
 
     shadingData.L = L.direction;
     shadingData.H = normalize(L.direction + shadingData.V);

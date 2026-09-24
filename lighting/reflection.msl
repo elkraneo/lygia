@@ -17,7 +17,7 @@ license:
 #ifndef FNC_REFLECTION
 #define FNC_REFLECTION
 
-inline float3 reflection(float3 _V, float3 _N, float _roughness) {
+static inline float3 reflection(float3 _V, float3 _N, float _roughness) {
         // Reflect
 #ifdef MATERIAL_ANISOTROPY
     float3  anisotropicT = MATERIAL_ANISOTROPY_DIRECTION;

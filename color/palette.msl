@@ -8,6 +8,6 @@ use: palette(<float> t, <float3|float4> a, <float3|float4> b, <float3|float4> c,
 
 #ifndef FNC_PALETTE
 #define FNC_PALETTE
-inline float3 palette (float t, float3 a, float3 b, float3 c, float3 d) { return a + b * cos(TAU * ( c * t + d )); }
-inline float4 palette (float t, float4 a, float4 b, float4 c, float4 d) { return a + b * cos(TAU * ( c * t + d )); }
+static inline float3 palette (float t, float3 a, float3 b, float3 c, float3 d) { return a + b * cos(TAU * ( c * t + d )); }
+static inline float4 palette (float t, float4 a, float4 b, float4 c, float4 d) { return a + b * cos(TAU * ( c * t + d )); }
 #endif

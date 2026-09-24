@@ -54,12 +54,12 @@ examples:
 #define SHARPENADAPTIVE_CTRL(RGB) sharpendAdaptiveControl(RGB)
 #endif
 
-inline float sharpendAdaptiveControl(float3 rgb) { return dot(rgb*rgb, float3(0.212655, 0.715158, 0.072187)); }
-inline float sharpendAdaptiveControl(float4 rgba) { return dot(rgba*rgba, float4(0.212655, 0.715158, 0.072187, 0.0)); }
+static inline float sharpendAdaptiveControl(float3 rgb) { return dot(rgb*rgb, float3(0.212655, 0.715158, 0.072187)); }
+static inline float sharpendAdaptiveControl(float4 rgba) { return dot(rgba*rgba, float4(0.212655, 0.715158, 0.072187, 0.0)); }
 
 #define SHARPENADAPTIVE_DIFF(pix)   ( abs(blur-c[pix]) )
 
-inline SHARPENADAPTIVE_TYPE sharpenAdaptive(SAMPLER_TYPE tex, float2 st, float2 pixel, float strength) {
+static inline SHARPENADAPTIVE_TYPE sharpenAdaptive(SAMPLER_TYPE tex, float2 st, float2 pixel, float strength) {
 
     //-------------------------------------------------------------------------------------------------
 // Defined values under this row are "optimal" DO NOT CHANGE IF YOU DO NOT KNOW WHAT YOU ARE DOING!
@@ -283,7 +283,7 @@ inline SHARPENADAPTIVE_TYPE sharpenAdaptive(SAMPLER_TYPE tex, float2 st, float2 
     return c0_Y + (sharpdiff_lim*3.0 + sharpdiff)/4.0 + (c[0] - c0_Y)*satmul;
 }
 
-inline SHARPENADAPTIVE_TYPE sharpenAdaptive(SAMPLER_TYPE tex, float2 st, float2 pixel) {
+static inline SHARPENADAPTIVE_TYPE sharpenAdaptive(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     return sharpenAdaptive(tex, st, pixel, 1.0);
 }
 

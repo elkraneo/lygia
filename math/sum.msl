@@ -9,8 +9,8 @@ license:
 
 #ifndef FNC_SUM
 #define FNC_SUM
-inline float sum( float v ) { return v; }
-inline float sum( float2 v ) { return v.x+v.y; }
-inline float sum( float3 v ) { return v.x+v.y+v.z; }
-inline float sum( float4 v ) { return v.x+v.y+v.z+v.w; }
+static inline float sum( float v ) { return v; }
+static inline float sum( float2 v ) { return v.x+v.y; }
+static inline float sum( float3 v ) { return v.x+v.y+v.z; }
+static inline float sum( float4 v ) { return v.x+v.y+v.z+v.w; }
 #endif

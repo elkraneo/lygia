@@ -11,5 +11,5 @@ license:
 
 #ifndef FNC_QUATNEG
 #define FNC_QUATNEG
-inline QUAT quatSub(QUAT a, QUAT b) { return QUAT(a.xyz - b.xyz, a.w - b.w); }
+static inline QUAT quatSub(QUAT a, QUAT b) { return QUAT(a.xyz - b.xyz, a.w - b.w); }
 #endif

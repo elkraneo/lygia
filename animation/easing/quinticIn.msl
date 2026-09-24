@@ -8,5 +8,5 @@ examples:
 
 #ifndef FNC_QUINTICIN
 #define FNC_QUINTICIN
-inline float quinticIn(float t) { return pow(t, 5.0); }
+static inline float quinticIn(float t) { return pow(t, 5.0); }
 #endif

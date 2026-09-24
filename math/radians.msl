@@ -11,5 +11,5 @@ license:
 
 #ifndef FNC_RADIANS
 #define FNC_RADIANS
-inline float radians(float angle) { return angle * DEG2RAD; }
+static inline float radians(float angle) { return angle * DEG2RAD; }
 #endif

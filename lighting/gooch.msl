@@ -47,7 +47,7 @@ license:
 
 #ifndef FNC_GOOCH
 #define FNC_GOOCH
-inline float4 gooch(float4 _albedo, float3 _N, float3 _L, float3 _V, float _roughness, float _Li) {
+static inline float4 gooch(float4 _albedo, float3 _N, float3 _L, float3 _V, float _roughness, float _Li) {
     float3 warm = GOOCH_WARM + _albedo.rgb * 0.6;
     float3 cold = GOOCH_COLD + _albedo.rgb * 0.1;
 
@@ -69,15 +69,15 @@ inline float4 gooch(float4 _albedo, float3 _N, float3 _L, float3 _V, float _roug
     return float4(mix(mix(cold, warm, diff), GOOCH_SPECULAR, spec), _albedo.a);
 }
 
-inline float4 gooch(LightDirectional _L, Material _M, ShadingData shadingData) {
+static inline float4 gooch(LightDirectional _L, Material _M, ShadingData shadingData) {
     return gooch(_M.albedo, _M.normal, _L.direction, shadingData.V, _M.roughness, _L.intensity);
 }
 
-inline float4 gooch(LightPoint _L, Material _M, ShadingData shadingData) {
+static inline float4 gooch(LightPoint _L, Material _M, ShadingData shadingData) {
     return gooch(_M.albedo, _M.normal, _L.position, shadingData.V, _M.roughness, _L.intensity);
 }
 
-inline float4 gooch(Material _M, ShadingData shadingData) {
+static inline float4 gooch(Material _M, ShadingData shadingData) {
     #if defined(LIGHT_DIRECTION)
     LightDirectional L;
     #elif defined(LIGHT_POSITION)
@@ -96,7 +96,7 @@ inline float4 gooch(Material _M, ShadingData shadingData) {
     return gooch(L, _M, shadingData) * _M.ambientOcclusion;
 }
 
-inline float4 gooch(Material _M) {
+static inline float4 gooch(Material _M) {
     ShadingData shadingData = shadingDataNew();
     shadingData.V = normalize(CAMERA_POSITION - _M.position);
     return gooch(_M, shadingData);

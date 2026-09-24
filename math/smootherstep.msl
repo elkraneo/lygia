@@ -12,8 +12,8 @@ license:
 
 #ifndef FNC_SMOOTHERSTEP
 #define FNC_SMOOTHERSTEP
-inline float smootherstep(float a, float b, float v) { return quintic( saturate( (v - a)/(b - a) )); }
-inline float2  smootherstep(float2  a, float2  b, float2  v) { return quintic( saturate( (v - a)/(b - a) )); }
-inline float3  smootherstep(float3  a, float3  b, float3  v) { return quintic( saturate( (v - a)/(b - a) )); }
-inline float4  smootherstep(float4  a, float4  b, float4  v) { return quintic( saturate( (v - a)/(b - a) )); }
+static inline float smootherstep(float a, float b, float v) { return quintic( saturate( (v - a)/(b - a) )); }
+static inline float2  smootherstep(float2  a, float2  b, float2  v) { return quintic( saturate( (v - a)/(b - a) )); }
+static inline float3  smootherstep(float3  a, float3  b, float3  v) { return quintic( saturate( (v - a)/(b - a) )); }
+static inline float4  smootherstep(float4  a, float4  b, float4  v) { return quintic( saturate( (v - a)/(b - a) )); }
 #endif

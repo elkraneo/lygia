@@ -10,17 +10,17 @@ license:
 #ifndef FNC_COMPOSITE_DST_OVER
 #define FNC_COMPOSITE_DST_OVER
 
-inline float compositeDestinationOver(float src, float dst)
+static inline float compositeDestinationOver(float src, float dst)
 {
     return dst + src * (1.0 - dst);
 }
 
-inline float3 compositeDestinationOver(float3 srcColor, float3 dstColor, float srcAlpha, float dstAlpha)
+static inline float3 compositeDestinationOver(float3 srcColor, float3 dstColor, float srcAlpha, float dstAlpha)
 {
     return dstColor + srcColor * (1.0 - dstAlpha);
 }
 
-inline float4 compositeDestinationOver(float4 srcColor, float4 dstColor) 
+static inline float4 compositeDestinationOver(float4 srcColor, float4 dstColor) 
 {
     float4 result;
 

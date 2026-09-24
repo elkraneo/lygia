@@ -15,11 +15,11 @@ license:
 
 #ifndef FNC_TRI
 #define FNC_TRI
-inline float tri(float2 st, float size) {
+static inline float tri(float2 st, float size) {
     return fill(triSDF(st), size);
 }
 
-inline float tri(float2 st, float size, float strokeWidth) {
+static inline float tri(float2 st, float size, float strokeWidth) {
     return stroke(triSDF(st), size, strokeWidth);
 }
 #endif

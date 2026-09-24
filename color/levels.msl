@@ -15,19 +15,19 @@ license:
 
 #ifndef FNC_LEVELS
 #define FNC_LEVELS
-inline float3 levels(float3 v, float3 iMin, float3 g, float3 iMax, float3 oMin, float3 oMax) {
+static inline float3 levels(float3 v, float3 iMin, float3 g, float3 iMax, float3 oMin, float3 oMax) {
     return levelsOutputRange( levelsGamma( levelsInputRange(v, iMin, iMax), g), oMin, oMax);
 }
 
-inline float3 levels(float3 v, float iMin, float g, float iMax, float oMin, float oMax) {
+static inline float3 levels(float3 v, float iMin, float g, float iMax, float oMin, float oMax) {
     return levels(v, float3(iMin), float3(g), float3(iMax), float3(oMin), float3(oMax));
 }
 
-inline float4 levels(float4 v, float3 iMin, float3 g, float3 iMax, float3 oMin, float3 oMax) {
+static inline float4 levels(float4 v, float3 iMin, float3 g, float3 iMax, float3 oMin, float3 oMax) {
     return float4(levels(v.rgb, iMin, g, iMax, oMin, oMax), v.a);
 }
 
-inline float4 levels(float4 v, float iMin, float g, float iMax, float oMin, float oMax) {
+static inline float4 levels(float4 v, float iMin, float g, float iMax, float oMin, float oMax) {
     return float4(levels(v.rgb, iMin, g, iMax, oMin, oMax), v.a);
 }
 #endif

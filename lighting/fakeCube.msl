@@ -30,7 +30,7 @@ license:
 #ifndef FNC_FAKECUBE
 #define FNC_FAKECUBE
 
-inline float3 fakeCube(float3 _normal, float _shininnes) {
+static inline float3 fakeCube(float3 _normal, float _shininnes) {
 
     #if defined(FAKECUBE_ONLYXWALL)
     return float3( powFast(saturate(_normal.x) + FAKECUBE_LIGHT_AMOUNT, _shininnes) );
@@ -72,7 +72,7 @@ inline float3 fakeCube(float3 _normal, float _shininnes) {
     #endif
 }
 
-inline float3 fakeCube(float3 _normal) {
+static inline float3 fakeCube(float3 _normal) {
     return fakeCube(_normal, materialShininess() );
 }
 

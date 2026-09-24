@@ -27,7 +27,7 @@ license:
 #ifndef FNC_SHADOW
 #define FNC_SHADOW
 
-inline float shadow(SAMPLER_TYPE shadoMap, float2 size, float2 uv, float compare) {
+static inline float shadow(SAMPLER_TYPE shadoMap, float2 size, float2 uv, float compare) {
     #ifdef SHADOWMAP_BIAS
     compare -= SHADOWMAP_BIAS;
     #endif

@@ -10,7 +10,7 @@ description: |
 use: <float3> gtaoMultiBounce(<float> visibility, <float3> albedo)
 */
 
-inline float3 gtaoMultiBounce(float visibility, float3 albedo) {
+static inline float3 gtaoMultiBounce(float visibility, float3 albedo) {
     // Jimenez et al. 2016, "Practical Realtime Strategies for Accurate Indirect Occlusion"
     float3 a =  2.0404 * albedo - 0.3324;
     float3 b = -4.7951 * albedo + 0.6417;

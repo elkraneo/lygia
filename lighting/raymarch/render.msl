@@ -29,7 +29,7 @@ examples:
 #define FNC_RAYMARCH_DEFAULT
 
 template<typename... Env>
-inline float4 raymarchDefaultRender( float3 rayOrigin, float3 rayDirection, float3 cameraForward,
+static inline float4 raymarchDefaultRender( float3 rayOrigin, float3 rayDirection, float3 cameraForward,
                             thread float& dist, thread float& eyeDepth, thread Material& res, Env... env) { 
 
     res = raymarchCast(rayOrigin, rayDirection);

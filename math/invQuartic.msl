@@ -8,8 +8,8 @@ examples:
 
 #ifndef FNC_INVQUARTIC
 #define FNC_INVQUARTIC 
-inline float invQuartic(const float v) { return sqrt(1.0-sqrt(1.0-v)); }
-inline float2  invQuartic(const float2 v)  { return sqrt(1.0-sqrt(1.0-v)); }
-inline float3  invQuartic(const float3 v)  { return sqrt(1.0-sqrt(1.0-v)); }
-inline float4  invQuartic(const float4 v)  { return sqrt(1.0-sqrt(1.0-v)); }
+static inline float invQuartic(const float v) { return sqrt(1.0-sqrt(1.0-v)); }
+static inline float2  invQuartic(const float2 v)  { return sqrt(1.0-sqrt(1.0-v)); }
+static inline float3  invQuartic(const float3 v)  { return sqrt(1.0-sqrt(1.0-v)); }
+static inline float4  invQuartic(const float4 v)  { return sqrt(1.0-sqrt(1.0-v)); }
 #endif

@@ -7,17 +7,17 @@ license: MIT License (MIT) Copyright (c) 2015 Jamie Owen
 
 #ifndef FNC_BLENDREFLECT
 #define FNC_BLENDREFLECT
-inline float blendReflect(float base, float blend) {
+static inline float blendReflect(float base, float blend) {
     return (blend == 1.)? blend : min(base * base / (1. - blend), 1.);
 }
 
-inline float3 blendReflect(float3 base, float3 blend) {
+static inline float3 blendReflect(float3 base, float3 blend) {
     return float3(blendReflect(base.r, blend.r),
                 blendReflect(base.g, blend.g),
                 blendReflect(base.b, blend.b));
 }
 
-inline float3 blendReflect(float3 base, float3 blend, float opacity) {
+static inline float3 blendReflect(float3 base, float3 blend, float opacity) {
     return (blendReflect(base, blend) * opacity + base * (1. - opacity));
 }
 #endif

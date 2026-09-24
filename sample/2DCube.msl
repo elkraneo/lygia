@@ -26,7 +26,7 @@ license:
 
 #ifndef FNC_SAMPLE2DCUBE
 #define FNC_SAMPLE2DCUBE
-inline float4 sample2DCube(SAMPLER_TYPE lut, float3 xyz) {
+static inline float4 sample2DCube(SAMPLER_TYPE lut, float3 xyz) {
 
 #if defined(SAMPLE2DCUBE_CELL_SIZE)
     const float cellsSize = SAMPLE2DCUBE_CELL_SIZE;

@@ -30,7 +30,7 @@ license:
 
 #ifndef FNC_DIGITS
 #define FNC_DIGITS
-inline float digits(float2 st, float value, float nDecDigit) {
+static inline float digits(float2 st, float value, float nDecDigit) {
     st /= DIGITS_SIZE;
 
     float absValue = abs(value);
@@ -107,7 +107,7 @@ inline float digits(float2 st, float value, float nDecDigit) {
     return mod(floor(b/ pow(2., (pixel.x + (pixel.y * 4.)))), 2.);
 }
 
-inline float digits(float2 st, float value, float nDecDigit, float nIntDigits) {
+static inline float digits(float2 st, float value, float nDecDigit, float nIntDigits) {
     float2 st2 = st;
     float result = 0.0;
     float dig = nDecDigit;
@@ -130,15 +130,15 @@ inline float digits(float2 st, float value, float nDecDigit, float nIntDigits) {
     return result; 
 }
 
-inline float digits(float2 st, int value) {
+static inline float digits(float2 st, int value) {
     return digits(st, float(value), 0.0);
 }
 
-inline float digits(float2 st, float value) {
+static inline float digits(float2 st, float value) {
     return digits(st, value, (DIGITS_DECIMALS));
 }
 
-inline float digits(float2 st, float2 v) {
+static inline float digits(float2 st, float2 v) {
     float rta = 0.0;
     for (int i = 0; i < 2; i++) {
         float2 pos = st + float2(float(i), 0.0) * DIGITS_SIZE * DIGITS_VALUE_OFFSET;
@@ -148,7 +148,7 @@ inline float digits(float2 st, float2 v) {
     return rta;
 }
 
-inline float digits(float2 st, float3 v) {
+static inline float digits(float2 st, float3 v) {
     float rta = 0.0;
     for (int i = 0; i < 3; i++) {
         float2 pos = st + float2(float(i), 0.0) * DIGITS_SIZE * DIGITS_VALUE_OFFSET;
@@ -158,7 +158,7 @@ inline float digits(float2 st, float3 v) {
     return rta;
 }
 
-inline float digits(float2 st, float4 v) {
+static inline float digits(float2 st, float4 v) {
     float rta = 0.0;
     for (int i = 0; i < 4; i++) {
         float2 pos = st + float2(float(i), 0.0) * DIGITS_SIZE * DIGITS_VALUE_OFFSET;
@@ -168,7 +168,7 @@ inline float digits(float2 st, float4 v) {
     return rta;
 }
 
-inline float digits(float2 st, float2x2 _matrix) {
+static inline float digits(float2 st, float2x2 _matrix) {
     float rta = 0.0;
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 2; j++) {
@@ -180,7 +180,7 @@ inline float digits(float2 st, float2x2 _matrix) {
     return rta;
 }
 
-inline float digits(float2 st, float3x3 _matrix) {
+static inline float digits(float2 st, float3x3 _matrix) {
     float rta = 0.0;
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
@@ -192,7 +192,7 @@ inline float digits(float2 st, float3x3 _matrix) {
     return rta;
 }
 
-inline float digits(float2 st, float4x4 _matrix) {
+static inline float digits(float2 st, float4x4 _matrix) {
     float rta = 0.0;
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
