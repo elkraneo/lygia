@@ -4,7 +4,7 @@
 # 1. Two .metal files that include the same LYGIA files link into one metallib,
 #    as Xcode does for an app target (SwiftUI ShaderLibrary, makeDefaultLibrary,
 #    RealityKit CustomMaterial).
-# 2. static inline doesn't make the GPU code bigger.
+# 2. static inline doesn't change the size of one kernel's compiled pipeline.
 # 3. Compiler flags (-fvisibility=hidden, -flto=thin) and linker options don't
 #    avoid the duplicates.
 # 4. Two files that include a function with different options (FBM_OCTAVES)
@@ -68,7 +68,7 @@ echo "### Two .metal files that include the same LYGIA files"
 echo
 echo "Both files include snoise, fbm, voronoi, random, circleSDF and hsv2rgb, and are compiled separately and linked into one metallib, as Xcode does."
 echo
-echo "| LYGIA | Links | GPU code for one kernel | Compile time for one file |"
+echo "| LYGIA | Links | Compiled pipeline for one kernel | Compile time for one file |"
 echo "|---|---|---|---|"
 for v in $VERSIONS; do
     metal -I "$TMP/$v" -c "$TMP/a.metal" -o "$TMP/$v-a.air"
@@ -83,7 +83,7 @@ for v in $VERSIONS; do
     echo "| $(label $v) | $links | $("$TMP/run" --size "$TMP/$v-a.metallib" pattern_a) bytes | $(ms xcrun -sdk macosx metal -std=metal3.1 -w -I "$TMP/$v" -c "$TMP/a.metal" -o "$TMP/time.air") ms |"
 done
 echo
-echo "The GPU code is the machine code of the compiled pipeline, stored in a binary archive. The compile time is the median of 7 runs of \`metal -c\` for a.metal."
+echo "The pipeline size is the size of a binary archive holding the kernel's compiled GPU code (so it includes the archive's own data); it measures one kernel from one file. The compile time is the median of 7 warm runs of \`metal -c\` for a.metal, one version after another."
 
 echo
 link_error() { grep -m1 -o -E 'multiple symbols.*|unknown argument.*|[0-9]+ duplicated symbols' "$TMP/link.log" || head -1 "$TMP/link.log"; }
@@ -113,8 +113,11 @@ for flags in "-Wl,--allow-multiple-definition" "-Wl,-z,muldefs"; do
     fi
 done
 echo
-matches=$(metal -Wl,--help "$TMP/flags-a.air" 2>&1 | grep -ciE 'multiple|muldef|duplicate' || true)
-echo "The linker is air-lld. Options in its help (\`xcrun metal -Wl,--help\`) that mention multiple or duplicate definitions: $matches."
+metal -Wl,--help "$TMP/flags-a.air" > "$TMP/lld-help.txt" 2>&1 || true
+options=$(grep -c '^  -' "$TMP/lld-help.txt" || true)
+[ "$options" -gt 10 ] || { echo "couldn't read air-lld's help" >&2; exit 1; }
+matches=$(grep -ciE 'multiple|muldef|duplicate' "$TMP/lld-help.txt" || true)
+echo "The linker is air-lld. Of the $options options in its help (\`xcrun metal -Wl,--help\`), $matches mention multiple or duplicate definitions."
 
 echo
 echo "### Two .metal files that include fbm with different options"
@@ -147,7 +150,7 @@ echo "With plain inline, both files export the same fbm symbol and the linker ke
 echo
 echo "### LYGIA as a helper library"
 echo
-echo "LYGIA's fbm from $BEFORE (plain definitions: a library has to export its functions, so they can't be static) is compiled once into a library, and the two files above only declare \`float fbm(float2 st);\` and call it. The library uses the default FBM_OCTAVES, 4."
+echo "LYGIA's fbm from $BEFORE (plain definitions: a library has to export its functions, so they can't be static) is compiled once into a library, and the two kernels above only declare \`float fbm(float2 st);\` and call it, so they can't set FBM_OCTAVES. The library uses the default, 4. This covers fbm and what it includes, not all of LYGIA."
 echo
 for k in a b; do
     sed -e 's|#include "lygia/generative/fbm.msl"|float fbm(float2 st);|' -e '/FBM_OCTAVES/d' "$TMP/odr_$k.metal" > "$TMP/call_$k.metal"
@@ -169,7 +172,7 @@ lib_run() {  # label, link command..., then the run options after --
 }
 metal -I "$TMP/before" -dynamiclib -install_name @loader_path/liblygia.metallib "$TMP/lib.metal" -o "$TMP/liblygia.metallib"
 metal "$TMP/lib.air" --emit-static-lib -o "$TMP/liblygia-static.metallib"
-echo "| Library | Links | 1-octave kernel | 8-octave kernel |"
+echo "| Library | Links | k_a | k_b |"
 echo "|---|---|---|---|"
 lib_run "dynamic library (\`metal -dynamiclib\`)" metal "$TMP/call_a.air" "$TMP/call_b.air" -L "$TMP" -llygia -- --dylib "$TMP/liblygia.metallib"
 lib_run "static library (\`--emit-static-lib\`)" metal "$TMP/call_a.air" "$TMP/call_b.air" "$TMP/liblygia-static.metallib" --
