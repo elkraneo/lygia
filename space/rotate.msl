@@ -65,7 +65,7 @@ static inline float4 rotate(float4 v, float r, float3 axis) {
     #endif
 }
 
-#if defined(FNC_QUATMULT)
+#if defined(FNC_QUATMUL)
 static inline float3 rotate(QUAT q, float3 v) {
     QUAT q_c = QUAT(-q.x, -q.y, -q.z, q.w);
     return quatMul(q, quatMul(float4(v, 0), q_c)).xyz;

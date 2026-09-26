@@ -7,8 +7,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
-#ifndef FNC_POW2
-#define FNC_POW2
+#ifndef FNC_POW7
+#define FNC_POW7
 
 static inline float pow7(const float v) { return v * v * v * v * v * v * v; }
 static inline float2 pow7(const float2 v) { return v * v * v * v * v * v * v; }

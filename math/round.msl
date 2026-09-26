@@ -1,6 +1,9 @@
 /*
 contributors: Patricio Gonzalez Vivo
-description: round a value to the nearest integer
+description: |
+    round a value to the nearest integer. Metal already provides a native round() for
+    float and every float vector type (halfway cases round away from zero, like the GLSL
+    version), so redefining it here would make every call ambiguous. Use the native function.
 use: <float|float2|float3|float4> round(<float|float2|float3|float4> value)
 license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
@@ -9,8 +12,4 @@ license:
 
 #ifndef FNC_ROUND
 #define FNC_ROUND
-static inline float round(float x) { return sign(x)*floor(abs(x)+0.5); }
-static inline float2 round(float2 x) { return sign(x)*floor(abs(x)+0.5); }
-static inline float3 round(float3 x) { return sign(x)*floor(abs(x)+0.5); }
-static inline float4 round(float4 x) { return sign(x)*floor(abs(x)+0.5); }
 #endif

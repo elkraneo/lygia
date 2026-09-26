@@ -29,11 +29,30 @@ license:
 #ifndef FNC_DITHER_BAYER
 #define FNC_DITHER_BAYER
 
+#if defined(PLATFORM_WEBGL)
 static inline float ditherBayer(const float2 xy) {
     float x = mod(xy.x, 8.0);
     float y = mod(xy.y, 8.0);
     return  mix(mix(mix(mix(mix(mix(0.0,32.0,step(1.0,y)),mix(8.0,40.0,step(3.0,y)),step(2.0,y)),mix(mix(2.0,34.0,step(5.0,y)),mix(10.0,42.0,step(7.0,y)),step(6.0,y)),step(4.0,y)),mix(mix(mix(48.0,16.0,step(1.0,y)),mix(56.0,24.0,step(3.0,y)),step(2.0,y)),mix(mix(50.0,18.0,step(5.0,y)),mix(58.0,26.0,step(7.0,y)),step(6.0,y)),step(4.0,y)),step(1.0,x)),mix(mix(mix(mix(12.0,44.0,step(1.0,y)),mix(4.0,36.0,step(3.0,y)),step(2.0,y)),mix(mix(14.0,46.0,step(5.0,y)),mix(6.0,38.0,step(7.0,y)),step(6.0,y)),step(4.0,y)),mix(mix(mix(60.0,28.0,step(1.0,y)),mix(52.0,20.0,step(3.0,y)),step(2.0,y)),mix(mix(62.0,30.0,step(5.0,y)),mix(54.0,22.0,step(7.0,y)),step(6.0,y)),step(4.0,y)),step(3.0,x)),step(2.0,x)),mix(mix(mix(mix(mix(3.0,35.0,step(1.0,y)),mix(11.0,43.0,step(3.0,y)),step(2.0,y)),mix(mix(1.0,33.0,step(5.0,y)),mix(9.0,41.0,step(7.0,y)),step(6.0,y)),step(4.0,y)),mix(mix(mix(51.0,19.0,step(1.0,y)),mix(59.0,27.0,step(3.0,y)),step(2.0,y)),mix(mix(49.0,17.0,step(5.0,y)),mix(57.0,25.0,step(7.0,y)),step(6.0,y)),step(4.0,y)),step(5.0,x)),mix(mix(mix(mix(15.0,47.0,step(1.0,y)),mix(7.0,39.0,step(3.0,y)),step(2.0,y)),mix(mix(13.0,45.0,step(5.0,y)),mix(5.0,37.0,step(7.0,y)),step(6.0,y)),step(4.0,y)),mix(mix(mix(63.0,31.0,step(1.0,y)),mix(55.0,23.0,step(3.0,y)),step(2.0,y)),mix(mix(61.0,29.0,step(5.0,y)),mix(53.0,21.0,step(7.0,y)),step(6.0,y)),step(4.0,y)),step(7.0,x)),step(6.0,x)),step(4.0,x)) / (64.0);
 }
+
+#else
+
+static inline float ditherBayer(const float2 xy) {
+    const float kern[64] = {
+        0.000, 0.500, 0.124, 0.624, 0.028, 0.532, 0.156, 0.656,
+        0.752, 0.248, 0.876, 0.376, 0.784, 0.280, 0.908, 0.404,
+        0.188, 0.688, 0.060, 0.564, 0.216, 0.720, 0.092, 0.596,
+        0.940, 0.436, 0.812, 0.312, 0.972, 0.468, 0.844, 0.344,
+        0.044, 0.548, 0.172, 0.672, 0.012, 0.516, 0.140, 0.640,
+        0.800, 0.296, 0.924, 0.420, 0.768, 0.264, 0.892, 0.392,
+        0.232, 0.736, 0.108, 0.608, 0.200, 0.704, 0.076, 0.580,
+        0.988, 0.484, 0.860, 0.360, 0.956, 0.452, 0.828, 0.328 };
+    int index = int(mod(xy.x, 8.0)) + (int(mod(xy.y, 8.0)) * 8);
+    return kern[index];
+}
+
+#endif
 
 static inline float3 ditherBayer(float3 color, const float2 xy, const int pres) {
     float d = float(pres);
