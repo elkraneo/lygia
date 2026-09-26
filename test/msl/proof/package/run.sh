@@ -17,13 +17,21 @@ build() {  # a clean build in its own folder ($2); prints the result and the fir
         | grep -E 'error:|\*\* BUILD' | sort -u | head -2 | tr '\n' ' ')
     echo
 }
+status=0  # 1 if a HEAD build fails or a function is missing (BEFORE is expected to fail)
 for ref in "$BEFORE" HEAD; do
     rm -rf "$S/lygia" && mkdir "$S/lygia"
     git -C "$LYGIA" archive "$ref" -- ':(glob)**/*.msl' | tar -x -C "$S/lygia"
-    echo "$ref, macOS: $(build 'generic/platform=macOS' "dd-$ref")"
+    result=$(build 'generic/platform=macOS' "dd-$ref")
+    echo "$ref, macOS: $result"
 done
+[[ "$result" == *"BUILD SUCCEEDED"* ]] || status=1
 for d in iOS 'iOS Simulator' visionOS; do
-    echo "HEAD, $d: $(build "generic/platform=$d" "dd-$d")"
+    result=$(build "generic/platform=$d" "dd-$d")
+    echo "HEAD, $d: $result"
+    [[ "$result" == *"BUILD SUCCEEDED"* ]] || status=1
 done
 lib=$(find "$T/dd-HEAD" -name default.metallib -path '*LygiaKit*' | head -1)
-echo "functions in the package's default.metallib: $(xcrun metal-nm "$lib" 2>/dev/null | grep -o 'lygiaFbm2\?$' | sort -u | tr '\n' ' ')"
+functions=$(xcrun metal-nm "$lib" 2>/dev/null | grep -o 'lygiaFbm2\?$' | sort -u | tr '\n' ' ')
+echo "functions in the package's default.metallib: $functions"
+[ "$functions" = "lygiaFbm lygiaFbm2 " ] || status=1
+exit $status

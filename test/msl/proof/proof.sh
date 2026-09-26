@@ -32,7 +32,7 @@ after_compile=$("$ROOT/test/msl/compile.sh" 2>&1 | summary || true)
 echo "linking.sh..."
 linking=$("$PROOF/linking.sh" "$BEFORE" 2>/dev/null)
 echo "package/run.sh..."
-package=$("$PROOF/package/run.sh" "$BEFORE" 2>/dev/null | sed 's/ *$//; s/\*\* BUILD SUCCEEDED \*\*/builds/; s/\*\* BUILD FAILED \*\* */fails: /; s/^/- /')
+package=$({ "$PROOF/package/run.sh" "$BEFORE" 2>/dev/null || true; } | sed 's/ *$//; s/\*\* BUILD SUCCEEDED \*\*/builds/; s/\*\* BUILD FAILED \*\* */fails: /; s/^/- /')
 echo "proof.py..."
 set +e
 "$PROOF/proof.py" --markdown "$TMP/claims.md"
