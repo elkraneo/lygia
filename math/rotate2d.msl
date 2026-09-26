@@ -12,6 +12,6 @@ license:
 static inline float2x2 rotate2d(const float r){
     float c = cos(r);
     float s = sin(r);
-    return float2x2(c, -s, s, c);
+    return float2x2(c, s, -s, c);
 }
 #endif

@@ -10,8 +10,10 @@ license:
 #ifndef FNC_ROTATE4DZ
 #define FNC_ROTATE4DZ
 static inline float4x4 rotate4dZ(float r){
-    return float4x4(float4(cos(r),-sin(r),0.,0),
-                float4(sin(r),cos(r),0.,0.),
+    float c = cos(r);
+    float s = sin(r);
+    return float4x4(float4(c,s,0.,0),
+                float4(-s,c,0.,0.),
                 float4(0.,0.,1.,0.),
                 float4(0.,0.,0.,1.));
 }

@@ -14,9 +14,10 @@ static inline float4x4 rotate4d(float3 a, const float r) {
     float s = sin(r);
     float c = cos(r);
     float oc = 1.0 - c;
-    return float4x4(oc * a.x * a.x + c,         oc * a.x * a.y - a.z * s,   oc * a.z * a.x + a.y * s,   0.0,
-                oc * a.x * a.y + a.z * s,   oc * a.y * a.y + c,         oc * a.y * a.z - a.x * s,   0.0,
-                oc * a.z * a.x - a.y * s,   oc * a.y * a.z + a.x * s,   oc * a.z * a.z + c,         0.0,
-                0.0,                        0.0,                        0.0,                        1.0);
+    float4 col1 = float4(oc * a.x * a.x + c, oc * a.x * a.y + a.z * s, oc * a.z * a.x - a.y * s, 0.0);
+    float4 col2 = float4(oc * a.x * a.y - a.z * s, oc * a.y * a.y + c, oc * a.y * a.z + a.x * s, 0.0);
+    float4 col3 = float4(oc * a.z * a.x + a.y * s, oc * a.y * a.z - a.x * s, oc * a.z * a.z + c, 0.0);
+    float4 col4 = float4(0.0, 0.0, 0.0, 1.0);
+    return float4x4(col1, col2, col3, col4);
 }
 #endif
