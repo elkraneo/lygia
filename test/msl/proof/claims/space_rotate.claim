@@ -1,0 +1,6 @@
+// @claim space/rotate turns 2D and 3D points the same way as GLSL
+// @include space/rotate
+// @count 2
+// @note space/rotate uses rotate2d and rotate4d, so it inherited their direction.
+results[0] = vec4(rotate(vec2(1.0, 0.5), 1.0), 0.0, 0.0);
+results[1] = vec4(rotate(vec3(1.0, 0.0, 0.0), 1.0, vec3(0.0, 0.0, 1.0)), 0.0);

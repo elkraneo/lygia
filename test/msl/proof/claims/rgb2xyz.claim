@@ -1,0 +1,10 @@
+// @claim rgb2xyz returns XYZ in the 0-100 range that xyz2rgb and xyz2lab expect
+// @include color/space/rgb2xyz
+// @include color/space/xyz2rgb
+// @count 2
+// @expect 0 0.8 0.7 0.5
+// @expect 1 67.0487 70.6832 57.4054
+// @eps 0.01
+// @note The WESL fix for #271, merged upstream; GLSL still returns 0-1. [0] is the round trip xyz2rgb(rgb2xyz(c)), [1] is the value from test/wesl/color-space-xyz.test.ts.
+results[0] = vec4(xyz2rgb(rgb2xyz(vec3(0.8, 0.7, 0.5))), 0.0);
+results[1] = vec4(rgb2xyz(vec3(0.8, 0.7, 0.5)), 0.0);

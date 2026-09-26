@@ -1,0 +1,6 @@
+// @claim quatSub is defined when quatNeg was included first
+// @include math/quat/neg
+// @include math/quat/sub
+// @expect 0 0.5 1.5 2.5 3.5
+// @note quat/sub used quat/neg's include guard (FNC_QUATNEG) in both languages, so GLSL has the same bug.
+results[0] = quatSub(vec4(1.0, 2.0, 3.0, 4.0), vec4(0.5));

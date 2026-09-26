@@ -1,0 +1,7 @@
+// @claim ditherBayer uses the same 8x8 pattern as GLSL
+// @define DITHER_BAKER_COORD vec2(0.0)
+// @include color/dither/bayer
+// @count 2
+// @note The Metal formula read the table transposed (x and y swapped).
+results[0] = vec4(ditherBayer(vec2(1.0, 0.0)), ditherBayer(vec2(0.0, 1.0)), ditherBayer(vec2(3.0, 5.0)), ditherBayer(vec2(5.0, 3.0)));
+results[1] = vec4(ditherBayer(vec2(7.0, 2.0)), ditherBayer(vec2(2.0, 7.0)), ditherBayer(vec2(6.0, 1.0)), ditherBayer(vec2(1.0, 6.0)));

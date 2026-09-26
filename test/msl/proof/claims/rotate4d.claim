@@ -1,0 +1,8 @@
+// @claim rotate4d turns vectors the same way as GLSL
+// @include math/rotate4d
+// @count 3
+// @note GLSL and HLSL changed the rotation direction in 9a3a036c (2024); the Metal files kept the old matrices.
+mat4 m = rotate4d(normalize(vec3(1.0, 2.0, 3.0)), 1.0);
+results[0] = m * vec4(1.0, 0.0, 0.0, 1.0);
+results[1] = m * vec4(0.0, 1.0, 0.0, 1.0);
+results[2] = m * vec4(0.0, 0.0, 1.0, 1.0);

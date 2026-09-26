@@ -1,0 +1,5 @@
+// @claim pincushion with amount 0 returns the coordinate unchanged instead of NaN
+// @include distort/pincushion
+// @expect 0 0.3 0.7
+// @note With amount 0, power is 0 and A * bind / B is 0 / 0, in every language.
+results[0] = vec4(pincushion(vec2(0.3, 0.7), vec2(1.0), 0.0), 0.0, 0.0);

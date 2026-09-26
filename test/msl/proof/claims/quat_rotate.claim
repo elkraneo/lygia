@@ -1,0 +1,8 @@
+// @claim space/rotate has the quaternion overload when math/quat/mul is included
+// @include math/quat
+// @include math/quat/mul
+// @include space/rotate
+// @expect 0 0.0 1.0 0.0
+// @eps 0.001
+// @note space/rotate checked FNC_QUATMULT, but quat/mul defines FNC_QUATMUL, in both languages. The expected value is +X rotated 90 degrees around Z.
+results[0] = vec4(rotate(vec4(0.0, 0.0, 0.70710678, 0.70710678), vec3(1.0, 0.0, 0.0)), 0.0);

@@ -1,0 +1,18 @@
+// @claim materialAdd and materialMultiply write their result
+// @include lighting/material/new
+// @include lighting/material/add
+// @include lighting/material/multiply
+// @before dc15e9fd^
+// @expect 0 0.75 0.5
+// @note Both took the result Material by value, so the caller's copy never changed, in every language (GLSL needs `out`, Metal `thread Material&`). "before" is the Metal port before the fix (the lighting module isn't on upstream main). [0] is the roughness of 0.25 + 0.5 and of 0.25 * 2.
+Material a = materialNew();
+Material b = materialNew();
+a.roughness = 0.25;
+b.roughness = 0.5;
+Material sum = materialNew();
+sum.roughness = 0.0;
+materialAdd(a, b, sum);
+Material product = materialNew();
+product.roughness = 0.0;
+materialMultiply(a, 2.0, product);
+results[0] = vec4(sum.roughness, product.roughness, 0.0, 0.0);

@@ -1,0 +1,6 @@
+// @claim juliaSDF uses its center argument
+// @include sdf/juliaSDF
+// @expect 0 0.0
+// @note juliaSDF(st, center, ...) subtracted 0.5 instead of center, in every language. Moving both the point and the center by the same amount must give the same value, so the difference is 0.
+vec2 c = vec2(-0.8, 0.156);
+results[0] = vec4(juliaSDF(vec2(0.85, 0.5), vec2(0.6, 0.5), c, 1.0) - juliaSDF(vec2(0.75, 0.5), vec2(0.5), c, 1.0), 0.0, 0.0, 0.0);

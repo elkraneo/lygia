@@ -1,0 +1,5 @@
+// @claim including math/round keeps round() usable
+// @include math/round
+// @expect 0 1.0 -2.0 2.0 0.0
+// @note round.msl redefined round, which made every call ambiguous with Metal's own round.
+results[0] = vec4(round(1.4), round(-1.6), round(vec2(2.2, -0.3)));

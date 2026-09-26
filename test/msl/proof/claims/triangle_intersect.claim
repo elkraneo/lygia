@@ -1,0 +1,12 @@
+// @claim triangle intersect returns the hit point, not the triangle's normal
+// @include geometry/triangle/intersect
+// @before 23148b2a^
+// @expect 0 0.25 0.25 0.0 1.0
+// @note It stored the cross product of two edges in the output point, in every language. A ray from (0.25, 0.25, 1) going down hits the triangle at (0.25, 0.25, 0) at distance 1.
+Triangle t;
+t.a = vec3(0.0, 0.0, 0.0);
+t.b = vec3(1.0, 0.0, 0.0);
+t.c = vec3(0.0, 1.0, 0.0);
+vec3 p = vec3(0.0);
+float d = intersect(t, vec3(0.25, 0.25, 1.0), vec3(0.0, 0.0, -1.0), p);
+results[0] = vec4(p, d);

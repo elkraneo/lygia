@@ -1,0 +1,4 @@
+// @claim rotate2d turns vectors the same way as GLSL
+// @include math/rotate2d
+// @note GLSL and HLSL changed the rotation direction in 9a3a036c (2024); the Metal files kept the old matrices.
+results[0] = vec4(rotate2d(1.0) * vec2(1.0, 0.0), rotate2d(1.0) * vec2(0.0, 1.0));

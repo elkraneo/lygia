@@ -1,0 +1,12 @@
+// @claim henyeyGreenstein(mu) integrates to 1 over the sphere, like a phase function must
+// @include lighting/common/henyeyGreenstein
+// @before dc15e9fd^
+// @expect 0 1.0
+// @eps 0.002
+// @note It divided by 4 + PI instead of 4 * PI, in every language. The snippet integrates 2 PI * p(mu) over mu in [-1, 1] with the midpoint rule (default g 0.76).
+float sum = 0.0;
+for (int i = 0; i < 4096; i++) {
+    float mu = -1.0 + (float(i) + 0.5) * (2.0 / 4096.0);
+    sum += henyeyGreenstein(mu) * 6.28318530718 * (2.0 / 4096.0);
+}
+results[0] = vec4(sum, 0.0, 0.0, 0.0);

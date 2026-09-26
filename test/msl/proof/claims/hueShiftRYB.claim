@@ -1,0 +1,6 @@
+// @claim hueShiftRYB uses its angle argument
+// @include color/hueShiftRYB
+// @before 006933c5^
+// @expect 0 1.0 0.0 0.0
+// @note It always shifted by PI, in every language; WESL fixed it. Shifting red by 0 must return red. "before" is the fork before the fix, because on upstream main hueShift.msl doesn't compile (TAU isn't included).
+results[0] = vec4(hueShiftRYB(vec3(1.0, 0.0, 0.0), 0.0), 0.0);

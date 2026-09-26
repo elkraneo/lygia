@@ -1,0 +1,6 @@
+// @claim rgb2lms(vec4) converts the color like rgb2lms(vec3)
+// @include color/space/rgb2lms
+// @expect 0 0.0 0.0 0.0 0.0
+// @eps 0.001
+// @note The vec4 overload returned its input unchanged, in both languages; WESL fixed it. The snippet subtracts the vec3 result, so 0 means they agree.
+results[0] = rgb2lms(vec4(0.8, 0.7, 0.5, 0.3)) - vec4(rgb2lms(vec3(0.8, 0.7, 0.5)), 0.3);

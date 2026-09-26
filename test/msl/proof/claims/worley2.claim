@@ -1,0 +1,4 @@
+// @claim worley2 returns the two closest distances (F1, F2), as in GLSL
+// @include generative/worley
+// @note worley2 didn't exist in the Metal file.
+results[0] = vec4(worley2(vec2(1.0, 2.0)), worley2(vec3(1.0, 2.0, 3.0)));

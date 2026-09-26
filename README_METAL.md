@@ -11,6 +11,8 @@ test/msl/compile.sh sdf/*.msl     # just some
 
 `test/msl/verify.sh` runs the cases in `test/msl/verify/cases` on the GPU. They're ported from the WGSL tests in `test/wesl`, with the same inputs and expected values, so Metal is checked against the same numbers as WGSL. Where WGSL itself differs from GLSL, the check is marked `@xfail` with the reason. Tests that need textures or image snapshots aren't ported yet.
 
+`test/msl/proof/proof.sh` checks each fix in the Metal files on the GPU and writes [`test/msl/proof/RESULTS.md`](test/msl/proof/RESULTS.md). It runs each claim with the GLSL files, with the Metal files before the fix, and with them after. It also checks compiling and linking against upstream main. It needs glslang and spirv-cross (`brew install glslang spirv-cross`).
+
 Where upstream fixed a bug only in the WESL files, Metal follows the fix: `rgb2xyz` returns XYZ in 0-100 (#271), `hueShiftRYB` uses its angle, `rgb2lms(float4)` converts, and `fisheye2xyz` handles the center. GLSL still has these bugs.
 
 LYGIA files don't include the Metal standard library themselves, so include it before any of them:

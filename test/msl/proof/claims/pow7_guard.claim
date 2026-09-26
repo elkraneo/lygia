@@ -1,0 +1,6 @@
+// @claim pow7 is defined when pow2 was included first
+// @include math/pow2
+// @include math/pow7
+// @expect 0 128.0
+// @note pow7 used pow2's include guard (FNC_POW2) in both languages, so it was skipped after pow2.
+results[0] = vec4(pow7(2.0), 0.0, 0.0, 0.0);
