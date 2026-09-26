@@ -5,9 +5,12 @@
 #    as Xcode does for an app target (SwiftUI ShaderLibrary, makeDefaultLibrary,
 #    RealityKit CustomMaterial).
 # 2. static inline doesn't make the GPU code bigger.
-# 3. Compiler flags (-fvisibility=hidden, -flto=thin) don't avoid the duplicates.
+# 3. Compiler flags (-fvisibility=hidden, -flto=thin) and linker options don't
+#    avoid the duplicates.
 # 4. Two files that include a function with different options (FBM_OCTAVES)
 #    each get their own version.
+# 5. LYGIA compiled once as a helper library (dynamic, static, or one .air) that
+#    the .metal files call into: links and runs, with one set of options for all.
 #
 # It compares three versions of LYGIA's Metal files:
 #   before         upstream main (include guards only)
@@ -83,11 +86,13 @@ echo
 echo "The GPU code is the machine code of the compiled pipeline, stored in a binary archive. The compile time is the median of 7 runs of \`metal -c\` for a.metal."
 
 echo
-echo "### Compiler flags instead of static inline"
+link_error() { grep -m1 -o -E 'multiple symbols.*|unknown argument.*|[0-9]+ duplicated symbols' "$TMP/link.log" || head -1 "$TMP/link.log"; }
+
+echo "### Compiler and linker options instead of static inline"
 echo
-echo "The same two files with upstream main's LYGIA, compiled with flags that could hide the duplicates:"
+echo "The same two files with upstream main's LYGIA, compiled or linked with options that could hide the duplicates:"
 echo
-echo "| Flags | Links |"
+echo "| Options | Links |"
 echo "|---|---|"
 for flags in "-fvisibility=hidden" "-flto=thin"; do
     metal $flags -I "$TMP/before" -c "$TMP/a.metal" -o "$TMP/flags-a.air"
@@ -95,9 +100,21 @@ for flags in "-fvisibility=hidden" "-flto=thin"; do
     if xcrun -sdk macosx metallib "$TMP/flags-a.air" "$TMP/flags-b.air" -o "$TMP/flags.metallib" 2> "$TMP/link.log"; then
         echo "| \`$flags\` | yes |"
     else
-        echo "| \`$flags\` | no: \`$(grep -m1 -o 'multiple symbols.*' "$TMP/link.log" || head -1 "$TMP/link.log")\` |"
+        echo "| \`$flags\` | no: \`$(link_error)\` |"
     fi
 done
+metal -I "$TMP/before" -c "$TMP/a.metal" -o "$TMP/flags-a.air"
+metal -I "$TMP/before" -c "$TMP/b.metal" -o "$TMP/flags-b.air"
+for flags in "-Wl,--allow-multiple-definition" "-Wl,-z,muldefs"; do
+    if metal "$TMP/flags-a.air" "$TMP/flags-b.air" $flags -o "$TMP/flags.metallib" 2> "$TMP/link.log"; then
+        echo "| \`$flags\` | yes |"
+    else
+        echo "| \`$flags\` | no: \`$(link_error)\` |"
+    fi
+done
+echo
+matches=$(metal -Wl,--help "$TMP/flags-a.air" 2>&1 | grep -ciE 'multiple|muldef|duplicate' || true)
+echo "The linker is air-lld. Options in its help (\`xcrun metal -Wl,--help\`) that mention multiple or duplicate definitions: $matches."
 
 echo
 echo "### Two .metal files that include fbm with different options"
@@ -126,3 +143,39 @@ for v in $VERSIONS; do
 done
 echo
 echo "With plain inline, both files export the same fbm symbol and the linker keeps one; at -O0, where calls aren't inlined, both kernels use it."
+
+echo
+echo "### LYGIA as a helper library"
+echo
+echo "LYGIA's fbm from $BEFORE (plain definitions: a library has to export its functions, so they can't be static) is compiled once into a library, and the two files above only declare \`float fbm(float2 st);\` and call it. The library uses the default FBM_OCTAVES, 4."
+echo
+for k in a b; do
+    sed -e 's|#include "lygia/generative/fbm.msl"|float fbm(float2 st);|' -e '/FBM_OCTAVES/d' "$TMP/odr_$k.metal" > "$TMP/call_$k.metal"
+    metal -c "$TMP/call_$k.metal" -o "$TMP/call_$k.air"
+done
+printf '#include <metal_stdlib>\nusing namespace metal;\n#include "lygia/generative/fbm.msl"\n' > "$TMP/lib.metal"
+metal -I "$TMP/before" -c "$TMP/lib.metal" -o "$TMP/lib.air"
+lib_run() {  # label, link command..., then the run options after --
+    local label="$1"; shift
+    local link=() run=()
+    while [ "$1" != "--" ]; do link+=("$1"); shift; done; shift; run=("$@")
+    if "${link[@]}" -o "$TMP/lib-app.metallib" 2> "$TMP/link.log"; then
+        a=$("$TMP/run" ${run[@]+"${run[@]}"} "$TMP/lib-app.metallib" k_a 1 | awk '{print $1}')
+        b=$("$TMP/run" ${run[@]+"${run[@]}"} "$TMP/lib-app.metallib" k_b 1 | awk '{print $1}')
+        echo "| $label | yes | $a | $b |"
+    else
+        echo "| $label | no: \`$(link_error)\` | | |"
+    fi
+}
+metal -I "$TMP/before" -dynamiclib -install_name @loader_path/liblygia.metallib "$TMP/lib.metal" -o "$TMP/liblygia.metallib"
+metal "$TMP/lib.air" --emit-static-lib -o "$TMP/liblygia-static.metallib"
+echo "| Library | Links | 1-octave kernel | 8-octave kernel |"
+echo "|---|---|---|---|"
+lib_run "dynamic library (\`metal -dynamiclib\`)" metal "$TMP/call_a.air" "$TMP/call_b.air" -L "$TMP" -llygia -- --dylib "$TMP/liblygia.metallib"
+lib_run "static library (\`--emit-static-lib\`)" metal "$TMP/call_a.air" "$TMP/call_b.air" "$TMP/liblygia-static.metallib" --
+lib_run "LYGIA's .air, linked once" xcrun -sdk macosx metallib "$TMP/call_a.air" "$TMP/call_b.air" "$TMP/lib.air" --
+sed -e 's/FBM_OCTAVES 1/FBM_OCTAVES 4/' "$TMP/odr_a.metal" > "$TMP/odr_4.metal"
+metal -I "$TMP/static" -c "$TMP/odr_4.metal" -o "$TMP/odr_4.air"
+xcrun -sdk macosx metallib "$TMP/odr_4.air" -o "$TMP/odr_4.metallib"
+echo
+echo "Every form links and runs, and both kernels return fbm with 4 octaves ($("$TMP/run" "$TMP/odr_4.metallib" k_a 1 | awk '{print $1}') with static inline and FBM_OCTAVES 4): the library fixes the options once for every shader. The dynamic library is loaded with the pipeline's \`preloadedLibraries\`."

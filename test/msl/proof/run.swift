@@ -1,10 +1,11 @@
 // Runs one compute kernel from a metallib as a single thread and prints the
 // float4 results it writes to buffer 0, one per line. With --size, prints the
 // size of the kernel's GPU machine code instead (the compiled pipeline, stored
-// in a binary archive). Used by proof.py and linking.sh.
+// in a binary archive). With --dylib, loads a dynamic Metal library the kernel
+// calls into. Used by proof.py and linking.sh.
 //
 // usage: swiftc -O run.swift -o run
-//        ./run <file.metallib> <kernel> <count>
+//        ./run [--dylib <lib.metallib>] <file.metallib> <kernel> <count>
 //        ./run --size <file.metallib> <kernel>
 
 import Foundation
@@ -13,8 +14,10 @@ import Metal
 var args = CommandLine.arguments
 let size = args.count > 1 && args[1] == "--size"
 if size { args.remove(at: 1) }
+var dylib: String?
+if args.count > 2 && args[1] == "--dylib" { dylib = args[2]; args.removeSubrange(1...2) }
 guard (size && args.count == 3) || (args.count == 4 && Int(args[3]) != nil) else {
-    print("usage: run <file.metallib> <kernel> <count>\n       run --size <file.metallib> <kernel>")
+    print("usage: run [--dylib <lib.metallib>] <file.metallib> <kernel> <count>\n       run --size <file.metallib> <kernel>")
     exit(2)
 }
 guard let device = MTLCreateSystemDefaultDevice(), let queue = device.makeCommandQueue() else {
@@ -39,7 +42,12 @@ do {
         exit(0)
     }
     let count = Int(args[3])!
-    let pipeline = try device.makeComputePipelineState(function: function)
+    let descriptor = MTLComputePipelineDescriptor()
+    descriptor.computeFunction = function
+    if let dylib {
+        descriptor.preloadedLibraries = [try device.makeDynamicLibrary(url: URL(fileURLWithPath: dylib))]
+    }
+    let pipeline = try device.makeComputePipelineState(descriptor: descriptor, options: [], reflection: nil)
     let length = count * MemoryLayout<SIMD4<Float>>.stride
     guard let buffer = device.makeBuffer(length: length, options: .storageModeShared),
           let commands = queue.makeCommandBuffer(),

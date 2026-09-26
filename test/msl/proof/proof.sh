@@ -3,7 +3,9 @@
 # test/msl/proof/RESULTS.md:
 #
 #   compile   how many .msl files compile, before and after (compile.sh)
-#   linking   two .metal files in one target, code size, options (linking.sh)
+#   linking   two .metal files in one target, code size, options, helper
+#             library (linking.sh)
+#   package   a Swift package with two .metal files (package/run.sh)
 #   values    each fix, compared with GLSL or known values (proof.py)
 #
 # "before" is upstream main unless a claim says otherwise. Requires macOS with
@@ -29,6 +31,8 @@ echo "compile.sh (after)..."
 after_compile=$("$ROOT/test/msl/compile.sh" 2>&1 | summary || true)
 echo "linking.sh..."
 linking=$("$PROOF/linking.sh" "$BEFORE" 2>/dev/null)
+echo "package/run.sh..."
+package=$("$PROOF/package/run.sh" "$BEFORE" 2>/dev/null | sed 's/ *$//; s/\*\* BUILD SUCCEEDED \*\*/builds/; s/\*\* BUILD FAILED \*\* */fails: /; s/^/- /')
 echo "proof.py..."
 set +e
 "$PROOF/proof.py" --markdown "$TMP/claims.md"
@@ -61,6 +65,14 @@ $after_compile
 ## Linking (lygia#322)
 
 $linking
+
+## Swift package
+
+\`test/msl/proof/package\` is a Swift package with LYGIA's .msl files and two .metal files that include generative/fbm.msl, each with a SwiftUI \`[[stitchable]]\` function. Xcode compiles a package's .metal files into its bundle's default.metallib, which SwiftUI loads with \`ShaderLibrary.bundle(.module)\`. Each line is a clean \`xcodebuild\`:
+
+$package
+
+Not checked: loading the functions at runtime on a device.
 
 ## Values
 
