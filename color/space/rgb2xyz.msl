@@ -1,6 +1,10 @@
 /*
 contributors: Patricio Gonzalez Vivo
-description: 'Converts a linear RGB color to XYZ color space. Based on http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_float3x3.html'
+description: |
+    Converts a linear RGB color to XYZ color space, in the 0-100 range that xyz2lab and xyz2rgb expect.
+    Based on http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_float3x3.html
+    Follows the WESL fix for https://github.com/patriciogonzalezvivo/lygia/issues/271;
+    the GLSL version still returns 0-1.
 use: <float3|float4> rgb2xyz(<float3|float4> rgb)
 license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
@@ -24,6 +28,6 @@ constant float3x3 RGB2XYZ = float3x3(
 
 #ifndef FNC_RGB2XYZ
 #define FNC_RGB2XYZ
-static inline float3 rgb2xyz( float3 rgb) { return RGB2XYZ * rgb;}
+static inline float3 rgb2xyz( float3 rgb) { return RGB2XYZ * rgb * 100.0;}
 static inline float4 rgb2xyz( float4 rgb) { return float4(rgb2xyz(rgb.rgb),rgb.a); }
 #endif

@@ -6,7 +6,9 @@
 contributors:
     - Johan Ismael
     - Patricio Gonzalez Vivo
-description: Shifts color hue the RYB color space
+description: |
+    Shifts color hue the RYB color space. Uses the angle argument like the WESL version;
+    the GLSL version still ignores it and always shifts by PI.
 use: hueShift(<float3|float4> color, <float> angle)
 optionas:
     - HUESHIFT_AMOUNT: if defined, it uses a normalized value instead of an angle
@@ -21,7 +23,7 @@ license:
 #define FNC_HUESHIFTRYB
 static inline float3 hueShiftRYB( float3 color, float a){
     float3 rgb = rgb2ryb(color);
-    rgb = hueShift(rgb, PI);
+    rgb = hueShift(rgb, a);
     return ryb2rgb(rgb);
 }
 

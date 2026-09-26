@@ -3,7 +3,9 @@ contributors: Patricio Gonzalez Vivo
 description: "Convert rgb to LMS. LMS (long, medium, short), is a color space which\
     \ represents the response of the three types of cones of the human eye, named for\
     \ their responsivity (sensitivity) peaks at long, medium, and short wavelengths.\
-    \ \nRefs https://en.wikipedia.org/wiki/LMS_color_space https://arxiv.org/pdf/1711.10662\n"
+    \ \nRefs https://en.wikipedia.org/wiki/LMS_color_space https://arxiv.org/pdf/1711.10662\
+    \ \nThe float4 overload converts like the WESL version; the GLSL one still returns\
+    \ the input unchanged.\n"
 use: <float3|float4> rgb2lms(<float3|float4> rgb)
 license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
@@ -27,5 +29,5 @@ constant float3x3 RGB2LMS = float3x3(
 #ifndef FNC_RGB2LMS
 #define FNC_RGB2LMS
 static inline float3 rgb2lms( float3 rgb) {return RGB2LMS * rgb;}
-static inline float4 rgb2lms( float4 rgb) { return float4(rgb.rgb, rgb.a); }
+static inline float4 rgb2lms( float4 rgb) { return float4(rgb2lms(rgb.rgb), rgb.a); }
 #endif
