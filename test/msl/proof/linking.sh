@@ -5,7 +5,8 @@
 #    as Xcode does for an app target (SwiftUI ShaderLibrary, makeDefaultLibrary,
 #    RealityKit CustomMaterial).
 # 2. static inline doesn't make the GPU code bigger.
-# 3. Two files that include a function with different options (FBM_OCTAVES)
+# 3. Compiler flags (-fvisibility=hidden, -flto=thin) don't avoid the duplicates.
+# 4. Two files that include a function with different options (FBM_OCTAVES)
 #    each get their own version.
 #
 # It compares three versions of LYGIA's Metal files:
@@ -80,6 +81,23 @@ for v in $VERSIONS; do
 done
 echo
 echo "The GPU code is the machine code of the compiled pipeline, stored in a binary archive. The compile time is the median of 7 runs of \`metal -c\` for a.metal."
+
+echo
+echo "### Compiler flags instead of static inline"
+echo
+echo "The same two files with upstream main's LYGIA, compiled with flags that could hide the duplicates:"
+echo
+echo "| Flags | Links |"
+echo "|---|---|"
+for flags in "-fvisibility=hidden" "-flto=thin"; do
+    metal $flags -I "$TMP/before" -c "$TMP/a.metal" -o "$TMP/flags-a.air"
+    metal $flags -I "$TMP/before" -c "$TMP/b.metal" -o "$TMP/flags-b.air"
+    if xcrun -sdk macosx metallib "$TMP/flags-a.air" "$TMP/flags-b.air" -o "$TMP/flags.metallib" 2> "$TMP/link.log"; then
+        echo "| \`$flags\` | yes |"
+    else
+        echo "| \`$flags\` | no: \`$(grep -m1 -o 'multiple symbols.*' "$TMP/link.log" || head -1 "$TMP/link.log")\` |"
+    fi
+done
 
 echo
 echo "### Two .metal files that include fbm with different options"
