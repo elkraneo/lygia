@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/greaterThan.msl"
 #include "../math/mod.msl"
 #include "../math/mod289.msl"
@@ -30,7 +32,7 @@ license: |
 #ifndef FNC_PSRFNOISE
 #define FNC_PSRFNOISE
 
-static inline float psrdnoise(float2 x, float2 period, float alpha, thread float2 &gradient) {
+LYGIA_FNC float psrdnoise(float2 x, float2 period, float alpha, thread float2 &gradient) {
 
     // Transform to simplex space (axis-aligned hexagonal grid)
     float2 uv = float2(x.x + x.y*0.5, x.y);
@@ -116,7 +118,7 @@ static inline float psrdnoise(float2 x, float2 period, float alpha, thread float
 	return 10.9 * n;
 }
 
-static inline float psrdnoise(float2 x, float2 period, float alpha, thread float2 &gradient, thread float3 &dg) {
+LYGIA_FNC float psrdnoise(float2 x, float2 period, float alpha, thread float2 &gradient, thread float3 &dg) {
 
 	// Transform to simplex space (axis-aligned hexagonal grid)
 	float2 uv = float2(x.x + x.y*0.5, x.y);
@@ -213,20 +215,20 @@ static inline float psrdnoise(float2 x, float2 period, float alpha, thread float
 	return 10.9 * n;
 }
 
-static inline float psrdnoise(float2 x, float2 period, float alpha) {
+LYGIA_FNC float psrdnoise(float2 x, float2 period, float alpha) {
     float2 g = float2(0.0);
     return psrdnoise(x, period, alpha, g);
 }
 
-static inline float psrdnoise(float2 x, float2 period) {
+LYGIA_FNC float psrdnoise(float2 x, float2 period) {
     return psrdnoise(x, period, 0.0);
 }
 
-static inline float psrdnoise(float2 x) {
+LYGIA_FNC float psrdnoise(float2 x) {
     return psrdnoise(x, float2(0.0));
 }
 
-static inline float psrdnoise(float3 x, float3 period, float alpha, thread float3 &gradient) {
+LYGIA_FNC float psrdnoise(float3 x, float3 period, float alpha, thread float3 &gradient) {
 
 #ifndef PSRDNOISE_PERLIN_GRID
     // Transformation matrices for the axis-aligned simplex grid
@@ -432,7 +434,7 @@ static inline float psrdnoise(float3 x, float3 period, float alpha, thread float
     return 39.5 * n; 
 }
 
-static inline float psrdnoise(float3 x, float3 period, float alpha, thread float3 &gradient, thread float3 &dg, thread float3 &dg2) {
+LYGIA_FNC float psrdnoise(float3 x, float3 period, float alpha, thread float3 &gradient, thread float3 &dg, thread float3 &dg2) {
 
 #ifndef PSRDNOISE_PERLIN_GRID
     // Transformation matrices for the axis-aligned simplex grid
@@ -646,16 +648,16 @@ static inline float psrdnoise(float3 x, float3 period, float alpha, thread float
     return 39.5 * n;
 }
 
-static inline float psrdnoise(float3 x, float3 period, float alpha) {
+LYGIA_FNC float psrdnoise(float3 x, float3 period, float alpha) {
     float3 g = float3(0.0);
     return psrdnoise(x, period, alpha, g);
 }
 
-static inline float psrdnoise(float3 x, float3 period) {
+LYGIA_FNC float psrdnoise(float3 x, float3 period) {
     return psrdnoise(x, period, 0.0);
 }
 
-static inline float psrdnoise(float3 x) {
+LYGIA_FNC float psrdnoise(float3 x) {
     return psrdnoise(x, float3(0.0));
 }
 #endif

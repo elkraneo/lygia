@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "sqTile.msl"
 #include "../math/mirror.msl"
 
@@ -21,19 +23,19 @@ license:
 #ifndef FNC_MIRRORTILE
 #define FNC_MIRRORTILE
 
-static inline float4 mirrorTile(float4 t) { return float4( mirror(t.xy + t.zw), t.z, t.w); }
-static inline float4 mirrorTile(float2 v) { return mirrorTile(sqTile(v)); }
-static inline float4 mirrorTile(float2 v, float s) { return mirrorTile(v * s); }
-static inline float4 mirrorTile(float2 v, float2 s) { return mirrorTile(v * s); }
+LYGIA_FNC float4 mirrorTile(float4 t) { return float4( mirror(t.xy + t.zw), t.z, t.w); }
+LYGIA_FNC float4 mirrorTile(float2 v) { return mirrorTile(sqTile(v)); }
+LYGIA_FNC float4 mirrorTile(float2 v, float s) { return mirrorTile(v * s); }
+LYGIA_FNC float4 mirrorTile(float2 v, float2 s) { return mirrorTile(v * s); }
 
-static inline float4 mirrorXTile(float4 t) { return float4( mirror(t.x + t.z), t.y, t.z, t.w); }
-static inline float4 mirrorXTile(float2 v) { return mirrorXTile(sqTile(v)); }
-static inline float4 mirrorXTile(float2 v, float s) { return mirrorXTile(v * s); }
-static inline float4 mirrorXTile(float2 v, float2 s) { return mirrorXTile(v * s); }
+LYGIA_FNC float4 mirrorXTile(float4 t) { return float4( mirror(t.x + t.z), t.y, t.z, t.w); }
+LYGIA_FNC float4 mirrorXTile(float2 v) { return mirrorXTile(sqTile(v)); }
+LYGIA_FNC float4 mirrorXTile(float2 v, float s) { return mirrorXTile(v * s); }
+LYGIA_FNC float4 mirrorXTile(float2 v, float2 s) { return mirrorXTile(v * s); }
 
-static inline float4 mirrorYTile(float4 t) { return float4( t.x, mirror(t.y + t.w), t.z, t.w); }
-static inline float4 mirrorYTile(float2 v) { return mirrorYTile(sqTile(v)); }
-static inline float4 mirrorYTile(float2 v, float s) { return mirrorYTile(v * s); }
-static inline float4 mirrorYTile(float2 v, float2 s) { return mirrorYTile(v * s); }
+LYGIA_FNC float4 mirrorYTile(float4 t) { return float4( t.x, mirror(t.y + t.w), t.z, t.w); }
+LYGIA_FNC float4 mirrorYTile(float2 v) { return mirrorYTile(sqTile(v)); }
+LYGIA_FNC float4 mirrorYTile(float2 v, float s) { return mirrorYTile(v * s); }
+LYGIA_FNC float4 mirrorYTile(float2 v, float2 s) { return mirrorYTile(v * s); }
 
 #endif

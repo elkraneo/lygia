@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/lengthSq.msl"
 #include "../sampler.msl"
 /*
@@ -32,7 +34,7 @@ license:
 #ifndef FNC_CHROMAAB
 #define FNC_CHROMAAB
 
-static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 direction, float3 distortion ) {
+LYGIA_FNC CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 direction, float3 distortion ) {
     float2 offset = float2(0.0);
     CHROMAAB_TYPE c = CHROMAAB_TYPE(1.);
     c.r = CHROMAAB_SAMPLER_FNC(tex, st + direction * distortion.r).r;
@@ -41,7 +43,7 @@ static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 directi
     return c;
 }
 
-static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 offset, float pct) {
+LYGIA_FNC CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 offset, float pct) {
 
   #ifdef CHROMAAB_CENTER_BUFFER
     // modify the distance from the center, so that only the edges are affected
@@ -60,19 +62,19 @@ static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 offset,
   return c;
 }
 
-static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float sdf, float pct) {
+LYGIA_FNC CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float sdf, float pct) {
   return chromaAB(tex, st, float2(sdf), pct);
 }
 
-static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float sdf) {
+LYGIA_FNC CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float sdf) {
   return chromaAB(tex, st, sdf, CHROMAAB_PCT);
 }
 
-static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 offset) {
+LYGIA_FNC CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st, float2 offset) {
   return chromaAB(tex, st, offset, CHROMAAB_PCT);
 }
 
-static inline CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st) {
+LYGIA_FNC CHROMAAB_TYPE chromaAB(SAMPLER_TYPE tex, float2 st) {
   return chromaAB(tex, st, lengthSq(st - .5), CHROMAAB_PCT);
 }
 

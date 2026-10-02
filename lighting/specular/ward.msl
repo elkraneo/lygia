@@ -1,8 +1,10 @@
+#include "../../lygia.msl"
+
 #ifndef FNC_SPECULAR_WARD
 #define FNC_SPECULAR_WARD
 
 // https://github.com/glslify/glsl-specular-ward
-static inline float specularWard(float3 L, float3 N, float3 V, float3 fiber, float shinyParallel, float shinyPerpendicular) {
+LYGIA_FNC float specularWard(float3 L, float3 N, float3 V, float3 fiber, float shinyParallel, float shinyPerpendicular) {
     float NdotL = dot(N, L);
     float NdotR = dot(N, V);
     float3 fiberParallel = normalize(fiber);

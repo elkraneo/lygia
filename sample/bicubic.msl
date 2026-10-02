@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sampler.msl"
 
 /*
@@ -16,7 +18,7 @@ license:
 #ifndef FNC_SAMPLEBICUBIC
 #define FNC_SAMPLEBICUBIC
 
-static inline float4 sampleBicubic(float v) {
+LYGIA_FNC float4 sampleBicubic(float v) {
     float4 n = float4(1.0, 2.0, 3.0, 4.0) - v;
     float4 s = n * n * n;
     float4 o;
@@ -27,7 +29,7 @@ static inline float4 sampleBicubic(float v) {
     return o;
 }
 
-static inline float4 sampleBicubic(SAMPLER_TYPE tex, float2 st, float2 texResolution) {
+LYGIA_FNC float4 sampleBicubic(SAMPLER_TYPE tex, float2 st, float2 texResolution) {
     float2 pixel = 1.0 / texResolution;
     st = st * texResolution - 0.5;
 

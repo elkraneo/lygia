@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/const.msl"
 #include "../math/sum.msl"
 #include "../generative/random.msl"
@@ -33,7 +35,7 @@ examples:
 #ifndef FNC_SAMPLEUNTILE
 #define FNC_SAMPLEUNTILE
 
-static inline SAMPLEUNTILE_TYPE sampleUntile(SAMPLER_TYPE tex, float2 st) {
+LYGIA_FNC SAMPLEUNTILE_TYPE sampleUntile(SAMPLER_TYPE tex, float2 st) {
 
     #ifdef SAMPLEUNTILE_FAST
     float k = SAMPLEUNTILE_SAMPLER_FNC(tex, 0.005*st ).x; // cheap (cache friendly) lookup

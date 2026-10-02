@@ -4,10 +4,12 @@ description: generate the SDF of a cone
 use: <float> coneSDF( <float3> pos, <float3> c ) 
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_CONESDF
 #define FNC_CONESDF
 
-static inline float coneSDF( float3 p, float3 c ) {
+LYGIA_FNC float coneSDF( float3 p, float3 c ) {
     float2 q = float2( length(p.xz), p.y );
     float d1 = -q.y-c.z;
     float d2 = max( dot(q,c.xy), q.y);
@@ -15,7 +17,7 @@ static inline float coneSDF( float3 p, float3 c ) {
 }
 
 // vertical
-static inline float coneSDF( float3 p, float2 c, float h ) {
+LYGIA_FNC float coneSDF( float3 p, float2 c, float h ) {
     float2 q = h*float2(c.x,-c.y)/c.y;
     float2 w = float2( length(p.xz), p.y );
     
@@ -28,7 +30,7 @@ static inline float coneSDF( float3 p, float2 c, float h ) {
 }
 
 // Round
-static inline float coneSDF( float3 p, float r1, float r2, float h ) {
+LYGIA_FNC float coneSDF( float3 p, float r1, float r2, float h ) {
     float2 q = float2( length(p.xz), p.y );
     
     float b = (r1-r2)/h;

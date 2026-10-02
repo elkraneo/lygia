@@ -4,8 +4,10 @@ description: Linear tonemap (no modifications are applied)
 use: <float3|float4> tonemapLinear(<float3|float4> x)
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_TONEMAPLINEAR
 #define FNC_TONEMAPLINEAR
-static inline float3 tonemapLinear(float3 v) { return v; }
-static inline float4 tonemapLinear(float4 v) { return v; }
+LYGIA_FNC float3 tonemapLinear(float3 v) { return v; }
+LYGIA_FNC float4 tonemapLinear(float4 v) { return v; }
 #endif

@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../../math/const.msl"
 
 /*
@@ -10,5 +12,5 @@ examples:
 
 #ifndef FNC_SINEINOUT
 #define FNC_SINEINOUT
-static inline float sineInOut(float t) { return -0.5 * (cos(PI * t) - 1.0); }
+LYGIA_FNC float sineInOut(float t) { return -0.5 * (cos(PI * t) - 1.0); }
 #endif

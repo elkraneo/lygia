@@ -8,6 +8,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../../lygia.msl"
+
 #ifndef GOLDEN_ACRYLIC_BONE_BLACK
 #define GOLDEN_ACRYLIC_BONE_BLACK float3(0.137, 0.133, 0.141)
 #endif

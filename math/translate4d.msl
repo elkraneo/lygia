@@ -9,16 +9,18 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_TRANSLATE4D
 #define FNC_TRANSLATE4D
-static inline float4x4 translate4d(float3 t) {
+LYGIA_FNC float4x4 translate4d(float3 t) {
     return float4x4(1.0, 0.0, 0.0, 0.0,
                 0.0, 1.0, 0.0, 0.0,
                 0.0, 0.0, 1.0, 0.0,
                 t.x, t.y, t.z, 1.0 );
 }
 
-static inline float4x4 translate4d(float x, float y, float z) {
+LYGIA_FNC float4x4 translate4d(float x, float y, float z) {
     return float4x4(1.0, 0.0, 0.0, 0.0,
                 0.0, 1.0, 0.0, 0.0,
                 0.0, 0.0, 1.0, 0.0,

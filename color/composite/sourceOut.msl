@@ -7,20 +7,22 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_COMPOSITE_SRC_OUT
 #define FNC_COMPOSITE_SRC_OUT
 
-static inline float compositeSourceOut(float src, float dst)
+LYGIA_FNC float compositeSourceOut(float src, float dst)
 {
     return src * (1.0 - dst);
 }
 
-static inline float3 compositeSourceOut(float3 srcColor, float3 dstColor, float srcAlpha, float dstAlpha)
+LYGIA_FNC float3 compositeSourceOut(float3 srcColor, float3 dstColor, float srcAlpha, float dstAlpha)
 {
     return srcColor * (1.0 - dstAlpha);
 }
 
-static inline float4 compositeSourceOut(float4 srcColor, float4 dstColor) 
+LYGIA_FNC float4 compositeSourceOut(float4 srcColor, float4 dstColor) 
 {
     float4 result;
 

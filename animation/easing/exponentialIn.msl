@@ -6,7 +6,9 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/animation_easing.frag
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_EXPONENTIALIN
 #define FNC_EXPONENTIALIN
-static inline float exponentialIn(float t) { return t == 0.0 ? t : pow(2.0, 10.0 * (t - 1.0)); }
+LYGIA_FNC float exponentialIn(float t) { return t == 0.0 ? t : pow(2.0, 10.0 * (t - 1.0)); }
 #endif

@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../generative/snoise.msl"
 #include "../generative/pnoise.msl"
 #include "../color/luma.msl"
@@ -27,22 +29,22 @@ license: MIT License (MIT) Copyright (c) 2015 Matt DesLauriers
 
 #ifndef FNC_GRAIN
 #define FNC_GRAIN
-static inline float grain(float2 texCoord, float2 resolution, float t, float multiplier) {
+LYGIA_FNC float grain(float2 texCoord, float2 resolution, float t, float multiplier) {
     float2 mult = texCoord * resolution;
     float offset = snoise(float3(mult / multiplier, t));
     float n1 = pnoise(float3(mult, offset), float3(1. / texCoord * resolution, 1.));
     return n1 / 2. + .5;
 }
 
-static inline float grain(float2 texCoord, float2 resolution, float t) {
+LYGIA_FNC float grain(float2 texCoord, float2 resolution, float t) {
     return grain(texCoord, resolution, t, 2.5);
 }
 
-static inline float grain(float2 texCoord, float2 resolution) {
+LYGIA_FNC float grain(float2 texCoord, float2 resolution) {
     return grain(texCoord, resolution, 0.);
 }
 
-static inline GRAIN_TYPE grain(SAMPLER_TYPE tex, float2 st, float2 resolution, float t, float multiplier ) {
+LYGIA_FNC GRAIN_TYPE grain(SAMPLER_TYPE tex, float2 st, float2 resolution, float t, float multiplier ) {
     GRAIN_TYPE org = GRAIN_SAMPLER_FNC(tex, st);
 
     float g = grain(st, resolution, t, multiplier);
@@ -58,23 +60,23 @@ static inline GRAIN_TYPE grain(SAMPLER_TYPE tex, float2 st, float2 resolution, f
                 response * response);
 }
 
-static inline GRAIN_TYPE grain(SAMPLER_TYPE tex, float2 st, float2 resolution, float t ) {
+LYGIA_FNC GRAIN_TYPE grain(SAMPLER_TYPE tex, float2 st, float2 resolution, float t ) {
     return grain(tex, st, resolution, t, 2.5 );
 }
 
-static inline GRAIN_TYPE grain(SAMPLER_TYPE tex, float2 st, float2 resolution) {
+LYGIA_FNC GRAIN_TYPE grain(SAMPLER_TYPE tex, float2 st, float2 resolution) {
     return grain(tex, st, resolution, 0.);
 }
 
-static inline GRAIN_TYPE grain(SAMPLER_TYPE tex, float2 st, float resolution, float t, float multiplier  ) {
+LYGIA_FNC GRAIN_TYPE grain(SAMPLER_TYPE tex, float2 st, float resolution, float t, float multiplier  ) {
     return grain(tex, st, float2(resolution), t, multiplier );
 }
 
-static inline GRAIN_TYPE grain(SAMPLER_TYPE tex, float2 st, float resolution, float t ) {
+LYGIA_FNC GRAIN_TYPE grain(SAMPLER_TYPE tex, float2 st, float resolution, float t ) {
     return grain(tex, st, resolution, t, 2.5 );
 }
 
-static inline GRAIN_TYPE grain(SAMPLER_TYPE tex, float2 st, float resolution) {
+LYGIA_FNC GRAIN_TYPE grain(SAMPLER_TYPE tex, float2 st, float resolution) {
     return grain(tex, st, resolution, 0.);
 }
 

@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "type.msl"
 
 /*
@@ -11,5 +13,5 @@ license:
 
 #ifndef FNC_QUATLENGTHSQ
 #define FNC_QUATLENGTHSQ
-static inline float quatLengthSq(QUAT q) { return dot(q.xyz, q.xyz) + q.w * q.w; }
+LYGIA_FNC float quatLengthSq(QUAT q) { return dot(q.xyz, q.xyz) + q.w * q.w; }
 #endif

@@ -4,18 +4,20 @@ description: elongate operation of two SDFs
 use: <float4> opElongate( <float3> p, <float3> h )
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_OPELONGATE
 #define FNC_OPELONGATE
 
-static inline float2 opElongate( float2 p, float2 h ) {
+LYGIA_FNC float2 opElongate( float2 p, float2 h ) {
     return p-clamp(p,-h,h); 
 }
 
-static inline float3 opElongate( float3 p, float3 h ) {
+LYGIA_FNC float3 opElongate( float3 p, float3 h ) {
     return p-clamp(p,-h,h); 
 }
 
-static inline float4 opElongate( float4 p, float4 h ) {
+LYGIA_FNC float4 opElongate( float4 p, float4 h ) {
     float3 q = abs(p.xyz)-h.xyz;
     return float4( max(q,0.0), min(max(q.x,max(q.y,q.z)), 0.0) );
 }

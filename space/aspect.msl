@@ -9,9 +9,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_ASPECT
 #define FNC_ASPECT
-static inline float2 aspect(float2 st, float2 s) {
+LYGIA_FNC float2 aspect(float2 st, float2 s) {
     st.x = st.x * (s.x / s.y);
     return st;
 }

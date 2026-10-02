@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sampler.msl"
 #include "../math/saturate.msl"
 #include "../math/sum.msl"
@@ -31,7 +33,7 @@ license:
 #ifndef FNC_DILATE
 #define FNC_DILATE
 
-static inline DILATION_TYPE dilation(SAMPLER_TYPE tex, float2 st, float2 pixel, int radius) {
+LYGIA_FNC DILATION_TYPE dilation(SAMPLER_TYPE tex, float2 st, float2 pixel, int radius) {
     float invKR = 1.0 / float(radius);
     DILATION_TYPE acc = DILATION_TYPE(0.0);
     float w = 0.0;

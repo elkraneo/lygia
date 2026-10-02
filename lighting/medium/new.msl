@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../medium.msl"
 
 /*
@@ -17,20 +19,20 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #ifndef FNC_MEDIUM_NEW
 #define FNC_MEDIUM_NEW
 
-static inline void mediumNew(thread Medium& _mat) {
+LYGIA_FNC void mediumNew(thread Medium& _mat) {
     _mat.scattering   = float3(1.0, 1.0, 1.0);
     _mat.absorption   = float3(1.0, 1.0, 1.0);
     _mat.sdf     = RAYMARCH_MAX_DIST;
 
 }
 
-static inline Medium mediumNew() {
+LYGIA_FNC Medium mediumNew() {
     Medium mat;
     mediumNew(mat);
     return mat;
 }
 
-static inline Medium mediumNew(float3 scattering, float3 absorption, float sdf) {
+LYGIA_FNC Medium mediumNew(float3 scattering, float3 absorption, float sdf) {
     Medium mat = mediumNew();
     mat.scattering = scattering;
     mat.absorption = absorption;
@@ -38,7 +40,7 @@ static inline Medium mediumNew(float3 scattering, float3 absorption, float sdf) 
     return mat;
 }
 
-static inline Medium mediumNew(float3 scattering, float sdf) {
+LYGIA_FNC Medium mediumNew(float3 scattering, float sdf) {
     return mediumNew(scattering, float3(0.0, 0.0, 0.0), sdf);
 }
 

@@ -1,7 +1,9 @@
+#include "../../lygia.msl"
+
 #ifndef FNC_PRE_FILTERED_IMPORTANCE_SAMPLING
 #define FNC_PRE_FILTERED_IMPORTANCE_SAMPLING
 
-static inline float prefilteredImportanceSampling(float ipdf, float omegaP, int numSamples) {
+LYGIA_FNC float prefilteredImportanceSampling(float ipdf, float omegaP, int numSamples) {
     const float K = 4.0;
     float omegaS = ipdf / float(numSamples);
     float mipLevel = log2(K * omegaS / omegaP) * 0.5; // log4

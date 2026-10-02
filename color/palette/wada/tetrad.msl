@@ -13,6 +13,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../../lygia.msl"
+
 #ifndef WADA_TETRAD_TOTAL
 #define WADA_TETRAD_TOTAL 99
 #endif
@@ -20,7 +22,7 @@ license:
 #ifndef FNC_PALETTE_WADA_TETRAD
 #define FNC_PALETTE_WADA_TETRAD
                 
-static inline int4 wadaTetrad( int index ) {
+LYGIA_FNC int4 wadaTetrad( int index ) {
     int4 t[WADA_TETRAD_TOTAL];
     t[0] = int4(2,3,115,125);
     t[1] = int4(1,114,135,136);

@@ -6,12 +6,14 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/math_functions.frag
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_QUINTIC
 #define FNC_QUINTIC 
 
-static inline float quintic(const float v) { return v*v*v*(v*(v*6.0-15.0)+10.0); }
-static inline float2  quintic(const float2 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
-static inline float3  quintic(const float3 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
-static inline float4  quintic(const float4 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
+LYGIA_FNC float quintic(const float v) { return v*v*v*(v*(v*6.0-15.0)+10.0); }
+LYGIA_FNC float2  quintic(const float2 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
+LYGIA_FNC float3  quintic(const float3 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
+LYGIA_FNC float4  quintic(const float4 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
 
 #endif

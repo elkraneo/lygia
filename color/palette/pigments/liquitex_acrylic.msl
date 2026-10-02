@@ -8,6 +8,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../../lygia.msl"
+
 #ifndef LIQUITEX_ACRYLIC_QUINACRIDONE_BLUE_VIOLET
 #define LIQUITEX_ACRYLIC_QUINACRIDONE_BLUE_VIOLET float3(0.180, 0.071, 0.118)
 #endif

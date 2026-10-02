@@ -7,18 +7,20 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_MIX
 #define FNC_MIX
 
-static inline float   mmix(const float a, const float b, const float c) { return mix(a, b, c); }
-static inline float2    mmix(const float2 a, const float2 b, const float c) { return mix(a, b, c); }
-static inline float2    mmix(const float2 a, const float2 b, const float2 c) { return mix(a, b, c); }
-static inline float3    mmix(const float3 a, const float3 b, const float c) { return mix(a, b, c); }
-static inline float3    mmix(const float3 a, const float3 b, const float3 c) { return mix(a, b, c); }
-static inline float4    mmix(const float4 a, const float4 b, const float c) { return mix(a, b, c); }
-static inline float4    mmix(const float4 a, const float4 b, const float4 c) { return mix(a, b, c); }
+LYGIA_FNC float   mmix(const float a, const float b, const float c) { return mix(a, b, c); }
+LYGIA_FNC float2    mmix(const float2 a, const float2 b, const float c) { return mix(a, b, c); }
+LYGIA_FNC float2    mmix(const float2 a, const float2 b, const float2 c) { return mix(a, b, c); }
+LYGIA_FNC float3    mmix(const float3 a, const float3 b, const float c) { return mix(a, b, c); }
+LYGIA_FNC float3    mmix(const float3 a, const float3 b, const float3 c) { return mix(a, b, c); }
+LYGIA_FNC float4    mmix(const float4 a, const float4 b, const float c) { return mix(a, b, c); }
+LYGIA_FNC float4    mmix(const float4 a, const float4 b, const float4 c) { return mix(a, b, c); }
 
-static inline float mmix(const float a, const float b, const float c, const float pct) {
+LYGIA_FNC float mmix(const float a, const float b, const float c, const float pct) {
     return mix(
         mix(a, b, 2. * pct),
         mix(b, c, 2. * (max(pct, .5) - .5)),
@@ -26,7 +28,7 @@ static inline float mmix(const float a, const float b, const float c, const floa
     );
 }
 
-static inline float2 mmix(float2 a, float2 b, float2 c, float pct) {
+LYGIA_FNC float2 mmix(float2 a, float2 b, float2 c, float pct) {
     return mix(
         mix(a, b, 2. * pct),
         mix(b, c, 2. * (max(pct, .5) - .5)),
@@ -34,7 +36,7 @@ static inline float2 mmix(float2 a, float2 b, float2 c, float pct) {
     );
 }
 
-static inline float2 mmix(float2 a, float2 b, float2 c, float2 pct) {
+LYGIA_FNC float2 mmix(float2 a, float2 b, float2 c, float2 pct) {
     return mix(
         mix(a, b, 2. * pct),
         mix(b, c, 2. * (max(pct, .5) - .5)),
@@ -42,7 +44,7 @@ static inline float2 mmix(float2 a, float2 b, float2 c, float2 pct) {
     );
 }
 
-static inline float3 mmix(float3 a, float3 b, float3 c, float pct) {
+LYGIA_FNC float3 mmix(float3 a, float3 b, float3 c, float pct) {
     return mix(
         mix(a, b, 2. * pct),
         mix(b, c, 2. * (max(pct, .5) - .5)),
@@ -50,7 +52,7 @@ static inline float3 mmix(float3 a, float3 b, float3 c, float pct) {
     );
 }
 
-static inline float3 mmix(float3 a, float3 b, float3 c, float3 pct) {
+LYGIA_FNC float3 mmix(float3 a, float3 b, float3 c, float3 pct) {
     return mix(
         mix(a, b, 2. * pct),
         mix(b, c, 2. * (max(pct, .5) - .5)),
@@ -58,7 +60,7 @@ static inline float3 mmix(float3 a, float3 b, float3 c, float3 pct) {
     );
 }
 
-static inline float4 mmix(float4 a, float4 b, float4 c, float pct) {
+LYGIA_FNC float4 mmix(float4 a, float4 b, float4 c, float pct) {
     return mix(
         mix(a, b, 2. * pct),
         mix(b, c, 2. * (max(pct, .5) - .5)),
@@ -66,7 +68,7 @@ static inline float4 mmix(float4 a, float4 b, float4 c, float pct) {
     );
 }
 
-static inline float4 mmix(float4 a, float4 b, float4 c, float4 pct) {
+LYGIA_FNC float4 mmix(float4 a, float4 b, float4 c, float4 pct) {
     return mix(
         mix(a, b, 2. * pct),
         mix(b, c, 2. * (max(pct, .5) - .5)),
@@ -74,7 +76,7 @@ static inline float4 mmix(float4 a, float4 b, float4 c, float4 pct) {
     );
 }
 
-static inline float mmix(float a, float b, float c, float d, float pct) {
+LYGIA_FNC float mmix(float a, float b, float c, float d, float pct) {
     return mix(
         mix(a, b, 3. * pct),
         mix(b,
@@ -87,7 +89,7 @@ static inline float mmix(float a, float b, float c, float d, float pct) {
     );
 }
 
-static inline float2 mmix(float2 a, float2 b, float2 c, float2 d, float pct) {
+LYGIA_FNC float2 mmix(float2 a, float2 b, float2 c, float2 d, float pct) {
     return mix(
         mix(a, b, 3. * pct),
         mix(b,
@@ -100,7 +102,7 @@ static inline float2 mmix(float2 a, float2 b, float2 c, float2 d, float pct) {
     );
 }
 
-static inline float2 mmix(float2 a, float2 b, float2 c, float2 d, float2 pct) {
+LYGIA_FNC float2 mmix(float2 a, float2 b, float2 c, float2 d, float2 pct) {
     return mix(
         mix(a, b, 3. * pct),
         mix(b,
@@ -113,7 +115,7 @@ static inline float2 mmix(float2 a, float2 b, float2 c, float2 d, float2 pct) {
     );
 }
 
-static inline float3 mmix(float3 a, float3 b, float3 c, float3 d, float pct) {
+LYGIA_FNC float3 mmix(float3 a, float3 b, float3 c, float3 d, float pct) {
     return mix(
         mix(a, b, 3. * pct),
         mix(b,
@@ -126,7 +128,7 @@ static inline float3 mmix(float3 a, float3 b, float3 c, float3 d, float pct) {
     );
 }
 
-static inline float3 mmix(float3 a, float3 b, float3 c, float3 d, float3 pct) {
+LYGIA_FNC float3 mmix(float3 a, float3 b, float3 c, float3 d, float3 pct) {
     return mix(
         mix(a, b, 3. * pct),
         mix(b,
@@ -139,7 +141,7 @@ static inline float3 mmix(float3 a, float3 b, float3 c, float3 d, float3 pct) {
     );
 }
 
-static inline float4 mmix(float4 a, float4 b, float4 c, float4 d, float pct) {
+LYGIA_FNC float4 mmix(float4 a, float4 b, float4 c, float4 d, float pct) {
     return mix(
         mix(a, b, 3. * pct),
         mix(b,
@@ -152,7 +154,7 @@ static inline float4 mmix(float4 a, float4 b, float4 c, float4 d, float pct) {
     );
 }
 
-static inline float4 mmix(float4 a, float4 b, float4 c, float4 d, float4 pct) {
+LYGIA_FNC float4 mmix(float4 a, float4 b, float4 c, float4 d, float4 pct) {
     return mix(
         mix(a, b, 3. * pct),
         mix(b,

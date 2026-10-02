@@ -1,8 +1,10 @@
+#include "../../lygia.msl"
+
 #include "../../math/const.msl"
 
 #ifndef FNC_ASHIKHMIN
 #define FNC_ASHIKHMIN
-static inline float ashikhmin(float NoH, float roughness) {
+LYGIA_FNC float ashikhmin(float NoH, float roughness) {
     // Ashikhmin 2007, "Distribution-based BRDFs"
     float a2 = roughness * roughness;
     float cos2h = NoH * NoH;

@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "space/rgb2luma.msl"
 
 /*
@@ -8,7 +10,7 @@ use: luma(<float3|float4> color)
 
 #ifndef FNC_LUMA
 #define FNC_LUMA
-static inline float luma(float v) { return v; }
-static inline float luma(float3 v) { return rgb2luma(v); }
-static inline float luma(float4 v) { return rgb2luma(v.rgb); }
+LYGIA_FNC float luma(float v) { return v; }
+LYGIA_FNC float luma(float3 v) { return rgb2luma(v); }
+LYGIA_FNC float luma(float4 v) { return rgb2luma(v.rgb); }
 #endif

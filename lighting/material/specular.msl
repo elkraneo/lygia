@@ -10,10 +10,12 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_MATERIAL_SPECULAR
 #define FNC_MATERIAL_SPECULAR
 
-static inline float3 materialSpecular() {
+LYGIA_FNC float3 materialSpecular() {
     float3 spec = float3(0.04);
 #if defined(MATERIAL_SPECULAR)
     spec = MATERIAL_SPECULAR;

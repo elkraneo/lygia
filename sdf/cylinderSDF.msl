@@ -6,26 +6,28 @@ use:
     - <float> cylinderSDF( <float3> p, <float3> a, <float3> b, <float> r) 
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_CYLINDERSDF
 #define FNC_CYLINDERSDF
 
 // vertical
-static inline float cylinderSDF( float3 p, float2 h ) {
+LYGIA_FNC float cylinderSDF( float3 p, float2 h ) {
     float2 d = abs(float2(length(p.xz),p.y)) - h;
     return min(max(d.x,d.y),0.0) + length(max(d,0.0));
 }
 
-static inline float cylinderSDF( float3 p, float h ) {
+LYGIA_FNC float cylinderSDF( float3 p, float h ) {
     return cylinderSDF( p, float2(h) );
 }
 
-static inline float cylinderSDF( float3 p, float h, float r ) {
+LYGIA_FNC float cylinderSDF( float3 p, float h, float r ) {
     float2 d = abs(float2(length(p.xz),p.y)) - float2(h,r);
     return min(max(d.x,d.y),0.0) + length(max(d,0.0));
 }
 
 // arbitrary orientation
-static inline float cylinderSDF(float3 p, float3 a, float3 b, float r) {
+LYGIA_FNC float cylinderSDF(float3 p, float3 a, float3 b, float r) {
     float3 pa = p - a;
     float3 ba = b - a;
     float baba = dot(ba,ba);

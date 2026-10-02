@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/gaussian.msl"
 #include "../color/space/rgb2luma.msl"
 #include "../sample/clamp2edge.msl"
@@ -39,7 +41,7 @@ license:
 
 #ifndef FNC_BILATERALFILTER
 #define FNC_BILATERALFILTER
-static inline BILATERAL_TYPE bilateral(SAMPLER_TYPE tex, float2 st, float2 offset, int kernelSize) {
+LYGIA_FNC BILATERAL_TYPE bilateral(SAMPLER_TYPE tex, float2 st, float2 offset, int kernelSize) {
     BILATERAL_TYPE accumColor = BILATERAL_TYPE(0.);
 
     #ifndef BILATERAL_KERNELSIZE

@@ -1,4 +1,6 @@
 
+#include "../../lygia.msl"
+
 #include "aabb.msl"
 
 /*
@@ -13,7 +15,7 @@ license:
 #ifndef FNC_AABB_CONTAIN
 #define FNC_AABB_CONTAIN
 
-static inline bool contain(AABB box, float3 point ) {
+LYGIA_FNC bool contain(AABB box, float3 point ) {
     return  all( point <= box.max ) && 
             all( box.min < point );
 }

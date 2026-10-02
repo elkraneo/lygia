@@ -11,6 +11,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../../lygia.msl"
+
 #ifndef WADA_TOTAL
 #define WADA_TOTAL 157
 #endif
@@ -2059,7 +2061,7 @@ license:
 #ifndef FNC_PALETTE_WADA
 #define FNC_PALETTE_WADA
     
-static inline float3 wada( int index ) {
+LYGIA_FNC float3 wada( int index ) {
     float3 colors[157];
     colors[0] = WADA_HERMOSA_PINK;
     colors[1] = WADA_CORINTHIAN_PINK;
@@ -2227,7 +2229,7 @@ static inline float3 wada( int index ) {
     #endif
 }
 
-static inline float4 wadaCMYK( int index ) {
+LYGIA_FNC float4 wadaCMYK( int index ) {
     float4 colors[157];
     colors[0] = WADA_HERMOSA_PINK_CMYK;
     colors[1] = WADA_CORINTHIAN_PINK_CMYK;

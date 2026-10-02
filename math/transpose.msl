@@ -6,6 +6,8 @@ description: |
 use: <float3x3|float4x4> transpose(<float3x3|float4x4> m)
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_TRANSPOSE
 #define FNC_TRANSPOSE
 #endif

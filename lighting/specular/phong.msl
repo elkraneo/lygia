@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../shadingData/shadingData.msl"
 #include "../../math/powFast.msl"
 #include "../toShininess.msl"
@@ -14,16 +16,16 @@
 #define FNC_SPECULAR_PHONG 
 
 // https://github.com/glslify/glsl-specular-phong
-static inline float specularPhong(float3 L, float3 N, float3 V, float shininess) {
+LYGIA_FNC float specularPhong(float3 L, float3 N, float3 V, float shininess) {
     float3 R = reflect(L, N); // 2.0 * dot(N, L) * N - L;
     return SPECULAR_POW(max(0.0, dot(R, -V)), shininess);
 }
 
-static inline float specularPhong(ShadingData shadingData) {
+LYGIA_FNC float specularPhong(ShadingData shadingData) {
     return specularPhong(shadingData.L, shadingData.N, shadingData.V, shadingData.roughness);
 }
 
-static inline float specularPhongRoughness(ShadingData shadingData) {
+LYGIA_FNC float specularPhongRoughness(ShadingData shadingData) {
     return specularPhong(shadingData.L, shadingData.N, shadingData.V, toShininess(shadingData.roughness, 0.0));
 }
 

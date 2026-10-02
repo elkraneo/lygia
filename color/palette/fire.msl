@@ -9,7 +9,9 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_FIRE
 #define FNC_FIRE
-static inline float3 fire(float x) { return float3(1.0, 0.25, 0.0625) * exp(4.0 * x - 1.0); }
+LYGIA_FNC float3 fire(float x) { return float3(1.0, 0.25, 0.0625) * exp(4.0 * x - 1.0); }
 #endif

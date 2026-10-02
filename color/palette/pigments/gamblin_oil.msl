@@ -8,6 +8,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../../lygia.msl"
+
 #ifndef GAMBLIN_OIL_ULTRAMARINE_BLUE
 #define GAMBLIN_OIL_ULTRAMARINE_BLUE float3(0.173, 0.173, 0.231)
 #endif

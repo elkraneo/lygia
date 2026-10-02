@@ -1,16 +1,18 @@
+#include "../../lygia.msl"
+
 #include "../shadingData/shadingData.msl"
 
 #ifndef FNC_SPECULAR_GAUSSIAN
 #define FNC_SPECULAR_GAUSSIAN
 
 // https://github.com/glslify/glsl-specular-gaussian
-static inline float specularGaussian(float NoH, float roughness) {
+LYGIA_FNC float specularGaussian(float NoH, float roughness) {
     float theta = acos(NoH);
     float w = theta / roughness;
     return exp(-w*w);
 }
 
-static inline float specularGaussian(ShadingData shadingData) {
+LYGIA_FNC float specularGaussian(ShadingData shadingData) {
     return specularGaussian(shadingData.NoH, shadingData.roughness);
 }
 

@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "bounceOut.msl"
 
 /*
@@ -10,5 +12,5 @@ examples:
 
 #ifndef FNC_BOUNCEIN
 #define FNC_BOUNCEIN
-static inline float bounceIn(float t) { return 1.0 - bounceOut(1.0 - t); }
+LYGIA_FNC float bounceIn(float t) { return 1.0 - bounceOut(1.0 - t); }
 #endif

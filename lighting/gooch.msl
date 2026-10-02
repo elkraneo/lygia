@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 // LIGHT_POSITION default goes before the includes, so light/new.msl declares lightNew(LightPoint)
 #ifndef LIGHT_POSITION
 #define LIGHT_POSITION float3(0.0, 10.0, -50.0)
@@ -47,7 +49,7 @@ license:
 
 #ifndef FNC_GOOCH
 #define FNC_GOOCH
-static inline float4 gooch(float4 _albedo, float3 _N, float3 _L, float3 _V, float _roughness, float _Li) {
+LYGIA_FNC float4 gooch(float4 _albedo, float3 _N, float3 _L, float3 _V, float _roughness, float _Li) {
     float3 warm = GOOCH_WARM + _albedo.rgb * 0.6;
     float3 cold = GOOCH_COLD + _albedo.rgb * 0.1;
 
@@ -69,15 +71,15 @@ static inline float4 gooch(float4 _albedo, float3 _N, float3 _L, float3 _V, floa
     return float4(mix(mix(cold, warm, diff), GOOCH_SPECULAR, spec), _albedo.a);
 }
 
-static inline float4 gooch(LightDirectional _L, Material _M, ShadingData shadingData) {
+LYGIA_FNC float4 gooch(LightDirectional _L, Material _M, ShadingData shadingData) {
     return gooch(_M.albedo, _M.normal, _L.direction, shadingData.V, _M.roughness, _L.intensity);
 }
 
-static inline float4 gooch(LightPoint _L, Material _M, ShadingData shadingData) {
+LYGIA_FNC float4 gooch(LightPoint _L, Material _M, ShadingData shadingData) {
     return gooch(_M.albedo, _M.normal, _L.position, shadingData.V, _M.roughness, _L.intensity);
 }
 
-static inline float4 gooch(Material _M, ShadingData shadingData) {
+LYGIA_FNC float4 gooch(Material _M, ShadingData shadingData) {
     #if defined(LIGHT_DIRECTION)
     LightDirectional L;
     #elif defined(LIGHT_POSITION)
@@ -96,7 +98,7 @@ static inline float4 gooch(Material _M, ShadingData shadingData) {
     return gooch(L, _M, shadingData) * _M.ambientOcclusion;
 }
 
-static inline float4 gooch(Material _M) {
+LYGIA_FNC float4 gooch(Material _M) {
     ShadingData shadingData = shadingDataNew();
     shadingData.V = normalize(CAMERA_POSITION - _M.position);
     return gooch(_M, shadingData);

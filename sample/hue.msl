@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sampler.msl"
 #include "../color/space/rgb2hue.msl"
 
@@ -18,7 +20,7 @@ license:
 
 #ifndef FNC_SAMPLEHUE
 #define FNC_SAMPLEHUE
-static inline float sampleHue(SAMPLER_TYPE tex, float2 st) { 
+LYGIA_FNC float sampleHue(SAMPLER_TYPE tex, float2 st) { 
     return rgb2hue( SAMPLER_FNC( tex, st ) ); 
 }
 #endif

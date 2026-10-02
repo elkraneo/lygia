@@ -20,10 +20,12 @@ license: |
     and
        http://iquilezles.org/www/articles/distfunctions/distfunctions.htm
 */
+#include "../lygia.msl"
+
 #ifndef FNC_TRIPRISMSDF
 #define FNC_TRIPRISMSDF
 
-static inline float triPrismSDF( float3 p, float2 h ) {
+LYGIA_FNC float triPrismSDF( float3 p, float2 h ) {
     float3 q = abs(p);
     return max(q.z-h.y,max(q.x*0.866025+p.y*0.5,-p.y)-h.x*0.5);
 }

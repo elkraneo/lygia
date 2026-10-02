@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../../math/pow2.msl"
 
 /*
@@ -11,7 +13,7 @@ license:
 
 #ifndef FNC_IOR2F0
 #define FNC_IOR2F0
-static inline float ior2f0(float ior) { return pow2(ior - 1.0) / pow2(ior + 1.0); }
-static inline float3 ior2f0(float3 ior) { return pow2(ior - 1.0) / pow2(ior + 1.0); }
-static inline float4 ior2f0(float4 ior) { return float4(pow2(ior.rgb - 1.0) / pow2(ior.rgb + 1.0), ior.a); }
+LYGIA_FNC float ior2f0(float ior) { return pow2(ior - 1.0) / pow2(ior + 1.0); }
+LYGIA_FNC float3 ior2f0(float3 ior) { return pow2(ior - 1.0) / pow2(ior + 1.0); }
+LYGIA_FNC float4 ior2f0(float4 ior) { return float4(pow2(ior.rgb - 1.0) / pow2(ior.rgb + 1.0), ior.a); }
 #endif

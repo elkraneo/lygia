@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../../math/saturate.msl"
 
 /*
@@ -12,7 +14,7 @@ license:
 #ifndef FNC_K2RGB
 #define FNC_K2RGB
 
-static inline float3 k2rgb( float t) {
+LYGIA_FNC float3 k2rgb( float t) {
     float p = pow(t, -1.5);
     float l = log(t);
     float3 color = float3(

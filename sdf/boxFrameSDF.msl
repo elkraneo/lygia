@@ -4,10 +4,12 @@ description: generate the SDF of a bounding box
 use: <float> boxFrameSDF( <float3> p, <float3> b, <float> e )
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_BOXFRAMESDF
 #define FNC_BOXFRAMESDF
 
-static inline float boxFrameSDF( float3 p, float3 b, float e ) {
+LYGIA_FNC float boxFrameSDF( float3 p, float3 b, float e ) {
     p = abs(p) - b;
     float3 q = abs(p + e) - e;
 

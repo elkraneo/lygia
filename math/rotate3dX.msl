@@ -7,9 +7,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_ROTATE3DX
 #define FNC_ROTATE3DX
-static inline float3x3 rotate3dX(const float r){
+LYGIA_FNC float3x3 rotate3dX(const float r){
     float c = cos(r);
     float s = sin(r);
     return float3x3(float3(1.0,0.0,0.0),

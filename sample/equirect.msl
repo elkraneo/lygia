@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../space/xyz2equirect.msl"
 #include "../generative/random.msl"
 #include "../generative/srandom.msl"
@@ -20,7 +22,7 @@ license:
 
 #ifndef FNC_SAMPLEEQUIRECT
 #define FNC_SAMPLEEQUIRECT
-static inline float4 sampleEquirect(SAMPLER_TYPE tex, float3 dir) { 
+LYGIA_FNC float4 sampleEquirect(SAMPLER_TYPE tex, float3 dir) { 
     float2 st = xyz2equirect(dir);
     #ifdef SAMPLEEQUIRECT_FLIP_Y
     st.y = 1.0-st.y;
@@ -28,7 +30,7 @@ static inline float4 sampleEquirect(SAMPLER_TYPE tex, float3 dir) {
     return SAMPLER_FNC(tex, st); 
 }
 
-static inline float4 sampleEquirect(SAMPLER_TYPE tex, float3 dir, float lod) { 
+LYGIA_FNC float4 sampleEquirect(SAMPLER_TYPE tex, float3 dir, float lod) { 
     
     #if defined(SAMPLEEQUIRECT_ITERATIONS)
     float4 color = float4(0.0);

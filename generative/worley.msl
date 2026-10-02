@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "random.msl"
 #include "../math/dist.msl"
 
@@ -28,7 +30,7 @@ license:
 #define WORLEY_DIST_FNC distEuclidean
 #endif
 
-static inline float2 worley2(float2 p){
+LYGIA_FNC float2 worley2(float2 p){
     float2 n = floor( p );
     float2 f = fract( p );
 
@@ -53,9 +55,9 @@ static inline float2 worley2(float2 p){
     return float2(distF1, distF2);
 }
 
-static inline float worley(float2 p){ return 1.0-worley2(p).x; }
+LYGIA_FNC float worley(float2 p){ return 1.0-worley2(p).x; }
 
-static inline float2 worley2(float3 p) {
+LYGIA_FNC float2 worley2(float3 p) {
     float3 n = floor( p );
     float3 f = fract( p );
 
@@ -82,6 +84,6 @@ static inline float2 worley2(float3 p) {
     return float2(distF1, distF2);
 }
 
-static inline float worley(float3 p){ return 1.0-worley2(p).x; }
+LYGIA_FNC float worley(float3 p){ return 1.0-worley2(p).x; }
 
 #endif

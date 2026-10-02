@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sampler.msl"
 
 /*
@@ -31,7 +33,7 @@ license:
 
 #ifndef FNC_STRETCH
 #define FNC_STRETCH
-static inline STRETCH_TYPE stretch(SAMPLER_TYPE tex, float2 st, float2 direction, const int i_samples) {
+LYGIA_FNC STRETCH_TYPE stretch(SAMPLER_TYPE tex, float2 st, float2 direction, const int i_samples) {
     float f_samples = float(i_samples);
     STRETCH_TYPE color = STRETCH_TYPE(0.);
 
@@ -52,7 +54,7 @@ static inline STRETCH_TYPE stretch(SAMPLER_TYPE tex, float2 st, float2 direction
     return color / f_samples;
 }
 
-static inline STRETCH_TYPE stretch(SAMPLER_TYPE tex, float2 st, float2 direction) {
+LYGIA_FNC STRETCH_TYPE stretch(SAMPLER_TYPE tex, float2 st, float2 direction) {
     float f_samples = float(STRETCH_SAMPLES);  
     STRETCH_TYPE color = STRETCH_TYPE(0.);
     for (int i = 0; i < STRETCH_SAMPLES; i++) {

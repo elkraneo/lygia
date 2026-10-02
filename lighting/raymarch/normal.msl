@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "map.msl"
 
 /*
@@ -15,7 +17,7 @@ examples:
 #ifndef FNC_RAYMARCH_NORMAL
 #define FNC_RAYMARCH_NORMAL
 
-static inline float3 raymarchNormal(float3 pos, float2 pixel) {
+LYGIA_FNC float3 raymarchNormal(float3 pos, float2 pixel) {
    float2 offset = float2(1.0, -1.0) * pixel;
    return normalize( offset.xyy * RAYMARCH_MAP_FNC( pos + offset.xyy ).sdf +
                      offset.yyx * RAYMARCH_MAP_FNC( pos + offset.yyx ).sdf +
@@ -23,7 +25,7 @@ static inline float3 raymarchNormal(float3 pos, float2 pixel) {
                      offset.xxx * RAYMARCH_MAP_FNC( pos + offset.xxx ).sdf );
 }
 
-static inline float3 raymarchNormal(float3 pos, float e) {
+LYGIA_FNC float3 raymarchNormal(float3 pos, float e) {
    float2 offset = float2(1.0, -1.0) * e;
    return normalize( offset.xyy * RAYMARCH_MAP_FNC( pos + offset.xyy ).sdf +
                      offset.yyx * RAYMARCH_MAP_FNC( pos + offset.yyx ).sdf +
@@ -31,7 +33,7 @@ static inline float3 raymarchNormal(float3 pos, float e) {
                      offset.xxx * RAYMARCH_MAP_FNC( pos + offset.xxx ).sdf );
 }
 
-static inline float3 raymarchNormal( float3 pos ) {
+LYGIA_FNC float3 raymarchNormal( float3 pos ) {
    return raymarchNormal(pos, RAYMARCH_NORMAL_OFFSET);
 }
 

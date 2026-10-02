@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../../math/const.msl"
 #include "../../math/saturate.msl"
 
@@ -11,7 +13,7 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #ifndef FNC_LIGHT_FALLOFF
 #define FNC_LIGHT_FALLOFF
 
-static inline float falloff(float dist, float lightRadius) {
+LYGIA_FNC float falloff(float dist, float lightRadius) {
     float dr = dist/lightRadius; 
     float att = saturate(1.0 - dr*dr*dr*dr);
     att *= att;

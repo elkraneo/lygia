@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../space/sprite.msl"
 #include "../sampler.msl"
 
@@ -25,7 +27,7 @@ license:
 #ifndef FNC_SAMPLESPRITE
 #define FNC_SAMPLESPRITE
 
-static inline SAMPLESPRITE_TYPE sampleSprite(SAMPLER_TYPE tex, float2 st, float2 grid, float frame) {
+LYGIA_FNC SAMPLESPRITE_TYPE sampleSprite(SAMPLER_TYPE tex, float2 st, float2 grid, float frame) {
     return SAMPLESPRITE_SAMPLER_FNC(tex, sprite(st, grid, frame) );
 }
 

@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "space/rgb2lab.msl"
 #include "space/rgb2YCbCr.msl"
 #include "space/rgb2YPbPr.msl"
@@ -23,7 +25,7 @@ license:
 
 #ifndef FNC_PERCEPTUALDISTANCE
 #define FNC_PERCEPTUALDISTANCE
-static inline float colorDistanceLABCIE94(float3 rgb1, float3 rgb2) {
+LYGIA_FNC float colorDistanceLABCIE94(float3 rgb1, float3 rgb2) {
     float3 lab1 = rgb2lab(rgb1);
     float3 lab2 = rgb2lab(rgb2);
 
@@ -44,12 +46,12 @@ static inline float colorDistanceLABCIE94(float3 rgb1, float3 rgb2) {
     return mix( 0., sqrt(delta_e), step(0.,delta_e));
 }
 
-static inline float colorDistanceLAB(float3 rgb1, float3 rgb2)    { return distance(rgb2lab(rgb1), rgb2lab(rgb2)); }
-static inline float colorDistanceYCbCr(float3 rgb1, float3 rgb2)  { return distance(rgb2YCbCr(rgb1).yz, rgb2YCbCr(rgb2).yz); }
-static inline float colorDistanceYPbPr(float3 rgb1, float3 rgb2)  { return distance(rgb2YPbPr(rgb1).yz, rgb2YPbPr(rgb2).yz); }
-static inline float colorDistanceYUV(float3 rgb1, float3 rgb2)    { return distance(rgb2yuv(rgb1), rgb2yuv(rgb2)); }
-static inline float colorDistanceOKLAB(float3 rgb1, float3 rgb2)  { return distance(rgb2oklab(rgb1), rgb2oklab(rgb2)); }
+LYGIA_FNC float colorDistanceLAB(float3 rgb1, float3 rgb2)    { return distance(rgb2lab(rgb1), rgb2lab(rgb2)); }
+LYGIA_FNC float colorDistanceYCbCr(float3 rgb1, float3 rgb2)  { return distance(rgb2YCbCr(rgb1).yz, rgb2YCbCr(rgb2).yz); }
+LYGIA_FNC float colorDistanceYPbPr(float3 rgb1, float3 rgb2)  { return distance(rgb2YPbPr(rgb1).yz, rgb2YPbPr(rgb2).yz); }
+LYGIA_FNC float colorDistanceYUV(float3 rgb1, float3 rgb2)    { return distance(rgb2yuv(rgb1), rgb2yuv(rgb2)); }
+LYGIA_FNC float colorDistanceOKLAB(float3 rgb1, float3 rgb2)  { return distance(rgb2oklab(rgb1), rgb2oklab(rgb2)); }
 
-static inline float colorDistance(float3 rgb1, float3 rgb2)       { return COLORDISTANCE_FNC(rgb1, rgb2); }
-static inline float colorDistance(float4 rgb1, float4 rgb2)       { return COLORDISTANCE_FNC(rgb1.rgb, rgb2.rgb); }
+LYGIA_FNC float colorDistance(float3 rgb1, float3 rgb2)       { return COLORDISTANCE_FNC(rgb1, rgb2); }
+LYGIA_FNC float colorDistance(float4 rgb1, float4 rgb2)       { return COLORDISTANCE_FNC(rgb1.rgb, rgb2.rgb); }
 #endif

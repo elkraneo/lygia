@@ -4,9 +4,11 @@ description: Tonemapping function from presentation, uncharted 2 HDR Lighting, P
 use: <float3|float4> tonemapUncharted2(<float3|float4> x)
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_TONEMAPUNCHARTED2
 #define FNC_TONEMAPUNCHARTED2
-static inline float3 tonemapUncharted2(float3 v) {
+LYGIA_FNC float3 tonemapUncharted2(float3 v) {
     float A = 0.15; // 0.22
     float B = 0.50; // 0.30
     float C = 0.10;
@@ -20,5 +22,5 @@ static inline float3 tonemapUncharted2(float3 v) {
     return x.xyz / x.w;
 }
 
-static inline float4 tonemapUncharted2(float4 x) { return float4( tonemapUncharted2(x.rgb), x.a); }
+LYGIA_FNC float4 tonemapUncharted2(float4 x) { return float4( tonemapUncharted2(x.rgb), x.a); }
 #endif

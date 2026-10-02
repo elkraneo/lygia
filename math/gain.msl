@@ -7,9 +7,11 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/math_functions.frag
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_GAIN
 #define FNC_GAIN
-static inline float gain(float x, float k) {
+LYGIA_FNC float gain(float x, float k) {
     float a = 0.5 * pow(2.0*((x<0.5)? x : 1.0-x), k);
     return (x < 0.5) ? a : 1.0-a;
 }

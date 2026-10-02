@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "type.msl"
 
 /*
@@ -14,7 +16,7 @@ license:
 #ifndef FNC_QUATLERP
 #define FNC_QUATLERP
 
-static inline QUAT quatLerp(QUAT qa, QUAT qb, float t) {
+LYGIA_FNC QUAT quatLerp(QUAT qa, QUAT qb, float t) {
     // qa = normalize(qa);
     // qb = normalize(qb);
 

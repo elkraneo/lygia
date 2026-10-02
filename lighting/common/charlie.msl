@@ -1,8 +1,10 @@
+#include "../../lygia.msl"
+
 #include "../../math/const.msl"
 
 #ifndef FNC_CHARLIE
 #define FNC_CHARLIE
-static inline float charlie(float NoH, float roughness) {
+LYGIA_FNC float charlie(float NoH, float roughness) {
     // Estevez and Kulla 2017, "Production Friendly Microfacet Sheen BRDF"
     float invAlpha  = 1.0 / roughness;
     float cos2h = NoH * NoH;

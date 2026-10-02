@@ -4,12 +4,14 @@ description: Photographic Tone Reproduction for Digital Images. http://www.cmap.
 use: <float3|float4> tonemapReinhardJodie(<float3|float4> x)
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_TONEMAPREINHARDJODIE
 #define FNC_TONEMAPREINHARDJODIE
-static inline float3 tonemapReinhardJodie(float3 x) { 
+LYGIA_FNC float3 tonemapReinhardJodie(float3 x) { 
     float l = dot(x, float3(0.21250175, 0.71537574, 0.07212251));
     float3 tc = x / (x + 1.0);
     return mix(x / (l + 1.0), tc, tc); 
 }
-static inline float4 tonemapReinhardJodie(float4 x) { return float4( tonemapReinhardJodie(x.rgb), x.a ); }
+LYGIA_FNC float4 tonemapReinhardJodie(float4 x) { return float4( tonemapReinhardJodie(x.rgb), x.a ); }
 #endif

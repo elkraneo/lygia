@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "snoise.msl"
 #include "gnoise.msl"
 
@@ -66,7 +68,7 @@ license:
 
 #ifndef FNC_FBM
 #define FNC_FBM
-static inline FBM_NOISE_TYPE fbm(float2 st) {
+LYGIA_FNC FBM_NOISE_TYPE fbm(float2 st) {
     // Initial values
     FBM_NOISE_TYPE value = FBM_NOISE_TYPE(FBM_VALUE_INITIAL);
     float amplitude = FBM_AMPLITUDE_INITIAL;
@@ -80,7 +82,7 @@ static inline FBM_NOISE_TYPE fbm(float2 st) {
     return value;
 }
 
-static inline FBM_NOISE_TYPE fbm(float3 pos) {
+LYGIA_FNC FBM_NOISE_TYPE fbm(float3 pos) {
     // Initial values
     FBM_NOISE_TYPE value = FBM_NOISE_TYPE(FBM_VALUE_INITIAL);
     float amplitude = FBM_AMPLITUDE_INITIAL;
@@ -94,7 +96,7 @@ static inline FBM_NOISE_TYPE fbm(float3 pos) {
     return value;
 }
 
-static inline FBM_NOISE_TYPE fbm(float3 p, float tileLength) {
+LYGIA_FNC FBM_NOISE_TYPE fbm(float3 p, float tileLength) {
     const float persistence = 0.5;
     const float lacunarity = 2.0;
 

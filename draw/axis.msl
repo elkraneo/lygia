@@ -1,4 +1,6 @@
 
+#include "../lygia.msl"
+
 #include "line.msl"
 
 /*
@@ -14,7 +16,7 @@ license:
 #ifndef FNC_AXIS
 #define FNC_AXIS
 
-static inline float4 axis(float2 st, float4x4 M, float3 pos, float thickness) {
+LYGIA_FNC float4 axis(float2 st, float4x4 M, float3 pos, float thickness) {
     float4 rta = float4(0.0);
 
     float4 center = M * float4(pos, 1.0);

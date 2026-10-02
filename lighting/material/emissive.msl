@@ -10,10 +10,12 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_MATERIAL_EMISSIVE
 #define FNC_MATERIAL_EMISSIVE
 
-static inline float3 materialEmissive() {
+LYGIA_FNC float3 materialEmissive() {
     float3 emission = float3(0.0);
 
 #if defined(MATERIAL_EMISSIVE)

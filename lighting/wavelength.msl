@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../color/space/w2rgb.msl"
 
 /*
@@ -11,5 +13,5 @@ license:
 
 #ifndef FNC_WAVELENGTH
 #define FNC_WAVELENGTH
-static inline float3 wavelength(float w) { return w2rgb(w); }
+LYGIA_FNC float3 wavelength(float w) { return w2rgb(w); }
 #endif

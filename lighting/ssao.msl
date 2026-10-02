@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/saturate.msl"
 #include "../space/linearizeDepth.msl"
 #include "../space/depth2viewZ.msl"
@@ -72,7 +74,7 @@ license:
 #ifndef FNC_SSAO
 #define FNC_SSAO
 
-static inline float ssao(SAMPLER_TYPE texDepth, float2 st, float2 pixel, float radius, float cameraNear, float cameraFar) {
+LYGIA_FNC float ssao(SAMPLER_TYPE texDepth, float2 st, float2 pixel, float radius, float cameraNear, float cameraFar) {
 
     #if defined(SSAO_NOISE_ARRAY)
     float2 fragCoord = st / pixel;
@@ -114,11 +116,11 @@ static inline float ssao(SAMPLER_TYPE texDepth, float2 st, float2 pixel, float r
 }
 
 #if defined(CAMERA_NEAR_CLIP) && defined(CAMERA_FAR_CLIP)
-static inline float ssao(SAMPLER_TYPE texDepth, float2 st, float2 pixel, float radius) {
+LYGIA_FNC float ssao(SAMPLER_TYPE texDepth, float2 st, float2 pixel, float radius) {
     return ssao(texDepth, st, pixel, radius, CAMERA_NEAR_CLIP, CAMERA_FAR_CLIP);
 }
 #endif
-static inline float ssao(SAMPLER_TYPE texDepth, float2 coord) {
+LYGIA_FNC float ssao(SAMPLER_TYPE texDepth, float2 coord) {
     float cd = SSAO_DEPTH_SAMPLE_FNC(texDepth, coord);
     float ao_radious = 1.0/100.0;
     float screenRadius = 0.5 * (ao_radious / cd) / 0.53135;
@@ -135,7 +137,7 @@ static inline float ssao(SAMPLER_TYPE texDepth, float2 coord) {
     return 1.0 - li / count;
 }
 
-static inline float ssao(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float radius, constant float3* samples, int samplesNum, float4x4 projection) {
+LYGIA_FNC float ssao(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float radius, constant float3* samples, int samplesNum, float4x4 projection) {
     float4  position  = SSAO_POS_SAMPLE_FNC(texPosition, st);
     float3  normal    = SSAO_NORMAL_SAMPLE_FNC(texNormal, st);
 
@@ -173,7 +175,7 @@ static inline float ssao(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float
 }
 
 #if defined(SSAO_SAMPLES_ARRAY) && defined(CAMERA_PROJECTION_MATRIX)
-static inline float ssao(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float radius) {
+LYGIA_FNC float ssao(SAMPLER_TYPE texPosition, SAMPLER_TYPE texNormal, float2 st, float radius) {
     return ssao(texPosition, texNormal, st, radius, SSAO_SAMPLES_ARRAY, SSAO_SAMPLES_NUM, CAMERA_PROJECTION_MATRIX);
 }
 #endif

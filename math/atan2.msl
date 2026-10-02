@@ -9,6 +9,8 @@ description: |
 use: <float> atan2(<float>y, <float> x)
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_ATAN2
 #define FNC_ATAN2
 #endif

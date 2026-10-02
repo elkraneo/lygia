@@ -7,9 +7,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_CONTRASTMATRIX
 #define FNC_CONTRASTMATRIX
-static inline float4x4 contrastMatrix(float a) {
+LYGIA_FNC float4x4 contrastMatrix(float a) {
     float t = ( 1. - a ) * .5;
     return float4x4( a, .0, .0, .0,
                 .0, a, .0, .0,

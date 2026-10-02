@@ -4,8 +4,10 @@ description: generate the SDF of a sphere
 use: <float> sphereSDF( <float3> pos[], <float> size] ) 
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_SPHERESDF
 #define FNC_SPHERESDF
-static inline float sphereSDF(float3 p) { return length(p); }
-static inline float sphereSDF(float3 p, float s) { return sphereSDF(p) - s; }
+LYGIA_FNC float sphereSDF(float3 p) { return length(p); }
+LYGIA_FNC float sphereSDF(float3 p, float s) { return sphereSDF(p) - s; }
 #endif

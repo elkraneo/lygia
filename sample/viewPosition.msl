@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../space/depth2viewZ.msl"
 #include "../space/screen2viewPosition.msl"
 
@@ -22,31 +24,31 @@ license:
 
 #ifndef FNC_SAMPLEVIEWPOSITION
 #define FNC_SAMPLEVIEWPOSITION
-static inline float4 sampleViewPosition(float depth, float2 st, float near, float far, float4x4 projection) {
+LYGIA_FNC float4 sampleViewPosition(float depth, float2 st, float near, float far, float4x4 projection) {
     float viewZ = depth2viewZ(depth, near, far);
     return screen2viewPosition(st, depth, viewZ, projection);
 }
 
-static inline float4 sampleViewPosition(SAMPLER_TYPE texDepth, float2 st, float near, float far, float4x4 projection) {
+LYGIA_FNC float4 sampleViewPosition(SAMPLER_TYPE texDepth, float2 st, float near, float far, float4x4 projection) {
     float depth = SAMPLER_FNC(texDepth, st).r;
     float viewZ = depth2viewZ(depth, near, far);
     return screen2viewPosition(st, depth, viewZ, projection);
 }
 
 #ifdef CAMERA_PROJECTION_MATRIX
-static inline float4 sampleViewPosition(float depth, float2 st, float near, float far) {
+LYGIA_FNC float4 sampleViewPosition(float depth, float2 st, float near, float far) {
     float viewZ = depth2viewZ(depth, near, far);
     return screen2viewPosition(st, depth, viewZ);
 }
 
-static inline float4 sampleViewPosition(SAMPLER_TYPE texDepth, float2 st, float near, float far) {
+LYGIA_FNC float4 sampleViewPosition(SAMPLER_TYPE texDepth, float2 st, float near, float far) {
     float depth = SAMPLER_FNC(texDepth, st).r;
     float viewZ = depth2viewZ(depth, near, far);
     return screen2viewPosition(st, depth, viewZ);
 }
 
 #if defined(CAMERA_NEAR_CLIP) && defined(CAMERA_FAR_CLIP)
-static inline float4 sampleViewPosition(SAMPLER_TYPE texDepth, float2 st) {
+LYGIA_FNC float4 sampleViewPosition(SAMPLER_TYPE texDepth, float2 st) {
     return sampleViewPosition( texDepth, st, CAMERA_NEAR_CLIP, CAMERA_FAR_CLIP); 
 }
 #endif

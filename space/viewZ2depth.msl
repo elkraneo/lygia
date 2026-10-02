@@ -11,9 +11,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_VIEWZ2DEPTH
 #define FNC_VIEWZ2DEPTH
-static inline float viewZ2depth( const float viewZ, const float near, const float far ) {
+LYGIA_FNC float viewZ2depth( const float viewZ, const float near, const float far ) {
     #if defined(CAMERA_ORTHOGRAPHIC_PROJECTION)
     return ( viewZ + near ) / ( near - far );
     #else
@@ -22,7 +24,7 @@ static inline float viewZ2depth( const float viewZ, const float near, const floa
 }
 
 #if defined(CAMERA_NEAR_CLIP) && defined(CAMERA_FAR_CLIP)
-static inline float viewZ2depth( const float viewZ) {
+LYGIA_FNC float viewZ2depth( const float viewZ) {
     return viewZ2depth( viewZ, CAMERA_NEAR_CLIP, CAMERA_FAR_CLIP); 
 }
 #endif

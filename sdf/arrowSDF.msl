@@ -4,9 +4,11 @@ description: Distance function for an arrow. Returns float. Originally from http
 use: arrowSDF(<float3> v, <float3> start, <float3> end, <float> baseRadius, <float> tipRadius, <float> tipHeight)
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_ARROWSDF
 #define FNC_ARROWSDF
-static inline float arrowSDF(float3 v, float3 start, float3 end, float baseRadius, float tipRadius, float tipHeight){
+LYGIA_FNC float arrowSDF(float3 v, float3 start, float3 end, float baseRadius, float tipRadius, float tipHeight){
     float3 t = start - end;
     float l = length(t);
     t /= l;

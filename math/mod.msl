@@ -7,20 +7,22 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_MOD
 #define FNC_MOD
 
 // Scalar mod function (float)
-static inline float mod(float x, float y) { return x - y * floor(x / y); }
+LYGIA_FNC float mod(float x, float y) { return x - y * floor(x / y); }
 
 // Vector mod functions (float2, float3, float4)
-static inline float2 mod(float2 x, float2 y) { return x - y * floor(x / y); }
-static inline float3 mod(float3 x, float3 y) { return x - y * floor(x / y); }
-static inline float4 mod(float4 x, float4 y) { return x - y * floor(x / y); }
+LYGIA_FNC float2 mod(float2 x, float2 y) { return x - y * floor(x / y); }
+LYGIA_FNC float3 mod(float3 x, float3 y) { return x - y * floor(x / y); }
+LYGIA_FNC float4 mod(float4 x, float4 y) { return x - y * floor(x / y); }
 
 // Scalar mod function with scalar divisor (float2, float3, float4)
-static inline float2 mod(float2 x, float y) { return mod(x, float2(y)); }
-static inline float3 mod(float3 x, float y) { return mod(x, float3(y)); }
-static inline float4 mod(float4 x, float y) { return mod(x, float4(y)); }
+LYGIA_FNC float2 mod(float2 x, float y) { return mod(x, float2(y)); }
+LYGIA_FNC float3 mod(float3 x, float y) { return mod(x, float3(y)); }
+LYGIA_FNC float4 mod(float4 x, float y) { return mod(x, float4(y)); }
 
 #endif

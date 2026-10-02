@@ -7,18 +7,20 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_STROKE
 #define FNC_STROKE
 
 #include "../math/aastep.msl"
 #include "../math/saturate.msl"
 
-static inline float stroke(float x, float size, float w) {
+LYGIA_FNC float stroke(float x, float size, float w) {
     float d = aastep(size, x + w * 0.5) - aastep(size, x - w * 0.5);
     return saturate(d);
 }
 
-static inline float stroke(float x, float size, float w, float edge) {
+LYGIA_FNC float stroke(float x, float size, float w, float edge) {
     float d = smoothstep(size - edge, size + edge, x + w * 0.5) - smoothstep(size - edge, size + edge, x - w * 0.5);
     return saturate(d);
 }

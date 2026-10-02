@@ -7,6 +7,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef MAT_RGB2PBPR
 #define MAT_RGB2PBPR
 #ifdef YPBPR_SDTV
@@ -26,6 +28,6 @@ constant float3x3 RGB2PBPR = float3x3(
 
 #ifndef FNC_RGB2YPBPR
 #define FNC_RGB2YPBPR
-static inline float3 rgb2YPbPr( float3 rgb) { return RGB2PBPR * rgb; }
-static inline float4 rgb2YPbPr( float4 rgb) { return float4(rgb2YPbPr(rgb.rgb),rgb.a); }
+LYGIA_FNC float3 rgb2YPbPr( float3 rgb) { return RGB2PBPR * rgb; }
+LYGIA_FNC float4 rgb2YPbPr( float4 rgb) { return float4(rgb2YPbPr(rgb.rgb),rgb.a); }
 #endif

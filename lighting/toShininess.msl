@@ -7,9 +7,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_TOSHININESS
 #define FNC_TOSHININESS
-static inline float toShininess(float roughness, float metallic) {
+LYGIA_FNC float toShininess(float roughness, float metallic) {
     float s = .95 - roughness * 0.5;
     s *= s;
     s *= s;

@@ -10,10 +10,12 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_MATERIAL_ROUGHNESS
 #define FNC_MATERIAL_ROUGHNESS
 
-static inline float materialRoughness() {
+LYGIA_FNC float materialRoughness() {
     float roughness = 0.05;
 
 #if defined(MATERIAL_ROUGHNESS)

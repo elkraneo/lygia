@@ -4,6 +4,8 @@ description: Structure to hold shading variables
 license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 */
 
+#include "../../lygia.msl"
+
 #ifndef STR_SHADING_DATA
 #define STR_SHADING_DATA
 

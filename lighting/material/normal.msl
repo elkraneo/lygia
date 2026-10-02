@@ -10,10 +10,12 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_MATERIAL_NORMAL
 #define FNC_MATERIAL_NORMAL
 
-static inline float3 materialNormal() {
+LYGIA_FNC float3 materialNormal() {
     float3 normal = float3(0.0, 0.0, 1.0);
     return normal;
 }

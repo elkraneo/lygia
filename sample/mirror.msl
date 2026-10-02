@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sampler.msl"
 #include "../math/mirror.msl"
 
@@ -16,7 +18,7 @@ license:
 
 #ifndef FNC_SAMPLEMIRROR
 #define FNC_SAMPLEMIRROR
-static inline float4 sampleMirror(SAMPLER_TYPE tex, float2 st) { 
+LYGIA_FNC float4 sampleMirror(SAMPLER_TYPE tex, float2 st) { 
     return SAMPLER_FNC( tex, mirror(st) ); 
 }
 #endif

@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/cubic.msl"
 #include "../math/quintic.msl"
 #include "../sampler.msl"
@@ -19,7 +21,7 @@ examples:
 
 #ifndef FNC_SAMPLESMOOTH
 #define FNC_SAMPLESMOOTH
-static inline float4 sampleSmooth(SAMPLER_TYPE tex, float2 st, float2 texResolution) {
+LYGIA_FNC float4 sampleSmooth(SAMPLER_TYPE tex, float2 st, float2 texResolution) {
     st = st * texResolution + 0.5;
     float2 fst = fract( st );
     st = floor( st );

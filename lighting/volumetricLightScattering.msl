@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/const.msl"
 #include "../math/inverse.msl"
 #include "../space/screen2viewPosition.msl"
@@ -71,7 +73,7 @@ license:
 
 #ifndef FNC_VOLUMETRICLIGHTSCATTERING
 #define FNC_VOLUMETRICLIGHTSCATTERING
-static inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE lightShadowMap, float4x4 lightMatrix, float3 lightPos, float3 rayOrigin, float3 rayEnd) {
+LYGIA_FNC VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE lightShadowMap, float4x4 lightMatrix, float3 lightPos, float3 rayOrigin, float3 rayEnd) {
     float3  rayVector     = rayEnd - rayOrigin;
     float rayLength     = length(rayVector);
     float3  rayDirection  = rayVector / rayLength;
@@ -103,7 +105,7 @@ static inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_T
     return L * stepLength;
 }
 
-static inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE texDepth, float2 st, float cameraNear, float cameraFar, float4x4 projection, float4x4 inverseView, float3 cameraPosition, SAMPLER_TYPE lightShadowMap, float4x4 lightMatrix, float3 lightPos) {
+LYGIA_FNC VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE texDepth, float2 st, float cameraNear, float cameraFar, float4x4 projection, float4x4 inverseView, float3 cameraPosition, SAMPLER_TYPE lightShadowMap, float4x4 lightMatrix, float3 lightPos) {
     float depth = VOLUMETRICLIGHTSCATTERING_SAMPLE_FNC(texDepth, st);
     float viewZ = depth2viewZ(depth, cameraNear, cameraFar);
     
@@ -116,7 +118,7 @@ static inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_T
 }
 
 #if defined(CAMERA_POSITION) && defined(CAMERA_NEAR_CLIP) && defined(CAMERA_FAR_CLIP) && defined(CAMERA_PROJECTION_MATRIX) && defined(CAMERA_VIEW_MATRIX) && defined(LIGHT_MATRIX)
-static inline VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE texDepth, float2 st, SAMPLER_TYPE lightShadowMap) {
+LYGIA_FNC VOLUMETRICLIGHTSCATTERING_TYPE volumetricLightScattering(SAMPLER_TYPE texDepth, float2 st, SAMPLER_TYPE lightShadowMap) {
     float depth = VOLUMETRICLIGHTSCATTERING_SAMPLE_FNC(texDepth, st);
     float viewZ = depth2viewZ(depth, CAMERA_NEAR_CLIP, CAMERA_FAR_CLIP);
     #ifdef VOLUMETRICLIGHTSCATTERING_NOISE_FNC

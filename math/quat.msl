@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "quat/mul.msl"
 #include "quat/identity.msl"
 
@@ -17,13 +19,13 @@ license:
 #define FNC_QUAT
 
 // A given r of rotation about a given axis
-static inline QUAT quat(float3 axis, float r) {
+LYGIA_FNC QUAT quat(float3 axis, float r) {
     float sn = sin(r * 0.5);
     float cs = cos(r * 0.5);
     return QUAT(axis * sn, cs);
 }
 
-static inline QUAT quat(float3 f, float3 up) {
+LYGIA_FNC QUAT quat(float3 f, float3 up) {
     float3 right = normalize(cross(f, -up));
     up = normalize(cross(f, right));
 
@@ -78,6 +80,6 @@ static inline QUAT quat(float3 f, float3 up) {
     return q;
 }
 
-static inline QUAT quat(float3 f) { return quat(f, float3(0.0, 1.0, 0.0)); }
+LYGIA_FNC QUAT quat(float3 f) { return quat(f, float3(0.0, 1.0, 0.0)); }
 
 #endif

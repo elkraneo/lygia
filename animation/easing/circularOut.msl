@@ -6,7 +6,9 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/animation_easing.frag
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_CIRCULAROUT
 #define FNC_CIRCULAROUT
-static inline float circularOut(float t) { return sqrt((2.0 - t) * t); }
+LYGIA_FNC float circularOut(float t) { return sqrt((2.0 - t) * t); }
 #endif

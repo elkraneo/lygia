@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "point.msl"
 #include "pointEvaluate.msl"
 #include "directional.msl"
@@ -7,12 +9,12 @@
 #ifndef FNC_LIGHT_RESOLVE
 #define FNC_LIGHT_RESOLVE
 
-static inline void lightResolve(LightPoint L, Material mat, thread ShadingData& shadingData) {
+LYGIA_FNC void lightResolve(LightPoint L, Material mat, thread ShadingData& shadingData) {
     lightPointEvaluate(L, mat, shadingData);
 }
 
 
-static inline void lightResolve(LightDirectional L, Material mat, thread ShadingData& shadingData) {
+LYGIA_FNC void lightResolve(LightDirectional L, Material mat, thread ShadingData& shadingData) {
     lightDirectionalEvaluate(L, mat, shadingData);
 }
 

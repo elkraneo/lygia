@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sampler.msl"
 
 /*
@@ -13,7 +15,7 @@ license:
 
 #ifndef FNC_SAMPLEREPEAT
 #define FNC_SAMPLEREPEAT
-static inline float4 sampleRepeat(SAMPLER_TYPE tex, float2 st) { 
+LYGIA_FNC float4 sampleRepeat(SAMPLER_TYPE tex, float2 st) { 
     return SAMPLER_FNC( tex, fract(st) ); 
 }
 #endif

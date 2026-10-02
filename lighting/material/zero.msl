@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../material.msl"
 
 /*
@@ -24,7 +26,7 @@ license:
 #ifndef FNC_MATERIAL_ZERO
 #define FNC_MATERIAL_ZERO
 
-static inline void materialZero(thread Material& _mat) {
+LYGIA_FNC void materialZero(thread Material& _mat) {
     _mat.albedo = float4(0.0);
     _mat.emissive = float3(0.0);
     _mat.position = float3(0.0);
@@ -62,7 +64,7 @@ static inline void materialZero(thread Material& _mat) {
 #endif
 }
 
-static inline Material materialZero() {
+LYGIA_FNC Material materialZero() {
     Material mat;
     materialZero(mat);
     return mat;

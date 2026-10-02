@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sampler.msl"
 
 /*
@@ -37,7 +39,7 @@ license:
 
 #ifndef FNC_GAUSSIANBLUR
 #define FNC_GAUSSIANBLUR
-static inline GAUSSIANBLUR_TYPE gaussianBlur13(SAMPLER_TYPE tex, float2 st, float2 offset) {
+LYGIA_FNC GAUSSIANBLUR_TYPE gaussianBlur13(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #ifdef GAUSSIANBLUR_2D
     return gaussianBlur2D(tex, st, offset, 7);
 #else
@@ -45,7 +47,7 @@ static inline GAUSSIANBLUR_TYPE gaussianBlur13(SAMPLER_TYPE tex, float2 st, floa
 #endif
 }
 
-static inline GAUSSIANBLUR_TYPE gaussianBlur9(SAMPLER_TYPE tex, float2 st, float2 offset) {
+LYGIA_FNC GAUSSIANBLUR_TYPE gaussianBlur9(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #ifdef GAUSSIANBLUR_2D
     return gaussianBlur2D(tex, st, offset, 5);
 #else
@@ -53,7 +55,7 @@ static inline GAUSSIANBLUR_TYPE gaussianBlur9(SAMPLER_TYPE tex, float2 st, float
 #endif
 }
 
-static inline GAUSSIANBLUR_TYPE gaussianBlur5(SAMPLER_TYPE tex, float2 st, float2 offset) {
+LYGIA_FNC GAUSSIANBLUR_TYPE gaussianBlur5(SAMPLER_TYPE tex, float2 st, float2 offset) {
 #ifdef GAUSSIANBLUR_2D
     return gaussianBlur2D(tex, st, offset, 3);
 #else
@@ -61,7 +63,7 @@ static inline GAUSSIANBLUR_TYPE gaussianBlur5(SAMPLER_TYPE tex, float2 st, float
 #endif
 }
 
-static inline GAUSSIANBLUR_TYPE gaussianBlur(SAMPLER_TYPE tex, float2 st, float2 offset, const int kernelSize) {
+LYGIA_FNC GAUSSIANBLUR_TYPE gaussianBlur(SAMPLER_TYPE tex, float2 st, float2 offset, const int kernelSize) {
 #ifdef GAUSSIANBLUR_2D
     return gaussianBlur2D(tex, st, offset, kernelSize);
 #else
@@ -69,7 +71,7 @@ static inline GAUSSIANBLUR_TYPE gaussianBlur(SAMPLER_TYPE tex, float2 st, float2
 #endif
 }
 
-static inline GAUSSIANBLUR_TYPE gaussianBlur(SAMPLER_TYPE tex, float2 st, float2 offset) {
+LYGIA_FNC GAUSSIANBLUR_TYPE gaussianBlur(SAMPLER_TYPE tex, float2 st, float2 offset) {
     return GAUSSIANBLUR_AMOUNT(tex, st, offset);
 }
 #endif

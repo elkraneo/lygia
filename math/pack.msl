@@ -5,6 +5,8 @@ description: |
 use: <float4> pack(<float> v)
 */
 
+#include "../lygia.msl"
+
 #ifndef CONST_PACKING
 #define CONST_PACKING
 constant float PackUpscale = 256. / 255.; // fraction -> 0..1 (including 1)
@@ -17,7 +19,7 @@ constant float ShiftRight8 = 1. / 256.;
 #ifndef FNC_PACK
 #define FNC_PACK
 
-static inline float4 pack( const float v ) {
+LYGIA_FNC float4 pack( const float v ) {
 	float4 r = float4( fract( v * PackFactors ), v );
 	r.yzw -= r.xyz * ShiftRight8; // tidy overflow
 	return r * PackUpscale;

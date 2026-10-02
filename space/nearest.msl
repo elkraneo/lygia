@@ -7,13 +7,15 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef NEAREST_FLOOR_FNC
 #define NEAREST_FLOOR_FNC(UV) floor(UV)
 #endif
 
 #ifndef FNC_NEAREST
 #define FNC_NEAREST
-static inline float2 nearest(float2 v, float2 res) {
+LYGIA_FNC float2 nearest(float2 v, float2 res) {
     float2 offset = 0.5 / (res - 1.0);
     return NEAREST_FLOOR_FNC(v * res) / res + offset;
 }

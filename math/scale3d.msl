@@ -9,21 +9,23 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_SCALE3D
 #define FNC_SCALE3D
-static inline float3x3 scale3d(float s) {
+LYGIA_FNC float3x3 scale3d(float s) {
     return float3x3(s, 0.0, 0.0,
                 0.0, s, 0.0,
                 0.0, 0.0, s );
 }
 
-static inline float3x3 scale3d(float x, float y, float z) {
+LYGIA_FNC float3x3 scale3d(float x, float y, float z) {
     return float3x3(  x, 0.0, 0.0,
                 0.0,  y, 0.0,
                 0.0, 0.0,  z );
 }
 
-static inline float3x3 scale3d(float3 s) {
+LYGIA_FNC float3x3 scale3d(float3 s) {
     return float3x3(s.x, 0.0, 0.0,
                 0.0, s.y, 0.0,
                 0.0, 0.0, s.z );

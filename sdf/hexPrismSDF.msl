@@ -4,10 +4,12 @@ description: generate the SDF of a hexagonal prism
 use: <float> hexPrismSDF( <float3> pos, <float2> h ) 
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_HEXPRISMSDF
 #define FNC_HEXPRISMSDF
 
-static inline float hexPrismSDF( float3 p, float2 h ) {
+LYGIA_FNC float hexPrismSDF( float3 p, float2 h ) {
     float3 q = abs(p);
     float d1 = q.z-h.y;
     float d2 = max((q.x*0.866025+q.y*0.5),q.y)-h.x;

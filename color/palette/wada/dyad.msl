@@ -13,13 +13,15 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../../lygia.msl"
+
 #ifndef WADA_DYAD_TOTAL
 #define WADA_DYAD_TOTAL 124
 #endif
 
 #ifndef FNC_PALETTE_WADA_DUAD
 #define FNC_PALETTE_WADA_DUAD            
-static inline int2 wadaDyad( int index ) {
+LYGIA_FNC int2 wadaDyad( int index ) {
     int2 d[WADA_DYAD_TOTAL];
     d[0] = int2(65,115);
     d[1] = int2(13,39);

@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "div.msl"
 #include "conj.msl"
 #include "lengthSq.msl"
@@ -13,5 +15,5 @@ license:
 
 #ifndef FNC_QUATINVERSE
 #define FNC_QUATINVERSE
-static inline QUAT quatInverse(QUAT q) { return quatDiv(quatConj(q), quatLengthSq(q)); }
+LYGIA_FNC QUAT quatInverse(QUAT q) { return quatDiv(quatConj(q), quatLengthSq(q)); }
 #endif

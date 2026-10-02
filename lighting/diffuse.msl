@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "shadingData/new.msl"
 #include "diffuse/lambert.msl"
 #include "diffuse/orenNayar.msl"
@@ -24,5 +26,5 @@ license:
 
 #ifndef FNC_DIFFUSE
 #define FNC_DIFFUSE
-static inline float diffuse(ShadingData shadingData) { return DIFFUSE_FNC(shadingData); }
+LYGIA_FNC float diffuse(ShadingData shadingData) { return DIFFUSE_FNC(shadingData); }
 #endif

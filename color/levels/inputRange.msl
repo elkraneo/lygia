@@ -9,10 +9,12 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_LEVELSINPUTRANGE
 #define FNC_LEVELSINPUTRANGE
-static inline float3 levelsInputRange(float3 v, float3 iMin, float3 iMax) { return min(max(v - iMin, float3(0.)) / (iMax - iMin), float3(1.)); }
-static inline float4 levelsInputRange(float4 v, float3 iMin, float3 iMax) { return float4(levelsInputRange(v.rgb, iMin, iMax), v.a); }
-static inline float3 levelsInputRange(float3 v, float iMin, float iMax) { return levelsInputRange(v, float3(iMin), float3(iMax)); }
-static inline float4 levelsInputRange(float4 v, float iMin, float iMax) { return float4(levelsInputRange(v.rgb, iMin, iMax), v.a); }
+LYGIA_FNC float3 levelsInputRange(float3 v, float3 iMin, float3 iMax) { return min(max(v - iMin, float3(0.)) / (iMax - iMin), float3(1.)); }
+LYGIA_FNC float4 levelsInputRange(float4 v, float3 iMin, float3 iMax) { return float4(levelsInputRange(v.rgb, iMin, iMax), v.a); }
+LYGIA_FNC float3 levelsInputRange(float3 v, float iMin, float iMax) { return levelsInputRange(v, float3(iMin), float3(iMax)); }
+LYGIA_FNC float4 levelsInputRange(float4 v, float iMin, float iMax) { return float4(levelsInputRange(v.rgb, iMin, iMax), v.a); }
 #endif

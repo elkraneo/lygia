@@ -7,6 +7,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef MAT_RGB2YIQ
 #define MAT_RGB2YIQ
 constant float3x3 RGB2YIQ = float3x3(
@@ -17,6 +19,6 @@ constant float3x3 RGB2YIQ = float3x3(
 
 #ifndef FNC_RGB2YIQ
 #define FNC_RGB2YIQ
-static inline float3 rgb2yiq( float3 rgb) { return RGB2YIQ * rgb; }
-static inline float4 rgb2yiq( float4 rgb) { return float4(rgb2yiq(rgb.rgb), rgb.a); }
+LYGIA_FNC float3 rgb2yiq( float3 rgb) { return RGB2YIQ * rgb; }
+LYGIA_FNC float4 rgb2yiq( float4 rgb) { return float4(rgb2yiq(rgb.rgb), rgb.a); }
 #endif

@@ -9,9 +9,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_SCALE2D
 #define FNC_SCALE2D
-static inline float2x2 scale2d(float s) { return float2x2(s, 0.0, 0.0, s); }
-static inline float2x2 scale2d(float2 s) { return float2x2(s.x, 0.0, 0.0, s.y); }
-static inline float2x2 scale2d(float x, float y) { return float2x2(x, 0.0, 0.0,  y); }
+LYGIA_FNC float2x2 scale2d(float s) { return float2x2(s, 0.0, 0.0, s); }
+LYGIA_FNC float2x2 scale2d(float2 s) { return float2x2(s.x, 0.0, 0.0, s.y); }
+LYGIA_FNC float2x2 scale2d(float x, float y) { return float2x2(x, 0.0, 0.0,  y); }
 #endif

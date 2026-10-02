@@ -7,9 +7,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_POWFAST
 #define FNC_POWFAST
 
-static inline float powFast(const float a, const float b) { return a / ((1. - b) * a + b); }
+LYGIA_FNC float powFast(const float a, const float b) { return a / ((1. - b) * a + b); }
 
 #endif

@@ -18,6 +18,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #include "dither/interleavedGradientNoise.msl"
 #include "dither/vlachos.msl"
 #include "dither/triangleNoise.msl"
@@ -37,8 +39,8 @@ license:
 #define FNC_DITHER
 
 // Metal has no gl_FragCoord, so pass the fragment position (e.g. [[position]].xy) as st
-static inline float dither(float v, float2 st) { return DITHER_FNC(float3(v), st).r; }
-static inline float3 dither(float3 v, float2 st) { return DITHER_FNC(v, st); }
-static inline float4 dither(float4 v, float2 st) { return DITHER_FNC(v, st); }
+LYGIA_FNC float dither(float v, float2 st) { return DITHER_FNC(float3(v), st).r; }
+LYGIA_FNC float3 dither(float3 v, float2 st) { return DITHER_FNC(v, st); }
+LYGIA_FNC float4 dither(float4 v, float2 st) { return DITHER_FNC(v, st); }
 
 #endif

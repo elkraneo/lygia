@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "rgb2hcv.msl"
 #include "hue2rgb.msl"
 
@@ -17,7 +19,7 @@ license:
 
 #ifndef FNC_RGB2HCY
 #define FNC_RGB2HCY
-static inline float3 rgb2hcy( float3 rgb) {
+LYGIA_FNC float3 rgb2hcy( float3 rgb) {
     const float3 HCYwts = float3(0.299, 0.587, 0.114);
     // Corrected by David Schaeffer
     float3 HCV = rgb2hcv(rgb);
@@ -30,5 +32,5 @@ static inline float3 rgb2hcy( float3 rgb) {
     }
     return float3(HCV.x, HCV.y, Y);
 }
-static inline float4 rgb2hcy(float4 rgb) { return float4(rgb2hcy(rgb.rgb), rgb.a);}
+LYGIA_FNC float4 rgb2hcy(float4 rgb) { return float4(rgb2hcy(rgb.rgb), rgb.a);}
 #endif

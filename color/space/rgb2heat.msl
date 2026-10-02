@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "rgb2hue.msl"
 
 /*
@@ -11,6 +13,6 @@ license:
 
 #ifndef FNC_RGB2HEAT
 #define FNC_RGB2HEAT
-static inline float rgb2heat( float3 c) { return 1.025 - rgb2hue(c) * 1.538461538; }
-static inline float rgb2heat( float4 c) { return rgb2heat(c.rgb); }
+LYGIA_FNC float rgb2heat( float3 c) { return 1.025 - rgb2hue(c) * 1.538461538; }
+LYGIA_FNC float rgb2heat( float4 c) { return rgb2heat(c.rgb); }
 #endif

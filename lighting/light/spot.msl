@@ -23,6 +23,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #include "../specular.msl"
 #include "../diffuse.msl"
 #include "falloff.msl"
@@ -60,7 +62,7 @@ license:
 #ifndef FNC_LIGHT_SPOT
 #define FNC_LIGHT_SPOT
 
-static inline void lightSpot(float3 _diffuseColor, float3 _specularColor, float3 _N, float3 _V, float _NoV, float _roughness, float _f0,
+LYGIA_FNC void lightSpot(float3 _diffuseColor, float3 _specularColor, float3 _N, float3 _V, float _NoV, float _roughness, float _f0,
                       float3 _spotDirection, float _spotCutoff, float _spotFactor, float _spotDistance,
                       thread float3& _diffuse, thread float3& _specular) {
     float3 toLight = LIGHT_POSITION - (SURFACE_POSITION).xyz;
@@ -95,7 +97,7 @@ static inline void lightSpot(float3 _diffuseColor, float3 _specularColor, float3
     }
 }
 
-static inline void lightSpot(float3 _diffuseColor, float3 _specularColor, float3 _N, float3 _V, float _NoV, float _roughness, float _f0,
+LYGIA_FNC void lightSpot(float3 _diffuseColor, float3 _specularColor, float3 _N, float3 _V, float _NoV, float _roughness, float _f0,
                       thread float3& _diffuse, thread float3& _specular) {
     #ifdef LIGHT_FALLOFF
     float spotDistance = LIGHT_FALLOFF;

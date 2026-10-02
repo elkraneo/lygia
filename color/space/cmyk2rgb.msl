@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../../math/saturate.msl"
 
 /*
@@ -11,7 +13,7 @@ license:
 
 #ifndef FNC_CMYK2RGB
 #define FNC_CMYK2RGB
-static inline float3 cmyk2rgb(float4 cmyk) {
+LYGIA_FNC float3 cmyk2rgb(float4 cmyk) {
     float invK = 1.0 - cmyk.w;
     return saturate(1.0-min(float3(1.0), cmyk.xyz * invK + cmyk.w));
 }

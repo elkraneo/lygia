@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/const.msl"
 
 /*
@@ -11,7 +13,7 @@ license:
 
 #ifndef FNC_XYZ2EQUIRECT
 #define FNC_XYZ2EQUIRECT
-static inline float2 xyz2equirect(float3 d) {
+LYGIA_FNC float2 xyz2equirect(float3 d) {
     return float2(atan2(d.z, d.x) + PI, acos(-d.y)) / float2(2.0 * PI, PI);
 }
 #endif

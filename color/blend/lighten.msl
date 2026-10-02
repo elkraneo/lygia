@@ -5,19 +5,21 @@ use: blendLighten(<float|float3> base, <float|float3> blend [, <float> opacity])
 license: MIT License (MIT) Copyright (c) 2015 Jamie Owen
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_BLENDLIGHTEN
 #define FNC_BLENDLIGHTEN
-static inline float blendLighten(float base, float blend) {
+LYGIA_FNC float blendLighten(float base, float blend) {
     return max(blend, base);
 }
 
-static inline float3 blendLighten(float3 base, float3 blend) {
+LYGIA_FNC float3 blendLighten(float3 base, float3 blend) {
     return float3(blendLighten(base.r, blend.r),
                 blendLighten(base.g, blend.g),
                 blendLighten(base.b, blend.b));
 }
 
-static inline float3 blendLighten(float3 base, float3 blend, float opacity) {
+LYGIA_FNC float3 blendLighten(float3 base, float3 blend, float opacity) {
     return (blendLighten(base, blend) * opacity + base * (1. - opacity));
 }
 #endif

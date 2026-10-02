@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "space/rgb2yiq.msl"
 #include "space/yiq2rgb.msl"
 
@@ -24,7 +26,7 @@ license:
 #ifndef FNC_WHITEBALANCE
 #define FNC_WHITEBALANCE
 
-static inline float3 whiteBalance(float3 rgb, float temp, float tint) {
+LYGIA_FNC float3 whiteBalance(float3 rgb, float temp, float tint) {
 #if defined(TARGET_MOBILE)
     const float3 w = float3(0.93, 0.54, 0.0); // warm filter
 
@@ -78,6 +80,6 @@ static inline float3 whiteBalance(float3 rgb, float temp, float tint) {
 #endif
 }
 
-static inline float4 whiteBalance(float4 color, float temp, float tint) { return float4( whiteBalance(color.rgb, temp, tint), color.a); }
+LYGIA_FNC float4 whiteBalance(float4 color, float temp, float tint) { return float4( whiteBalance(color.rgb, temp, tint), color.a); }
 
 #endif

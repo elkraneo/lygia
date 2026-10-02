@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "space/srgb2rgb.msl"
 #include "space/rgb2srgb.msl"
 
@@ -22,7 +24,7 @@ license:
 
 #ifndef FNC_MIXOKLAB
 #define FNC_MIXOKLAB
-static inline float3 mixOklab( float3 colA, float3 colB, float h ) {
+LYGIA_FNC float3 mixOklab( float3 colA, float3 colB, float h ) {
 
     #ifdef MIXOKLAB_SRGB
     colA = srgb2rgb(colA);
@@ -45,7 +47,7 @@ static inline float3 mixOklab( float3 colA, float3 colB, float h ) {
     #endif
 }
 
-static inline float4 mixOklab( float4 colA, float4 colB, float h ) {
+LYGIA_FNC float4 mixOklab( float4 colA, float4 colB, float h ) {
     return float4( mixOklab(colA.rgb, colB.rgb, h), mix(colA.a, colB.a, h) );
 }
 #endif

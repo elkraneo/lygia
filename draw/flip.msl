@@ -7,17 +7,19 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_FLIP
 #define FNC_FLIP
-static inline float flip(float v, float pct) {
+LYGIA_FNC float flip(float v, float pct) {
     return mix(v, 1.0 - v, pct);
 }
 
-static inline float3 flip(float3 v, float pct) {
+LYGIA_FNC float3 flip(float3 v, float pct) {
     return mix(v, 1.0 - v, pct);
 }
 
-static inline float4 flip(float4 v, float pct) {
+LYGIA_FNC float4 flip(float4 v, float pct) {
     return mix(v, 1.0 - v, pct);
 }
 #endif

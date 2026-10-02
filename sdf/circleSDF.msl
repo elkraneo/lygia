@@ -12,6 +12,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef CIRCLESDF_FNC
 #define CIRCLESDF_FNC(POS_UV) length(POS_UV)
 #endif
@@ -19,7 +21,7 @@ license:
 #ifndef FNC_CIRCLESDF
 #define FNC_CIRCLESDF
 
-static inline float circleSDF(float2 v) {
+LYGIA_FNC float circleSDF(float2 v) {
 #ifdef CENTER_2D
     v -= CENTER_2D;
 #else

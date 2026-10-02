@@ -6,7 +6,9 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/animation_easing.frag
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_QUARTICIN
 #define FNC_QUARTICIN
-static inline float quarticIn(float t) { return pow(t, 4.0); }
+LYGIA_FNC float quarticIn(float t) { return pow(t, 4.0); }
 #endif

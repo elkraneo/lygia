@@ -4,10 +4,12 @@ description: generate the SDF of a octogon prism
 use: <float> octogonPrismSDF( <float3> p, <float> r, <float> h )
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_OCTOGONPRISMSDF
 #define FNC_OCTOGONPRISMSDF
 
-static inline float octogonPrismSDF( float3 p, float r, float h ) {
+LYGIA_FNC float octogonPrismSDF( float3 p, float r, float h ) {
    float3 k = float3( -0.9238795325,   // sqrt(2+sqrt(2))/2 
                   0.3826834323,   // sqrt(2-sqrt(2))/2
                   0.4142135623 ); // sqrt(2)-1 

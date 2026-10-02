@@ -7,10 +7,12 @@ options:
 
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_OCTAHEDRONSDF
 #define FNC_OCTAHEDRONSDF
 
-static inline float octahedronSDF(float3 p, float s) {
+LYGIA_FNC float octahedronSDF(float3 p, float s) {
     p = abs(p);
     float m = p.x + p.y + p.z - s;
 

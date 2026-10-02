@@ -7,7 +7,9 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_UNRATIO
 #define FNC_UNRATIO
-static inline float2 unratio (float2 st, float2 s) { return float2(st.x, st.y*(s.x/s.y)+(s.y*.5-s.x*.5)/s.y); }
+LYGIA_FNC float2 unratio (float2 st, float2 s) { return float2(st.x, st.y*(s.x/s.y)+(s.y*.5-s.x*.5)/s.y); }
 #endif

@@ -7,9 +7,11 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/draw_tiles.frag
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_TRITILE
 #define FNC_TRITILE
-static inline float4 triTile(float2 st) {
+LYGIA_FNC float4 triTile(float2 st) {
     st *= float2x2(1., -1. / 1.7320508, 0., 2. / 1.7320508);
     float4 f = float4(st, -st);
     float4 i = floor(f);
@@ -19,5 +21,5 @@ static inline float4 triTile(float2 st) {
                 : float4(f.zw, -(float2(2., 1.) * i.zw + 1.));
 }
 
-static inline float4 triTile(float2 st, float scale) { return triTile(st * scale); }
+LYGIA_FNC float4 triTile(float2 st, float scale) { return triTile(st * scale); }
 #endif

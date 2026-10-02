@@ -7,7 +7,9 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_HIGHPASS
 #define FNC_HIGHPASS
-static inline float highPass(float v, float b) { return max(v - b, 0.0) / (1.0 - b); }
+LYGIA_FNC float highPass(float v, float b) { return max(v - b, 0.0) / (1.0 - b); }
 #endif

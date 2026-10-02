@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/const.msl"
 #include "../math/mod.msl"
 #include "rotate.msl"
@@ -18,7 +20,7 @@ license:
 
 #ifndef FNC_WINDMILLTILE
 #define FNC_WINDMILLTILE
-static inline float4 windmillTile(float4 t, float turn) {
+LYGIA_FNC float4 windmillTile(float4 t, float turn) {
     float a = ( abs(mod(t.z, 2.0)-
                     mod(t.w, 2.0))+
                 mod(t.w, 2.0) * 2.0)*
@@ -26,19 +28,19 @@ static inline float4 windmillTile(float4 t, float turn) {
     return float4(rotate(t.xy, a * turn), t.zw);
 }
 
-static inline float4 windmillTile(float4 t) {
+LYGIA_FNC float4 windmillTile(float4 t) {
     return windmillTile(t, TAU);
 }
 
-static inline float4 windmillTile(float2 v) {
+LYGIA_FNC float4 windmillTile(float2 v) {
     return windmillTile(sqTile(v));
 }
 
-static inline float4 windmillTile(float2 v, float s) {
+LYGIA_FNC float4 windmillTile(float2 v, float s) {
     return windmillTile(v * s);
 }
 
-static inline float4 windmillTile(float2 v, float2 s) {
+LYGIA_FNC float4 windmillTile(float2 v, float2 s) {
     return windmillTile(v * s);
 }
 #endif

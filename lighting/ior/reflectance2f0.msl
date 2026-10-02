@@ -5,7 +5,9 @@ use: <float> reflectance2f0(<float> reflectance)
 license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_REFLECTANCE2F0
 #define FNC_REFLECTANCE2F0
-static inline float reflectance2f0(float reflectance) { return 0.16 * reflectance * reflectance; }
+LYGIA_FNC float reflectance2f0(float reflectance) { return 0.16 * reflectance * reflectance; }
 #endif

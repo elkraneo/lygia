@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "rectSDF.msl"
 
 /*
@@ -15,7 +17,7 @@ license:
 
 #ifndef FNC_CROSSSDF
 #define FNC_CROSSSDF
-static inline float crossSDF(float2 st, float s) {
+LYGIA_FNC float crossSDF(float2 st, float s) {
     float2 size = float2(.25, s);
     return min(rectSDF(st.xy, size.xy),
                rectSDF(st.xy, size.yx));

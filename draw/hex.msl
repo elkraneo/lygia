@@ -1,4 +1,6 @@
 
+#include "../lygia.msl"
+
 #include "../sdf/hexSDF.msl"
 
 #include "fill.msl"
@@ -15,11 +17,11 @@ license:
 
 #ifndef FNC_HEX
 #define FNC_HEX
-static inline float hex(float2 st, float size) {
+LYGIA_FNC float hex(float2 st, float size) {
     return fill(hexSDF(st), size);
 }
 
-static inline float hex(float2 st, float size, float strokeWidth) {
+LYGIA_FNC float hex(float2 st, float size, float strokeWidth) {
     return stroke(hexSDF(st), size, strokeWidth);
 }
 #endif

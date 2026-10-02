@@ -7,13 +7,15 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_DESATURATE
 #define FNC_DESATURATE
-static inline float3 desaturate(float3 v, float a ) {
+LYGIA_FNC float3 desaturate(float3 v, float a ) {
     return mix(v, float3(dot(float3(.3, .59, .11), v)), a);
 }
 
-static inline float4 desaturate(float4 v, float a ) {
+LYGIA_FNC float4 desaturate(float4 v, float a ) {
     return float4(desaturate(v.rgb, a), v.a);
 }
 #endif

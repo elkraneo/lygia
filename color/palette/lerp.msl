@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../space/srgb2rgb.msl"
 #include "../space/rgb2srgb.msl"
 #include "../../math/mod.msl"
@@ -24,7 +26,7 @@ license:
 #if !defined(FNC_PALETTE_LERP) && defined(PALETTE_LERP_SIZE)
 #define FNC_PALETTE_LERP
 
-static inline float3 paletteLerp_get(float3 a[PALETTE_LERP_SIZE], int index){
+LYGIA_FNC float3 paletteLerp_get(float3 a[PALETTE_LERP_SIZE], int index){
     index = int(mod(float(index), float(PALETTE_LERP_SIZE)));
 
     #if defined(PLATFORM_WEBGL)
@@ -43,7 +45,7 @@ static inline float3 paletteLerp_get(float3 a[PALETTE_LERP_SIZE], int index){
     #endif
 }
 
-static inline float3 paletteLerp(float3 a[PALETTE_LERP_SIZE], float t){
+LYGIA_FNC float3 paletteLerp(float3 a[PALETTE_LERP_SIZE], float t){
     float size = float(PALETTE_LERP_SIZE) - 1.0;
     float index = t * size;
     float index1 = floor(min(index + 1.0, size));

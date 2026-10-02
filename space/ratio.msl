@@ -11,9 +11,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_RATIO
 #define FNC_RATIO
-static inline float2 ratio(float2 v, float2 s) {
+LYGIA_FNC float2 ratio(float2 v, float2 s) {
     return mix( float2((v.x*s.x/s.y)-(s.x*.5-s.y*.5)/s.y,v.y),
                 float2(v.x,v.y*(s.y/s.x)-(s.y*.5-s.x*.5)/s.x),
                 step(s.x,s.y));

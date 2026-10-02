@@ -1,11 +1,13 @@
 
+#include "../../lygia.msl"
+
 #include "../../math/saturateMediump.msl"
 
 #ifndef FNC_KELEMEN
 #define FNC_KELEMEN
 
 // Kelemen 2001, "A Microfacet Based Coupled Specular-Matte BRDF Model with Importance Sampling"
-static inline float kelemen(float LoH) {
+LYGIA_FNC float kelemen(float LoH) {
     return saturateMediump(0.25 / (LoH * LoH));
 }
 

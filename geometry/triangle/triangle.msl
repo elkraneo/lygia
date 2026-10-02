@@ -6,6 +6,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef STR_TRIANGLE
 #define STR_TRIANGLE
 struct Triangle {

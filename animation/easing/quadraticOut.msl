@@ -6,7 +6,9 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/animation_easing.frag
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_QUADRATICOUT
 #define FNC_QUADRATICOUT
-static inline float quadraticOut(float t) { return -t * (t - 2.0); }
+LYGIA_FNC float quadraticOut(float t) { return -t * (t - 2.0); }
 #endif

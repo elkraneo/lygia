@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../color/space/k2rgb.msl"
 
 /*
@@ -11,5 +13,5 @@ license:
 
 #ifndef FNC_BLACKBODY
 #define FNC_BLACKBODY
-static inline float3 blackbody(float k) { return k2rgb(k); }
+LYGIA_FNC float3 blackbody(float k) { return k2rgb(k); }
 #endif

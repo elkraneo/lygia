@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #ifndef FNC_CLAMPNOV
 #define FNC_CLAMPNOV
 
@@ -5,7 +7,7 @@
 #define MIN_N_DOT_V 1e-4
 #endif
 // Neubelt and Pettineo 2013, "Crafting a Next-gen Material Pipeline for The Order: 1886"
-static inline float clampNoV(float NoV) {
+LYGIA_FNC float clampNoV(float NoV) {
     return max(NoV, MIN_N_DOT_V);
 }
 #endif

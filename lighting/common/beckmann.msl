@@ -1,10 +1,12 @@
+#include "../../lygia.msl"
+
 #include "../../math/const.msl"
 
 // https://github.com/glslify/glsl-specular-beckmann
 
 #ifndef FNC_BECKMANN
 #define FNC_BECKMANN
-static inline float beckmann(float _NoH, float roughness) {
+LYGIA_FNC float beckmann(float _NoH, float roughness) {
     float NoH = max(_NoH, 0.0001);
     float cos2Alpha = NoH * NoH;
     float tan2Alpha = (cos2Alpha - 1.0) / cos2Alpha;

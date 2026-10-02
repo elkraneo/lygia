@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../generative/random.msl"
 
 /*
@@ -24,7 +26,7 @@ options:
 #ifndef FNC_ALPHAHASHING
 #define FNC_ALPHAHASHING
 
-static inline float alphaHashing(float3 p, float s) {
+LYGIA_FNC float alphaHashing(float3 p, float s) {
     float maxDeriv = max(length(dfdx(p.xy)), length(dfdy(p.xy)));
     float pixScale = 1.0 / (s*maxDeriv);
     float2 pixScales = float2(  exp2(floor(log2(pixScale))),
@@ -46,12 +48,12 @@ static inline float alphaHashing(float3 p, float s) {
     return clamp(threshold, 1.0e-6, 1.0);
 }
 
-static inline void  alphaHashingTest(float3 p, float a, float s) {
+LYGIA_FNC void  alphaHashingTest(float3 p, float a, float s) {
     if (a < alphaHashing(p, s))
         discard_fragment();
 }
 
-static inline float alphaHashing(float3 p) { return alphaHashing(p, 1.0); }
-static inline void  alphaHashingTest(float3 p, float a) { alphaHashingTest(p, a, 1.0); }
+LYGIA_FNC float alphaHashing(float3 p) { return alphaHashing(p, 1.0); }
+LYGIA_FNC void  alphaHashingTest(float3 p, float a) { alphaHashingTest(p, a, 1.0); }
 
 #endif

@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/const.msl"
 #include "../math/saturate.msl"
 #include "../sample/clamp2edge.msl"
@@ -27,7 +29,7 @@ license:
 
 #ifndef FNC_BILINEAR
 #define FNC_BILINEAR
-static inline BILINEAR_TYPE bilinear(SAMPLER_TYPE tex, float2 st, float2 pixel, int radius) {
+LYGIA_FNC BILINEAR_TYPE bilinear(SAMPLER_TYPE tex, float2 st, float2 pixel, int radius) {
     float2 coord = st / pixel;
     int2 pos = int2(floor(coord));
     float R = float(radius);

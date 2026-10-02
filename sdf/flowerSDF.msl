@@ -11,9 +11,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_FLOWERSDF
 #define FNC_FLOWERSDF
-static inline float flowerSDF(float2 st, int N) {
+LYGIA_FNC float flowerSDF(float2 st, int N) {
 #ifdef CENTER_2D
     st -= CENTER_2D;
 #else

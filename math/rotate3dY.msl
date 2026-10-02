@@ -7,9 +7,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_ROTATE3DY
 #define FNC_ROTATE3DY
-static inline float3x3 rotate3dY(const float theta){
+LYGIA_FNC float3x3 rotate3dY(const float theta){
     return float3x3(float3(cos(theta),0.,-sin(theta)),
                 float3(0.,1.,0.),
                 float3(sin(theta),0.,cos(theta)));

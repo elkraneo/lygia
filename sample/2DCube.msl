@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sampler.msl"
 #include "../math/saturate.msl"
 #include "../math/mod.msl"
@@ -26,7 +28,7 @@ license:
 
 #ifndef FNC_SAMPLE2DCUBE
 #define FNC_SAMPLE2DCUBE
-static inline float4 sample2DCube(SAMPLER_TYPE lut, float3 xyz) {
+LYGIA_FNC float4 sample2DCube(SAMPLER_TYPE lut, float3 xyz) {
 
 #if defined(SAMPLE2DCUBE_CELL_SIZE)
     const float cellsSize = SAMPLE2DCUBE_CELL_SIZE;

@@ -7,9 +7,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_ORTHOGRAPHIC
 #define FNC_ORTHOGRAPHIC
-static inline float4x4 orthographic(float l, float r, float b, float t, float n, float f) {
+LYGIA_FNC float4x4 orthographic(float l, float r, float b, float t, float n, float f) {
     return float4x4(
         float4(2.0/(r-l),     0.0,          0.0,         0.0),
         float4(0.0,           2.0/(t-b),    0.0,         0.0),

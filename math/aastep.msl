@@ -8,10 +8,12 @@ examples:
     - https://raw.githubusercontent.com/eduardfossas/lygia-study-examples/main/draw/aastep.frag
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_AASTEP
 #define FNC_AASTEP
 
-static inline float aastep(float threshold, float value) {
+LYGIA_FNC float aastep(float threshold, float value) {
 
 #if defined(AA_EDGE)
     float afwidth = AA_EDGE;

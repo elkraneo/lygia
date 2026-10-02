@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/const.msl"
 
 /*
@@ -13,7 +15,7 @@ description: |
 #define FNC_KALEIDOSCOPE
 
 // Use when when you want to specify the segment count and the phase for animation
-static inline float2 kaleidoscope(float2 coord, float segmentCount, float phase) {    
+LYGIA_FNC float2 kaleidoscope(float2 coord, float segmentCount, float phase) {    
     float2 uv;
 
 #ifdef CENTER_2D
@@ -36,12 +38,12 @@ static inline float2 kaleidoscope(float2 coord, float segmentCount, float phase)
 }
 
 // Default use when just the coordinates are given, the segment count is set to 8
-static inline float2 kaleidoscope(float2 coord) {
+LYGIA_FNC float2 kaleidoscope(float2 coord) {
     return kaleidoscope(coord, 8.0, 0.0);
 }
 
 // Use when when you want to specify the segment count
-static inline float2 kaleidoscope(float2 coord, float segmentCount) {    
+LYGIA_FNC float2 kaleidoscope(float2 coord, float segmentCount) {    
     return kaleidoscope(coord, segmentCount, 0.0);
 }
 

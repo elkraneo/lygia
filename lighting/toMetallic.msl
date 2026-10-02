@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/saturate.msl"
 /*
 contributors: Patricio Gonzalez Vivo
@@ -15,7 +17,7 @@ license:
 #ifndef FNC_TOMETALLIC
 #define FNC_TOMETALLIC
 
-static inline float toMetallic(float3 diffuse, float3 specular, float maxSpecular) {
+LYGIA_FNC float toMetallic(float3 diffuse, float3 specular, float maxSpecular) {
     float perceivedDiffuse = sqrt(0.299 * diffuse.r * diffuse.r + 0.587 * diffuse.g * diffuse.g + 0.114 * diffuse.b * diffuse.b);
     float perceivedSpecular = sqrt(0.299 * specular.r * specular.r + 0.587 * specular.g * specular.g + 0.114 * specular.b * specular.b);
     if (perceivedSpecular < TOMETALLIC_MIN_REFLECTANCE) {
@@ -28,7 +30,7 @@ static inline float toMetallic(float3 diffuse, float3 specular, float maxSpecula
     return saturate((-b + sqrt(D)) / (2.0 * a));
 }
 
-static inline float toMetallic(float3 diffuse, float3 specular) {
+LYGIA_FNC float toMetallic(float3 diffuse, float3 specular) {
     float maxSpecula = max(max(specular.r, specular.g), specular.b);
     return toMetallic(diffuse, specular, maxSpecula);
 }

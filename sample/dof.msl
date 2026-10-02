@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../color/palette/heatmap.msl"
 #include "../sampler.msl"
 
@@ -45,12 +47,12 @@ options:
 #define SAMPLEDOF_TYPE float3
 #endif
 
-static inline float getBlurSize(float depth,float focusPoint,float focusScale){
+LYGIA_FNC float getBlurSize(float depth,float focusPoint,float focusScale){
     float coc = clamp((1./focusPoint-1./depth)*focusScale,-1.,1.);
     return abs(coc) * SAMPLEDOF_BLUR_SIZE;
 }
 
-static inline SAMPLEDOF_TYPE sampleDoF(SAMPLER_TYPE tex, SAMPLER_TYPE texDepth, float2 st, float focusPoint, float focusScale, float2 resolution) {
+LYGIA_FNC SAMPLEDOF_TYPE sampleDoF(SAMPLER_TYPE tex, SAMPLER_TYPE texDepth, float2 st, float focusPoint, float focusScale, float2 resolution) {
     float pct = 0.0;
     float ang = 0.0;
 
@@ -80,7 +82,7 @@ static inline SAMPLEDOF_TYPE sampleDoF(SAMPLER_TYPE tex, SAMPLER_TYPE texDepth, 
 }
 
 #ifdef RESOLUTION
-static inline SAMPLEDOF_TYPE sampleDoF(SAMPLER_TYPE tex, SAMPLER_TYPE texDepth, float2 st, float focusPoint, float focusScale) {
+LYGIA_FNC SAMPLEDOF_TYPE sampleDoF(SAMPLER_TYPE tex, SAMPLER_TYPE texDepth, float2 st, float focusPoint, float focusScale) {
     return sampleDoF(tex, texDepth, st, focusPoint, focusScale, RESOLUTION);
 }
 #endif

@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sample/sprite.msl"
 #include "../math/mod.msl"
 
@@ -19,7 +21,7 @@ license:
 #ifndef FNC_SPRITELOOP
 #define FNC_SPRITELOOP
 
-static inline SAMPLESPRITE_TYPE spriteLoop(SAMPLER_TYPE tex, float2 st, float2 grid, float start_index, float end_index, float time) {
+LYGIA_FNC SAMPLESPRITE_TYPE spriteLoop(SAMPLER_TYPE tex, float2 st, float2 grid, float start_index, float end_index, float time) {
     float frame = mod(time, end_index-start_index);
     return sampleSprite(tex, st, grid, start_index + frame);
 }

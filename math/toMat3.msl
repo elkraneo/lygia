@@ -7,9 +7,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_TOMAT3
 #define FNC_TOMAT3
-static inline float3x3 toMat3(float4x4 m) {
+LYGIA_FNC float3x3 toMat3(float4x4 m) {
     return float3x3(m[0].xyz, m[1].xyz, m[2].xyz);
 }
 #endif

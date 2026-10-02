@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sampler.msl"
 
 /*
@@ -46,7 +48,7 @@ license:
 //
 //  http://sunandblackcat.com/tipFullView.php?topicid=28
 
-static inline float2 parallaxMapping_simple(SAMPLER_TYPE tex, float3 V, float2 T, thread float& parallaxHeight) {
+LYGIA_FNC float2 parallaxMapping_simple(SAMPLER_TYPE tex, float3 V, float2 T, thread float& parallaxHeight) {
 
     // get depth for this fragment
     float initialHeight = PARALLAXMAPPING_SAMPLER_FNC(tex, T);
@@ -62,7 +64,7 @@ static inline float2 parallaxMapping_simple(SAMPLER_TYPE tex, float3 V, float2 T
 }
 
 
-static inline float2 parallaxMapping_steep(SAMPLER_TYPE tex, float3 V, float2 T, thread float& parallaxHeight) {
+LYGIA_FNC float2 parallaxMapping_steep(SAMPLER_TYPE tex, float3 V, float2 T, thread float& parallaxHeight) {
 
     // determine number of layers from angle between V and N
     const float minLayers = PARALLAXMAPPING_NUMSEARCHES * 0.5;
@@ -97,7 +99,7 @@ static inline float2 parallaxMapping_steep(SAMPLER_TYPE tex, float3 V, float2 T,
     return currentTextureCoords;
 }
 
-static inline float2 parallaxMapping_relief(SAMPLER_TYPE tex, float3 V, float2 T, thread float& parallaxHeight) {
+LYGIA_FNC float2 parallaxMapping_relief(SAMPLER_TYPE tex, float3 V, float2 T, thread float& parallaxHeight) {
     // determine required number of layers
     const float minLayers = PARALLAXMAPPING_NUMSEARCHES;
     const float maxLayers = 15.0;
@@ -167,7 +169,7 @@ static inline float2 parallaxMapping_relief(SAMPLER_TYPE tex, float3 V, float2 T
 
 
 #if defined(PARALLAXMAPPING_OCCLUSION)
-static inline float2 parallaxMapping_occlusion(SAMPLER_TYPE tex, float3 V, float2 T, thread float& parallaxHeight) {
+LYGIA_FNC float2 parallaxMapping_occlusion(SAMPLER_TYPE tex, float3 V, float2 T, thread float& parallaxHeight) {
     // determine optimal number of layers
     const float minLayers = PARALLAXMAPPING_NUMSEARCHES;
     const float maxLayers = 15.0;
@@ -222,11 +224,11 @@ static inline float2 parallaxMapping_occlusion(SAMPLER_TYPE tex, float3 V, float
 }
 #endif
 
-static inline float2 parallaxMapping(SAMPLER_TYPE tex, float3 V, float2 T, thread float& parallaxHeight) {
+LYGIA_FNC float2 parallaxMapping(SAMPLER_TYPE tex, float3 V, float2 T, thread float& parallaxHeight) {
     return PARALLAXMAPPING_FNC(tex, V, T, parallaxHeight);
 }
 
-static inline float2 parallaxMapping(SAMPLER_TYPE tex, float3 V, float2 T) {
+LYGIA_FNC float2 parallaxMapping(SAMPLER_TYPE tex, float3 V, float2 T) {
     float height;
     return PARALLAXMAPPING_FNC(tex, V, T, height);
 }

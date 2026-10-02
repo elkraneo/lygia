@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sample/shadowPCF.msl"
 
 /*
@@ -27,7 +29,7 @@ license:
 #ifndef FNC_SHADOW
 #define FNC_SHADOW
 
-static inline float shadow(SAMPLER_TYPE shadoMap, float2 size, float2 uv, float compare) {
+LYGIA_FNC float shadow(SAMPLER_TYPE shadoMap, float2 size, float2 uv, float compare) {
     #ifdef SHADOWMAP_BIAS
     compare -= SHADOWMAP_BIAS;
     #endif

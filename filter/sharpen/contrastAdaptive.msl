@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../../math/saturate.msl"
 #include "../../sampler.msl"
 
@@ -34,7 +36,7 @@ options:
 
 #ifndef FNC_SHARPENADCONTRASTAPTIVE
 #define FNC_SHARPENADCONTRASTAPTIVE
-static inline SHARPENCONTRASTADAPTIVE_TYPE sharpenContrastAdaptive(SAMPLER_TYPE tex, float2 st, float2 pixel, float strength) {
+LYGIA_FNC SHARPENCONTRASTADAPTIVE_TYPE sharpenContrastAdaptive(SAMPLER_TYPE tex, float2 st, float2 pixel, float strength) {
     float peak = -1.0 / mix(8.0, 5.0, saturate(strength));
     
     // fetch a 3x3 neighborhood around the pixel 'e',
@@ -79,7 +81,7 @@ static inline SHARPENCONTRASTADAPTIVE_TYPE sharpenContrastAdaptive(SAMPLER_TYPE 
 	return saturate((window * wRGB + e) / weightRGB);
 }
 
-static inline SHARPENCONTRASTADAPTIVE_TYPE sharpenContrastAdaptive(SAMPLER_TYPE tex, float2 st, float2 pixel) {
+LYGIA_FNC SHARPENCONTRASTADAPTIVE_TYPE sharpenContrastAdaptive(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     return sharpenContrastAdaptive(tex, st, pixel, 1.0);
 }
 #endif

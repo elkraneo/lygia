@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../ray.msl"
 
 /*
@@ -12,7 +14,7 @@ license:
 #ifndef FNC_RAYCAST
 #define FNC_RAYCAST
 
-static inline float3 rayCast(Ray ray, float dist) {
+LYGIA_FNC float3 rayCast(Ray ray, float dist) {
     return ray.origin + ray.direction * dist;
 }
 

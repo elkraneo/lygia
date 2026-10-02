@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "backIn.msl"
 
 /*
@@ -10,7 +12,7 @@ examples:
 
 #ifndef FNC_BACKINOUT
 #define FNC_BACKINOUT
-static inline float backInOut(float t) {
+LYGIA_FNC float backInOut(float t) {
     float f = t < .5
         ? 2.0 * t
         : 1.0 - (2.0 * t - 1.0);

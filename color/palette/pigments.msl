@@ -23,6 +23,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef TITANIUM_WHITE
 #define TITANIUM_WHITE float3(0.973, 0.961, 0.929)
 #endif

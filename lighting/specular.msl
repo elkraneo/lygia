@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "shadingData/new.msl"
 #include "specular/phong.msl"
 #include "specular/blinnPhong.msl"
@@ -28,5 +30,5 @@ license:
 
 #ifndef FNC_SPECULAR
 #define FNC_SPECULAR
-static inline float3 specular(ShadingData shadingData) { return float3(1.0, 1.0, 1.0) * SPECULAR_FNC(shadingData); }
+LYGIA_FNC float3 specular(ShadingData shadingData) { return float3(1.0, 1.0, 1.0) * SPECULAR_FNC(shadingData); }
 #endif

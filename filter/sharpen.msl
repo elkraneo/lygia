@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sampler.msl"
 
 /*
@@ -34,11 +36,11 @@ license:
 #ifndef FNC_SHARPEN
 #define FNC_SHARPEN
 
-static inline SHARPEN_TYPE sharpen(SAMPLER_TYPE tex, float2 st, float2 pixel, float strength) {
+LYGIA_FNC SHARPEN_TYPE sharpen(SAMPLER_TYPE tex, float2 st, float2 pixel, float strength) {
     return SHARPEN_FNC (tex, st, pixel, strength);
 }
 
-static inline SHARPEN_TYPE sharpen(SAMPLER_TYPE tex, float2 st, float2 pixel) {
+LYGIA_FNC SHARPEN_TYPE sharpen(SAMPLER_TYPE tex, float2 st, float2 pixel) {
     return SHARPEN_FNC (tex, st, pixel);
 }
 

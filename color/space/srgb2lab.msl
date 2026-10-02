@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "rgb2lab.msl"
 #include "srgb2rgb.msl"
 
@@ -12,6 +14,6 @@ license:
 
 #ifndef FNC_SRGB2LAB
 #define FNC_SRGB2LAB
-static inline float3 srgb2lab( float3 srgb) { return rgb2lab(srgb2rgb(srgb));}
-static inline float4 srgb2lab( float4 srgb) { return float4(srgb2lab(srgb.rgb), srgb.a); }
+LYGIA_FNC float3 srgb2lab( float3 srgb) { return rgb2lab(srgb2rgb(srgb));}
+LYGIA_FNC float4 srgb2lab( float4 srgb) { return float4(srgb2lab(srgb.rgb), srgb.a); }
 #endif

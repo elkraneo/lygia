@@ -2,6 +2,8 @@
 description: Include all available easing animations
 */
 
+#include "../lygia.msl"
+
 #include "easing/back.msl"
 #include "easing/bounce.msl"
 #include "easing/circular.msl"

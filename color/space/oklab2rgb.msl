@@ -6,6 +6,8 @@ license:
     - MIT License (MIT) Copyright (c) 2020 Björn Ottosson
 */
 
+#include "../../lygia.msl"
+
 #ifndef MAT_OKLAB2RGB
 #define MAT_OKLAB2RGB
 constant float3x3 OKLAB2RGB_A = float3x3(
@@ -21,9 +23,9 @@ constant float3x3 OKLAB2RGB_B = float3x3(
 
 #ifndef FNC_OKLAB2RGB
 #define FNC_OKLAB2RGB
-static inline float3 oklab2rgb( float3 oklab) {
+LYGIA_FNC float3 oklab2rgb( float3 oklab) {
     float3 lms = OKLAB2RGB_A * oklab;
     return OKLAB2RGB_B * (lms * lms * lms);
 }
-static inline float4 oklab2rgb( float4 oklab) { return float4(oklab2rgb(oklab.xyz), oklab.a); }
+LYGIA_FNC float4 oklab2rgb( float4 oklab) { return float4(oklab2rgb(oklab.xyz), oklab.a); }
 #endif

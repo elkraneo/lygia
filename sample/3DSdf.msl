@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "2DCube.msl"
 #include "../space/scale.msl"
 #include "../sdf/boxSDF.msl"
@@ -31,7 +33,7 @@ license:
 
 #ifndef FNC_SAMPLE3DSDF
 #define FNC_SAMPLE3DSDF
-static inline SAMPLE3DSDF_TYPE sample3DSdf(SAMPLER_TYPE tex, float3 pos) {
+LYGIA_FNC SAMPLE3DSDF_TYPE sample3DSdf(SAMPLER_TYPE tex, float3 pos) {
     pos += 0.5;
     pos = scale(pos, 0.5);
     SAMPLE3DSDF_TYPE sdf = (SAMPLE3DSDF_FNC(tex, pos) * 2.0 - 1.0) * 1.5;

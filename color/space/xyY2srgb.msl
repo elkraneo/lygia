@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "xyz2srgb.msl"
 #include "xyY2xyz.msl"
 
@@ -12,6 +14,6 @@ license:
 
 #ifndef FNC_XYY2SRGB
 #define FNC_XYY2SRGB
-static inline float3 xyY2srgb( float3 xyY) { return xyz2srgb(xyY2xyz(xyY));}
-static inline float4 xyY2srgb( float4 xyY) { return float4(xyY2srgb(xyY.xyz), xyY.w);}
+LYGIA_FNC float3 xyY2srgb( float3 xyY) { return xyz2srgb(xyY2xyz(xyY));}
+LYGIA_FNC float4 xyY2srgb( float4 xyY) { return float4(xyY2srgb(xyY.xyz), xyY.w);}
 #endif

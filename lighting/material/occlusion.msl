@@ -10,10 +10,12 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_MATERIAL_OCCLUSION
 #define FNC_MATERIAL_OCCLUSION
 
-static inline float materialOcclusion() {
+LYGIA_FNC float materialOcclusion() {
     float occlusion = 1.0;
 
 #if defined(MATERIAL_OCCLUSIONMAP_STRENGTH)

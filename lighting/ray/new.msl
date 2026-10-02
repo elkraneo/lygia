@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../ray.msl"
 
 /*
@@ -14,20 +16,20 @@ license:
 #ifndef FNC_RAYNEW
 #define FNC_RAYNEW
 
-static inline void rayNew(thread Ray& ray, float3 origin, float3 direction) {
+LYGIA_FNC void rayNew(thread Ray& ray, float3 origin, float3 direction) {
     ray.origin = origin;
     ray.direction = direction;
 }
 
-static inline void rayNew(thread Ray& ray, float3 origin) {
+LYGIA_FNC void rayNew(thread Ray& ray, float3 origin) {
     rayNew(ray, origin, float3(0.0, 0.0, 1.0));
 }
 
-static inline void rayNew(thread Ray& ray) {
+LYGIA_FNC void rayNew(thread Ray& ray) {
     rayNew(ray, float3(0.0, 0.0, 0.0), float3(0.0, 0.0, 1.0));
 }
 
-static inline Ray rayNew(float3 origin, float3 direction) {
+LYGIA_FNC Ray rayNew(float3 origin, float3 direction) {
     Ray ray;
     ray.origin = float3(0.0, 0.0, 0.0);
     ray.direction = float3(0.0, 0.0, 1.0);
@@ -35,7 +37,7 @@ static inline Ray rayNew(float3 origin, float3 direction) {
     return ray;
 }
 
-static inline Ray rayNew(float3 origin) {
+LYGIA_FNC Ray rayNew(float3 origin) {
     Ray ray;
     ray.origin = float3(0.0, 0.0, 0.0);
     ray.direction = float3(0.0, 0.0, 1.0);
@@ -43,7 +45,7 @@ static inline Ray rayNew(float3 origin) {
     return ray;
 }
 
-static inline Ray rayNew() {
+LYGIA_FNC Ray rayNew() {
     Ray ray;
     ray.origin = float3(0.0, 0.0, 0.0);
     ray.direction = float3(0.0, 0.0, 1.0);

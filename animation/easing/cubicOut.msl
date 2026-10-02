@@ -6,9 +6,11 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/animation_easing.frag
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_CUBICOUT
 #define FNC_CUBICOUT
-static inline float cubicOut(float t) {
+LYGIA_FNC float cubicOut(float t) {
     float f = t - 1.0;
     return f * f * f + 1.0;
 }

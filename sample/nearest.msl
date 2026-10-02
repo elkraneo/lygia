@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../space/nearest.msl"
 #include "../sampler.msl"
 
@@ -16,7 +18,7 @@ license:
 
 #ifndef FNC_SAMPLENEAREST
 #define FNC_SAMPLENEAREST
-static inline float4 sampleNearest(SAMPLER_TYPE tex, float2 st, float2 texResolution) {
+LYGIA_FNC float4 sampleNearest(SAMPLER_TYPE tex, float2 st, float2 texResolution) {
     return SAMPLER_FNC( tex, nearest(st, texResolution) );
 }
 #endif

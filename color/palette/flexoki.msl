@@ -7,6 +7,8 @@ license:
     - MIT License, Copyright (c) 2023 Steph Ango
 */
 
+#include "../../lygia.msl"
+
 #ifndef FLEXOKI_PAPER
 #define FLEXOKI_PAPER float3(1.0, 0.988, 0.941)
 #endif

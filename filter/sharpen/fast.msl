@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../../sampler.msl"
 
 /*
@@ -37,7 +39,7 @@ options:
 
 #ifndef FNC_SHARPENFAST
 #define FNC_SHARPENFAST
-static inline SHARPENFAST_TYPE sharpenFast(SAMPLER_TYPE tex, float2 coords, float2 pixel, float strength) {
+LYGIA_FNC SHARPENFAST_TYPE sharpenFast(SAMPLER_TYPE tex, float2 coords, float2 pixel, float strength) {
     SHARPENFAST_TYPE sum = SHARPENFAST_TYPE(0.);
     for (int i = 0; i < SHARPENFAST_KERNELSIZE; i++) {
         float f_size = float(i) + 1.;
@@ -51,7 +53,7 @@ static inline SHARPENFAST_TYPE sharpenFast(SAMPLER_TYPE tex, float2 coords, floa
     return sum / float(SHARPENFAST_KERNELSIZE);
 }
 
-static inline SHARPENFAST_TYPE sharpenFast(SAMPLER_TYPE tex, float2 coords, float2 pixel) {
+LYGIA_FNC SHARPENFAST_TYPE sharpenFast(SAMPLER_TYPE tex, float2 coords, float2 pixel) {
     SHARPENFAST_TYPE sum = SHARPENFAST_TYPE(0.);
     for (int i = 0; i < SHARPENFAST_KERNELSIZE; i++) {
         float f_size = float(i) + 1.;

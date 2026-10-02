@@ -11,6 +11,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef RGB2XYZ_MAT
 #define RGB2XYZ_MAT
 #ifdef CIE_D50
@@ -28,6 +30,6 @@ constant float3x3 RGB2XYZ = float3x3(
 
 #ifndef FNC_RGB2XYZ
 #define FNC_RGB2XYZ
-static inline float3 rgb2xyz( float3 rgb) { return RGB2XYZ * rgb * 100.0;}
-static inline float4 rgb2xyz( float4 rgb) { return float4(rgb2xyz(rgb.rgb),rgb.a); }
+LYGIA_FNC float3 rgb2xyz( float3 rgb) { return RGB2XYZ * rgb * 100.0;}
+LYGIA_FNC float4 rgb2xyz( float4 rgb) { return float4(rgb2xyz(rgb.rgb),rgb.a); }
 #endif

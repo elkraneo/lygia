@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "hueShift.msl"
 #include "space/rgb2ryb.msl"
 #include "space/ryb2rgb.msl"
@@ -21,13 +23,13 @@ license:
 
 #ifndef FNC_HUESHIFTRYB
 #define FNC_HUESHIFTRYB
-static inline float3 hueShiftRYB( float3 color, float a){
+LYGIA_FNC float3 hueShiftRYB( float3 color, float a){
     float3 rgb = rgb2ryb(color);
     rgb = hueShift(rgb, a);
     return ryb2rgb(rgb);
 }
 
-static inline float4 hueShiftRYB(float4 v, float a) {
+LYGIA_FNC float4 hueShiftRYB(float4 v, float a) {
     return float4(hueShiftRYB(v.rgb, a), v.a);
 }
 #endif

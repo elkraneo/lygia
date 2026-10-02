@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "const.msl"
 
 /*
@@ -9,7 +11,7 @@ use: fcos(<float> value)
 #ifndef FNC_FCOS
 #define FNC_FCOS
 
-static inline float fcos(float x){
+LYGIA_FNC float fcos(float x){
     float w = fwidth(x);
     return cos(x) * smoothstep( TWO_PI, 0.0, w );
 }

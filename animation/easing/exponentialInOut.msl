@@ -6,9 +6,11 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/animation_easing.frag
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_EXPONENTIALINOUT
 #define FNC_EXPONENTIALINOUT
-static inline float exponentialInOut(float t) {
+LYGIA_FNC float exponentialInOut(float t) {
     return t == 0.0 || t == 1.0
         ? t
         : t < 0.5

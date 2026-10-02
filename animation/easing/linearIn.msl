@@ -6,7 +6,9 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/animation_easing.frag
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_LINEARIN
 #define FNC_LINEARIN
-static inline float linearIn(float t) { return t; }
+LYGIA_FNC float linearIn(float t) { return t; }
 #endif

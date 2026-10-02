@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/const.msl"
 #include "../math/saturate.msl"
 
@@ -64,7 +66,7 @@ examples:
 #ifndef FNC_ATMOSPHERE
 #define FNC_ATMOSPHERE
 
-static inline bool atmosphere_intersect(Ray ray, thread float& t0, thread float& t1) {
+LYGIA_FNC bool atmosphere_intersect(Ray ray, thread float& t0, thread float& t1) {
     float3 L = ATMOSPHERE_ORIGIN - ray.origin; 
     float DT = dot(L, ray.direction);
     float D2 = dot(L, L) - DT * DT;
@@ -79,11 +81,11 @@ static inline bool atmosphere_intersect(Ray ray, thread float& t0, thread float&
     return true;
 }
 
-static inline float3 atmosphere_pos(Ray ray, float dist, float ds) {
+LYGIA_FNC float3 atmosphere_pos(Ray ray, float dist, float ds) {
     return ray.origin + ray.direction * (dist + ds * 0.5);
 }
 
-static inline float atmosphere_height(Ray ray, float dist,  float ds, thread float2& density) {
+LYGIA_FNC float atmosphere_height(Ray ray, float dist,  float ds, thread float2& density) {
     float3 p = atmosphere_pos(ray, dist, ds);
     float h = length(p) - 6371e3;
 
@@ -96,7 +98,7 @@ static inline float atmosphere_height(Ray ray, float dist,  float ds, thread flo
     return h;
 }
 
-static inline bool atmosphere_light(Ray ray, thread float2& depth) {
+LYGIA_FNC bool atmosphere_light(Ray ray, thread float2& depth) {
     float t0 = 0.0;     // Atmosphere entry point 
     float t1 = 99999.0; // Atmosphere exit point
 
@@ -117,7 +119,7 @@ static inline bool atmosphere_light(Ray ray, thread float2& depth) {
     return true;
 }
 
-static inline float3 atmosphere(Ray ray, float3 sun_dir) {
+LYGIA_FNC float3 atmosphere(Ray ray, float3 sun_dir) {
     float t0 = 0.0;
     float t1 = 99999.0;
 
@@ -205,7 +207,7 @@ static inline float3 atmosphere(Ray ray, float3 sun_dir) {
     return color;
 }
 
-static inline float3 atmosphere(float3 eye_dir, float3 sun_dir) {
+LYGIA_FNC float3 atmosphere(float3 eye_dir, float3 sun_dir) {
     Ray ray = Ray{float3(0., 6371e3 + 1.0, 0.), eye_dir};
     return atmosphere(ray, sun_dir);
 }

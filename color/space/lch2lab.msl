@@ -7,14 +7,16 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_LCH2LAB
 #define FNC_LCH2LAB
-static inline float3 lch2lab(float3 lch) {
+LYGIA_FNC float3 lch2lab(float3 lch) {
     return float3(
         lch.x,
         lch.y * cos(lch.z * 0.01745329251),
         lch.y * sin(lch.z * 0.01745329251)
     );
 }
-static inline float4 lch2lab(float4 lch) { return float4(lch2lab(lch.xyz),lch.a);}
+LYGIA_FNC float4 lch2lab(float4 lch) { return float4(lch2lab(lch.xyz),lch.a);}
 #endif

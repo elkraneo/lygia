@@ -6,6 +6,8 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/animation_easing.frag
 */
 
+#include "../../lygia.msl"
+
 #include "cubicIn.msl"
 #include "cubicOut.msl"
 #include "cubicInOut.msl"

@@ -7,6 +7,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef CIE_WHITE
 #ifdef CIE_D50
 #define CIE_WHITE float3(0.96429567643, 1.0, 0.82510460251)
@@ -18,7 +20,7 @@ license:
 
 #ifndef FNC_LAB2XYZ
 #define FNC_LAB2XYZ
-static inline float3 lab2xyz( float3 c) {
+LYGIA_FNC float3 lab2xyz( float3 c) {
     float fy = ( c.x + 16.0 ) / 116.0;
     float fx = c.y / 500.0 + fy;
     float fz = fy - c.z / 200.0;
@@ -29,5 +31,5 @@ static inline float3 lab2xyz( float3 c) {
     );
 }
 
-static inline float4 lab2xyz(float4 c) { return float4(lab2xyz(c.xyz), c.w); }
+LYGIA_FNC float4 lab2xyz(float4 c) { return float4(lab2xyz(c.xyz), c.w); }
 #endif

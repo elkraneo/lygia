@@ -7,9 +7,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_BRIGHTNESSMATRIX
 #define FNC_BRIGHTNESSMATRIX
-static inline float4x4 brightnessMatrix(float a) {
+LYGIA_FNC float4x4 brightnessMatrix(float a) {
     return float4x4(  1., 0., 0., 0.,
                   0., 1., 0., 0.,
                   0., 0., 1., 0.,

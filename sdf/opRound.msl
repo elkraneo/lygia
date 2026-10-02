@@ -4,10 +4,12 @@ description: round SDFs
 use: <float> opRound( <float> d, <float> h ) 
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_OPROUND
 #define FNC_OPROUND
 
-static inline float opRound( float d, float h ) {
+LYGIA_FNC float opRound( float d, float h ) {
     return d - h;
 }
 

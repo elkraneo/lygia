@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 // POISSON FILL (DEFAULT)
 // #define PYRAMID_H1 1.0334, 0.6836, 0.1507
 // #define PYRAMID_H2 0.0270
@@ -27,7 +29,7 @@ license:
 
 #ifndef FNC_PYRAMID
 #define FNC_PYRAMID
-static inline float4 pyramid(SAMPLER_TYPE tex0, SAMPLER_TYPE tex1, float2 st, float2 pixel, bool upscale) {
+LYGIA_FNC float4 pyramid(SAMPLER_TYPE tex0, SAMPLER_TYPE tex1, float2 st, float2 pixel, bool upscale) {
     float4 color = float4(0.0);
     if (!upscale) {
         color = pyramidDownscale(tex0, st, pixel);

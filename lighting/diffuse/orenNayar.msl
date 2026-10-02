@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../shadingData/shadingData.msl"
 
 /*
@@ -14,7 +16,7 @@ license:
 #ifndef FNC_DIFFUSE_ORENNAYAR
 #define FNC_DIFFUSE_ORENNAYAR
 
-static inline float diffuseOrenNayar(float3 L, float3 N, float3 V, float NoV, float NoL, float roughness) {
+LYGIA_FNC float diffuseOrenNayar(float3 L, float3 N, float3 V, float NoV, float NoL, float roughness) {
     float LoV = dot(L, V);
     
     float s = LoV - NoL * NoV;
@@ -27,7 +29,7 @@ static inline float diffuseOrenNayar(float3 L, float3 N, float3 V, float NoV, fl
     return max(0.0, NoL) * (A + B * s / t);
 }
 
-static inline float diffuseOrenNayar(ShadingData shadingData) {
+LYGIA_FNC float diffuseOrenNayar(ShadingData shadingData) {
     return diffuseOrenNayar(shadingData.L, shadingData.N, shadingData.V, shadingData.NoV, shadingData.NoL, shadingData.roughness);
 }
 

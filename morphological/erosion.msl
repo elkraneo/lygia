@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sampler.msl"
 #include "../math/saturate.msl"
 #include "../math/sum.msl"
@@ -26,7 +28,7 @@ options:
 #ifndef FNC_EROSION
 #define FNC_EROSION
 
-static inline EROSION_TYPE erosion(SAMPLER_TYPE tex, float2 st, float2 pixel, int radius) {
+LYGIA_FNC EROSION_TYPE erosion(SAMPLER_TYPE tex, float2 st, float2 pixel, int radius) {
 
     float invKR = 1.0 / float(radius);
     EROSION_TYPE acc = EROSION_TYPE(1.0);

@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "triangle.msl"
 
 /*
@@ -12,6 +14,6 @@ license:
 #ifndef FNC_TRIANGLE_CENTROID
 #define FNC_TRIANGLE_CENTROID
 
-static inline float3 centroid(Triangle _tri) { return (_tri.a + _tri.b + _tri.c) * 0.3333333333333; }
+LYGIA_FNC float3 centroid(Triangle _tri) { return (_tri.a + _tri.b + _tri.c) * 0.3333333333333; }
 
 #endif

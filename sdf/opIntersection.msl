@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/saturate.msl"
 
 /*
@@ -9,9 +11,9 @@ use: <float> opIntersection( <float> d1, <float> d2 [, <float> smooth_factor] )
 #ifndef FNC_OPINTERSECTION
 #define FNC_OPINTERSECTION
 
-static inline float opIntersection( float d1, float d2 ) { return max(d1,d2); }
+LYGIA_FNC float opIntersection( float d1, float d2 ) { return max(d1,d2); }
 
-static inline float opIntersection( float d1, float d2, float k ) {
+LYGIA_FNC float opIntersection( float d1, float d2, float k ) {
     float h = saturate( 0.5 - 0.5*(d2-d1)/k );
     return mix( d2, d1, h ) + k*h*(1.0-h); 
 }

@@ -13,6 +13,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../../lygia.msl"
+
 #ifndef WADA_TRIAD_TOTAL
 #define WADA_TRIAD_TOTAL 112
 #endif
@@ -20,7 +22,7 @@ license:
 #ifndef FNC_PALETTE_WADA_TRIAD
 #define FNC_PALETTE_WADA_TRIAD
     
-static inline int3 wadaTriad( int index ) {
+LYGIA_FNC int3 wadaTriad( int index ) {
     int3 t[WADA_TRIAD_TOTAL];
     t[0] = int3(2,3,150);
     t[1] = int3(54,61,124);

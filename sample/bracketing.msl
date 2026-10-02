@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../space/rotate.msl"
 #include "../space/bracketing.msl"
 
@@ -31,7 +33,7 @@ license: MIT license (MIT) Copyright Huw Bowles May 2022
 #ifndef FNC_SAMPLEBRACKETING
 #define FNC_SAMPLEBRACKETING
 
-static inline SAMPLEBRACKETING_TYPE sampleBracketing(SAMPLER_TYPE tex, float2 st, float2 dir, float scale) {
+LYGIA_FNC SAMPLEBRACKETING_TYPE sampleBracketing(SAMPLER_TYPE tex, float2 st, float2 dir, float scale) {
     float2 vAxis0 = float2(0.0);
     float2 vAxis1 = float2(0.0);
     float blendAlpha = 0.0;
@@ -59,5 +61,5 @@ static inline SAMPLEBRACKETING_TYPE sampleBracketing(SAMPLER_TYPE tex, float2 st
     return result;
 }
 
-static inline SAMPLEBRACKETING_TYPE sampleBracketing(SAMPLER_TYPE tex, float2 st, float2 dir) { return sampleBracketing(tex, st, dir, 1.0); }
+LYGIA_FNC SAMPLEBRACKETING_TYPE sampleBracketing(SAMPLER_TYPE tex, float2 st, float2 dir) { return sampleBracketing(tex, st, dir, 1.0); }
 #endif

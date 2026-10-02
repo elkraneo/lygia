@@ -7,11 +7,13 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_NOTEQUAL
 #define FNC_NOTEQUAL
 
-static inline bool2 notEqual(float2 x, float2 y) { return x != y; }
-static inline bool3 notEqual(float3 x, float3 y) { return x != y; }
-static inline bool4 notEqual(float4 x, float4 y) { return x != y; }
+LYGIA_FNC bool2 notEqual(float2 x, float2 y) { return x != y; }
+LYGIA_FNC bool3 notEqual(float3 x, float3 y) { return x != y; }
+LYGIA_FNC bool4 notEqual(float4 x, float4 y) { return x != y; }
 
 #endif

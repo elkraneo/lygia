@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "type.msl"
 
 /*
@@ -11,5 +13,5 @@ license:
 
 #ifndef FNC_QUATNEG
 #define FNC_QUATNEG
-static inline QUAT quatNeg(QUAT q) { return QUAT(-q.xyz, -q.w); }
+LYGIA_FNC QUAT quatNeg(QUAT q) { return QUAT(-q.xyz, -q.w); }
 #endif

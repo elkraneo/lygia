@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "type.msl"
 #include "2mat3.msl"
 #include "../toMat4.msl"
@@ -14,5 +16,5 @@ license:
 
 #ifndef FNC_QUAT2MAT4
 #define FNC_QUAT2MAT4
-static inline float4x4 quat2mat4(QUAT q) { return toMat4(quat2mat3(q)); }
+LYGIA_FNC float4x4 quat2mat4(QUAT q) { return toMat4(quat2mat3(q)); }
 #endif

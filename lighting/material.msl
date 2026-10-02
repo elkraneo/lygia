@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "material/albedo.msl"
 #include "material/specular.msl"
 #include "material/emissive.msl"

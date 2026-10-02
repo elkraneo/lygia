@@ -6,6 +6,8 @@ description: |
     https://codepen.io/meodai/full/abGjoLq
 */
 
+#include "../../lygia.msl"
+
 #ifndef RIDGWAY_ABSINTHE_GREEN
 #define RIDGWAY_ABSINTHE_GREEN float3(0.651, 0.706, 0.424)
 #endif

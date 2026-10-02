@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/mod.msl"
 #include "sqTile.msl"
 
@@ -16,20 +18,20 @@ license:
 
 #ifndef FNC_CHECKERTILE
 #define FNC_CHECKERTILE
-static inline float checkerTile(float4 t) {
+LYGIA_FNC float checkerTile(float4 t) {
     float2 c = mod(t.zw,2.);
     return abs(c.x-c.y);
 }
 
-static inline float checkerTile(float2 v) {
+LYGIA_FNC float checkerTile(float2 v) {
     return checkerTile(sqTile(v));
 }
 
-static inline float checkerTile(float2 v, float s) {
+LYGIA_FNC float checkerTile(float2 v, float s) {
     return checkerTile(v * s);
 }
 
-static inline float checkerTile(float2 v, float2 s) {
+LYGIA_FNC float checkerTile(float2 v, float2 s) {
     return checkerTile(v * s);
 }
 #endif

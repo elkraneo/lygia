@@ -6,9 +6,11 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/animation_easing.frag
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_QUARTICOUT
 #define FNC_QUARTICOUT
-static inline float quarticOut(float t) { 
+LYGIA_FNC float quarticOut(float t) { 
     float it = t - 1.0;
     return it * it * it * (1.0 - t) + 1.0; 
 }

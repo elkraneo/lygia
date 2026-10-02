@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../toShininess.msl"
 
 /*
@@ -12,7 +14,7 @@ license:
 #ifndef FNC_MATERIAL_SHININESS
 #define FNC_MATERIAL_SHININESS
 
-static inline float materialShininess() {
+LYGIA_FNC float materialShininess() {
     float shininess = 15.0;
 
 #ifdef MATERIAL_SHININESS

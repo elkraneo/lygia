@@ -4,10 +4,12 @@ description: onion operation of one SDFs
 use: <float> opOnion( <float> d, <float> h )
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_OPONION
 #define FNC_OPONION
 
-static inline float opOnion( float d, float h ) {
+LYGIA_FNC float opOnion( float d, float h ) {
     return abs(d)-h;
 }
 

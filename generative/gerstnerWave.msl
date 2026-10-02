@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/const.msl"
 
 /*
@@ -14,7 +16,7 @@ license:
 #ifndef FNC_GERSTNERWAVE
 #define FNC_GERSTNERWAVE
 
-static inline float3 gerstnerWave (float2 _uv, float2 _dir, float _steepness, float _wavelength, float _time, thread float3& _tangent, thread float3& _binormal) {
+LYGIA_FNC float3 gerstnerWave (float2 _uv, float2 _dir, float _steepness, float _wavelength, float _time, thread float3& _tangent, thread float3& _binormal) {
     float k = 2.0 * PI / _wavelength;
     float c = sqrt(9.8 / k);
     float2 d = normalize(_dir);
@@ -38,7 +40,7 @@ static inline float3 gerstnerWave (float2 _uv, float2 _dir, float _steepness, fl
     );
 }
 
-static inline float3 gerstnerWave (float2 _uv, float2 _dir, float _steepness, float _wavelength, float _time, thread float3& _normal) {
+LYGIA_FNC float3 gerstnerWave (float2 _uv, float2 _dir, float _steepness, float _wavelength, float _time, thread float3& _normal) {
     float3 _tangent = float3(0.0);
     float3 _binormal = float3(0.0);
     float3 pos = gerstnerWave (_uv, _dir, _steepness, _wavelength, _time, _tangent, _binormal);
@@ -46,7 +48,7 @@ static inline float3 gerstnerWave (float2 _uv, float2 _dir, float _steepness, fl
     return pos;
 }
 
-static inline float3 gerstnerWave (float2 _uv, float2 _dir, float _steepness, float _wavelength, float _time) {
+LYGIA_FNC float3 gerstnerWave (float2 _uv, float2 _dir, float _steepness, float _wavelength, float _time) {
     float3 _tangent = float3(0.0);
     float3 _binormal = float3(0.0);
     return gerstnerWave (_uv, _dir, _steepness, _wavelength, _time, _tangent, _binormal);

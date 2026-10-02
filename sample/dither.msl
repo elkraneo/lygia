@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "nearest.msl"
 #include "../color/dither.msl"
 
@@ -23,7 +25,7 @@ license:
 
 #ifndef FNC_SAMPLEDITHER
 #define FNC_SAMPLEDITHER
-static inline float4 sampleDither(SAMPLER_TYPE tex, float2 st, float2 resolution) {
+LYGIA_FNC float4 sampleDither(SAMPLER_TYPE tex, float2 st, float2 resolution) {
     float4 color = sampleNearest(tex, st, resolution);
     gamma2linear(color);
     color = SAMPLEDITHER_FNC(color, st * resolution);

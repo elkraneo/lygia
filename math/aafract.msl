@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "map.msl"
 
 /*
@@ -13,7 +15,7 @@ option:
 #ifndef FNC_AAFRACT
 #define FNC_AAFRACT
 
-static inline float aafract(float x) {
+LYGIA_FNC float aafract(float x) {
 
 #if defined(AA_EDGE)
     float afwidth = AA_EDGE;
@@ -28,6 +30,6 @@ static inline float aafract(float x) {
 #endif
 }
 
-static inline float2 aafract(float2 v) { return float2(aafract(v.x), aafract(v.y)); }
+LYGIA_FNC float2 aafract(float2 v) { return float2(aafract(v.x), aafract(v.y)); }
 
 #endif

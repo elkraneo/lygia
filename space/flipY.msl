@@ -7,9 +7,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_FLIPY
 #define FNC_FLIPY
-static inline float2 flipY(float2 v) { return float2(v.x, 1. - v.y); }
-static inline float3 flipY(float3 v) { return float3(v.x, 1. - v.y, v.z); }
-static inline float4 flipY(float4 v) { return float4(v.x, 1. - v.y, v.z, v.w); }
+LYGIA_FNC float2 flipY(float2 v) { return float2(v.x, 1. - v.y); }
+LYGIA_FNC float3 flipY(float3 v) { return float3(v.x, 1. - v.y, v.z); }
+LYGIA_FNC float4 flipY(float4 v) { return float4(v.x, 1. - v.y, v.z, v.w); }
 #endif

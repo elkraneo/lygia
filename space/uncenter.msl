@@ -9,11 +9,13 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_UNCENTER
 #define FNC_UNCENTER
 
-static inline float uncenter(float v) { return v * 0.5 + 0.5; }
-static inline float2  uncenter(float2 v) { return v * 0.5 + 0.5; }
-static inline float3  uncenter(float3 v) { return v * 0.5 + 0.5; }
+LYGIA_FNC float uncenter(float v) { return v * 0.5 + 0.5; }
+LYGIA_FNC float2  uncenter(float2 v) { return v * 0.5 + 0.5; }
+LYGIA_FNC float3  uncenter(float3 v) { return v * 0.5 + 0.5; }
 
 #endif

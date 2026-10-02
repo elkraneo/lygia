@@ -4,9 +4,11 @@ description: generate the SDF of a tetrahedron
 use: <float> tetrahedronSDF( <float3> pos, <float> h ) 
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_TETRAHEDRONSDF
 #define FNC_TETRAHEDRONSDF
-static inline float tetrahedronSDF(float3 p, float h)  {
+LYGIA_FNC float tetrahedronSDF(float3 p, float h)  {
     float3 q = abs(p);
     
     float y = p.y;

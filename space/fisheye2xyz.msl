@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/const.msl"
 
 /*
@@ -13,7 +15,7 @@ license:
 
 #ifndef FNC_FISHEYE2XYZ
 #define FNC_FISHEYE2XYZ
-static inline float3 fisheye2xyz(float2 uv) {
+LYGIA_FNC float3 fisheye2xyz(float2 uv) {
     float2 ndc = uv * 2.0 - 1.0;
     float R = sqrt(ndc.x * ndc.x + ndc.y * ndc.y);
     if (R < 0.0001)

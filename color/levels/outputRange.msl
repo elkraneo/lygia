@@ -9,10 +9,12 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_LEVELSOUTPUTRANGE
 #define FNC_LEVELSOUTPUTRANGE
-static inline float3 levelsOutputRange(float3 v, float3 oMin, float3 oMax) { return mix(oMin, oMax, v); }
-static inline float4 levelsOutputRange(float4 v, float3 oMin, float3 oMax) { return float4(levelsOutputRange(v.rgb, oMin, oMax), v.a); }
-static inline float3 levelsOutputRange(float3 v, float oMin, float oMax) { return levelsOutputRange(v, float3(oMin), float3(oMax)); }
-static inline float4 levelsOutputRange(float4 v, float oMin, float oMax) { return float4(levelsOutputRange(v.rgb, oMin, oMax), v.a); }
+LYGIA_FNC float3 levelsOutputRange(float3 v, float3 oMin, float3 oMax) { return mix(oMin, oMax, v); }
+LYGIA_FNC float4 levelsOutputRange(float4 v, float3 oMin, float3 oMax) { return float4(levelsOutputRange(v.rgb, oMin, oMax), v.a); }
+LYGIA_FNC float3 levelsOutputRange(float3 v, float oMin, float oMax) { return levelsOutputRange(v, float3(oMin), float3(oMax)); }
+LYGIA_FNC float4 levelsOutputRange(float4 v, float oMin, float oMax) { return float4(levelsOutputRange(v.rgb, oMin, oMax), v.a); }
 #endif

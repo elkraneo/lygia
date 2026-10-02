@@ -4,13 +4,15 @@ description: adaptive threshold from https://github.com/BradLarson/GPUImage/blob
 use: adaptiveThreshold(<float> value, <float> blur_value [,<float> bias])
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_ADAPTIVETHRESHOLD
 #define FNC_ADAPTIVETHRESHOLD
-static inline float adaptiveThreshold(float v, float blur_v, float b) {
+LYGIA_FNC float adaptiveThreshold(float v, float blur_v, float b) {
     return step(blur_v + b, v);
 }
 
-static inline float adaptiveThreshold(float v, float blur_v) {
+LYGIA_FNC float adaptiveThreshold(float v, float blur_v) {
     return step(blur_v - 0.05, v);
 }
 #endif

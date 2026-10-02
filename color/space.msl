@@ -2,6 +2,8 @@
 description: Include all available color spaces conversions
 */
 
+#include "../lygia.msl"
+
 // CMYK
 #include "space/cmyk2rgb.msl"
 #include "space/rgb2cmyk.msl"

@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../ray.msl"
 
 /*
@@ -14,7 +16,7 @@ license:
 #ifndef FNC_RAYDIRECTION
 #define FNC_RAYDIRECTION
 
-static inline void rayDirection(thread Ray& ray, float2 pos, float2 resolution, float fov) {
+LYGIA_FNC void rayDirection(thread Ray& ray, float2 pos, float2 resolution, float fov) {
     float aspect = resolution.x / resolution.y;
     float tanVFov2 = tan(fov / 2.0);
     float tanHFov2 = tanVFov2 * aspect;
@@ -23,7 +25,7 @@ static inline void rayDirection(thread Ray& ray, float2 pos, float2 resolution, 
                     float3(0.0,  0.0, -1.0);
 }
 
-static inline void rayDirection(thread Ray& ray, float3 origin, float2 pos, float2 resolution, float fov) {
+LYGIA_FNC void rayDirection(thread Ray& ray, float3 origin, float2 pos, float2 resolution, float fov) {
     float aspect = resolution.x / resolution.y;
     float tanVFov2 = tan(fov / 2.0);
     float tanHFov2 = tanVFov2 * aspect;
@@ -33,7 +35,7 @@ static inline void rayDirection(thread Ray& ray, float3 origin, float2 pos, floa
                     float3(0.0,  0.0, -1.0);
 }
 
-static inline Ray rayDirection(float3 origin, float2 pos, float2 resolution, float fov) {
+LYGIA_FNC Ray rayDirection(float3 origin, float2 pos, float2 resolution, float fov) {
     Ray ray;
     ray.origin = float3(0.0, 0.0, 0.0);
     ray.direction = float3(0.0, 0.0, 1.0);

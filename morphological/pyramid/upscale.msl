@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../../math/absi.msl"
 #include "../../sampler.msl"
 
@@ -41,7 +43,7 @@ license: MIT License (MIT C)opyright (c) 2020 Lingdong Huang
 
 #ifndef FNC_PYRAMID_UPSCALE
 #define FNC_PYRAMID_UPSCALE
-static inline float4 pyramidUpscale(SAMPLER_TYPE tex0, SAMPLER_TYPE tex1, float2 st, float2 pixel) {
+LYGIA_FNC float4 pyramidUpscale(SAMPLER_TYPE tex0, SAMPLER_TYPE tex1, float2 st, float2 pixel) {
     const float3  h1 = float3(PYRAMID_H1);
     const float h2 = PYRAMID_H2;
     const float2  g  = float2(PYRAMID_G);

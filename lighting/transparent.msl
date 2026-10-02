@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "envMap.msl"
 #include "ior.msl"
 #include "ior/2eta.msl"
@@ -26,7 +28,7 @@ license:
 #define FNC_TRANSPARENT
 
 template<typename... Env>
-static inline float3 transparent(float3 normal, float3 view, float3 Fr, float3 eta, float roughness, Env... env) {
+LYGIA_FNC float3 transparent(float3 normal, float3 view, float3 Fr, float3 eta, float roughness, Env... env) {
     float3 color  = float3(0.0);
     float3 T      = max(float3(0.0), 1.0-Fr);
 
@@ -64,7 +66,7 @@ static inline float3 transparent(float3 normal, float3 view, float3 Fr, float3 e
 }
 
 template<typename... Env>
-static inline float3 transparent(float3 normal, float3 view, float Fr, float3 eta, float roughness, Env... env) {
+LYGIA_FNC float3 transparent(float3 normal, float3 view, float Fr, float3 eta, float roughness, Env... env) {
     float3 color  = float3(0.0);
     float T     = max(0.0, 1.0-Fr);
 

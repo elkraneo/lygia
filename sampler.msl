@@ -6,6 +6,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "lygia.msl"
+
 #ifndef SAMPLER
 #define SAMPLER sampler( min_filter::linear, mag_filter::linear )
 #endif

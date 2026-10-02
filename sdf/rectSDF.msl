@@ -13,19 +13,21 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_RECTSDF
 #define FNC_RECTSDF
 
-static inline float rectSDF(float2 p, float2 b, float r) {
+LYGIA_FNC float rectSDF(float2 p, float2 b, float r) {
     float2 d = abs(p - 0.5) * 4.2 - b + float2(r);
     return min(max(d.x, d.y), 0.0) + length(max(d, 0.0)) - r;   
 }
 
-static inline float rectSDF(float2 p, float b, float r) {
+LYGIA_FNC float rectSDF(float2 p, float b, float r) {
     return rectSDF(p, float2(b), r);
 }
 
-static inline float rectSDF(float2 st, float2 s) {
+LYGIA_FNC float rectSDF(float2 st, float2 s) {
     #ifdef CENTER_2D
         st -= CENTER_2D;
         st *= 2.0;
@@ -36,11 +38,11 @@ static inline float rectSDF(float2 st, float2 s) {
                 abs(st.y / s.y) );
 }
 
-static inline float rectSDF(float2 st, float s) {
+LYGIA_FNC float rectSDF(float2 st, float s) {
     return rectSDF(st, float2(s) );
 }
 
-static inline float rectSDF(float2 st) {
+LYGIA_FNC float rectSDF(float2 st) {
     return rectSDF(st, float2(1.0));
 }
 

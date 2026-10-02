@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/saturate.msl"
 
 /*
@@ -9,7 +11,7 @@ use: <float> pyramidSDF(<float3> p, <float> h )
 #ifndef FNC_PYRAMIDSDF
 #define FNC_PYRAMIDSDF
 
-static inline float pyramidSDF( float3 p, float h )  {
+LYGIA_FNC float pyramidSDF( float3 p, float h )  {
    float m2 = h*h + 0.25;
    
    // symmetry

@@ -1,0 +1,24 @@
+/*
+description: |
+    Settings shared by every LYGIA Metal file. Included by each .msl, so
+    including any LYGIA function brings it in.
+
+    LYGIA_FNC is the qualifier in front of every function definition. By
+    default it's `static inline`: each .metal file that includes LYGIA gets
+    its own copy, so several .metal files in one target link without duplicate
+    symbols, and each file can set its own options (FBM_OCTAVES, ...).
+
+    To compile LYGIA once as a helper library that other files call, define
+    LYGIA_FNC as empty before including LYGIA, so the functions are exported:
+
+        #define LYGIA_FNC
+        #include "lygia/generative/fbm.msl"
+
+    The callers then declare the functions they use and link against that
+    library (static, dynamic, or its .air). Its options are fixed when it's
+    built.
+*/
+
+#ifndef LYGIA_FNC
+#define LYGIA_FNC static inline
+#endif

@@ -5,6 +5,8 @@ use: <float> perceptual2linearRoughness(<float> perceptualRoughness)
 license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 */
 
+#include "../../lygia.msl"
+
 #ifndef MIN_PERCEPTUAL_ROUGHNESS
 #define MIN_PERCEPTUAL_ROUGHNESS 0.045
 #endif
@@ -12,7 +14,7 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #ifndef FNC_PERCEPTUAL_LINEAR_ROUGHNESS
 #define FNC_PERCEPTUAL_LINEAR_ROUGHNESS
 
-static inline float perceptual2linearRoughness(float perceptualRoughness) {
+LYGIA_FNC float perceptual2linearRoughness(float perceptualRoughness) {
     perceptualRoughness = clamp(perceptualRoughness, MIN_PERCEPTUAL_ROUGHNESS, 1.0);
     return perceptualRoughness * perceptualRoughness;
 }

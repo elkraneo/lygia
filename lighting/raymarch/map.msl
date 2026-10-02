@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../material.msl"
 #include "../medium.msl"
 
@@ -7,7 +9,7 @@ description: |
     Map of SDF functions to be declare.
     Define `Material raymarchMap(float3 pos)` in your shader (and `Medium raymarchVolumeMap(float3 pos)` when
     using RAYMARCH_VOLUME), before or after including the raymarch files; these prototypes match it.
-    Metal: define it `static inline` (the prototypes are static), so each .metal file of your app can have its
+    Metal: define it `static inline` (the prototypes use LYGIA_FNC, `static inline` by default), so each .metal file of your app can have its
     own scene without duplicate or shared symbols.
 use: <Material> raymarchMap( in <float3> pos )
 options:
@@ -28,7 +30,7 @@ examples:
 #ifndef FNC_RAYMARCH_MAP
 #define FNC_RAYMARCH_MAP
 
-static Material RAYMARCH_MAP_FNC( float3 pos );
-static Medium RAYMARCH_VOLUME_MAP_FNC( float3 pos );
+LYGIA_FNC Material RAYMARCH_MAP_FNC( float3 pos );
+LYGIA_FNC Medium RAYMARCH_VOLUME_MAP_FNC( float3 pos );
 
 #endif

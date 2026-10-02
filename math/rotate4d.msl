@@ -7,9 +7,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_ROTATE4D
 #define FNC_ROTATE4D
-static inline float4x4 rotate4d(float3 a, const float r) {
+LYGIA_FNC float4x4 rotate4d(float3 a, const float r) {
     a = normalize(a);
     float s = sin(r);
     float c = cos(r);

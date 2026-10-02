@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "directional.msl"
 #include "../specular.msl"
 #include "../diffuse.msl"
@@ -23,7 +25,7 @@ license:
 #ifndef FNC_LIGHT_DIRECTIONAL_EVALUATE
 #define FNC_LIGHT_DIRECTIONAL_EVALUATE
 
-static inline void lightDirectionalEvaluate(LightDirectional L, Material mat, thread ShadingData& shadingData) {
+LYGIA_FNC void lightDirectionalEvaluate(LightDirectional L, Material mat, thread ShadingData& shadingData) {
 
     shadingData.L = L.direction;
     shadingData.H = normalize(L.direction + shadingData.V);

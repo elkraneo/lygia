@@ -5,9 +5,11 @@ use: blendDifference(<float|float3> base, <float|float3> blend [, <float> opacit
 license: MIT License (MIT) Copyright (c) 2015 Jamie Owen
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_BLENDDIFFERENCE
 #define FNC_BLENDDIFFERENCE
-static inline float blendDifference(float base, float blend) { return abs(base-blend); }
-static inline float3  blendDifference(float3 base, float3 blend) { return abs(base-blend); }
-static inline float3  blendDifference(float3 base, float3 blend, float opacity) { return (blendDifference(base, blend) * opacity + base * (1. - opacity)); }
+LYGIA_FNC float blendDifference(float base, float blend) { return abs(base-blend); }
+LYGIA_FNC float3  blendDifference(float3 base, float3 blend) { return abs(base-blend); }
+LYGIA_FNC float3  blendDifference(float3 base, float3 blend, float opacity) { return (blendDifference(base, blend) * opacity + base * (1. - opacity)); }
 #endif

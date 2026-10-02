@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sampler.msl"
 #include "../math/pow3.msl"
 
@@ -16,7 +18,7 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 
 #ifndef FNC_NORMALFROMHEIGHTMAP
 #define FNC_NORMALFROMHEIGHTMAP
-static inline float3 normalFromHeightMap(SAMPLER_TYPE heightMap, float2 st, float strength, float offset)
+LYGIA_FNC float3 normalFromHeightMap(SAMPLER_TYPE heightMap, float2 st, float strength, float offset)
 {
     offset = pow3(offset) * 0.1;
     
@@ -30,7 +32,7 @@ static inline float3 normalFromHeightMap(SAMPLER_TYPE heightMap, float2 st, floa
     return normalize(cross(a, b));
 }
 
-static inline float3 normalFromHeightMap(SAMPLER_TYPE heightMap, float2 st, float strength)
+LYGIA_FNC float3 normalFromHeightMap(SAMPLER_TYPE heightMap, float2 st, float strength)
 {
     return normalFromHeightMap(heightMap, st, strength, 0.5);
 

@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../space/cart2polar.msl"
 
 /*
@@ -29,7 +31,7 @@ examples:
 
 #ifndef FNC_SUPERSHAPESDF
 #define FNC_SUPERSHAPESDF
-static inline float superShapeSDF( float2 st, float2 center, float s, float a, float b, float n1, float n2, float n3, float m ) {
+LYGIA_FNC float superShapeSDF( float2 st, float2 center, float s, float a, float b, float n1, float n2, float n3, float m ) {
     st -= center;
     float2 polar = cart2polar( st );
     float d = polar.y * 5.0;
@@ -44,7 +46,7 @@ static inline float superShapeSDF( float2 st, float2 center, float s, float a, f
     return d - length(q); 
 }
 
-static inline float superShapeSDF( float2 st, float s, float a, float b, float n1, float n2, float n3, float m ) {
+LYGIA_FNC float superShapeSDF( float2 st, float s, float a, float b, float n1, float n2, float n3, float m ) {
     #ifdef CENTER_2D
     return superShapeSDF( st, CENTER_2D, s, a, b, n1, n2, n3, m );
     #else

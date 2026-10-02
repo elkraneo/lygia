@@ -14,6 +14,8 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #include "point.msl"
 #include "../specular.msl"
 #include "../diffuse.msl"
@@ -24,7 +26,7 @@ license:
 #ifndef FNC_LIGHT_POINT
 #define FNC_LIGHT_POINT
 
-static inline void lightPointEvaluate(LightPoint L, Material mat, thread ShadingData& shadingData) {
+LYGIA_FNC void lightPointEvaluate(LightPoint L, Material mat, thread ShadingData& shadingData) {
 
     float Ldist  = length(L.position);
     float3 Ldirection = L.position/Ldist;

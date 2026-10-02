@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/const.msl"
 #include "../sampler.msl"
 
@@ -30,7 +32,7 @@ license:
 #ifndef FNC_PINCUSHION
 #define FNC_PINCUSHION
 
-static inline float2 pincushion(float2 st, float2 pixel, float amt) {
+LYGIA_FNC float2 pincushion(float2 st, float2 pixel, float amt) {
     float prop = pixel.x / pixel.y; // screen proroption
     float2 m = float2(0.5, 0.5 / prop); // center coords
     float2 d = st - m;                // vector from center to current fragment
@@ -46,7 +48,7 @@ static inline float2 pincushion(float2 st, float2 pixel, float amt) {
     return float2(uv.x, uv.y * prop);
 }
 
-static inline PINCUSHION_TYPE pincushion(SAMPLER_TYPE tex, float2 st, float2 pixel, float amt) {
+LYGIA_FNC PINCUSHION_TYPE pincushion(SAMPLER_TYPE tex, float2 st, float2 pixel, float amt) {
     float2 uv = pincushion(st, pixel, amt);
     return PINCUSHION_SAMPLER_FNC(tex, uv);
 }

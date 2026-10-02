@@ -5,9 +5,11 @@ description: |
 use: <int> modi(<int> x, <int> y)
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_MODI
 #define FNC_MODI
-static inline int modi(int x, int y) {
+LYGIA_FNC int modi(int x, int y) {
     return x % y;
 }
 #endif

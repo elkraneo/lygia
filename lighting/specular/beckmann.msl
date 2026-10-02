@@ -1,10 +1,12 @@
+#include "../../lygia.msl"
+
 #include "../shadingData/shadingData.msl"
 #include "../common/beckmann.msl"
 
 #ifndef FNC_SPECULAR_BECKMANN
 #define FNC_SPECULAR_BECKMANN
 
-static inline float specularBeckmann(ShadingData shadingData) {
+LYGIA_FNC float specularBeckmann(ShadingData shadingData) {
     return beckmann(shadingData.NoH, shadingData.roughness);
 }
 

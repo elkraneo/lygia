@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../../sample/clamp2edge.msl"
 
 /*
@@ -31,7 +33,7 @@ examples:
 
 #ifndef FNC_EDGESOBEL
 #define FNC_EDGESOBEL
-static inline EDGESOBEL_TYPE edgeSobel(SAMPLER_TYPE tex, float2 st, float2 offset) {
+LYGIA_FNC EDGESOBEL_TYPE edgeSobel(SAMPLER_TYPE tex, float2 st, float2 offset) {
     // get samples around pixel
     EDGESOBEL_TYPE tleft = EDGESOBEL_SAMPLER_FNC(tex, st + float2(-offset.x, offset.y));
     EDGESOBEL_TYPE left = EDGESOBEL_SAMPLER_FNC(tex, st + float2(-offset.x, 0.));

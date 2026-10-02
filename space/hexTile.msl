@@ -9,10 +9,12 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_HEXTILE
 #define FNC_HEXTILE
 
-static inline float4 hexTile(float2 st) {
+LYGIA_FNC float4 hexTile(float2 st) {
     float2 s = float2(1., 1.7320508);
     float2 o = float2(.5, 1.);
     st = st.yx;

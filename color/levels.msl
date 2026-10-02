@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "levels/inputRange.msl"
 #include "levels/outputRange.msl"
 #include "levels/gamma.msl"
@@ -15,19 +17,19 @@ license:
 
 #ifndef FNC_LEVELS
 #define FNC_LEVELS
-static inline float3 levels(float3 v, float3 iMin, float3 g, float3 iMax, float3 oMin, float3 oMax) {
+LYGIA_FNC float3 levels(float3 v, float3 iMin, float3 g, float3 iMax, float3 oMin, float3 oMax) {
     return levelsOutputRange( levelsGamma( levelsInputRange(v, iMin, iMax), g), oMin, oMax);
 }
 
-static inline float3 levels(float3 v, float iMin, float g, float iMax, float oMin, float oMax) {
+LYGIA_FNC float3 levels(float3 v, float iMin, float g, float iMax, float oMin, float oMax) {
     return levels(v, float3(iMin), float3(g), float3(iMax), float3(oMin), float3(oMax));
 }
 
-static inline float4 levels(float4 v, float3 iMin, float3 g, float3 iMax, float3 oMin, float3 oMax) {
+LYGIA_FNC float4 levels(float4 v, float3 iMin, float3 g, float3 iMax, float3 oMin, float3 oMax) {
     return float4(levels(v.rgb, iMin, g, iMax, oMin, oMax), v.a);
 }
 
-static inline float4 levels(float4 v, float iMin, float g, float iMax, float oMin, float oMax) {
+LYGIA_FNC float4 levels(float4 v, float iMin, float g, float iMax, float oMin, float oMax) {
     return float4(levels(v.rgb, iMin, g, iMax, oMin, oMax), v.a);
 }
 #endif

@@ -1,4 +1,6 @@
 
+#include "../lygia.msl"
+
 #include "../sdf/circleSDF.msl"
 
 #include "fill.msl"
@@ -15,11 +17,11 @@ license:
 
 #ifndef FNC_CIRCLE
 #define FNC_CIRCLE
-static inline float circle(float2 st, float size) {
+LYGIA_FNC float circle(float2 st, float size) {
     return fill(circleSDF(st), size);
 }
 
-static inline float circle(float2 st, float size, float strokeWidth) {
+LYGIA_FNC float circle(float2 st, float size, float strokeWidth) {
     return stroke(circleSDF(st), size, strokeWidth);
 }
 #endif

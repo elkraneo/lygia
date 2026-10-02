@@ -7,13 +7,15 @@ use: <float3|float4> vibrance(<float3|float4> color, <float> v)
 license: MIT License (MIT) Copyright (c) 2014 CeeJayDK
 */
 
+#include "../lygia.msl"
+
 #include "../math/mmax.msl"
 #include "../math/mmin.msl"
 #include "luma.msl"
 
 #ifndef FNC_VIBRANCE
 #define FNC_VIBRANCE
-static inline float3 vibrance(float3 v, float vi) {
+LYGIA_FNC float3 vibrance(float3 v, float vi) {
     float max_v = mmax(v);
     float min_v = mmin(v);
     float sat = max_v - min_v;
@@ -21,5 +23,5 @@ static inline float3 vibrance(float3 v, float vi) {
     return mix(float3(lum), v, 1.0 + (vi * 1.0 - (sign(vi) * sat)));
 }
 
-static inline float4 vibrance(float4 v, float vi) { return float4( vibrance(v.rgb, vi), v.a); }
+LYGIA_FNC float4 vibrance(float4 v, float vi) { return float4( vibrance(v.rgb, vi), v.a); }
 #endif

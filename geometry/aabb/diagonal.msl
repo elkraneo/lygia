@@ -1,4 +1,6 @@
 
+#include "../../lygia.msl"
+
 #include "aabb.msl"
 
 /*
@@ -13,6 +15,6 @@ license:
 #ifndef FNC_AABB_DIAGONAL
 #define FNC_AABB_DIAGONAL
 
-static inline float3 diagonal(AABB box) { return abs(box.max - box.min); }
+LYGIA_FNC float3 diagonal(AABB box) { return abs(box.max - box.min); }
 
 #endif

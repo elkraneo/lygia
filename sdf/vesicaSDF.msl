@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "circleSDF.msl"
 
 /*
@@ -13,13 +15,13 @@ license:
 
 #ifndef FNC_VESICASDF
 #define FNC_VESICASDF
-static inline float vesicaSDF(float2 st, float w) {
+LYGIA_FNC float vesicaSDF(float2 st, float w) {
     float2 offset = float2(w*0.5,0.);
     return max( circleSDF(st-offset),
                 circleSDF(st+offset));
 }
 
-static inline float vesicaSDF(float2 st) {
+LYGIA_FNC float vesicaSDF(float2 st) {
     return vesicaSDF(st, 0.5);
 }
 #endif

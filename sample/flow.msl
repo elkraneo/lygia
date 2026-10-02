@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../sampler.msl"
 #include "../math/mod.msl"
 
@@ -16,7 +18,7 @@ license:
 
 #ifndef FNC_SAMPLEFLOW
 #define FNC_SAMPLEFLOW
-static inline float4 sampleFlow(SAMPLER_TYPE tex, float2 st, float2 dir, float time, float cycle) {
+LYGIA_FNC float4 sampleFlow(SAMPLER_TYPE tex, float2 st, float2 dir, float time, float cycle) {
     float halfCycle = cycle * 0.5;
 
     float flowOffset0 = mod(time, cycle);

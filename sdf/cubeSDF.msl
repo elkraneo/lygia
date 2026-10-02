@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "boxSDF.msl"
 
 /*
@@ -7,5 +9,5 @@ use: <float> cubeSDF( <float3> pos, <float> size )
 
 #ifndef FNC_CUBESDF
 #define FNC_CUBESDF
-static inline float cubeSDF(float3 p, float s)  { return boxSDF(p, float3(s)); }
+LYGIA_FNC float cubeSDF(float3 p, float s)  { return boxSDF(p, float3(s)); }
 #endif

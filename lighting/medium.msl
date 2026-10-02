@@ -4,6 +4,8 @@ description: Medium Structure
 license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 */
 
+#include "../lygia.msl"
+
 #ifndef STR_MEDIUM
 #define STR_MEDIUM
 

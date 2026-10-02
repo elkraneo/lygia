@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/mod.msl"
 #include "sqTile.msl"
 
@@ -16,22 +18,22 @@ license:
 
 #ifndef FNC_BRICKTILE
 #define FNC_BRICKTILE
-static inline float4 brickTile(float4 t) {
+LYGIA_FNC float4 brickTile(float4 t) {
     t.x += mod(t.w,2.)*.5;
     t.z = floor(t.z+t.x);
     t.x = fract(t.x);
     return t;
 }
 
-static inline float4 brickTile(float2 st) {
+LYGIA_FNC float4 brickTile(float2 st) {
     return brickTile(sqTile(st));
 }
 
-static inline float4 brickTile(float2 st, float s) {
+LYGIA_FNC float4 brickTile(float2 st, float s) {
     return brickTile(st * s);
 }
 
-static inline float4 brickTile(float2 st, float2 s) {
+LYGIA_FNC float4 brickTile(float2 st, float2 s) {
     return brickTile(st * s);
 }
 

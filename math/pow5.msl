@@ -7,25 +7,27 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_POW5
 #define FNC_POW5
 
-static inline float pow5(const float v) {
+LYGIA_FNC float pow5(const float v) {
     float v2 = v * v;
     return v2 * v2 * v;
 }
 
-static inline float2 pow5(const float2 v) {
+LYGIA_FNC float2 pow5(const float2 v) {
     float2 v2 = v * v;
     return v2 * v2 * v;
 }
 
-static inline float3 pow5(const float3 v) {
+LYGIA_FNC float3 pow5(const float3 v) {
     float3 v2 = v * v;
     return v2 * v2 * v;
 }
 
-static inline float4 pow5(const float4 v) {
+LYGIA_FNC float4 pow5(const float4 v) {
     float4 v2 = v * v;
     return v2 * v2 * v;
 }

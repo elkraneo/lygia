@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "length.msl"
 #include "div.msl"
 
@@ -12,5 +14,5 @@ license:
 
 #ifndef FNC_QUATNORM
 #define FNC_QUATNORM
-static inline QUAT quatNorm(QUAT q) { return quatDiv(q, quatLength(q)); }
+LYGIA_FNC QUAT quatNorm(QUAT q) { return quatDiv(q, quatLength(q)); }
 #endif

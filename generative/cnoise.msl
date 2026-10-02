@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/mod289.msl"
 #include "../math/permute.msl"
 #include "../math/taylorInvSqrt.msl"
@@ -18,7 +20,7 @@ examples:
 #ifndef FNC_CNOISE
 #define FNC_CNOISE
 
-static inline float cnoise(float2 P) {
+LYGIA_FNC float cnoise(float2 P) {
     float4 Pi = floor(P.xyxy) + float4(0.0, 0.0, 1.0, 1.0);
     float4 Pf = fract(P.xyxy) - float4(0.0, 0.0, 1.0, 1.0);
     Pi = mod289(Pi); // To avoid truncation effects permutation
@@ -56,7 +58,7 @@ static inline float cnoise(float2 P) {
     return 2.3 * n_xy;
 }
 
-static inline float cnoise(float3 P) {
+LYGIA_FNC float cnoise(float3 P) {
     float3 Pi0 = floor(P); // Integer part for indexing
     float3 Pi1 = Pi0 + float3(1.0); // Integer part + 1
     Pi0 = mod289(Pi0);
@@ -124,7 +126,7 @@ static inline float cnoise(float3 P) {
     return 2.2 * n_xyz;
 }
 
-static inline float cnoise(float4 P) {
+LYGIA_FNC float cnoise(float4 P) {
     float4 Pi0 = floor(P); // Integer part for indexing
     float4 Pi1 = Pi0 + 1.0; // Integer part + 1
     Pi0 = mod289(Pi0);

@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "shadingData.msl"
 #include "../material.msl"
 #include "../reflection.msl"
@@ -13,7 +15,7 @@ license: MIT License (MIT) Copyright (c) 2024 Shadi EL Hajj
 #ifndef FNC_SHADING_DATA_NEW
 #define FNC_SHADING_DATA_NEW 
 
-static inline ShadingData shadingDataNew() {
+LYGIA_FNC ShadingData shadingDataNew() {
    ShadingData shadingData;
 
    shadingData.V = float3(0.0, 0.0, 0.0);
@@ -41,7 +43,7 @@ static inline ShadingData shadingDataNew() {
    return shadingData;
 }
 
-static inline void shadingDataNew(Material mat, thread ShadingData& shadingData) {
+LYGIA_FNC void shadingDataNew(Material mat, thread ShadingData& shadingData) {
    float dielectricF0 = reflectance2f0(mat.reflectance);
    shadingData.N = mat.normal;
    shadingData.R = reflection(shadingData.V, shadingData.N, mat.roughness);

@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "vividLight.msl"
 
 /*
@@ -9,17 +11,17 @@ license: MIT License (MIT) Copyright (c) 2015 Jamie Owen
 
 #ifndef FNC_BLENDHARDMIX
 #define FNC_BLENDHARDMIX
-static inline float blendHardMix(float base, float blend) {
+LYGIA_FNC float blendHardMix(float base, float blend) {
     return (blendVividLight(base, blend) < .5)? 0.: 1.;
 }
 
-static inline float3 blendHardMix(float3 base, float3 blend) {
+LYGIA_FNC float3 blendHardMix(float3 base, float3 blend) {
     return float3(blendHardMix(base.r, blend.r),
                 blendHardMix(base.g, blend.g),
                 blendHardMix(base.b, blend.b));
 }
 
-static inline float3 blendHardMix(float3 base, float3 blend, float opacity) {
+LYGIA_FNC float3 blendHardMix(float3 base, float3 blend, float opacity) {
     return (blendHardMix(base, blend) * opacity + base * (1. - opacity));
 }
 #endif

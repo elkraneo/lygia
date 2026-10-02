@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "../blend.msl"
 #include "../composite/sourceOver.msl"
 
@@ -13,7 +15,7 @@ license:
 #ifndef FNC_LAYER_HARD_LIGHT_SRC_OVER
 #define FNC_LAYER_HARD_LIGHT_SRC_OVER
 
-static inline float4 layerHardLightSourceOver(float4 src, float4 dest)
+LYGIA_FNC float4 layerHardLightSourceOver(float4 src, float4 dest)
 {    
     float4 result;
 

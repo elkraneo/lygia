@@ -7,14 +7,16 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_XYY2XYZ
 #define FNC_XYY2XYZ
-static inline float3 xyY2xyz( float3 xyY) {
+LYGIA_FNC float3 xyY2xyz( float3 xyY) {
     float Y = xyY.z;
     float f = 1.0/xyY.y;
     float x = Y * xyY.x * f;
     float z = Y * (1.0 - xyY.x - xyY.y) * f;
     return float3(x, Y, z);
 }
-static inline float4 xyY2xyz( float4 xyY) { return float4(xyY2xyz(xyY.xyz), xyY.a); }
+LYGIA_FNC float4 xyY2xyz( float4 xyY) { return float4(xyY2xyz(xyY.xyz), xyY.a); }
 #endif

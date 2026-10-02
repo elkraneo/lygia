@@ -1,3 +1,5 @@
+#include "../../lygia.msl"
+
 #include "lch2lab.msl"
 #include "lab2srgb.msl"
 /*
@@ -11,6 +13,6 @@ license:
 
 #ifndef FNC_LCH2SRGB
 #define FNC_LCH2SRGB
-static inline float3 lch2srgb(float3 lch) { return lab2srgb( lch2lab(lch) ); }
-static inline float4 lch2srgb(float4 lch) { return float4(lch2srgb(lch.xyz),lch.a);}
+LYGIA_FNC float3 lch2srgb(float3 lch) { return lab2srgb( lch2lab(lch) ); }
+LYGIA_FNC float4 lch2srgb(float4 lch) { return float4(lch2srgb(lch.xyz),lch.a);}
 #endif

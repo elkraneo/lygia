@@ -1,3 +1,5 @@
+#include "../lygia.msl"
+
 #include "../math/saturate.msl"
 
 /*
@@ -17,7 +19,7 @@ license:
 #ifndef FNC_REFLECTION
 #define FNC_REFLECTION
 
-static inline float3 reflection(float3 _V, float3 _N, float _roughness) {
+LYGIA_FNC float3 reflection(float3 _V, float3 _N, float _roughness) {
         // Reflect
 #ifdef MATERIAL_ANISOTROPY
     float3  anisotropicT = MATERIAL_ANISOTROPY_DIRECTION;

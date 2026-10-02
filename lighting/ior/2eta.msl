@@ -7,9 +7,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_IOR2ETA
 #define FNC_IOR2ETA
-static inline float ior2eta( float ior ) { return 1.0/ior; }
-static inline float3 ior2eta( float3 ior ) { return 1.0/ior; }
-static inline float4 ior2eta( float4 ior ) { return float4(1.0/ior.rgb, ior.a); }
+LYGIA_FNC float ior2eta( float ior ) { return 1.0/ior; }
+LYGIA_FNC float3 ior2eta( float3 ior ) { return 1.0/ior; }
+LYGIA_FNC float4 ior2eta( float4 ior ) { return float4(1.0/ior.rgb, ior.a); }
 #endif

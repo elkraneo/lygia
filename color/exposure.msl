@@ -7,9 +7,11 @@ license:
     - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_EXPOSURE
 #define FNC_EXPOSURE
-static inline float exposure(float v, float a) { return v * pow(2., a); }
-static inline float3 exposure(float3 v, float a) { return v * pow(2., a); }
-static inline float4 exposure(float4 v, float a) { return float4(v.rgb * pow(2., a), v.a); }
+LYGIA_FNC float exposure(float v, float a) { return v * pow(2., a); }
+LYGIA_FNC float3 exposure(float3 v, float a) { return v * pow(2., a); }
+LYGIA_FNC float4 exposure(float4 v, float a) { return float4(v.rgb * pow(2., a), v.a); }
 #endif

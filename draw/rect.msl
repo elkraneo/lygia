@@ -1,4 +1,6 @@
 
+#include "../lygia.msl"
+
 #include "../sdf/rectSDF.msl"
 
 #include "fill.msl"
@@ -16,19 +18,19 @@ license:
 #ifndef FNC_RECT
 #define FNC_RECT
 
-static inline float rect(float2 st, float2 size, float strokeWidth) {
+LYGIA_FNC float rect(float2 st, float2 size, float strokeWidth) {
     return stroke(rectSDF(st, size), 1.0, strokeWidth);
 }
 
-static inline float rect(float2 st, float size, float strokeWidth) {
+LYGIA_FNC float rect(float2 st, float size, float strokeWidth) {
     return stroke(rectSDF(st, float2(size)), 1.0, strokeWidth);
 }
 
-static inline float rect(float2 st, float2 size) {
+LYGIA_FNC float rect(float2 st, float2 size) {
     return fill(rectSDF(st, size), 1.0);
 }
 
-static inline float rect(float2 st, float size) {
+LYGIA_FNC float rect(float2 st, float size) {
     return fill(rectSDF(st, float2(size)), 1.0);
 }
 

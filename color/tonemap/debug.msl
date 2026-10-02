@@ -28,11 +28,13 @@ description: |
 use: <float3|float4> tonemapDebug(<float3|float4> x)
 */
 
+#include "../../lygia.msl"
+
 #ifndef FNC_TONEMAPDEBUG
 #define FNC_TONEMAPDEBUG
 
 #if !defined(PLATFORM_RPI) && !defined(PLATFORM_WEBGL)
-static inline float3 tonemapDebug(float3 x) {
+LYGIA_FNC float3 tonemapDebug(float3 x) {
     
     // 16 debug colors + 1 duplicated at the end for easy indexing
     float3 debugColors[17];
@@ -62,7 +64,7 @@ static inline float3 tonemapDebug(float3 x) {
     int index = int(v);
     return mix(debugColors[index], debugColors[index + 1], v - float(index));
 }
-static inline float4 tonemapDebug(float4 x) { return float4(tonemapDebug(x.rgb), x.a); }
+LYGIA_FNC float4 tonemapDebug(float4 x) { return float4(tonemapDebug(x.rgb), x.a); }
 #endif
 
 #endif

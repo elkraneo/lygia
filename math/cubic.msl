@@ -6,14 +6,16 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/math_functions.frag
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_CUBIC
 #define FNC_CUBIC 
-static inline float cubic(const float v) { return v*v*(3.0-2.0*v); }
-static inline float2  cubic(const float2 v)  { return v*v*(3.0-2.0*v); }
-static inline float3  cubic(const float3 v)  { return v*v*(3.0-2.0*v); }
-static inline float4  cubic(const float4 v)  { return v*v*(3.0-2.0*v); }
+LYGIA_FNC float cubic(const float v) { return v*v*(3.0-2.0*v); }
+LYGIA_FNC float2  cubic(const float2 v)  { return v*v*(3.0-2.0*v); }
+LYGIA_FNC float3  cubic(const float3 v)  { return v*v*(3.0-2.0*v); }
+LYGIA_FNC float4  cubic(const float4 v)  { return v*v*(3.0-2.0*v); }
 
-static inline float cubic(const float v, float slope0, float slope1) {
+LYGIA_FNC float cubic(const float v, float slope0, float slope1) {
     float a = slope0 + slope1 - 2.;
     float b = -2. * slope0 - slope1 + 3.;
     float c = slope0;
@@ -22,7 +24,7 @@ static inline float cubic(const float v, float slope0, float slope1) {
     return a * v3 + b * v2 + c * v;
 }
 
-static inline float2 cubic(const float2 v, float slope0, float slope1) {
+LYGIA_FNC float2 cubic(const float2 v, float slope0, float slope1) {
     float a = slope0 + slope1 - 2.;
     float b = -2. * slope0 - slope1 + 3.;
     float c = slope0;
@@ -31,7 +33,7 @@ static inline float2 cubic(const float2 v, float slope0, float slope1) {
     return a * v3 + b * v2 + c * v;
 }
 
-static inline float3 cubic(const float3 v, float slope0, float slope1) {
+LYGIA_FNC float3 cubic(const float3 v, float slope0, float slope1) {
     float a = slope0 + slope1 - 2.;
     float b = -2. * slope0 - slope1 + 3.;
     float c = slope0;
@@ -40,7 +42,7 @@ static inline float3 cubic(const float3 v, float slope0, float slope1) {
     return a * v3 + b * v2 + c * v;
 }
 
-static inline float4 cubic(const float4 v, float slope0, float slope1) {
+LYGIA_FNC float4 cubic(const float4 v, float slope0, float slope1) {
     float a = slope0 + slope1 - 2.;
     float b = -2. * slope0 - slope1 + 3.;
     float c = slope0;

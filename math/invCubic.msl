@@ -6,10 +6,12 @@ examples:
     - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/math_functions.frag
 */
 
+#include "../lygia.msl"
+
 #ifndef FNC_INVCUBIC
 #define FNC_INVCUBIC 
-static inline float invCubic(const float v) { return 0.5-sin(asin(1.0-2.0*v)/3.0); }
-static inline float2  invCubic(const float2 v)  { return 0.5-sin(asin(1.0-2.0*v)/3.0); }
-static inline float3  invCubic(const float3 v)  { return 0.5-sin(asin(1.0-2.0*v)/3.0); }
-static inline float4  invCubic(const float4 v)  { return 0.5-sin(asin(1.0-2.0*v)/3.0); }
+LYGIA_FNC float invCubic(const float v) { return 0.5-sin(asin(1.0-2.0*v)/3.0); }
+LYGIA_FNC float2  invCubic(const float2 v)  { return 0.5-sin(asin(1.0-2.0*v)/3.0); }
+LYGIA_FNC float3  invCubic(const float3 v)  { return 0.5-sin(asin(1.0-2.0*v)/3.0); }
+LYGIA_FNC float4  invCubic(const float4 v)  { return 0.5-sin(asin(1.0-2.0*v)/3.0); }
 #endif
