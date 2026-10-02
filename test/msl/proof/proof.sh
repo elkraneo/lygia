@@ -11,11 +11,11 @@
 # "before" is upstream main unless a claim says otherwise. Requires macOS with
 # Xcode, glslang and spirv-cross (brew install glslang spirv-cross).
 #
-# usage: test/msl/proof/proof.sh [before ref (default origin/main)]
+# usage: test/msl/proof/proof.sh [before ref (default upstream/main)]
 set -euo pipefail
 PROOF="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(cd "$PROOF/../../.." && pwd)"
-BEFORE="${1:-origin/main}"
+BEFORE="${1:-upstream/main}"
 OUT="$PROOF/RESULTS.md"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT

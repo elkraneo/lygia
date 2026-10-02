@@ -17,11 +17,11 @@
 #   inline         this checkout with LYGIA_FNC defined as plain `inline`
 #   static inline  this checkout (LYGIA_FNC's default)
 #
-# usage: test/msl/proof/linking.sh [before ref (default origin/main)]
+# usage: test/msl/proof/linking.sh [before ref (default upstream/main)]
 set -euo pipefail
 PROOF="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(cd "$PROOF/../../.." && pwd)"
-BEFORE="${1:-origin/main}"
+BEFORE="${1:-upstream/main}"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 

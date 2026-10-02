@@ -2,11 +2,11 @@
 # A Swift package with LYGIA's .msl files and two .metal files that include
 # generative/fbm.msl, built with xcodebuild, with upstream main's LYGIA and
 # with this branch (static inline). Also builds for iOS, the simulator and visionOS.
-# Used by proof.sh. usage: test/msl/proof/package/run.sh [before ref (default origin/main)]
+# Used by proof.sh. usage: test/msl/proof/package/run.sh [before ref (default upstream/main)]
 set -uo pipefail
 E="$(cd "$(dirname "$0")" && pwd)"
 LYGIA="$(cd "$E/../../../.." && pwd)"
-BEFORE="${1:-origin/main}"
+BEFORE="${1:-upstream/main}"
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 T="$TMP/LygiaKit"; S="$T/Sources/LygiaKit"
 mkdir -p "$S/Shaders" "$S/lygia"
