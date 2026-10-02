@@ -1,0 +1,112 @@
+/*
+contributors: Patricio Gonzalez Vivo
+description: |
+    Calculate spot light.
+    Metal: besides the version that reads the LIGHT_SPOT_* defines, there is one that takes the spot values as
+    arguments (direction, cutoff and factor in degrees, and falloff radius; a radius of 0 or less means no falloff).
+use:
+    - lightSpot(<float3> _diffuseColor, <float3> _specularColor, <float3> _N, <float3> _V, <float> _NoV, <float> _roughness, <float> _f0, out <float3> _diffuse, out <float3> _specular)
+    - lightSpot(<float3> _diffuseColor, <float3> _specularColor, <float3> _N, <float3> _V, <float> _NoV, <float> _roughness, <float> _f0, <float3> _spotDirection, <float> _spotCutoff, <float> _spotFactor, <float> _spotDistance, out <float3> _diffuse, out <float3> _specular)
+options:
+    - DIFFUSE_FNC: diffuseOrenNayar, diffuseBurley, diffuseLambert (default)
+    - SPECULAR_FNC: specularGaussian, specularBeckmann, specularCookTorrance (default), specularPhongRoughness, specularBlinnPhongRoughness (default on mobile)
+    - SURFACE_POSITION: in glslViewer is v_position
+    - LIGHT_POSITION: in glslViewer is u_light
+    - LIGHT_COLOR: in glslViewer is u_lightColor
+    - LIGHT_INTENSITY: in glslViewer is  u_lightIntensity
+    - LIGHT_SPOT_DIRECTION: direction the spot light points to. Default -LIGHT_POSITION (towards the origin)
+    - LIGHT_SPOT_CUTOFF: angle of the spot light cone in degrees. Default 45.0
+    - LIGHT_SPOT_FACTOR: angle in degrees of the soft edge inside the cone. Default 10.0
+    - LIGHT_FALLOFF: distance falloff radius. If not defined there is no falloff
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#include "../../lygia.msl"
+
+#include "../specular.msl"
+#include "../diffuse.msl"
+#include "falloff.msl"
+#include "../../math/radians.msl"
+#include "../../math/saturate.msl"
+
+#ifndef SURFACE_POSITION
+#define SURFACE_POSITION float3(0.0, 0.0, 0.0)
+#endif
+
+#ifndef LIGHT_POSITION
+#define LIGHT_POSITION float3(0.0, 10.0, -50.0)
+#endif
+
+#ifndef LIGHT_COLOR
+#define LIGHT_COLOR float3(0.5)
+#endif
+
+#ifndef LIGHT_INTENSITY
+#define LIGHT_INTENSITY 1.0
+#endif
+
+#ifndef LIGHT_SPOT_DIRECTION
+#define LIGHT_SPOT_DIRECTION (-(LIGHT_POSITION))
+#endif
+
+#ifndef LIGHT_SPOT_CUTOFF
+#define LIGHT_SPOT_CUTOFF 45.0
+#endif
+
+#ifndef LIGHT_SPOT_FACTOR
+#define LIGHT_SPOT_FACTOR 10.0
+#endif
+
+#ifndef FNC_LIGHT_SPOT
+#define FNC_LIGHT_SPOT
+
+LYGIA_FNC void lightSpot(float3 _diffuseColor, float3 _specularColor, float3 _N, float3 _V, float _NoV, float _roughness, float _f0,
+                      float3 _spotDirection, float _spotCutoff, float _spotFactor, float _spotDistance,
+                      thread float3& _diffuse, thread float3& _specular) {
+    float3 toLight = LIGHT_POSITION - (SURFACE_POSITION).xyz;
+    float toLightLength = length(toLight);
+    float3 s = toLight/toLightLength;
+
+    float angle = acos(dot(-s, normalize(_spotDirection)));
+    float cutoff1 = radians(clamp(_spotCutoff - max(_spotFactor, 0.01), 0.0, 89.9));
+    float cutoff2 = radians(clamp(_spotCutoff, 0.0, 90.0));
+    if (angle < cutoff2) {
+        ShadingData shadingData = shadingDataNew();
+        shadingData.L = s;
+        shadingData.N = _N;
+        shadingData.V = _V;
+        shadingData.H = normalize(s + _V);
+        shadingData.NoV = _NoV;
+        shadingData.NoL = saturate(dot(_N, s));
+        shadingData.NoH = saturate(dot(_N, shadingData.H));
+        shadingData.roughness = _roughness;
+        shadingData.linearRoughness = perceptual2linearRoughness(_roughness);
+        shadingData.specularColor = float3(_f0);
+
+        float dif = diffuse(shadingData);
+        float fall = (_spotDistance > 0.0) ? falloff(toLightLength, _spotDistance) : 1.0;
+        float3 spec = specular(shadingData);
+        _diffuse = LIGHT_INTENSITY * (_diffuseColor * LIGHT_COLOR * dif * fall) * (1.0 - smoothstep(cutoff1, cutoff2, angle)); // full light inside cutoff1, none past cutoff2
+        _specular = LIGHT_INTENSITY * (_specularColor * LIGHT_COLOR * spec * fall) * (1.0 - smoothstep(cutoff1, cutoff2, angle)); // full light inside cutoff1, none past cutoff2
+    }
+    else {
+        _diffuse = float3(0.0);
+        _specular = float3(0.0);
+    }
+}
+
+LYGIA_FNC void lightSpot(float3 _diffuseColor, float3 _specularColor, float3 _N, float3 _V, float _NoV, float _roughness, float _f0,
+                      thread float3& _diffuse, thread float3& _specular) {
+    #ifdef LIGHT_FALLOFF
+    float spotDistance = LIGHT_FALLOFF;
+    #else
+    float spotDistance = 0.0;
+    #endif
+    lightSpot(_diffuseColor, _specularColor, _N, _V, _NoV, _roughness, _f0,
+              LIGHT_SPOT_DIRECTION, LIGHT_SPOT_CUTOFF, LIGHT_SPOT_FACTOR, spotDistance,
+              _diffuse, _specular);
+}
+
+#endif

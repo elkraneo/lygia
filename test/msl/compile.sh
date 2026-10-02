@@ -134,4 +134,15 @@ if [ "$#" -eq 0 ] && [ -d "$ROOT/test/msl/instantiate" ]; then
     fi
 fi
 
-[ "$failed" -eq 0 ] && [ "$combined" -eq 0 ] && [ "$linked" -eq 0 ] && [ "$library" -eq 0 ] && [ "$instantiated" -eq 0 ]
+# The Swift package carries a copy of the .msl files; it must match.
+package=0
+if [ "$#" -eq 0 ] && [ -x "$ROOT/swift/sync.sh" ]; then
+    if "$ROOT/swift/sync.sh" --check > "$TMP/sync.out" 2>&1; then
+        echo "MSL: swift package resources match"
+    else
+        echo "FAIL swift package resources are stale (run swift/sync.sh)"
+        package=1
+    fi
+fi
+
+[ "$failed" -eq 0 ] && [ "$combined" -eq 0 ] && [ "$linked" -eq 0 ] && [ "$library" -eq 0 ] && [ "$instantiated" -eq 0 ] && [ "$package" -eq 0 ]

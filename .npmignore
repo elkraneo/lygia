@@ -4,3 +4,5 @@ __image*
 biome.jsonc
 tsconfig.json
 webpack.config.ts
+swift/
+Package.swift

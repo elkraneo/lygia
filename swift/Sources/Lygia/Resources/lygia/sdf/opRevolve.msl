@@ -1,0 +1,17 @@
+/*
+contributors:  Inigo Quiles
+description: revolve operation of a 2D SDFs into a 3D one
+use: <float2> opRevolve( <float3> p, <float> w ) 
+*/
+
+#include "../lygia.msl"
+
+#ifndef FNC_OPREVOLVE
+#define FNC_OPREVOLVE
+
+LYGIA_FNC float2 opRevolve( float3 p, float w ) {
+    return float2( length(p.xz) - w, p.y );
+}
+
+#endif
+

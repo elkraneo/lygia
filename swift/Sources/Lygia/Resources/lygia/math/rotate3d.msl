@@ -1,0 +1,24 @@
+/*
+contributors: Patricio Gonzalez Vivo
+description: returns a 3x3 rotation matrix
+use: <float3x3> rotate3d(<float3> axis, <float> radians)
+license:
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Prosperity License - https://prosperitylicense.com/versions/3.0.0
+    - Copyright (c) 2021 Patricio Gonzalez Vivo under Patron License - https://lygia.xyz/license
+*/
+
+#include "../lygia.msl"
+
+#ifndef FNC_ROTATE3D
+#define FNC_ROTATE3D
+LYGIA_FNC float3x3 rotate3d(float3 a, const float r) {
+    a = normalize(a);
+    float s = sin(r);
+    float c = cos(r);
+    float oc = 1.0 - c;
+    float3 col1 = float3(oc * a.x * a.x + c, oc * a.x * a.y + a.z * s, oc * a.z * a.x - a.y * s);
+    float3 col2 = float3(oc * a.x * a.y - a.z * s, oc * a.y * a.y + c, oc * a.y * a.z + a.x * s);
+    float3 col3 = float3(oc * a.z * a.x + a.y * s, oc * a.y * a.z - a.x * s, oc * a.z * a.z + c);
+    return float3x3(col1, col2, col3);
+}
+#endif

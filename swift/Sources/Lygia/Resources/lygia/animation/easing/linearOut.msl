@@ -1,0 +1,14 @@
+/*
+contributors: Hugh Kennedy (https://github.com/hughsk)
+description: Linear easing. From https://github.com/stackgl/glsl-easings
+use: linearOut(<float> x)
+examples:
+    - https://raw.githubusercontent.com/patriciogonzalezvivo/lygia_examples/main/animation_easing.frag
+*/
+
+#include "../../lygia.msl"
+
+#ifndef FNC_LINEAROUT
+#define FNC_LINEAROUT
+LYGIA_FNC float linearOut(float t) { return t; }
+#endif

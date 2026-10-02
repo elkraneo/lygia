@@ -15,6 +15,8 @@ test/msl/compile.sh sdf/*.msl     # just some
 
 Where upstream fixed a bug only in the WESL files, Metal follows the fix: `rgb2xyz` returns XYZ in 0-100 (#271), `hueShiftRYB` uses its angle, `rgb2lms(float4)` converts, and `fisheye2xyz` handles the center. GLSL still has these bugs.
 
+For Swift projects, the repository is also a Swift package: see [`swift/README.md`](swift/README.md). It bundles the `.msl` files, compiles LYGIA shaders at runtime on every Apple platform, and documents the build setting for `.metal` files in your own target.
+
 LYGIA files don't include the Metal standard library themselves, so include it before any of them:
 
 ```cpp

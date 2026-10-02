@@ -51,3 +51,5 @@ copilot-instructions.md
 .junie
 .aiignore
 __pycache__/
+.build/
+.swiftpm/
