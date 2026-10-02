@@ -14,8 +14,8 @@
 #
 # It compares three versions of LYGIA's Metal files:
 #   before         upstream main (include guards only)
-#   inline         this checkout with plain `inline` instead of `static inline`
-#   static inline  this checkout
+#   inline         this checkout with LYGIA_FNC defined as plain `inline`
+#   static inline  this checkout (LYGIA_FNC's default)
 #
 # usage: test/msl/proof/linking.sh [before ref (default origin/main)]
 set -euo pipefail
@@ -26,12 +26,13 @@ TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
 # One folder per version, each with a `lygia` folder so "lygia/..." includes resolve.
-mkdir -p "$TMP/before/lygia" "$TMP/inline/lygia" "$TMP/static"
+mkdir -p "$TMP/before/lygia" "$TMP/inline" "$TMP/static"
 git -C "$ROOT" archive "$BEFORE" -- ':(glob)**/*.msl' | tar -x -C "$TMP/before/lygia"
 ln -s "$ROOT" "$TMP/static/lygia"
-(cd "$ROOT" && git ls-files '*.msl' | tar -c -T - -f -) | tar -x -C "$TMP/inline/lygia"
-find "$TMP/inline/lygia" -name '*.msl' -exec perl -pi -e 's/\bstatic inline\b/inline/g' {} +
+ln -s "$ROOT" "$TMP/inline/lygia"
 VERSIONS="before inline static"
+# Extra compiler flags per version: the inline variant overrides LYGIA_FNC.
+flags() { case "$1" in inline) echo "-DLYGIA_FNC=inline";; esac; }
 label() { case "$1" in before) echo "before ($BEFORE)";; inline) echo "plain inline";; static) echo "static inline";; esac; }
 
 swiftc -O "$PROOF/run.swift" -o "$TMP/run"
@@ -71,8 +72,8 @@ echo
 echo "| LYGIA | Links | Compiled pipeline for one kernel | Compile time for one file |"
 echo "|---|---|---|---|"
 for v in $VERSIONS; do
-    metal -I "$TMP/$v" -c "$TMP/a.metal" -o "$TMP/$v-a.air"
-    metal -I "$TMP/$v" -c "$TMP/b.metal" -o "$TMP/$v-b.air"
+    metal $(flags $v) -I "$TMP/$v" -c "$TMP/a.metal" -o "$TMP/$v-a.air"
+    metal $(flags $v) -I "$TMP/$v" -c "$TMP/b.metal" -o "$TMP/$v-b.air"
     if xcrun -sdk macosx metallib "$TMP/$v-a.air" "$TMP/$v-b.air" -o "$TMP/$v-ab.metallib" 2> "$TMP/link.log"; then
         links="yes"
     else
@@ -80,7 +81,7 @@ for v in $VERSIONS; do
     fi
     # Code size of one file on its own, where every version links.
     xcrun -sdk macosx metallib "$TMP/$v-a.air" -o "$TMP/$v-a.metallib"
-    echo "| $(label $v) | $links | $("$TMP/run" --size "$TMP/$v-a.metallib" pattern_a) bytes | $(ms xcrun -sdk macosx metal -std=metal3.1 -w -I "$TMP/$v" -c "$TMP/a.metal" -o "$TMP/time.air") ms |"
+    echo "| $(label $v) | $links | $("$TMP/run" --size "$TMP/$v-a.metallib" pattern_a) bytes | $(ms xcrun -sdk macosx metal -std=metal3.1 -w $(flags $v) -I "$TMP/$v" -c "$TMP/a.metal" -o "$TMP/time.air") ms |"
 done
 echo
 echo "The pipeline size is the size of a binary archive holding the kernel's compiled GPU code (so it includes the archive's own data); it measures one kernel from one file. The compile time is the median of 7 warm runs of \`metal -c\` for a.metal, one version after another."
@@ -133,8 +134,8 @@ for k in "a 1" "b 8"; do
 done
 for v in $VERSIONS; do
     for opt in -O0 -O2; do
-        metal $opt -I "$TMP/$v" -c "$TMP/odr_a.metal" -o "$TMP/odr_a.air"
-        metal $opt -I "$TMP/$v" -c "$TMP/odr_b.metal" -o "$TMP/odr_b.air"
+        metal $opt $(flags $v) -I "$TMP/$v" -c "$TMP/odr_a.metal" -o "$TMP/odr_a.air"
+        metal $opt $(flags $v) -I "$TMP/$v" -c "$TMP/odr_b.metal" -o "$TMP/odr_b.air"
         if xcrun -sdk macosx metallib "$TMP/odr_a.air" "$TMP/odr_b.air" -o "$TMP/odr.metallib" 2> /dev/null; then
             a=$("$TMP/run" "$TMP/odr.metallib" k_a 1 | awk '{print $1}')
             b=$("$TMP/run" "$TMP/odr.metallib" k_b 1 | awk '{print $1}')

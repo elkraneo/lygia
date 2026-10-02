@@ -75,6 +75,27 @@ if [ "$combined" -eq 0 ]; then
 
 fi
 
+# Helper-library mode: with LYGIA_FNC defined empty, every function is exported.
+# One translation unit including everything must still compile, and two of
+# them must then fail to link (that's what makes the default static inline).
+library=0
+if [ "$combined" -eq 0 ]; then
+    { printf '#define LYGIA_FNC\n'; cat "$TMP/all.metal"; } > "$TMP/lib.metal"
+    if xcrun -sdk macosx metal -std="$STD" -c "$TMP/lib.metal" -o "$TMP/lib.air" 2> "$TMP/lib.err"; then
+        exported=$(xcrun -sdk macosx metal-nm "$TMP/lib.air" 2>/dev/null | awk '$2 ~ /^[TW]$/' | grep -c '_Z' || true)
+        if xcrun -sdk macosx metallib "$TMP/lib.air" "$TMP/lib.air" -o "$TMP/lib2.metallib" 2> /dev/null; then
+            echo "FAIL LYGIA_FNC empty: two copies linked, so nothing was exported"
+            library=1
+        else
+            echo "MSL: LYGIA_FNC empty compiled, $exported functions exported"
+        fi
+    else
+        echo "FAIL LYGIA_FNC empty"
+        grep -m3 'error:' "$TMP/lib.err" | sed "s|$ROOT/||g; s|^|     |"
+        library=1
+    fi
+fi
+
 # The lighting API uses templates for its optional environment texture, which
 # only get checked when called. test/msl/instantiate/*.metal call every
 # overload under different options; compile them all and link them together.
@@ -113,4 +134,4 @@ if [ "$#" -eq 0 ] && [ -d "$ROOT/test/msl/instantiate" ]; then
     fi
 fi
 
-[ "$failed" -eq 0 ] && [ "$combined" -eq 0 ] && [ "$linked" -eq 0 ] && [ "$instantiated" -eq 0 ]
+[ "$failed" -eq 0 ] && [ "$combined" -eq 0 ] && [ "$linked" -eq 0 ] && [ "$library" -eq 0 ] && [ "$instantiated" -eq 0 ]
